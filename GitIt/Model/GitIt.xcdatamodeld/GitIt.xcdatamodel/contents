@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="18154" systemVersion="20E241" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Commit" representedClassName="Commit" syncable="YES" codeGenerationType="class">
+        <attribute name="details" optional="YES" attributeType="String"/>
+        <relationship name="author" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User"/>
+        <relationship name="repository" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Repository"/>
+    </entity>
+    <entity name="Repository" representedClassName="Repository" syncable="YES" codeGenerationType="class">
+        <attribute name="defaultBranch" attributeType="String"/>
+        <attribute name="forks" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="fullName" attributeType="String"/>
+        <attribute name="homepageURL" optional="YES" attributeType="URI"/>
+        <attribute name="htmlURL" attributeType="URI"/>
+        <attribute name="id" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="language" optional="YES" attributeType="String"/>
+        <attribute name="name" attributeType="String"/>
+        <attribute name="overview" optional="YES" attributeType="String"/>
+        <attribute name="ownerAvatarURL" attributeType="URI"/>
+        <attribute name="ownerLogin" attributeType="String"/>
+        <attribute name="stars" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="id"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
+    </entity>
+    <entity name="User" representedClassName="User" syncable="YES" codeGenerationType="class">
+        <attribute name="avatarURL" attributeType="URI"/>
+        <attribute name="bio" optional="YES" attributeType="String"/>
+        <attribute name="blogURL" optional="YES" attributeType="URI"/>
+        <attribute name="company" optional="YES" attributeType="String"/>
+        <attribute name="email" optional="YES" attributeType="String"/>
+        <attribute name="followers" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="following" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="htmlURL" attributeType="URI"/>
+        <attribute name="id" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="location" optional="YES" attributeType="String"/>
+        <attribute name="login" attributeType="String"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="repositories" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="twitter" optional="YES" attributeType="String"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="id"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
+    </entity>
+    <elements>
+        <element name="Commit" positionX="165.709716796875" positionY="182.0302124023438" width="128" height="74"/>
+        <element name="Repository" positionX="168.908935546875" positionY="1.122772216796875" width="128" height="209"/>
+        <element name="User" positionX="-54" positionY="-9" width="128" height="239"/>
+    </elements>
+</model>
