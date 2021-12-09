@@ -16,7 +16,7 @@ class Spinner: UIViewController {
     private var footerView = UIView()
     private var mainSpinner = UIActivityIndicatorView()
     private var footerSpinner = UIActivityIndicatorView()
-    var isActive = false
+    var isActive: Bool { return mainSpinner.isAnimating || footerSpinner.isAnimating }
     
     // MARK: - Initialisation
     
@@ -49,7 +49,6 @@ class Spinner: UIViewController {
         mainSpinner.color = .white
         mainSpinner.style = .large
         mainSpinner.translatesAutoresizingMaskIntoConstraints = false
-        mainSpinner.startAnimating()
         
         NSLayoutConstraint.activate([
             mainView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
@@ -67,14 +66,14 @@ class Spinner: UIViewController {
         rootViewController.addChild(self)
         rootViewController.view.addSubview(view)
         didMove(toParent: rootViewController)
-        isActive = true
+        mainSpinner.startAnimating()
     }
     
     func hideMainSpinner() {
         willMove(toParent: nil)
         view.removeFromSuperview()
         removeFromParent()
-        isActive = false
+        mainSpinner.stopAnimating()
     }
     
     // MARK: - Footer Spinner Methods
@@ -83,16 +82,15 @@ class Spinner: UIViewController {
         footerView = UIView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width , height: 80))
         footerSpinner = UIActivityIndicatorView()
         footerSpinner.center = footerView.center
-        footerSpinner.startAnimating()
         footerView.addSubview(footerSpinner)
         (rootViewController as! UITableViewController).tableView.tableFooterView = footerView
-        isActive = true
+        footerSpinner.startAnimating()
     }
     
     func hideFooterSpinner() {
         if (rootViewController as! UITableViewController).tableView.tableFooterView == footerView {
             (rootViewController as! UITableViewController).tableView.tableFooterView = UIView()
-            isActive = false
+            footerSpinner.stopAnimating()
         }
     }
 
