@@ -29,31 +29,24 @@ class SessionManager {
         } else {
             setSessionAttributes(sessionType: .guest, accessToken: "")
         }
-        presentTabBarViewController()
     }
     
-    func signOut<Controller: UIViewController>(currentViewController: Controller) {
+    func signOut() {
         sessionUser = nil
         setSessionAttributes(sessionType: .signedOut, accessToken: "")
-        presentRootViewController(currentViewController: currentViewController)
     }
     
     func setup(completion: @escaping () -> Void) {
         getSessionAttributes()
-        if let sessionType = self.sessionType {
-            if sessionType == .authenticated && NetworkReachability.shared.isInternetConnected {
-                validateAuthenticatedSession(completion: completion)
-            }
+        if sessionType == .authenticated && NetworkReachability.shared.isInternetConnected {
+            validateAuthenticatedSession(completion: completion)
         } else {
-            setSessionAttributes(sessionType: .signedOut, accessToken: "")
             completion()
         }
     }
     
     func isSignedIn() -> Bool {
-        if self.sessionType == .authenticated || self.sessionType == .guest {
-            return true
-        }
+        if sessionType == .authenticated || sessionType == .guest { return true }
         return false
     }
     
@@ -65,30 +58,19 @@ class SessionManager {
     }
     
     private func getSessionAttributes() {
-        self.sessionType = DataManager.shared.getSessionType()
-        self.sessionToken = TokenManager.shared.retrieveAccessToken()
+        sessionType = DataManager.shared.getSessionType()
+        sessionToken = TokenManager.shared.retrieveAccessToken()
     }
 
     private func validateAuthenticatedSession(completion: (() -> Void)? = nil) {
-        GitClient.standard.getAuthenticatedUser() { response, error in
+        GithubClient.standard.getAuthenticatedUser() { response, error in
             if error == nil {
                 self.sessionUser = response
             } else {
                 self.setSessionAttributes(sessionType: .signedOut, accessToken: "")
             }
-            completion!()
+            completion?()
         }
-    }
-    
-    private func presentTabBarViewController() {
-        let rootViewController = UIApplication.shared.windows.first!.rootViewController as! SignInViewController
-        let tabBarViewController = rootViewController.storyboard?.instantiateViewController(identifier: "tabBarVC")
-        tabBarViewController!.modalPresentationStyle = .fullScreen
-        rootViewController.present(tabBarViewController!, animated: true, completion: nil)
-    }
-    
-    private func presentRootViewController<Controller: UIViewController>(currentViewController: Controller) {
-        currentViewController.performSegue(withIdentifier: "unwindToRoot", sender: currentViewController)
     }
     
 }
