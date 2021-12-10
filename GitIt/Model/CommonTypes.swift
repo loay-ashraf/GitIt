@@ -1,5 +1,5 @@
 //
-//  List.swift
+//  CommonTypes.swift
 //  GitIt
 //
 //  Created by Loay Ashraf on 12/11/2021.
@@ -65,10 +65,41 @@ enum UserContext {
     
 }
 
+enum RepositoryContext {
+    
+    case main
+    case user
+    case organization
+    case forks
+    case starred
+    
+    var titleValue: String {
+        switch self {
+        case .forks: return "Forks"
+        case .starred: return "Starred"
+        default: return "Repositories"
+        }
+    }
+    
+    typealias UserParameters = (String,Int)
+    typealias OrganizationParameters = (String,Int)
+    typealias ForksParameters = (String,Int)
+    typealias StarredParameters = String
+    
+}
+
 enum ViewState {
     
     case loading
     case paginating
+    case presenting
+    case failed(Error)
+    
+}
+
+enum LicenseViewState {
+    
+    case loading
     case presenting
     case failed(Error)
     
@@ -83,6 +114,17 @@ enum UserDetailViewState {
     case failed(Error)
     
 }
+
+enum RepositoryDetailViewState {
+    
+    case loading
+    case starred
+    case bookmarked
+    case presenting
+    case failed(Error)
+    
+}
+
 
 enum SearchViewState {
     
@@ -111,8 +153,24 @@ enum ContextMenuActions<Type: Model> {
                                                 }
             
             case .share(let model): return UIAction(title: "Share", image: UIImage(systemName: "square.and.arrow.up"), identifier: nil) { action in
-                                                GitIt.share(model.htmlURL)
+                                                    URLHelper.shareURL(model.htmlURL)
                                             }
+        }
+    }
+    
+}
+
+enum ThemeType {
+    
+    case followSystem
+    case light
+    case dark
+    
+    var stringValue: String {
+        switch self {
+            case .followSystem: return "Follow System"
+            case .light: return "Light"
+            case .dark: return "Dark"
         }
     }
     
