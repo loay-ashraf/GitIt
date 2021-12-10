@@ -1,5 +1,5 @@
 //
-//  GitClient.swift
+//  GithubClient.swift
 //  GitIt
 //
 //  Created by Loay Ashraf on 18/10/2021.
@@ -7,9 +7,9 @@
 
 import Foundation
 
-class GitClient {
+class GithubClient {
     
-    static let standard = GitClient()
+    static let standard = GithubClient()
     
     private init() {
         
@@ -161,12 +161,6 @@ class GitClient {
         }
     }
     
-    func downloadUserAvatar(url: URL, completion: @escaping (Data?, Error?) -> Void) -> URLSessionDataTask {
-        return NetworkManager.shared.downloadData(url: url) { data, error in
-            completion(data,error)
-        }
-    }
-    
     // MARK: - Repository Search Methods
     
     func getRepositoryPage(page: Int, perPage: Int, completion: @escaping ([RepositoryModel], Error?) -> Void) {
@@ -274,10 +268,18 @@ class GitClient {
             }
         }
     }
+    
+    // MARK: - Avatar Download Methods
+    
+    func downloadAvatar(url: URL, completion: @escaping (Data?, Error?) -> Void) -> URLSessionDataTask {
+        return NetworkManager.shared.downloadData(url: url) { data, error in
+            completion(data,error)
+        }
+    }
 
 }
 
-extension GitClient {
+extension GithubClient {
     
     private enum UserEndpoints {
         
