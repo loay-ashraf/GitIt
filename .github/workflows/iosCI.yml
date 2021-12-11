@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-    name: Build and Test default scheme using any available iPhone simulator
+    name: Build GitIt scheme using iPhone 12 simulator
     runs-on: macos-latest
 
     strategy:
@@ -27,6 +27,6 @@ jobs:
         run: xcodebuild -workspace ./GitIt.xcodeproj/project.xcworkspace -scheme '${{ matrix.run-config['scheme'] }}' -showsdks
       - name: Show Available Destinations
         run: xcodebuild -workspace ./GitIt.xcodeproj/project.xcworkspace -scheme '${{ matrix.run-config['scheme'] }}' -showdestinations   
-      - name: build and test
+      - name: build
         run: xcodebuild clean -scheme '${{ matrix.run-config['scheme'] }}' -destination '${{ matrix.run-config['destination'] }}' -showBuildTimingSummary
         
