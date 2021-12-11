@@ -19,6 +19,14 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+        
+      - name: Prepare iOS 14.5 simulator
+        run: |
+          sudo mkdir -p /Library/Developer/CoreSimulator/Profiles/Runtimes
+          sudo ln -s /Applications/Xcode_10.3.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/Library/CoreSimulator/Profiles/Runtimes/iOS.simruntime /Library/Developer/CoreSimulator/Profiles/Runtimes/iOS\ 14.5.simruntime
+          xcrun simctl list runtimes
+          xcrun simctl create custom-test-device "iphone 12" "com.apple.CoreSimulator.SimRuntime.iOS-14-5"
+          xcrun simctl list devices 14.5
       - name: Show the currently detailed version of Xcode for CLI
         run: xcode-select -p
       - name: Show Build Settings
