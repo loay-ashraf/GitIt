@@ -24,8 +24,8 @@ jobs:
       - name: Show Build Settings
         run: xcodebuild -workspace ./GitIt.xcodeproj/project.xcworkspace -scheme '${{ matrix.run-config['scheme'] }}' -showBuildSettings
       - name: Show Build SDK
-        run: xcodebuild -workspace ./GitIt.xcodeproj/project.xcworkspace '${{ matrix.run-config['scheme'] }}' -showsdks
+        run: xcodebuild -workspace ./GitIt.xcodeproj/project.xcworkspace -scheme '${{ matrix.run-config['scheme'] }}' -showsdks
       - name: Show Available Destinations
-        run: xcodebuild -workspace ./GitIt.xcodeproj/project.xcworkspace '${{ matrix.run-config['scheme'] }}' -showdestinations   
+        run: xcodebuild -workspace ./GitIt.xcodeproj/project.xcworkspace -scheme '${{ matrix.run-config['scheme'] }}' -showdestinations   
       - name: build and test
         run: xcodebuild clean test -scheme '${{ matrix.run-config['scheme'] }}' -destination '${{ matrix.run-config['destination'] }}' -showBuildTimingSummary
