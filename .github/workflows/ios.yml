@@ -28,4 +28,4 @@ jobs:
       - name: Show Available Destinations
         run: xcodebuild -workspace ./GitIt.xcodeproj/project.xcworkspace -scheme '${{ matrix.run-config['scheme'] }}' -showdestinations   
       - name: build and test
-        run: xcodebuild clean test -scheme '${{ matrix.run-config['scheme'] }}' -destination '${{ matrix.run-config['destination'] }}' -showBuildTimingSummary
+        run: xcodebuild clean -scheme '${{ matrix.run-config['scheme'] }}' -destination '${{ matrix.run-config['destination'] }}' -showBuildTimingSummary
