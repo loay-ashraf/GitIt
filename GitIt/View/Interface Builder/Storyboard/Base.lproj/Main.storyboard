@@ -38,6 +38,7 @@
                             <constraint firstItem="POE-iT-gay" firstAttribute="centerY" secondItem="NKC-kx-1bl" secondAttribute="centerY" id="x34-dr-R0e"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="nl6-4N-ndp"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jtm-MR-juG" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1320,7 +1321,7 @@
                     <navigationItem key="navigationItem" title="Settings" id="dpV-Zr-SLm"/>
                     <connections>
                         <outlet property="currentThemeLabel" destination="1Qd-ZG-l6B" id="F7E-Wh-P0P"/>
-                        <segue destination="5IE-R3-yo7" kind="unwind" identifier="unwindToRoot" unwindAction="unwindToRootWithSegue:" id="sRV-IA-e6F"/>
+                        <segue destination="5IE-R3-yo7" kind="unwind" identifier="unwindToSplash" unwindAction="unwindToSplashWithUnwindSegue:" id="PUW-un-rLp"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="B6G-sJ-5ez" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1523,9 +1524,11 @@
                     <connections>
                         <outlet property="appLogo" destination="54f-zc-hyf" id="uwC-zk-VIY"/>
                         <outlet property="signInWithGithubButton" destination="VGO-nu-Rrj" id="IOO-pk-Vlb"/>
+                        <segue destination="QEU-Xw-pkr" kind="unwind" identifier="unwindToSplash" animates="NO" unwindAction="unwindToSplashWithUnwindSegue:" id="oVw-Mp-hmK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ofv-mE-UhL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="QEU-Xw-pkr" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="912" y="-1105"/>
         </scene>
