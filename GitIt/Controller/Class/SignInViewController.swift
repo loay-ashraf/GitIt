@@ -18,7 +18,7 @@ class SignInViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         appLogo.cornerRadius = 40
-        signInWithGithubButton.cornerRadius = 20
+        signInWithGithubButton.cornerRadius = 10
         setupAuthentication()
     }
     
@@ -33,8 +33,6 @@ class SignInViewController: UIViewController {
     @IBAction func continueAsAGuest(_ sender: Any) {
         guestPrompt()
     }
-    
-    @IBAction func unwindToRoot(segue: UIStoryboardSegue) { }
 
 }
 
@@ -47,16 +45,17 @@ extension SignInViewController: ASWebAuthenticationPresentationContextProviding 
     private func setupAuthentication() {
         guard let authURL = URL(string: "https://ad8j39mya0.execute-api.us-east-2.amazonaws.com/Prod/gitit/login") else { return }
         let scheme = "gitit"
-        session = ASWebAuthenticationSession(url: authURL, callbackURLScheme: scheme) { callbackURL, error in
+        session = ASWebAuthenticationSession(url: authURL, callbackURLScheme: scheme) { [weak self] callbackURL, error in
             if let error = error {
                 let authenticationError = ASWebAuthenticationSessionError(_nsError: error as NSError)
                 if authenticationError.code == ASWebAuthenticationSessionError.canceledLogin {
                     // re-setup authentication session
-                    self.setupAuthentication()
+                    self?.setupAuthentication()
                 }
             } else {
                 guard callbackURL != nil else { return }
                 SessionManager.standard.signIn(url: callbackURL)
+                self?.performSegue(withIdentifier: "unwindToSplash", sender: self)
             }
         }
         session.presentationContextProvider = self
@@ -68,6 +67,7 @@ extension SignInViewController: ASWebAuthenticationPresentationContextProviding 
     
     private func setupGuest() {
         SessionManager.standard.signIn(url: nil)
+        performSegue(withIdentifier: "unwindToSplash", sender: self)
     }
     
     private func guestPrompt() {

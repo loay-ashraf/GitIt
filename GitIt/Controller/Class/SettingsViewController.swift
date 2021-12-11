@@ -30,22 +30,24 @@ class SettingsViewController: UITableViewController {
     }
     
     func signOut(action: UIAlertAction) {
-        SessionManager.standard.signOut(currentViewController: self)
+        SessionManager.standard.signOut()
+        performSegue(withIdentifier: "unwindToSplash", sender: self)
     }
     
     func getSelectedTheme(themeType: ThemeType) {
-        currentThemeLabel.text = themeType.stringValue
         DataManager.shared.setThemeType(themeType: themeType)
+        currentThemeLabel.text = themeType.stringValue
     }
     
     // MARK: - Navigation
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let selectorVC = segue.destination as! ThemeSelectorViewController
-        selectorVC.callback = getSelectedTheme(themeType:)
+        if segue.identifier != "unwindToSplash" {
+            let selectorVC = segue.destination as! ThemeSelectorViewController
+            selectorVC.callback = getSelectedTheme(themeType:)
+        }
     }
     
-
 }
 
 class ThemeSelectorViewController: UITableViewController {

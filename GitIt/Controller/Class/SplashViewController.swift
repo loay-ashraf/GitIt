@@ -24,19 +24,12 @@ class SplashViewController: UIViewController {
             }
         }
     }
-
-    /*
+    
     // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
+    @IBAction func unwindToSplash(unwindSegue: UIStoryboardSegue) { }
     
     private func presentSignInViewController() {
-        //let rootViewController = UIApplication.shared.windows.first!.rootViewController
         let storyBoard = UIStoryboard(name: "Main", bundle: nil)
         let tabBarViewController = storyBoard.instantiateViewController(identifier: "signInVC")
         tabBarViewController.modalPresentationStyle = .fullScreen
@@ -44,7 +37,6 @@ class SplashViewController: UIViewController {
     }
     
     private func presentTabBarViewController() {
-        //let rootViewController = UIApplication.shared.windows.first!.rootViewController
         let storyBoard = UIStoryboard(name: "Main", bundle: nil)
         let tabBarViewController = storyBoard.instantiateViewController(identifier: "tabBarVC")
         tabBarViewController.modalPresentationStyle = .fullScreen
