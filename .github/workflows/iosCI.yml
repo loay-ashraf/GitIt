@@ -20,9 +20,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Install Cocoapods
-        uses: gem install cocoapods
+        run: gem install cocoapods
       - name: Install project pods
-        uses: pod install
+        run: pod install
       - name: Show the currently detailed version of Xcode for CLI
         run: xcode-select -p
       - name: Show Build Settings
