@@ -19,14 +19,18 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+      - name: Install Cocoapods
+        uses: gem install cocoapods
+      - name: Install project pods
+        uses: pod install
       - name: Show the currently detailed version of Xcode for CLI
         run: xcode-select -p
       - name: Show Build Settings
-        run: xcodebuild -workspace ./GitIt.xcodeproj/project.xcworkspace -scheme '${{ matrix.run-config['scheme'] }}' -showBuildSettings
+        run: xcodebuild -workspace GitIt.xcworkspace -scheme '${{ matrix.run-config['scheme'] }}' -showBuildSettings
       - name: Show Build SDK
-        run: xcodebuild -workspace ./GitIt.xcodeproj/project.xcworkspace -scheme '${{ matrix.run-config['scheme'] }}' -showsdks
+        run: xcodebuild -workspace GitIt.xcworkspace -scheme '${{ matrix.run-config['scheme'] }}' -showsdks
       - name: Show Available Destinations
-        run: xcodebuild -workspace ./GitIt.xcodeproj/project.xcworkspace -scheme '${{ matrix.run-config['scheme'] }}' -showdestinations   
+        run: xcodebuild -workspace GitIt.xcworkspace -scheme '${{ matrix.run-config['scheme'] }}' -showdestinations
       - name: build
         run: xcodebuild clean -scheme '${{ matrix.run-config['scheme'] }}' -destination '${{ matrix.run-config['destination'] }}' -showBuildTimingSummary
         
