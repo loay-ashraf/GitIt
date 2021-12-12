@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B8CB8A8A129E04BF1B5523B6 /* Pods_GitIt.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44E4A91CA63CD00C68D104B5 /* Pods_GitIt.framework */; };
 		C60FAE872744CD7F00A6CE77 /* URLHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C60FAE862744CD7F00A6CE77 /* URLHelper.swift */; };
 		C6110AE22754FFF10078D7E8 /* RepositoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6110AE02754FFF10078D7E8 /* RepositoryTableViewCell.swift */; };
 		C6110AE32754FFF10078D7E8 /* RepositoryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C6110AE12754FFF10078D7E8 /* RepositoryTableViewCell.xib */; };
@@ -69,6 +70,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0414408764075E1116E272E1 /* Pods-GitIt.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GitIt.release.xcconfig"; path = "Target Support Files/Pods-GitIt/Pods-GitIt.release.xcconfig"; sourceTree = "<group>"; };
+		289C9137C4BEF3F7DA6274A7 /* Pods-GitIt.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GitIt.debug.xcconfig"; path = "Target Support Files/Pods-GitIt/Pods-GitIt.debug.xcconfig"; sourceTree = "<group>"; };
+		44E4A91CA63CD00C68D104B5 /* Pods_GitIt.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GitIt.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C60FAE862744CD7F00A6CE77 /* URLHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLHelper.swift; sourceTree = "<group>"; };
 		C6110AE02754FFF10078D7E8 /* RepositoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryTableViewCell.swift; sourceTree = "<group>"; };
 		C6110AE12754FFF10078D7E8 /* RepositoryTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RepositoryTableViewCell.xib; sourceTree = "<group>"; };
@@ -137,12 +141,31 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B8CB8A8A129E04BF1B5523B6 /* Pods_GitIt.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		41779AFCFDD04496FC182C00 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				289C9137C4BEF3F7DA6274A7 /* Pods-GitIt.debug.xcconfig */,
+				0414408764075E1116E272E1 /* Pods-GitIt.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		8D4BFC8D6F034917150316DB /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				44E4A91CA63CD00C68D104B5 /* Pods_GitIt.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		C6110ADE2754FEB30078D7E8 /* XIB */ = {
 			isa = PBXGroup;
 			children = (
@@ -197,6 +220,8 @@
 			children = (
 				C68B64E9271DD34B00A26D05 /* GitIt */,
 				C68B64E8271DD34B00A26D05 /* Products */,
+				41779AFCFDD04496FC182C00 /* Pods */,
+				8D4BFC8D6F034917150316DB /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -449,9 +474,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C68B64FE271DD34C00A26D05 /* Build configuration list for PBXNativeTarget "GitIt" */;
 			buildPhases = (
+				A308C00E41CF4958C7E4F415 /* [CP] Check Pods Manifest.lock */,
 				C68B64E3271DD34B00A26D05 /* Sources */,
 				C68B64E4271DD34B00A26D05 /* Frameworks */,
 				C68B64E5271DD34B00A26D05 /* Resources */,
+				E13DDC0588078455B868F1D4 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -512,6 +539,48 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		A308C00E41CF4958C7E4F415 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-GitIt-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E13DDC0588078455B868F1D4 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-GitIt/Pods-GitIt-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-GitIt/Pods-GitIt-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-GitIt/Pods-GitIt-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		C68B64E3271DD34B00A26D05 /* Sources */ = {
@@ -711,6 +780,7 @@
 		};
 		C68B64FF271DD34C00A26D05 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 289C9137C4BEF3F7DA6274A7 /* Pods-GitIt.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -731,6 +801,7 @@
 		};
 		C68B6500271DD34C00A26D05 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0414408764075E1116E272E1 /* Pods-GitIt.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
