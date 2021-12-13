@@ -9,6 +9,6 @@ target 'GitIt' do
   inhibit_all_warnings!
   
   # Pods for GitIt
-  pod 'Down'
+  pod 'MarkdownView'
 
 end

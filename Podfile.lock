@@ -1,16 +1,16 @@
 PODS:
-  - Down (0.11.0)
+  - MarkdownView (1.8.3)
 
 DEPENDENCIES:
-  - Down
+  - MarkdownView
 
 SPEC REPOS:
   trunk:
-    - Down
+    - MarkdownView
 
 SPEC CHECKSUMS:
-  Down: b6ba1bc985c9d2f4e15e3b293d2207766fa12612
+  MarkdownView: 44a260beec01538e6cdbbce9c2f631b1f3634907
 
-PODFILE CHECKSUM: a8272a2616f2353361ea476a51e2871d48fb2019
+PODFILE CHECKSUM: 7c7d34ebe3e24dd3382edff5e40908fe3fbd0b0e
 
 COCOAPODS: 1.11.2
