@@ -24,7 +24,18 @@ class RepositoryDetailLogicController {
     // MARK: - Business Logic Methods
     
     func load(then handler: @escaping ViewStateHandler) {
-        checkIfStarredOrBookmarked(then: handler)
+        loadREADME(then: handler)
+    }
+    
+    func loadREADME(then handler: @escaping ViewStateHandler) {
+        GithubClient.standard.getRepositoryReadme(fullName: model.fullName, branch: model.defaultBranch) { data, error in
+            defer { self.checkIfStarredOrBookmarked(then: handler) }
+            if error != nil {
+                self.model.READMEString = nil
+            } else {
+                self.model.READMEString = String(data: data!, encoding: .utf8)
+            }
+        }
     }
     
     func star(then handler: @escaping ViewStateHandler) {

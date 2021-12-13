@@ -117,6 +117,7 @@ struct RepositoryModel: Model {
     let stars: Int
     let forks: Int
     let defaultBranch: String
+    var READMEString: String?
     
     enum CodingKeys: String, CodingKey {
         
@@ -147,6 +148,7 @@ struct RepositoryModel: Model {
         stars = try values.decode(Int.self, forKey: .stars)
         forks = try values.decode(Int.self, forKey: .forks)
         defaultBranch = try values.decode(String.self, forKey: .defaultBranch)
+        READMEString = nil
     }
     
 }
