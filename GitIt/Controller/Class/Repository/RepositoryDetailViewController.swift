@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import MarkdownView
 
 class RepositoryDetailViewController: UITableViewController, StoryboardViewController {
     
@@ -28,10 +29,13 @@ class RepositoryDetailViewController: UITableViewController, StoryboardViewContr
     @IBOutlet weak var homepageLabel: UILabel!
     @IBOutlet weak var starsLabel: UILabel!
     @IBOutlet weak var forksLabel: UILabel!
+    @IBOutlet weak var READMEStackView: UIStackView!
     @IBOutlet weak var defaultBranchLabel: UILabel!
+    @IBOutlet weak var READMEView: MarkdownView!
     @IBOutlet weak var starButton: UIButton!
     @IBOutlet weak var bookmarkButton: UIBarButtonItem!
     @IBOutlet weak var shareButton: UIBarButtonItem!
+    
     
     // MARK: - Initialisation
     
@@ -174,6 +178,15 @@ extension RepositoryDetailViewController {
         forksLabel.addGestureRecognizer(forksLabelTapGesture)
         forksLabel.isUserInteractionEnabled = true
         
+        READMEView.isScrollEnabled = false
+        READMEView.onTouchLink = { [weak self] request in
+            guard let url = request.url else { return false }
+            if url.scheme == "https" || url.scheme == "http"  {
+                URLHelper.openURL(url)
+                return false
+            } else { return false }
+        }
+        
         starButton.cornerRadius = 10
     }
     
@@ -194,7 +207,12 @@ extension RepositoryDetailViewController {
         }
         starsLabel.text = GitIt.formatPoints(num: Double(model.stars))
         forksLabel.text = GitIt.formatPoints(num: Double(model.forks))
-        defaultBranchLabel.text = model.defaultBranch
+        if model.READMEString != nil {
+            defaultBranchLabel.text = model.defaultBranch
+            READMEView.load(markdown: model.READMEString)
+        } else {
+            READMEStackView.isHidden = true
+        }
         bookmarkButton.isEnabled = true
         shareButton.isEnabled = true
         updateStarButton()
