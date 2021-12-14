@@ -32,5 +32,5 @@ jobs:
       - name: Show Available Destinations
         run: xcodebuild -workspace GitIt.xcworkspace -scheme '${{ matrix.run-config['scheme'] }}' -showdestinations
       - name: build
-        run: xcodebuild -scheme '${{ matrix.run-config['scheme'] }}' -destination '${{ matrix.run-config['destination'] }}' -showBuildTimingSummary
+        run: xcodebuild -workspace GitIt.xcworkspace -scheme '${{ matrix.run-config['scheme'] }}' -destination '${{ matrix.run-config['destination'] }}' -showBuildTimingSummary
         
