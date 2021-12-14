@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -51,6 +51,13 @@
 		C6A1482C2739819000BE7DE9 /* UserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6A1482B2739819000BE7DE9 /* UserViewController.swift */; };
 		C6A1DC67274A11BC00E40BB8 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6A1DC66274A11BC00E40BB8 /* Models.swift */; };
 		C6A7F86E274CE0E000622E76 /* HistoryHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6A7F86D274CE0E000622E76 /* HistoryHeaderView.swift */; };
+		C6B26AE72768B42700ED41F8 /* CommitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B26AE62768B42700ED41F8 /* CommitViewController.swift */; };
+		C6B26AE92768B4D600ED41F8 /* CommitDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B26AE82768B4D600ED41F8 /* CommitDetailViewController.swift */; };
+		C6B26AEC2768B51400ED41F8 /* CommitLogicController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B26AEB2768B51400ED41F8 /* CommitLogicController.swift */; };
+		C6B26AEE2768B53100ED41F8 /* CommitDetailLogicController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B26AED2768B53100ED41F8 /* CommitDetailLogicController.swift */; };
+		C6B26AF02768B5D100ED41F8 /* CommitTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B26AEF2768B5D100ED41F8 /* CommitTableView.swift */; };
+		C6B26AF32768C76600ED41F8 /* CommitTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B26AF12768C76600ED41F8 /* CommitTableViewCell.swift */; };
+		C6B26AF42768C76600ED41F8 /* CommitTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C6B26AF22768C76600ED41F8 /* CommitTableViewCell.xib */; };
 		C6B2DF712720887600AB0C8F /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B2DF702720887600AB0C8F /* DataController.swift */; };
 		C6C605FA273EC7B700BA27C2 /* CommonTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C605F9273EC7B700BA27C2 /* CommonTypes.swift */; };
 		C6C605FD273EC89000BA27C2 /* SearchCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C605FC273EC89000BA27C2 /* SearchCoordinator.swift */; };
@@ -118,6 +125,13 @@
 		C6A1482B2739819000BE7DE9 /* UserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewController.swift; sourceTree = "<group>"; };
 		C6A1DC66274A11BC00E40BB8 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		C6A7F86D274CE0E000622E76 /* HistoryHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryHeaderView.swift; sourceTree = "<group>"; };
+		C6B26AE62768B42700ED41F8 /* CommitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommitViewController.swift; sourceTree = "<group>"; };
+		C6B26AE82768B4D600ED41F8 /* CommitDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommitDetailViewController.swift; sourceTree = "<group>"; };
+		C6B26AEB2768B51400ED41F8 /* CommitLogicController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommitLogicController.swift; sourceTree = "<group>"; };
+		C6B26AED2768B53100ED41F8 /* CommitDetailLogicController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommitDetailLogicController.swift; sourceTree = "<group>"; };
+		C6B26AEF2768B5D100ED41F8 /* CommitTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommitTableView.swift; sourceTree = "<group>"; };
+		C6B26AF12768C76600ED41F8 /* CommitTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommitTableViewCell.swift; sourceTree = "<group>"; };
+		C6B26AF22768C76600ED41F8 /* CommitTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CommitTableViewCell.xib; sourceTree = "<group>"; };
 		C6B2DF702720887600AB0C8F /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		C6C605F9273EC7B700BA27C2 /* CommonTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonTypes.swift; sourceTree = "<group>"; };
 		C6C605FC273EC89000BA27C2 /* SearchCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCoordinator.swift; sourceTree = "<group>"; };
@@ -154,7 +168,6 @@
 				289C9137C4BEF3F7DA6274A7 /* Pods-GitIt.debug.xcconfig */,
 				0414408764075E1116E272E1 /* Pods-GitIt.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -169,6 +182,7 @@
 		C6110ADE2754FEB30078D7E8 /* XIB */ = {
 			isa = PBXGroup;
 			children = (
+				C6B26AF22768C76600ED41F8 /* CommitTableViewCell.xib */,
 				C69A5E4827428B5F007054EA /* HistoryTableViewCell.xib */,
 				C685667D274BF7EB00833D6E /* HistoryCollectionViewCell.xib */,
 				C6F46E752753AC5B00498614 /* HistoryHeaderView.xib */,
@@ -190,6 +204,7 @@
 		C6110AE52755094B0078D7E8 /* Logic */ = {
 			isa = PBXGroup;
 			children = (
+				C6B26AEA2768B4F500ED41F8 /* Commit */,
 				C6CCED82275D2FEF0052CC8E /* Repository */,
 				C6CCED81275D2FE60052CC8E /* User */,
 				C6CCED85275D36A00052CC8E /* LicenseLogicController.swift */,
@@ -200,6 +215,7 @@
 		C6110AE6275509530078D7E8 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
+				C6B26AEF2768B5D100ED41F8 /* CommitTableView.swift */,
 				C6110AE927550F350078D7E8 /* RepositoryTableView.swift */,
 				C64F6F032736DBDC00E2E727 /* UserTableView.swift */,
 			);
@@ -349,6 +365,24 @@
 			path = Search;
 			sourceTree = "<group>";
 		};
+		C6B26AE52768B39A00ED41F8 /* Commit */ = {
+			isa = PBXGroup;
+			children = (
+				C6B26AE62768B42700ED41F8 /* CommitViewController.swift */,
+				C6B26AE82768B4D600ED41F8 /* CommitDetailViewController.swift */,
+			);
+			path = Commit;
+			sourceTree = "<group>";
+		};
+		C6B26AEA2768B4F500ED41F8 /* Commit */ = {
+			isa = PBXGroup;
+			children = (
+				C6B26AEB2768B51400ED41F8 /* CommitLogicController.swift */,
+				C6B26AED2768B53100ED41F8 /* CommitDetailLogicController.swift */,
+			);
+			path = Commit;
+			sourceTree = "<group>";
+		};
 		C6C605FB273EC87200BA27C2 /* Helper */ = {
 			isa = PBXGroup;
 			children = (
@@ -381,6 +415,7 @@
 			isa = PBXGroup;
 			children = (
 				C6CCED75275D0E370052CC8E /* AsyncUIImageView.swift */,
+				C6B26AF12768C76600ED41F8 /* CommitTableViewCell.swift */,
 				C69A5E4727428B5F007054EA /* HistoryTableViewCell.swift */,
 				C685667C274BF7EB00833D6E /* HistoryCollectionViewCell.swift */,
 				C6A7F86D274CE0E000622E76 /* HistoryHeaderView.swift */,
@@ -418,6 +453,7 @@
 		C6CCED7E275D1DC40052CC8E /* Class */ = {
 			isa = PBXGroup;
 			children = (
+				C6B26AE52768B39A00ED41F8 /* Commit */,
 				C6CCED80275D2FCC0052CC8E /* Repository */,
 				C6CCED7F275D2FB00052CC8E /* User */,
 				C68B6507271DEC4A00A26D05 /* BookmarksViewController.swift */,
@@ -530,6 +566,7 @@
 				C685667F274BF7EB00833D6E /* HistoryCollectionViewCell.xib in Resources */,
 				C69BEE4627422414005B6AA2 /* UserTableViewCell.xib in Resources */,
 				C69A5E4A27428B5F007054EA /* HistoryTableViewCell.xib in Resources */,
+				C6B26AF42768C76600ED41F8 /* CommitTableViewCell.xib in Resources */,
 				C6110AED275522F70078D7E8 /* LanguageColors.json in Resources */,
 				C68B64F7271DD34C00A26D05 /* Assets.xcassets in Resources */,
 				C68B64F2271DD34B00A26D05 /* Main.storyboard in Resources */,
@@ -589,6 +626,7 @@
 			files = (
 				C64F6F0A2736F33700E2E727 /* NetworkReachability.swift in Sources */,
 				C69ECCDB2732441F00E158A3 /* DataManager.swift in Sources */,
+				C6B26AEC2768B51400ED41F8 /* CommitLogicController.swift in Sources */,
 				C68B6508271DEC4A00A26D05 /* BookmarksViewController.swift in Sources */,
 				C6856677274BBB7400833D6E /* SplashViewController.swift in Sources */,
 				C635C00B2731AF7600ADA247 /* KeychainHelper.swift in Sources */,
@@ -599,13 +637,16 @@
 				C6110AEF275545730078D7E8 /* RepositoryDetailLogicController.swift in Sources */,
 				C64F6F0C27374F0300E2E727 /* ProfileViewController.swift in Sources */,
 				C68B64EB271DD34B00A26D05 /* AppDelegate.swift in Sources */,
+				C6B26AE72768B42700ED41F8 /* CommitViewController.swift in Sources */,
 				C696BFE92725E49E0078FBF4 /* UserTableViewCell.swift in Sources */,
 				C68B650A271E148B00A26D05 /* UserDetailViewController.swift in Sources */,
 				C60FAE872744CD7F00A6CE77 /* URLHelper.swift in Sources */,
+				C6B26AE92768B4D600ED41F8 /* CommitDetailViewController.swift in Sources */,
 				C6F46E7A27541C9300498614 /* ResultsViewController.swift in Sources */,
 				C69ECCE32732566800E158A3 /* NetworkManager.swift in Sources */,
 				C68FCBC8273838A50019C932 /* ExploreViewController.swift in Sources */,
 				C6F46E7827541B2700498614 /* SearchController.swift in Sources */,
+				C6B26AEE2768B53100ED41F8 /* CommitDetailLogicController.swift in Sources */,
 				C6F46E7C27541D0E00498614 /* HistoryViewController.swift in Sources */,
 				C6CCED86275D36A00052CC8E /* LicenseLogicController.swift in Sources */,
 				C69ECCE62732819000E158A3 /* SessionManager.swift in Sources */,
@@ -620,6 +661,7 @@
 				C68B64F5271DD34B00A26D05 /* GitIt.xcdatamodeld in Sources */,
 				C69A5E4927428B5F007054EA /* HistoryTableViewCell.swift in Sources */,
 				C6110AEA27550F360078D7E8 /* RepositoryTableView.swift in Sources */,
+				C6B26AF02768B5D100ED41F8 /* CommitTableView.swift in Sources */,
 				C6EEF2A72727EEB9003CB7D8 /* BatchResponse.swift in Sources */,
 				C6CCED84275D30B30052CC8E /* LicenseViewController.swift in Sources */,
 				C6CCED76275D0E370052CC8E /* AsyncUIImageView.swift in Sources */,
@@ -630,6 +672,7 @@
 				C6CCED79275D132D0052CC8E /* ImageLoader.swift in Sources */,
 				C69ECCD927323D5A00E158A3 /* TokenManager.swift in Sources */,
 				C685667E274BF7EB00833D6E /* HistoryCollectionViewCell.swift in Sources */,
+				C6B26AF32768C76600ED41F8 /* CommitTableViewCell.swift in Sources */,
 				C6856679274BC3E300833D6E /* UserDetailLogicController.swift in Sources */,
 				C693C4A92729BE1D0061ED73 /* SignInViewController.swift in Sources */,
 				C6A1DC67274A11BC00E40BB8 /* Models.swift in Sources */,

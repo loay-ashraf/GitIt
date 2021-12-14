@@ -225,8 +225,8 @@ class GithubClient {
         }
     }
     
-    func getRepositoryCommits(fullName: String, page: Int, perPage: Int, completion: @escaping ([UserModel], Error?) -> Void) {
-        NetworkManager.shared.GETRequest(url: RepositoryEndpoints.commits(fullName, page, perPage).url, responseType: [UserModel].self) { response, error in
+    func getRepositoryCommits(fullName: String, page: Int, perPage: Int, completion: @escaping ([CommitModel], Error?) -> Void) {
+        NetworkManager.shared.GETRequest(url: RepositoryEndpoints.commits(fullName, page, perPage).url, responseType: [CommitModel].self) { response, error in
             if let response = response {
                 completion(response, nil)
             } else {

@@ -127,6 +127,11 @@ class RepositoryDetailViewController: UITableViewController, StoryboardViewContr
         navigationController?.pushViewController(contributorsVC, animated: true)
     }
     
+    func showCommits() {
+        let commitsVC = CommitViewController(parameters: model.fullName)
+        navigationController?.pushViewController(commitsVC, animated: true)
+    }
+    
     func showLicense() {
         let licenseVC = LicenseViewController.instatiateFromStoryboard(with: (model.fullName,model.defaultBranch))
         navigationController?.pushViewController(licenseVC, animated: true)
@@ -277,6 +282,8 @@ extension RepositoryDetailViewController {
         tableView.deselectRow(at: indexPath, animated: true)
         if indexPath.row == 0 {
             showContributors()
+        } else if indexPath.row == 1 {
+            showCommits()
         } else if indexPath.row == 2 {
             showLicense()
         }

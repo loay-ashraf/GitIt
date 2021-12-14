@@ -125,6 +125,13 @@ enum RepositoryDetailViewState {
     
 }
 
+enum CommitDetailViewState {
+    
+    case loading
+    case presenting
+    case failed(Error)
+    
+}
 
 enum SearchViewState {
     
