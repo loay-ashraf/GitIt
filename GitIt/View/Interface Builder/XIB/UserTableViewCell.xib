@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -23,7 +25,7 @@
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="User Login" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LLK-Ad-4I7">
-                        <rect key="frame" x="84" y="12" width="196.5" height="50"/>
+                        <rect key="frame" x="84" y="12" width="191" height="50"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="50" id="eOA-m0-dg9"/>
                         </constraints>
@@ -48,7 +50,7 @@
                 <outlet property="userImageView" destination="PDQ-al-liA" id="8MF-4r-Xrz"/>
                 <outlet property="userLoginLabel" destination="LLK-Ad-4I7" id="GWe-aM-3ho"/>
             </connections>
-            <point key="canvasLocation" x="134.78260869565219" y="141.03260869565219"/>
+            <point key="canvasLocation" x="134.78260869565219" y="140.625"/>
         </tableViewCell>
     </objects>
 </document>
