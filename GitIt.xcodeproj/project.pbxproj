@@ -20,6 +20,13 @@
 		C64F6F082736DCF900E2E727 /* UserLogicController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C64F6F072736DCF900E2E727 /* UserLogicController.swift */; };
 		C64F6F0A2736F33700E2E727 /* NetworkReachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = C64F6F092736F33700E2E727 /* NetworkReachability.swift */; };
 		C64F6F0C27374F0300E2E727 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C64F6F0B27374F0300E2E727 /* ProfileViewController.swift */; };
+		C65C0E04276A36DD00ED17CB /* OrganizationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C65C0E03276A36DD00ED17CB /* OrganizationViewController.swift */; };
+		C65C0E06276A36F200ED17CB /* OrganizationDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C65C0E05276A36F200ED17CB /* OrganizationDetailViewController.swift */; };
+		C65C0E08276A371900ED17CB /* OrganizationLogicController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C65C0E07276A371900ED17CB /* OrganizationLogicController.swift */; };
+		C65C0E0A276A374700ED17CB /* OrganizationDetailLogicController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C65C0E09276A374700ED17CB /* OrganizationDetailLogicController.swift */; };
+		C65C0E0C276A3CA200ED17CB /* OrganizationTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C65C0E0B276A3CA200ED17CB /* OrganizationTableView.swift */; };
+		C65C0E0F276A43DB00ED17CB /* OrganizationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C65C0E0D276A43DB00ED17CB /* OrganizationTableViewCell.swift */; };
+		C65C0E10276A43DB00ED17CB /* OrganizationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C65C0E0E276A43DB00ED17CB /* OrganizationTableViewCell.xib */; };
 		C66F2A242740D3D1000ED46E /* HTTPError.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66F2A232740D3D1000ED46E /* HTTPError.swift */; };
 		C67B5D36271F33BF008392C1 /* ErrorResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = C67B5D35271F33BF008392C1 /* ErrorResponse.swift */; };
 		C6856677274BBB7400833D6E /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6856676274BBB7400833D6E /* SplashViewController.swift */; };
@@ -92,6 +99,13 @@
 		C64F6F072736DCF900E2E727 /* UserLogicController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLogicController.swift; sourceTree = "<group>"; };
 		C64F6F092736F33700E2E727 /* NetworkReachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkReachability.swift; sourceTree = "<group>"; };
 		C64F6F0B27374F0300E2E727 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		C65C0E03276A36DD00ED17CB /* OrganizationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrganizationViewController.swift; sourceTree = "<group>"; };
+		C65C0E05276A36F200ED17CB /* OrganizationDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrganizationDetailViewController.swift; sourceTree = "<group>"; };
+		C65C0E07276A371900ED17CB /* OrganizationLogicController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrganizationLogicController.swift; sourceTree = "<group>"; };
+		C65C0E09276A374700ED17CB /* OrganizationDetailLogicController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrganizationDetailLogicController.swift; sourceTree = "<group>"; };
+		C65C0E0B276A3CA200ED17CB /* OrganizationTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrganizationTableView.swift; sourceTree = "<group>"; };
+		C65C0E0D276A43DB00ED17CB /* OrganizationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrganizationTableViewCell.swift; sourceTree = "<group>"; };
+		C65C0E0E276A43DB00ED17CB /* OrganizationTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OrganizationTableViewCell.xib; sourceTree = "<group>"; };
 		C66F2A232740D3D1000ED46E /* HTTPError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPError.swift; sourceTree = "<group>"; };
 		C67B5D35271F33BF008392C1 /* ErrorResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorResponse.swift; sourceTree = "<group>"; };
 		C6856676274BBB7400833D6E /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
@@ -186,6 +200,7 @@
 				C69A5E4827428B5F007054EA /* HistoryTableViewCell.xib */,
 				C685667D274BF7EB00833D6E /* HistoryCollectionViewCell.xib */,
 				C6F46E752753AC5B00498614 /* HistoryHeaderView.xib */,
+				C65C0E0E276A43DB00ED17CB /* OrganizationTableViewCell.xib */,
 				C69BEE4427422414005B6AA2 /* UserTableViewCell.xib */,
 				C6110AE12754FFF10078D7E8 /* RepositoryTableViewCell.xib */,
 			);
@@ -205,6 +220,7 @@
 			isa = PBXGroup;
 			children = (
 				C6B26AEA2768B4F500ED41F8 /* Commit */,
+				C65C0E02276A2C7200ED17CB /* Organization */,
 				C6CCED82275D2FEF0052CC8E /* Repository */,
 				C6CCED81275D2FE60052CC8E /* User */,
 				C6CCED85275D36A00052CC8E /* LicenseLogicController.swift */,
@@ -216,6 +232,7 @@
 			isa = PBXGroup;
 			children = (
 				C6B26AEF2768B5D100ED41F8 /* CommitTableView.swift */,
+				C65C0E0B276A3CA200ED17CB /* OrganizationTableView.swift */,
 				C6110AE927550F350078D7E8 /* RepositoryTableView.swift */,
 				C64F6F032736DBDC00E2E727 /* UserTableView.swift */,
 			);
@@ -229,6 +246,24 @@
 				C6110AEC275522F70078D7E8 /* LanguageColors.json */,
 			);
 			path = Assets;
+			sourceTree = "<group>";
+		};
+		C65C0E01276A2C5E00ED17CB /* Organization */ = {
+			isa = PBXGroup;
+			children = (
+				C65C0E03276A36DD00ED17CB /* OrganizationViewController.swift */,
+				C65C0E05276A36F200ED17CB /* OrganizationDetailViewController.swift */,
+			);
+			path = Organization;
+			sourceTree = "<group>";
+		};
+		C65C0E02276A2C7200ED17CB /* Organization */ = {
+			isa = PBXGroup;
+			children = (
+				C65C0E07276A371900ED17CB /* OrganizationLogicController.swift */,
+				C65C0E09276A374700ED17CB /* OrganizationDetailLogicController.swift */,
+			);
+			path = Organization;
 			sourceTree = "<group>";
 		};
 		C68B64DE271DD34B00A26D05 = {
@@ -419,6 +454,7 @@
 				C69A5E4727428B5F007054EA /* HistoryTableViewCell.swift */,
 				C685667C274BF7EB00833D6E /* HistoryCollectionViewCell.swift */,
 				C6A7F86D274CE0E000622E76 /* HistoryHeaderView.swift */,
+				C65C0E0D276A43DB00ED17CB /* OrganizationTableViewCell.swift */,
 				C696BFE82725E49E0078FBF4 /* UserTableViewCell.swift */,
 				C6110AE02754FFF10078D7E8 /* RepositoryTableViewCell.swift */,
 			);
@@ -454,6 +490,7 @@
 			isa = PBXGroup;
 			children = (
 				C6B26AE52768B39A00ED41F8 /* Commit */,
+				C65C0E01276A2C5E00ED17CB /* Organization */,
 				C6CCED80275D2FCC0052CC8E /* Repository */,
 				C6CCED7F275D2FB00052CC8E /* User */,
 				C68B6507271DEC4A00A26D05 /* BookmarksViewController.swift */,
@@ -572,6 +609,7 @@
 				C68B64F2271DD34B00A26D05 /* Main.storyboard in Resources */,
 				C6F46E762753AC5B00498614 /* HistoryHeaderView.xib in Resources */,
 				C6110AE32754FFF10078D7E8 /* RepositoryTableViewCell.xib in Resources */,
+				C65C0E10276A43DB00ED17CB /* OrganizationTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -630,12 +668,14 @@
 				C68B6508271DEC4A00A26D05 /* BookmarksViewController.swift in Sources */,
 				C6856677274BBB7400833D6E /* SplashViewController.swift in Sources */,
 				C635C00B2731AF7600ADA247 /* KeychainHelper.swift in Sources */,
+				C65C0E0F276A43DB00ED17CB /* OrganizationTableViewCell.swift in Sources */,
 				C64F6F082736DCF900E2E727 /* UserLogicController.swift in Sources */,
 				C68B6506271DEB8E00A26D05 /* RepositoryViewController.swift in Sources */,
 				C6C605FD273EC89000BA27C2 /* SearchCoordinator.swift in Sources */,
 				C66F2A242740D3D1000ED46E /* HTTPError.swift in Sources */,
 				C6110AEF275545730078D7E8 /* RepositoryDetailLogicController.swift in Sources */,
 				C64F6F0C27374F0300E2E727 /* ProfileViewController.swift in Sources */,
+				C65C0E08276A371900ED17CB /* OrganizationLogicController.swift in Sources */,
 				C68B64EB271DD34B00A26D05 /* AppDelegate.swift in Sources */,
 				C6B26AE72768B42700ED41F8 /* CommitViewController.swift in Sources */,
 				C696BFE92725E49E0078FBF4 /* UserTableViewCell.swift in Sources */,
@@ -644,11 +684,15 @@
 				C6B26AE92768B4D600ED41F8 /* CommitDetailViewController.swift in Sources */,
 				C6F46E7A27541C9300498614 /* ResultsViewController.swift in Sources */,
 				C69ECCE32732566800E158A3 /* NetworkManager.swift in Sources */,
+				C65C0E0C276A3CA200ED17CB /* OrganizationTableView.swift in Sources */,
+				C65C0E06276A36F200ED17CB /* OrganizationDetailViewController.swift in Sources */,
 				C68FCBC8273838A50019C932 /* ExploreViewController.swift in Sources */,
 				C6F46E7827541B2700498614 /* SearchController.swift in Sources */,
 				C6B26AEE2768B53100ED41F8 /* CommitDetailLogicController.swift in Sources */,
 				C6F46E7C27541D0E00498614 /* HistoryViewController.swift in Sources */,
 				C6CCED86275D36A00052CC8E /* LicenseLogicController.swift in Sources */,
+				C65C0E04276A36DD00ED17CB /* OrganizationViewController.swift in Sources */,
+				C65C0E0A276A374700ED17CB /* OrganizationDetailLogicController.swift in Sources */,
 				C69ECCE62732819000E158A3 /* SessionManager.swift in Sources */,
 				C68B650F271E1A1400A26D05 /* GithubClient.swift in Sources */,
 				C68B650C271E152E00A26D05 /* RepositoryDetailViewController.swift in Sources */,
