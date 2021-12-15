@@ -227,37 +227,56 @@ struct OrganizationModel: Model {
     let avatarURL: URL
     let htmlURL: URL
     let name: String?
+    let description: String?
     let location: String?
+    let blogURL: URL?
     let email: String?
-    let twitterUsername: String?
-    let followers: Int?
-    let following: Int?
+    let twitter: String?
+    let repositories: Int?
     
     enum CodingKeys: String, CodingKey {
+        
         case id
         case login
         case avatarURL = "avatar_url"
         case htmlURL = "html_url"
         case name
+        case description
         case location
+        case blogURL = "blog"
         case email
-        case twitterUsername = "twitter_username"
-        case followers
-        case following
+        case twitter = "twitter_username"
+        case repositories = "public_repos"
+        
     }
     
     init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: CodingKeys.self)
-        id = try values.decode(Int.self, forKey: .id)
-        login = try values.decode(String.self, forKey: .login)
-        avatarURL = try values.decode(URL.self, forKey: .avatarURL)
-        htmlURL = try values.decode(URL.self, forKey: .htmlURL)
-        name = try values.decodeIfPresent(String.self, forKey: .name)
-        location = try values.decodeIfPresent(String.self, forKey: .location)
-        email = try values.decodeIfPresent(String.self, forKey: .email)
-        twitterUsername = try values.decodeIfPresent(String.self, forKey: .twitterUsername)
-        followers = try values.decodeIfPresent(Int.self, forKey: .followers)
-        following = try values.decodeIfPresent(Int.self, forKey: .following)
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        id = try container.decode(Int.self, forKey: .id)
+        login = try container.decode(String.self, forKey: .login)
+        avatarURL = try container.decode(URL.self, forKey: .avatarURL)
+        htmlURL = try container.decodeIfPresent(URL.self, forKey: .htmlURL) ?? URL(string: "https://github.com/orgs/\(login)")!
+        name = try container.decodeIfPresent(String.self, forKey: .name)
+        description = try container.decodeIfPresent(String.self, forKey: .description)
+        location = try container.decodeIfPresent(String.self, forKey: .location)
+        blogURL = try? container.decodeIfPresent(URL.self, forKey: .blogURL)
+        email = try container.decodeIfPresent(String.self, forKey: .email)
+        twitter = try container.decodeIfPresent(String.self, forKey: .twitter)
+        repositories = try container.decodeIfPresent(Int.self, forKey: .repositories)
+    }
+    
+    init(from owner: OwnerModel) {
+        self.id = owner.id
+        self.login = owner.login
+        self.avatarURL = owner.avatarURL
+        self.htmlURL = owner.htmlURL
+        name = nil
+        description = nil
+        location = nil
+        blogURL = nil
+        email = nil
+        twitter = nil
+        repositories = nil
     }
     
 }
