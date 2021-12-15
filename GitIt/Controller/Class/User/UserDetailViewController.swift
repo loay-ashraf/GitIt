@@ -135,6 +135,11 @@ class UserDetailViewController: UITableViewController, StoryboardViewController 
         navigationController?.pushViewController(repositoriesVC, animated: true)
     }
     
+    func showOrganizations() {
+        let organizationsVC = OrganizationViewController(context: .user, contextParameters: model.login)
+        navigationController?.pushViewController(organizationsVC, animated: true)
+    }
+    
     func showStarred() {
         let repositoriesVC = RepositoryViewController(context: .starred, contextParameters: model.login)
         navigationController?.pushViewController(repositoriesVC, animated: true)
@@ -296,6 +301,8 @@ extension UserDetailViewController {
         tableView.deselectRow(at: indexPath, animated: true)
         if indexPath.row == 0 {
             showRepositories()
+        } else if indexPath.row == 1 {
+            showOrganizations()
         } else if indexPath.row == 2 {
             showStarred()
         }

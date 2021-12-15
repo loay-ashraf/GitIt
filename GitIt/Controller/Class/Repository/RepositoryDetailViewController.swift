@@ -103,7 +103,9 @@ class RepositoryDetailViewController: UITableViewController, StoryboardViewContr
             })
             navigationController?.pushViewController(userDetailVC!, animated: true)
         } else if model.owner.type == .organization {
-            
+            let organizationModel = OrganizationModel(from: model.owner)
+            let organizationDetailVC = OrganizationDetailViewController.instatiateFromStoryboard(with: organizationModel)
+            navigationController?.pushViewController(organizationDetailVC, animated: true)
         }
     }
     
