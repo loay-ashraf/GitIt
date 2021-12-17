@@ -1,21 +1,19 @@
 //
-//  UserDetailViewController.swift
+//  OrganizationDetailViewController.swift
 //  GitIt
 //
-//  Created by Loay Ashraf on 18/10/2021.
+//  Created by Loay Ashraf on 15/12/2021.
 //
 
 import UIKit
-import CoreData
 
-class UserDetailViewController: UITableViewController, StoryboardViewController {
+class OrganizationDetailViewController: UITableViewController, StoryboardViewController {
 
-    static let storyboardIdentifier = "UserDetailVC"
+    static let storyboardIdentifier = "OrganizationDetailVC"
     
-    private var logicController: UserDetailLogicController
-    private var model: UserModel { return logicController.model }
+    private var logicController: OrganizationDetailLogicController
+    private var model: OrganizationModel { return logicController.model }
     private var isBookmarked: Bool { return logicController.isBookmarked }
-    private var isFollowed: Bool { return logicController.isFollowed }
     
     private var spinner: Spinner!
     
@@ -24,27 +22,22 @@ class UserDetailViewController: UITableViewController, StoryboardViewController 
     @IBOutlet weak var avatarImageView: AsyncUIImageView!
     @IBOutlet weak var fullNameLabel: UILabel!
     @IBOutlet weak var loginLabel: UILabel!
-    @IBOutlet weak var bioLabel: UILabel!
-    @IBOutlet weak var companyImageView: UIImageView!
-    @IBOutlet weak var locationImageView: UIImageView!
-    @IBOutlet weak var blogImageView: UIImageView!
-    @IBOutlet weak var emailImageView: UIImageView!
-    @IBOutlet weak var twitterImageView: UIImageView!
-    @IBOutlet weak var companyLabel: UILabel!
+    @IBOutlet weak var descriptionLabel: UILabel!
+    @IBOutlet weak var locationStackView: UIStackView!
+    @IBOutlet weak var blogStackView: UIStackView!
+    @IBOutlet weak var emailStackView: UIStackView!
+    @IBOutlet weak var twitterStackView: UIStackView!
     @IBOutlet weak var locationLabel: UILabel!
     @IBOutlet weak var blogLabel: UILabel!
     @IBOutlet weak var emailLabel: UILabel!
     @IBOutlet weak var twitterLabel: UILabel!
-    @IBOutlet weak var followersLabel: UILabel!
-    @IBOutlet weak var followingLabel: UILabel!
-    @IBOutlet weak var followButton: UIButton!
     @IBOutlet weak var bookmarkButton: UIBarButtonItem!
     @IBOutlet weak var shareButton: UIBarButtonItem!
     
     // MARK: - Initialisation
     
-    required init?(coder: NSCoder, model: UserModel) {
-        logicController = UserDetailLogicController(model)
+    required init?(coder: NSCoder, model: OrganizationModel) {
+        logicController = OrganizationDetailLogicController(model)
         super.init(coder: coder)
     }
     
@@ -58,8 +51,8 @@ class UserDetailViewController: UITableViewController, StoryboardViewController 
     
     static func instatiateFromStoryboard<Type: Model>(with model: Type) -> UIViewController {
         let storyBoard = UIStoryboard(name: "Main", bundle: nil)
-        return storyBoard.instantiateViewController(identifier: self.storyboardIdentifier, creator: {coder ->                                  UserDetailViewController in
-                    self.init(coder: coder, model: model as! UserModel)!
+        return storyBoard.instantiateViewController(identifier: self.storyboardIdentifier, creator: {coder -> OrganizationDetailViewController in
+                    self.init(coder: coder, model: model as! OrganizationModel)!
                 })
     }
     
@@ -78,10 +71,6 @@ class UserDetailViewController: UITableViewController, StoryboardViewController 
     }
     
     // MARK: - UI Actions
-    
-    @IBAction func follow(_ sender: Any) {
-        logicController.follow(then: render(_:))
-    }
     
     @IBAction func bookmark(_ sender: Any) {
         logicController.bookmark(then: render(_:))
@@ -120,14 +109,9 @@ class UserDetailViewController: UITableViewController, StoryboardViewController 
         }
     }
     
-    @objc func showFollowers() {
-        let followersVC = UserViewController(context: .followers, contextParameters: (self.model.login,self.model.followers))
-        navigationController?.pushViewController(followersVC, animated: true)
-    }
-    
-    @objc func showFollowing() {
-        let followingVC = UserViewController(context: .following, contextParameters: (self.model.login,self.model.following))
-        navigationController?.pushViewController(followingVC, animated: true)
+    func showMemebers() {
+        let usersVC = UserViewController(context: .members, contextParameters: model.login)
+        navigationController?.pushViewController(usersVC, animated: true)
     }
     
     func showRepositories() {
@@ -135,26 +119,15 @@ class UserDetailViewController: UITableViewController, StoryboardViewController 
         navigationController?.pushViewController(repositoriesVC, animated: true)
     }
     
-    func showOrganizations() {
-        let organizationsVC = OrganizationViewController(context: .user, contextParameters: model.login)
-        navigationController?.pushViewController(organizationsVC, animated: true)
-    }
-    
-    func showStarred() {
-        let repositoriesVC = RepositoryViewController(context: .starred, contextParameters: model.login)
-        navigationController?.pushViewController(repositoriesVC, animated: true)
-    }
-    
 }
 
-extension UserDetailViewController {
+extension OrganizationDetailViewController {
     
     // MARK: - UI Helper Methods
     
-    func render(_ state: UserDetailViewState) {
+    func render(_ state: OrganizationDetailViewState) {
         switch state {
         case .loading: showSpinner()
-        case .followed: updateFollowButton()
         case .bookmarked: updateBookmarkButton()
         case .presenting: hideSpinner()
                           updateUI()
@@ -186,16 +159,7 @@ extension UserDetailViewController {
         let twitterLabelTapGesture = UITapGestureRecognizer(target:self,action:#selector(self.goToTwitter))
         twitterLabel.addGestureRecognizer(twitterLabelTapGesture)
         twitterLabel.isUserInteractionEnabled = true
-        
-        let followersLabelTapGesture = UITapGestureRecognizer(target:self,action:#selector(self.showFollowers))
-        followersLabel.addGestureRecognizer(followersLabelTapGesture)
-        followersLabel.isUserInteractionEnabled = true
-        
-        let followingLabelTapGesture = UITapGestureRecognizer(target:self,action:#selector(self.showFollowing))
-        followingLabel.addGestureRecognizer(followingLabelTapGesture)
-        followingLabel.isUserInteractionEnabled = true
-        
-        followButton.cornerRadius = 10
+
     }
     
     private func updateUI() {
@@ -206,53 +170,35 @@ extension UserDetailViewController {
             fullNameLabel.isHidden = true
         }
         loginLabel.text = model.login
-        if model.bio != nil {
-            bioLabel.text = model.bio
+        if model.description != nil {
+            descriptionLabel.text = model.description
         } else {
-            bioLabel.isHidden = true
-        }
-        if model.company != nil {
-            companyLabel.text = model.company
-        } else {
-            companyImageView.isHidden = true
-            companyLabel.isHidden = true
+            descriptionLabel.isHidden = true
         }
         if model.location != nil {
             locationLabel.text = model.location
         } else {
-            locationImageView.isHidden = true
-            locationLabel.isHidden = true
+            locationStackView.isHidden = true
         }
         if model.blogURL != nil {
             blogLabel.text = model.blogURL?.absoluteString
         } else {
-            blogImageView.isHidden = true
-            blogLabel.isHidden = true
+            blogStackView.isHidden = true
         }
         if model.email != nil {
             emailLabel.text = model.email
         } else {
-            emailImageView.isHidden = true
-            emailLabel.isHidden = true
+            emailStackView.isHidden = true
         }
         if model.twitter != nil {
             let atCharacter = "@"
             twitterLabel.text = atCharacter + model.twitter!
         } else {
-            twitterImageView.isHidden = true
-            twitterLabel.isHidden = true
+            twitterStackView.isHidden = true
         }
-        followersLabel.text = GitIt.formatPoints(num: Double(model.followers!))
-        followingLabel.text = GitIt.formatPoints(num: Double(model.following!))
-        if model.login == SessionManager.standard.sessionUser.login {
-            followButton.isHidden = true
-            shareButton.isEnabled = true
-        } else {
-            bookmarkButton.isEnabled = true
-            shareButton.isEnabled = true
-            updateFollowButton()
-            updateBookmarkButton()
-        }
+        bookmarkButton.isEnabled = true
+        shareButton.isEnabled = true
+        updateBookmarkButton()
     }
     
     private func fitTableHeaderView() {
@@ -275,16 +221,6 @@ extension UserDetailViewController {
         spinner.hideMainSpinner()
     }
     
-    private func updateFollowButton() {
-        if isFollowed {
-            followButton.setTitle("Following", for: .normal)
-            followButton.setImage(UIImage(systemName: "checkmark"), for: .normal)
-        } else {
-            followButton.setTitle("Follow", for: .normal)
-            followButton.setImage(UIImage(systemName: "plus"), for: .normal)
-        }
-    }
-    
     private func updateBookmarkButton() {
         if isBookmarked {
             bookmarkButton.image = UIImage(systemName: "bookmark.fill")
@@ -295,16 +231,14 @@ extension UserDetailViewController {
     
 }
 
-extension UserDetailViewController {
+extension OrganizationDetailViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         if indexPath.row == 0 {
-            showRepositories()
+            showMemebers()
         } else if indexPath.row == 1 {
-            showOrganizations()
-        } else if indexPath.row == 2 {
-            showStarred()
+            showRepositories()
         }
     }
 

@@ -47,6 +47,7 @@ extension SearchCoordinator {
         switch Type.self {
         case is UserModel.Type: GithubClient.standard.getUserSearchPage(keyword: searchController.keyword, page: results.currentPage, perPage: 10, completion: processUser(response:error:))
         case is RepositoryModel.Type: GithubClient.standard.getRepositorySearchPage(keyword: searchController.keyword, page: results.currentPage, perPage: 10, completion: processRepository(response:error:))
+        case is OrganizationModel.Type: GithubClient.standard.getOrganizationSearchPage(keyword: searchController.keyword, page: results.currentPage, perPage: 10, completion: processOrganization(response:error:))
         default: print("dummy")
         }
     }
@@ -118,6 +119,16 @@ extension SearchCoordinator {
     }
 
     private func processRepository(response: BatchResponse<RepositoryModel>?, error: Error?) {
+        if let error = error {
+            print(error.localizedDescription)
+        } else {
+            results.append(contentsOf: response!.items as! [Type])
+            updateModelProperties(count: response!.count)
+            render(.presenting)
+        }
+    }
+    
+    private func processOrganization(response: BatchResponse<OrganizationModel>?, error: Error?) {
         if let error = error {
             print(error.localizedDescription)
         } else {

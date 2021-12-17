@@ -17,6 +17,7 @@ class ExploreViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
         let row = indexPath.row
         if row == 0 {
             let userVC = UserViewController(context: .main)
@@ -24,6 +25,9 @@ class ExploreViewController: UITableViewController {
         } else if row == 1 {
             let repositoryVC = RepositoryViewController(context: .main)
             navigationController?.pushViewController(repositoryVC, animated: true)
+        } else if row == 2 {
+            let organizationVC = OrganizationViewController(context: .main)
+            navigationController?.pushViewController(organizationVC, animated: true)
         }
     }
 

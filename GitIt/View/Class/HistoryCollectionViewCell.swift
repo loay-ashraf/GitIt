@@ -35,6 +35,8 @@ class HistoryCollectionViewCell: UICollectionViewCell {
                            recentImageView.load(at: (model as! UserModel).avatarURL)
         case is RepositoryModel: recentLabel.text = (model as! RepositoryModel).name
             recentImageView.load(at: (model as! RepositoryModel).owner.avatarURL)
+        case is OrganizationModel: recentLabel.text = (model as! OrganizationModel).login
+            recentImageView.load(at: (model as! OrganizationModel).avatarURL)
         default: recentLabel.text = ""
                  recentImageView.image = UIImage(systemName: "globe")
         }

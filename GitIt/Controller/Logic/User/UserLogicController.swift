@@ -24,7 +24,7 @@ class UserLogicController {
         case .following: model.isPaginable = (contextParameters as! UserContext.FollowingParameters).1 > 10 ? true : false
         case .stars: model.isPaginable = (contextParameters as! UserContext.StarsParameters).1 > 10 ? true : false
         case .contributors: model.isPaginable = true
-        case .members: model.isPaginable = (contextParameters as! UserContext.MembersParameters).1 > 10 ? true : false
+        case .members: model.isPaginable = true
         }
     }
     
@@ -110,12 +110,12 @@ class UserLogicController {
     
     private func loadMembers(then handler: @escaping ViewStateHandler) {
         let parameters = contextParameters as! UserContext.MembersParameters
-        GithubClient.standard.getOrganizationMemebers(organizationLogin: parameters.0, page: model.currentPage, perPage: 10) { response, error in
+        GithubClient.standard.getOrganizationMemebers(organizationLogin: parameters, page: model.currentPage, perPage: 10) { response, error in
             if let error = error {
                 print(error.localizedDescription)
             } else {
                 self.model.append(contentsOf: response)
-                self.updateModelParameters()
+                self.updateModelParameters(newItemsCount: response.count)
                 handler(.presenting)
             }
         }
@@ -129,7 +129,7 @@ class UserLogicController {
         case .following: model.isPaginable = model.items.count == (contextParameters as! UserContext.FollowingParameters).1 ? false : true
         case .stars: model.isPaginable = model.items.count == (contextParameters as! UserContext.StarsParameters).1 ? false : true
         case .contributors: model.isPaginable = newItemsCount == 0 ? false : true
-        case .members: model.isPaginable = model.items.count == (contextParameters as! UserContext.MembersParameters).1 ? false : true
+        case .members: model.isPaginable = newItemsCount == 0 ? false : true
         }
     }
     

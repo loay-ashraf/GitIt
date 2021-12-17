@@ -151,6 +151,16 @@ class GithubClient {
         }
     }
     
+    func getUserOrganizations(userLogin: String, page: Int, perPage: Int, completion: @escaping ([OrganizationModel], Error?) -> Void) {
+        NetworkManager.shared.GETRequest(url: UserEndpoints.organizations(userLogin, page, perPage).url, responseType: [OrganizationModel].self) { response, error in
+            if let response = response {
+                completion(response, nil)
+            } else {
+                completion([], error)
+            }
+        }
+    }
+    
     func getUserStarred(userLogin: String, page: Int, perPage: Int, completion: @escaping ([RepositoryModel], Error?) -> Void) {
         NetworkManager.shared.GETRequest(url: UserEndpoints.starred(userLogin, page, perPage).url, responseType: [RepositoryModel].self) { response, error in
             if let response = response {
@@ -247,7 +257,39 @@ class GithubClient {
         }
     }
     
+    // MARK: - Organization Search Methods
+    
+    func getOrganizationPage(page: Int, perPage: Int, completion: @escaping ([OrganizationModel], Error?) -> Void) {
+        NetworkManager.shared.GETRequest(url: OrganizationEndpoints.list(page, perPage).url, responseType: BatchResponse<OrganizationModel>.self) { response, error in
+            if let response = response {
+                completion(response.items, nil)
+            } else {
+                completion([], error)
+            }
+        }
+    }
+    
+    func getOrganizationSearchPage(keyword: String, page: Int, perPage: Int, completion: @escaping (BatchResponse<OrganizationModel>?, Error?) -> Void) {
+        NetworkManager.shared.GETRequest(url: OrganizationEndpoints.search(keyword, page, perPage).url, responseType: BatchResponse<OrganizationModel>.self) { response, error in
+            if let response = response {
+                completion(response, nil)
+            } else {
+                completion(nil, error)
+            }
+        }
+    }
+    
     // MARK: - Organization Methods
+    
+    func getOrganization(organizationLogin: String, completion: @escaping (OrganizationModel?, Error?) -> Void) {
+        NetworkManager.shared.GETRequest(url: OrganizationEndpoints.oragnization(organizationLogin).url, responseType: OrganizationModel.self) { response, error in
+            if let response = response {
+                completion(response, nil)
+            } else {
+                completion(nil, error)
+            }
+        }
+    }
     
     func getOrganizationMemebers(organizationLogin: String, page: Int, perPage: Int, completion: @escaping ([UserModel], Error?) -> Void) {
         NetworkManager.shared.GETRequest(url: OrganizationEndpoints.members(organizationLogin, page, perPage).url, responseType: [UserModel].self) { response, error in
@@ -296,7 +338,7 @@ extension GithubClient {
         case followers(String,Int,Int)
         case following(String,Int,Int)
         case repositories(String,Int,Int)
-        case organizations(String)
+        case organizations(String,Int,Int)
         case starred(String,Int,Int)
         
         var stringValue: String {
@@ -310,7 +352,7 @@ extension GithubClient {
             case .followers(let login, let page, let perPage): return UserEndpoints.base + "/" + login + "/followers" + "?page=\(page)&per_page=\(perPage)"
             case .following(let login, let page, let perPage): return UserEndpoints.base + "/" + login + "/following" + "?page=\(page)&per_page=\(perPage)"
             case .repositories(let login, let page, let perPage): return UserEndpoints.base + "/" + login + "/repos" + "?page=\(page)&per_page=\(perPage)"
-            case .organizations(let login): return UserEndpoints.base + "/" + login + "/orgs"
+            case .organizations(let login, let page, let perPage): return UserEndpoints.base + "/" + login + "/orgs" + "?page=\(page)&per_page=\(perPage)"
             case .starred(let login, let page, let perPage): return UserEndpoints.base + "/" + login + "/starred" + "?page=\(page)&per_page=\(perPage)"
             }
         }
@@ -359,16 +401,21 @@ extension GithubClient {
     
     private enum OrganizationEndpoints {
         static let base = "https://api.github.com/orgs"
+        static let searchBase = "https://api.github.com/search/users?q="
         
         case oragnization(String)
+        case list(Int,Int)
+        case search(String,Int,Int)
         case members(String, Int, Int)
         case repositories(String, Int, Int)
         
         var stringValue: String {
             switch self {
-                case .oragnization(let organizationName): return OrganizationEndpoints.base + "/" + organizationName
-                case .members(let organizationName, let page, let perPage): return RepositoryEndpoints.base + "/" + organizationName + "/members" + "&page=\(page)&per_page=\(perPage)"
-                case .repositories(let organizationName, let page, let perPage): return RepositoryEndpoints.base + "/" + organizationName + "/repos" + "&page=\(page)&per_page=\(perPage)"
+            case .oragnization(let organizationName): return OrganizationEndpoints.base + "/" + organizationName
+            case .list(let page, let perPage): return OrganizationEndpoints.searchBase + "type:org+repos:%3E10&page=\(page)&per_page=\(perPage)"
+            case .search(let keyword, let page, let perPage): return OrganizationEndpoints.searchBase + keyword + "type:org&page=\(page)&per_page=\(perPage)"
+            case .members(let organizationName, let page, let perPage): return OrganizationEndpoints.base + "/" + organizationName + "/members" + "?page=\(page)&per_page=\(perPage)"
+            case .repositories(let organizationName, let page, let perPage): return OrganizationEndpoints.base + "/" + organizationName + "/repos" + "?page=\(page)&per_page=\(perPage)"
             }
         }
         

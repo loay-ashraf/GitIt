@@ -61,7 +61,7 @@ enum UserContext {
     typealias FollowingParameters = (String,Int)
     typealias StarsParameters = (String,Int)
     typealias ContributorsParameters = String
-    typealias MembersParameters = (String,Int)
+    typealias MembersParameters = String
     
 }
 
@@ -85,6 +85,21 @@ enum RepositoryContext {
     typealias OrganizationParameters = (String,Int)
     typealias ForksParameters = (String,Int)
     typealias StarredParameters = String
+    
+}
+
+enum OrganizationContext {
+    
+    case main
+    case user
+    
+    var titleValue: String {
+        switch self {
+        default: return "Organizations"
+        }
+    }
+    
+    typealias UserParameters = String
     
 }
 
@@ -128,6 +143,15 @@ enum RepositoryDetailViewState {
 enum CommitDetailViewState {
     
     case loading
+    case presenting
+    case failed(Error)
+    
+}
+
+enum OrganizationDetailViewState {
+    
+    case loading
+    case bookmarked
     case presenting
     case failed(Error)
     
