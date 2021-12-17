@@ -193,6 +193,7 @@ extension HistoryViewController {
         switch Type.self {
         case is UserModel.Type: return UserDetailViewController.instatiateFromStoryboard(with: historyModels[indexPath.row] as! UserModel)
         case is RepositoryModel.Type: return  RepositoryDetailViewController.instatiateFromStoryboard(with: historyModels[indexPath.row] as! RepositoryModel)
+        case is OrganizationModel.Type: return OrganizationDetailViewController.instatiateFromStoryboard(with: historyModels[indexPath.row]as! OrganizationModel)
         default: return nil
         }
     }

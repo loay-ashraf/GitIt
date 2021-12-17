@@ -61,6 +61,7 @@ class ResultsViewController<Type: Model>: UITableViewController {
         switch Type.self {
         case is UserModel.Type: tableView.register(UserTableViewCell.nib, forCellReuseIdentifier: UserTableViewCell.reuseIdentifier)
         case is RepositoryModel.Type: tableView.register(RepositoryTableViewCell.nib, forCellReuseIdentifier: RepositoryTableViewCell.reuseIdentifier)
+        case is OrganizationModel.Type: tableView.register(OrganizationTableViewCell.nib, forCellReuseIdentifier: OrganizationTableViewCell.reuseIdentifier)
         default: return
         }
     }
@@ -79,6 +80,7 @@ class ResultsViewController<Type: Model>: UITableViewController {
         switch Type.self {
         case is UserModel.Type: return tableView.dequeueReusableCell(withIdentifier: UserTableViewCell.reuseIdentifier, for: indexPath) as! UserTableViewCell
         case is RepositoryModel.Type: return tableView.dequeueReusableCell(withIdentifier: RepositoryTableViewCell.reuseIdentifier, for: indexPath) as! RepositoryTableViewCell
+        case is OrganizationModel.Type: return tableView.dequeueReusableCell(withIdentifier: OrganizationTableViewCell.reuseIdentifier, for: indexPath) as! OrganizationTableViewCell
         default: return nil
         }
     }
@@ -94,6 +96,7 @@ class ResultsViewController<Type: Model>: UITableViewController {
         switch Type.self {
         case is UserModel.Type: return UserDetailViewController.instatiateFromStoryboard(with: model[indexPath.row])
         case is RepositoryModel.Type: return RepositoryDetailViewController.instatiateFromStoryboard(with: model[indexPath.row])
+        case is OrganizationModel.Type: return OrganizationDetailViewController.instatiateFromStoryboard(with: model[indexPath.row])
         default: return nil
         }
     }
