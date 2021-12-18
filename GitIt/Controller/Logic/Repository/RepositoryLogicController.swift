@@ -43,66 +43,60 @@ class RepositoryLogicController {
     }
 
     private func loadMain(then handler: @escaping ViewStateHandler) {
-        GithubClient.standard.getRepositoryPage(page: model.currentPage, perPage: 10) { response, error in
-            if let error = error {
-                print(error.localizedDescription)
-                
-            } else {
-                self.model.append(contentsOf: response)
-                self.updateModelParameters()
-                handler(.presenting)
+        GithubClient.standard.getRepositoryPage(page: model.currentPage, perPage: 10) { result in
+            switch result {
+            case .success(let response): self.model.append(contentsOf: response)
+                                         self.updateModelParameters()
+                                         handler(.presenting)
+            case .failure(let networkError): handler(.failed(networkError))
             }
         }
     }
 
     private func loadUser(then handler: @escaping ViewStateHandler) {
         let parameters = contextParameters as! RepositoryContext.UserParameters
-        GithubClient.standard.getUserRepositories(userLogin: parameters.0, page: model.currentPage, perPage: 10) { response, error in
-            if let error = error {
-                print(error.localizedDescription)
-            } else {
-                self.model.append(contentsOf: response)
-                self.updateModelParameters()
-                handler(.presenting)
+        GithubClient.standard.getUserRepositories(userLogin: parameters.0, page: model.currentPage, perPage: 10) { result in
+            switch result {
+            case .success(let response): self.model.append(contentsOf: response)
+                                         self.updateModelParameters()
+                                         handler(.presenting)
+            case .failure(let networkError): handler(.failed(networkError))
             }
         }
     }
 
     private func loadOrganization(then handler: @escaping ViewStateHandler) {
         let parameters = contextParameters as! RepositoryContext.OrganizationParameters
-        GithubClient.standard.getOrganizationRepositories(organizationLogin: parameters.0, page: model.currentPage, perPage: 10) { response, error in
-            if let error = error {
-                print(error.localizedDescription)
-            } else {
-                self.model.append(contentsOf: response)
-                self.updateModelParameters()
-                handler(.presenting)
+        GithubClient.standard.getOrganizationRepositories(organizationLogin: parameters.0, page: model.currentPage, perPage: 10) { result in
+            switch result {
+            case .success(let response): self.model.append(contentsOf: response)
+                                         self.updateModelParameters()
+                                         handler(.presenting)
+            case .failure(let networkError): handler(.failed(networkError))
             }
         }
     }
     
     private func loadForks(then handler: @escaping ViewStateHandler) {
         let parameters = contextParameters as! RepositoryContext.OrganizationParameters
-        GithubClient.standard.getRepositoryForks(fullName: parameters.0, page: model.currentPage, perPage: 10) { response, error in
-            if let error = error {
-                print(error.localizedDescription)
-            } else {
-                self.model.append(contentsOf: response)
-                self.updateModelParameters()
-                handler(.presenting)
+        GithubClient.standard.getRepositoryForks(fullName: parameters.0, page: model.currentPage, perPage: 10) { result in
+            switch result {
+            case .success(let response): self.model.append(contentsOf: response)
+                                         self.updateModelParameters()
+                                         handler(.presenting)
+            case .failure(let networkError): handler(.failed(networkError))
             }
         }
     }
     
     private func loadStarred(then handler: @escaping ViewStateHandler) {
         let parameters = contextParameters as! RepositoryContext.StarredParameters
-        GithubClient.standard.getUserStarred(userLogin: parameters, page: model.currentPage, perPage: 10) { response, error in
-            if let error = error {
-                print(error.localizedDescription)
-            } else {
-                self.model.append(contentsOf: response)
-                self.updateModelParameters(newItemsCount: response.count)
-                handler(.presenting)
+        GithubClient.standard.getUserStarred(userLogin: parameters, page: model.currentPage, perPage: 10) { result in
+            switch result {
+            case .success(let response): self.model.append(contentsOf: response)
+                                         self.updateModelParameters(newItemsCount: response.count)
+                                         handler(.presenting)
+            case .failure(let networkError): handler(.failed(networkError))
             }
         }
     }

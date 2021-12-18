@@ -198,7 +198,7 @@ extension RepositoryDetailViewController {
     }
     
     private func updateUI() {
-        avatarImageView.load(at: model.owner.avatarURL)
+        avatarImageView.load(at: model.owner.avatarURL) { networkError in print(networkError) }
         loginLabel.text = model.owner.login
         nameLabel.text = model.name
         if model.description != nil {

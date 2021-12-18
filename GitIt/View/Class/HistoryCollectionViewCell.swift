@@ -29,14 +29,14 @@ class HistoryCollectionViewCell: UICollectionViewCell {
         recentImageView.cancel()
     }
     
-    func configure<Type: Model>(with model: Type) {
+    func configure<Type: Model>(with model: Type, completion: @escaping (NetworkError?) -> Void) {
         switch model.self {
         case is UserModel: recentLabel.text = (model as! UserModel).login
-                           recentImageView.load(at: (model as! UserModel).avatarURL)
+                           recentImageView.load(at: (model as! UserModel).avatarURL, completion: completion)
         case is RepositoryModel: recentLabel.text = (model as! RepositoryModel).name
-            recentImageView.load(at: (model as! RepositoryModel).owner.avatarURL)
+            recentImageView.load(at: (model as! RepositoryModel).owner.avatarURL, completion: completion)
         case is OrganizationModel: recentLabel.text = (model as! OrganizationModel).login
-            recentImageView.load(at: (model as! OrganizationModel).avatarURL)
+            recentImageView.load(at: (model as! OrganizationModel).avatarURL, completion: completion)
         default: recentLabel.text = ""
                  recentImageView.image = UIImage(systemName: "globe")
         }

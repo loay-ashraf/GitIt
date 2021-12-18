@@ -30,7 +30,7 @@ extension RepositoryViewController {
         let repository = model.items[indexPath.row]
         
         // Configure the cell...
-        cell.configure(with: repository)
+        cell.configure(with: repository) { networkError in print(networkError) }
         
         return cell
     }

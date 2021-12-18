@@ -45,9 +45,9 @@ extension SearchCoordinator {
     
     func search() {
         switch Type.self {
-        case is UserModel.Type: GithubClient.standard.getUserSearchPage(keyword: searchController.keyword, page: results.currentPage, perPage: 10, completion: processUser(response:error:))
-        case is RepositoryModel.Type: GithubClient.standard.getRepositorySearchPage(keyword: searchController.keyword, page: results.currentPage, perPage: 10, completion: processRepository(response:error:))
-        case is OrganizationModel.Type: GithubClient.standard.getOrganizationSearchPage(keyword: searchController.keyword, page: results.currentPage, perPage: 10, completion: processOrganization(response:error:))
+        case is UserModel.Type: GithubClient.standard.getUserSearchPage(keyword: searchController.keyword, page: results.currentPage, perPage: 10, completion: processUser(result:))
+        case is RepositoryModel.Type: GithubClient.standard.getRepositorySearchPage(keyword: searchController.keyword, page: results.currentPage, perPage: 10, completion: processRepository(result:))
+        case is OrganizationModel.Type: GithubClient.standard.getOrganizationSearchPage(keyword: searchController.keyword, page: results.currentPage, perPage: 10, completion: processOrganization(result:))
         default: print("dummy")
         }
     }
@@ -108,33 +108,30 @@ extension SearchCoordinator {
         }
     }
     
-    private func processUser(response: BatchResponse<UserModel>?, error: Error?) {
-        if let error = error {
-            print(error.localizedDescription)
-        } else {
-            results.append(contentsOf: response!.items as! [Type])
-            updateModelProperties(count: response!.count)
-            render(.presenting)
+    private func processUser(result: Result<BatchResponse<UserModel>,NetworkError>) {
+        switch result {
+        case .success(let response): results.append(contentsOf: response.items as! [Type])
+                                     updateModelProperties(count: response.count)
+                                     render(.presenting)
+        case .failure(let networkError): render(.failed(networkError))
         }
     }
 
-    private func processRepository(response: BatchResponse<RepositoryModel>?, error: Error?) {
-        if let error = error {
-            print(error.localizedDescription)
-        } else {
-            results.append(contentsOf: response!.items as! [Type])
-            updateModelProperties(count: response!.count)
-            render(.presenting)
+    private func processRepository(result: Result<BatchResponse<RepositoryModel>,NetworkError>) {
+        switch result {
+        case .success(let response): results.append(contentsOf: response.items as! [Type])
+                                     updateModelProperties(count: response.count)
+                                     render(.presenting)
+        case .failure(let networkError): render(.failed(networkError))
         }
     }
     
-    private func processOrganization(response: BatchResponse<OrganizationModel>?, error: Error?) {
-        if let error = error {
-            print(error.localizedDescription)
-        } else {
-            results.append(contentsOf: response!.items as! [Type])
-            updateModelProperties(count: response!.count)
-            render(.presenting)
+    private func processOrganization(result: Result<BatchResponse<OrganizationModel>,NetworkError>) {
+        switch result {
+        case .success(let response): results.append(contentsOf: response.items as! [Type])
+                                     updateModelProperties(count: response.count)
+                                     render(.presenting)
+        case .failure(let networkError): render(.failed(networkError))
         }
     }
     

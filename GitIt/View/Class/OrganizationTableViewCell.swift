@@ -33,9 +33,9 @@ class OrganizationTableViewCell: UITableViewCell, ReusableTableViewCell {
         loginLabel.text = nil
     }
     
-    func configure<Type: Model>(with model: Type) {
+    func configure<Type: Model>(with model: Type, completion: @escaping (NetworkError?) -> Void) {
         let organization = model as! OrganizationModel
-        avatarImageView.load(at: organization.avatarURL)
+        avatarImageView.load(at: organization.avatarURL) { networkError in print(networkError) }
         loginLabel.text = organization.login
         setNeedsLayout()
     }

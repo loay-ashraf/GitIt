@@ -28,7 +28,7 @@ extension OrganizationViewController {
         let organization = model.items[indexPath.row]
         
         // Configure the cell...
-        cell.configure(with: organization)
+        cell.configure(with: organization) { networkError in print(networkError) }
         
         return cell
     }

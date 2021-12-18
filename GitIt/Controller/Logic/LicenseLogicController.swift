@@ -23,12 +23,11 @@ class LicenseLogicController {
     // MARK: - Business Logic Methods
 
     func load(then handler: @escaping ViewStateHandler) {
-        GithubClient.standard.getRepositoryLicense(fullName: parameters.0, branch: parameters.1) { data, error in
-            if error != nil {
-                handler(.failed(error!))
-            } else {
-                self.model = String(data: data!, encoding: .utf8)!
-                handler(.presenting)
+        GithubClient.standard.getRepositoryLicense(fullName: parameters.0, branch: parameters.1) { result in
+            switch result {
+            case .success(let response): self.model = String(data: response, encoding: .utf8) ?? "Error loading license"
+                                         handler(.presenting)
+            case .failure(let networkError): handler(.failed(networkError))
             }
         }
     }

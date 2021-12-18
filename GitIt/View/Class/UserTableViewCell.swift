@@ -33,10 +33,10 @@ class UserTableViewCell: UITableViewCell, ReusableTableViewCell {
         userImageView.cancel()
     }
     
-    func configure<Type: Model>(with model: Type) {
+    func configure<Type: Model>(with model: Type, completion: @escaping (NetworkError?) -> Void) {
         let user = model as! UserModel
         userLoginLabel.text = user.login
-        userImageView.load(at: user.avatarURL)
+        userImageView.load(at: user.avatarURL, completion: completion)
         setNeedsLayout()
     }
 

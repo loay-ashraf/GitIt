@@ -30,7 +30,7 @@ extension UserViewController {
         let user = model.items[indexPath.row]
         
         // Configure the cell...
-        cell.configure(with: user)
+        cell.configure(with: user) { networkError in  }
         
         return cell
     }

@@ -28,12 +28,11 @@ class RepositoryDetailLogicController {
     }
     
     func loadREADME(then handler: @escaping ViewStateHandler) {
-        GithubClient.standard.getRepositoryReadme(fullName: model.fullName, branch: model.defaultBranch) { data, error in
-            defer { self.checkIfStarredOrBookmarked(then: handler) }
-            if error != nil {
-                self.model.READMEString = nil
-            } else {
-                self.model.READMEString = String(data: data!, encoding: .utf8)
+        GithubClient.standard.getRepositoryReadme(fullName: model.fullName, branch: model.defaultBranch) { result in
+            switch result {
+            case .success(let response): self.model.READMEString = String(data: response, encoding: .utf8)
+                                         self.checkIfStarredOrBookmarked(then: handler)
+            case .failure(let networkError): handler(.failed(networkError))
             }
         }
     }

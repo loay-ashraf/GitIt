@@ -71,7 +71,7 @@ class ResultsViewController<Type: Model>: UITableViewController {
         let item = model[indexPath.row]
             
         // Configure the cell...
-        cell?.configure(with: item)
+        cell?.configure(with: item) { networkError in print(networkError) }
         
         return cell
     }

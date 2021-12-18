@@ -45,78 +45,72 @@ class UserLogicController {
     }
     
     private func loadMain(then handler: @escaping ViewStateHandler) {
-        GithubClient.standard.getUserPage(page: model.currentPage, perPage: 10) { response, error in
-            if let error = error {
-                print(error.localizedDescription)
-            } else {
-                self.model.append(contentsOf: response)
-                self.updateModelParameters()
-                handler(.presenting)
+        GithubClient.standard.getUserPage(page: model.currentPage, perPage: 10) { result in
+            switch result {
+            case .success(let response): self.model.append(contentsOf: response)
+                                         self.updateModelParameters()
+                                         handler(.presenting)
+            case .failure(let networkError): handler(.failed(networkError))
             }
         }
     }
     
     private func loadFollowers(then handler: @escaping ViewStateHandler) {
         let parameters = contextParameters as! UserContext.FollowersParameters
-        GithubClient.standard.getUserFollowers(userLogin: parameters.0, page: model.currentPage, perPage: 10) { response, error in
-            if let error = error {
-                print(error.localizedDescription)
-            } else {
-                self.model.append(contentsOf: response)
-                self.updateModelParameters()
-                handler(.presenting)
+        GithubClient.standard.getUserFollowers(userLogin: parameters.0, page: model.currentPage, perPage: 10) { result in
+            switch result {
+            case .success(let response): self.model.append(contentsOf: response)
+                                         self.updateModelParameters()
+                                         handler(.presenting)
+            case .failure(let networkError): handler(.failed(networkError))
             }
         }
     }
     
     private func loadFollowing(then handler: @escaping ViewStateHandler) {
         let parameters = contextParameters as! UserContext.FollowingParameters
-        GithubClient.standard.getUserFollowing(userLogin: parameters.0, page: model.currentPage, perPage: 10) { response, error in
-            if let error = error {
-                print(error.localizedDescription)
-            } else {
-                self.model.append(contentsOf: response)
-                self.updateModelParameters(newItemsCount: response.count)
-                handler(.presenting)
+        GithubClient.standard.getUserFollowing(userLogin: parameters.0, page: model.currentPage, perPage: 10) { result in
+            switch result {
+            case .success(let response): self.model.append(contentsOf: response)
+                                         self.updateModelParameters()
+                                         handler(.presenting)
+            case .failure(let networkError): handler(.failed(networkError))
             }
         }
     }
     
     private func loadStars(then handler: @escaping ViewStateHandler) {
         let parameters = contextParameters as! UserContext.StarsParameters
-        GithubClient.standard.getRepositoryStars(fullName: parameters.0, page: model.currentPage, perPage: 10) { response, error in
-            if let error = error {
-                print(error.localizedDescription)
-            } else {
-                self.model.append(contentsOf: response)
-                self.updateModelParameters()
-                handler(.presenting)
+        GithubClient.standard.getRepositoryStars(fullName: parameters.0, page: model.currentPage, perPage: 10) { result in
+            switch result {
+            case .success(let response): self.model.append(contentsOf: response)
+                                         self.updateModelParameters()
+                                         handler(.presenting)
+            case .failure(let networkError): handler(.failed(networkError))
             }
         }
     }
     
     private func loadContributers(then handler: @escaping ViewStateHandler) {
         let parameters = contextParameters as! UserContext.ContributorsParameters
-        GithubClient.standard.getRepositoryContributors(fullName: parameters, page: model.currentPage, perPage: 10) { response, error in
-            if let error = error {
-                print(error.localizedDescription)
-            } else {
-                self.model.append(contentsOf: response)
-                self.updateModelParameters(newItemsCount: response.count)
-                handler(.presenting)
+        GithubClient.standard.getRepositoryContributors(fullName: parameters, page: model.currentPage, perPage: 10) { result in
+            switch result {
+            case .success(let response): self.model.append(contentsOf: response)
+                                         self.updateModelParameters(newItemsCount: response.count)
+                                         handler(.presenting)
+            case .failure(let networkError): handler(.failed(networkError))
             }
         }
     }
     
     private func loadMembers(then handler: @escaping ViewStateHandler) {
         let parameters = contextParameters as! UserContext.MembersParameters
-        GithubClient.standard.getOrganizationMemebers(organizationLogin: parameters, page: model.currentPage, perPage: 10) { response, error in
-            if let error = error {
-                print(error.localizedDescription)
-            } else {
-                self.model.append(contentsOf: response)
-                self.updateModelParameters(newItemsCount: response.count)
-                handler(.presenting)
+        GithubClient.standard.getOrganizationMemebers(organizationLogin: parameters, page: model.currentPage, perPage: 10) { result in
+            switch result {
+            case .success(let response): self.model.append(contentsOf: response)
+                                         self.updateModelParameters(newItemsCount: response.count)
+                                         handler(.presenting)
+            case .failure(let networkError): handler(.failed(networkError))
             }
         }
     }

@@ -25,10 +25,10 @@ extension CommitViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if tableView.refreshControl!.isRefreshing { return UITableViewCell() }
         let cell = tableView.dequeueReusableCell(withIdentifier: CommitTableViewCell.reuseIdentifier, for: indexPath) as! CommitTableViewCell
-        let repository = model.items[indexPath.row]
+        let commit = model.items[indexPath.row]
         
         // Configure the cell...
-        cell.configure(with: repository)
+        cell.configure(with: commit) { networkError in print(networkError) }
         
         return cell
     }

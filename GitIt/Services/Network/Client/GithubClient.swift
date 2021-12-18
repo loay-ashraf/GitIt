@@ -17,305 +17,154 @@ class GithubClient {
     
     // MARK: - User Search Methods
     
-    func getUserPage(page: Int, perPage: Int, completion: @escaping ([UserModel], Error?) -> Void) {
-        NetworkManager.shared.GETRequest(url: UserEndpoints.list(page, perPage).url, responseType: BatchResponse<UserModel>.self) { response, error in
-            if let response = response {
-                completion(response.items, nil)
-            } else {
-                completion([], error)
+    func getUserPage(page: Int, perPage: Int, completion: @escaping (Result<[UserModel],NetworkError>) -> Void) {
+        NetworkManager.standard.GETRequest(url: UserEndpoints.list(page, perPage).url, responseType: BatchResponse<UserModel>.self) { result in
+            switch result {
+            case .success(let response): completion(.success(response.items))
+            case .failure(let networkError): completion(.failure(networkError))
             }
         }
     }
     
-    func getUserSearchPage(keyword: String, page: Int, perPage: Int, completion: @escaping (BatchResponse<UserModel>?, Error?) -> Void) {
-        NetworkManager.shared.GETRequest(url: UserEndpoints.search(keyword, page, perPage).url, responseType: BatchResponse<UserModel>.self) { response, error in
-            if let response = response {
-                completion(response, nil)
-            } else {
-                completion(nil, error)
-            }
-        }
+    func getUserSearchPage(keyword: String, page: Int, perPage: Int, completion: @escaping (Result<BatchResponse<UserModel>,NetworkError>) -> Void) {
+        NetworkManager.standard.GETRequest(url: UserEndpoints.search(keyword, page, perPage).url, responseType: BatchResponse<UserModel>.self, completion: completion)
     }
     
     // MARK: - Authenticated User Methods
     
-    func getAuthenticatedUser(completion: @escaping (UserModel?, Error?) -> Void) {
-        NetworkManager.shared.GETRequest(url: UserEndpoints.authenticatedUser.url, responseType: UserModel.self) { response, error in
-            if let response = response {
-                completion(response, nil)
-            } else {
-                completion(nil, error)
-            }
-        }
+    func getAuthenticatedUser(completion: @escaping (Result<UserModel,NetworkError>) -> Void) {
+        NetworkManager.standard.GETRequest(url: UserEndpoints.authenticatedUser.url, responseType: UserModel.self, completion: completion)
     }
     
-    func checkAuthenticatedUserIsFollowing(userLogin: String, completion: @escaping (Error?) -> Void) {
-        NetworkManager.shared.GETRequest(url: UserEndpoints.authenticatedUserFollow(userLogin).url) { error in
-            if let error = error {
-                completion(error)
-            } else {
-                completion(nil)
-            }
-        }
+    func checkAuthenticatedUserIsFollowing(userLogin: String, completion: @escaping (NetworkError?) -> Void) {
+        NetworkManager.standard.GETRequest(url: UserEndpoints.authenticatedUserFollow(userLogin).url, completion: completion)
     }
     
-    func checkAuthenticatedUserDidStar(fullName: String, completion: @escaping (Error?) -> Void) {
-        NetworkManager.shared.GETRequest(url: UserEndpoints.authenticatedUserStar(fullName).url) { error in
-            if let error = error {
-                completion(error)
-            } else {
-                completion(nil)
-            }
-        }
+    func checkAuthenticatedUserDidStar(fullName: String, completion: @escaping (NetworkError?) -> Void) {
+        NetworkManager.standard.GETRequest(url: UserEndpoints.authenticatedUserStar(fullName).url, completion: completion)
     }
     
-    func authenticatedUserFollow(userLogin: String, completion: @escaping (Error?) -> Void) {
-        NetworkManager.shared.PUTRequest(url: UserEndpoints.authenticatedUserFollow(userLogin).url) { error in
-            if let error = error {
-                completion(error)
-            } else {
-                completion(nil)
-            }
-        }
+    func authenticatedUserFollow(userLogin: String, completion: @escaping (NetworkError?) -> Void) {
+        NetworkManager.standard.PUTRequest(url: UserEndpoints.authenticatedUserFollow(userLogin).url, completion: completion)
     }
     
-    func authenticatedUserStar(fullName: String, completion: @escaping (Error?) -> Void) {
-        NetworkManager.shared.PUTRequest(url: UserEndpoints.authenticatedUserStar(fullName).url) { error in
-            if let error = error {
-                completion(error)
-            } else {
-                completion(nil)
-            }
-        }
+    func authenticatedUserStar(fullName: String, completion: @escaping (NetworkError?) -> Void) {
+        NetworkManager.standard.PUTRequest(url: UserEndpoints.authenticatedUserStar(fullName).url, completion: completion)
     }
     
-    func authenticatedUserUnfollow(userLogin: String, completion: @escaping (Error?) -> Void) {
-        NetworkManager.shared.DELETERequest(url: UserEndpoints.authenticatedUserFollow(userLogin).url) { error in
-            if let error = error {
-                completion(error)
-            } else {
-                completion(nil)
-            }
-        }
+    func authenticatedUserUnfollow(userLogin: String, completion: @escaping (NetworkError?) -> Void) {
+        NetworkManager.standard.DELETERequest(url: UserEndpoints.authenticatedUserFollow(userLogin).url, completion: completion)
     }
     
-    func authenticatedUserUnstar(fullName: String, completion: @escaping (Error?) -> Void) {
-        NetworkManager.shared.DELETERequest(url: UserEndpoints.authenticatedUserStar(fullName).url) { error in
-            if let error = error {
-                completion(error)
-            } else {
-                completion(nil)
-            }
-        }
+    func authenticatedUserUnstar(fullName: String, completion: @escaping (NetworkError?) -> Void) {
+        NetworkManager.standard.DELETERequest(url: UserEndpoints.authenticatedUserStar(fullName).url, completion: completion)
     }
     
     // MARK: - Regular User Methods
     
-    func getUser(userLogin: String, completion: @escaping (UserModel?, Error?) -> Void) {
-        NetworkManager.shared.GETRequest(url: UserEndpoints.user(userLogin).url, responseType: UserModel.self) { response, error in
-            if let response = response {
-                completion(response, nil)
-            } else {
-                completion(nil, error)
-            }
-        }
+    func getUser(userLogin: String, completion: @escaping (Result<UserModel,NetworkError>) -> Void) {
+        NetworkManager.standard.GETRequest(url: UserEndpoints.user(userLogin).url, responseType: UserModel.self, completion: completion)
     }
     
-    func getUserFollowers(userLogin: String, page: Int, perPage: Int, completion: @escaping ([UserModel], Error?) -> Void) {
-        NetworkManager.shared.GETRequest(url: UserEndpoints.followers(userLogin, page, perPage).url, responseType: [UserModel].self) { response, error in
-            if let response = response {
-                completion(response, nil)
-            } else {
-                completion([], error)
-            }
-        }
+    func getUserFollowers(userLogin: String, page: Int, perPage: Int, completion: @escaping (Result<[UserModel],NetworkError>) -> Void) {
+        NetworkManager.standard.GETRequest(url: UserEndpoints.followers(userLogin, page, perPage).url, responseType: [UserModel].self, completion: completion)
     }
     
-    func getUserFollowing(userLogin: String, page: Int, perPage: Int, completion: @escaping ([UserModel], Error?) -> Void) {
-        NetworkManager.shared.GETRequest(url: UserEndpoints.following(userLogin, page, perPage).url, responseType: [UserModel].self) { response, error in
-            if let response = response {
-                completion(response, nil)
-            } else {
-                completion([], error)
-            }
-        }
+    func getUserFollowing(userLogin: String, page: Int, perPage: Int, completion: @escaping (Result<[UserModel],NetworkError>) -> Void) {
+        NetworkManager.standard.GETRequest(url: UserEndpoints.following(userLogin, page, perPage).url, responseType: [UserModel].self, completion: completion)
     }
     
-    func getUserRepositories(userLogin: String, page: Int, perPage: Int, completion: @escaping ([RepositoryModel], Error?) -> Void) {
-        NetworkManager.shared.GETRequest(url: UserEndpoints.repositories(userLogin, page, perPage).url, responseType: [RepositoryModel].self) { response, error in
-            if let response = response {
-                completion(response, nil)
-            } else {
-                completion([], error)
-            }
-        }
+    func getUserRepositories(userLogin: String, page: Int, perPage: Int, completion: @escaping (Result<[RepositoryModel],NetworkError>) -> Void) {
+        NetworkManager.standard.GETRequest(url: UserEndpoints.repositories(userLogin, page, perPage).url, responseType: [RepositoryModel].self, completion: completion)
     }
     
-    func getUserOrganizations(userLogin: String, page: Int, perPage: Int, completion: @escaping ([OrganizationModel], Error?) -> Void) {
-        NetworkManager.shared.GETRequest(url: UserEndpoints.organizations(userLogin, page, perPage).url, responseType: [OrganizationModel].self) { response, error in
-            if let response = response {
-                completion(response, nil)
-            } else {
-                completion([], error)
-            }
-        }
+    func getUserOrganizations(userLogin: String, page: Int, perPage: Int, completion: @escaping (Result<[OrganizationModel],NetworkError>) -> Void) {
+        NetworkManager.standard.GETRequest(url: UserEndpoints.organizations(userLogin, page, perPage).url, responseType: [OrganizationModel].self, completion: completion)
     }
     
-    func getUserStarred(userLogin: String, page: Int, perPage: Int, completion: @escaping ([RepositoryModel], Error?) -> Void) {
-        NetworkManager.shared.GETRequest(url: UserEndpoints.starred(userLogin, page, perPage).url, responseType: [RepositoryModel].self) { response, error in
-            if let response = response {
-                completion(response, nil)
-            } else {
-                completion([], error)
-            }
-        }
+    func getUserStarred(userLogin: String, page: Int, perPage: Int, completion: @escaping (Result<[RepositoryModel],NetworkError>) -> Void) {
+        NetworkManager.standard.GETRequest(url: UserEndpoints.starred(userLogin, page, perPage).url, responseType: [RepositoryModel].self, completion: completion)
     }
     
     // MARK: - Repository Search Methods
     
-    func getRepositoryPage(page: Int, perPage: Int, completion: @escaping ([RepositoryModel], Error?) -> Void) {
-        NetworkManager.shared.GETRequest(url: RepositoryEndpoints.list(page, perPage).url, responseType: BatchResponse<RepositoryModel>.self) { response, error in
-            if let response = response {
-                completion(response.items, nil)
-            } else {
-                completion([], error)
+    func getRepositoryPage(page: Int, perPage: Int, completion: @escaping (Result<[RepositoryModel],NetworkError>) -> Void) {
+        NetworkManager.standard.GETRequest(url: RepositoryEndpoints.list(page, perPage).url, responseType: BatchResponse<RepositoryModel>.self) { result in
+            switch result {
+            case .success(let response): completion(.success(response.items))
+            case .failure(let networkError): completion(.failure(networkError))
             }
         }
     }
     
-    func getRepositorySearchPage(keyword: String, page: Int, perPage: Int, completion: @escaping (BatchResponse<RepositoryModel>?, Error?) -> Void) {
-        NetworkManager.shared.GETRequest(url: RepositoryEndpoints.search(keyword, page, perPage).url, responseType: BatchResponse<RepositoryModel>.self) { response, error in
-            if let response = response {
-                completion(response, nil)
-            } else {
-                completion(nil, error)
-            }
-        }
+    func getRepositorySearchPage(keyword: String, page: Int, perPage: Int, completion: @escaping (Result<BatchResponse<RepositoryModel>,NetworkError>) -> Void) {
+        NetworkManager.standard.GETRequest(url: RepositoryEndpoints.search(keyword, page, perPage).url, responseType: BatchResponse<RepositoryModel>.self, completion: completion)
     }
     
     // MARK: - Repository Methods
     
-    func getRepository(fullName: String, completion: @escaping (RepositoryModel?, Error?) -> Void) {
-        NetworkManager.shared.GETRequest(url: RepositoryEndpoints.repository(fullName).url, responseType: RepositoryModel.self) { response, error in
-            if let response = response {
-                completion(response, nil)
-            } else {
-                completion(nil, error)
-            }
-        }
+    func getRepository(fullName: String, completion: @escaping (Result<RepositoryModel,NetworkError>) -> Void) {
+        NetworkManager.standard.GETRequest(url: RepositoryEndpoints.repository(fullName).url, responseType: RepositoryModel.self, completion: completion)
     }
     
-    func getRepositoryStars(fullName: String, page: Int, perPage: Int, completion: @escaping ([UserModel], Error?) -> Void) {
-        NetworkManager.shared.GETRequest(url: RepositoryEndpoints.stars(fullName, page, perPage).url, responseType: [UserModel].self) { response, error in
-            if let response = response {
-                completion(response, nil)
-            } else {
-                completion([], error)
-            }
-        }
+    func getRepositoryStars(fullName: String, page: Int, perPage: Int, completion: @escaping (Result<[UserModel],NetworkError>) -> Void) {
+        NetworkManager.standard.GETRequest(url: RepositoryEndpoints.stars(fullName, page, perPage).url, responseType: [UserModel].self, completion: completion)
     }
     
-    func getRepositoryForks(fullName: String, page: Int, perPage: Int, completion: @escaping ([RepositoryModel], Error?) -> Void) {
-        NetworkManager.shared.GETRequest(url: RepositoryEndpoints.forks(fullName, page, perPage).url, responseType: [RepositoryModel].self) { response, error in
-            if let response = response {
-                completion(response, nil)
-            } else {
-                completion([], error)
-            }
-        }
+    func getRepositoryForks(fullName: String, page: Int, perPage: Int, completion: @escaping (Result<[RepositoryModel],NetworkError>) -> Void) {
+        NetworkManager.standard.GETRequest(url: RepositoryEndpoints.forks(fullName, page, perPage).url, responseType: [RepositoryModel].self, completion: completion)
     }
     
-    func getRepositoryContributors(fullName: String, page: Int, perPage: Int, completion: @escaping ([UserModel], Error?) -> Void) {
-        NetworkManager.shared.GETRequest(url: RepositoryEndpoints.contributors(fullName, page, perPage).url, responseType: [UserModel].self) { response, error in
-            if let response = response {
-                completion(response, nil)
-            } else {
-                completion([], error)
-            }
-        }
+    func getRepositoryContributors(fullName: String, page: Int, perPage: Int, completion: @escaping (Result<[UserModel],NetworkError>) -> Void) {
+        NetworkManager.standard.GETRequest(url: RepositoryEndpoints.contributors(fullName, page, perPage).url, responseType: [UserModel].self, completion: completion)
     }
     
-    func getRepositoryCommits(fullName: String, page: Int, perPage: Int, completion: @escaping ([CommitModel], Error?) -> Void) {
-        NetworkManager.shared.GETRequest(url: RepositoryEndpoints.commits(fullName, page, perPage).url, responseType: [CommitModel].self) { response, error in
-            if let response = response {
-                completion(response, nil)
-            } else {
-                completion([], error)
-            }
-        }
+    func getRepositoryCommits(fullName: String, page: Int, perPage: Int, completion: @escaping (Result<[CommitModel],NetworkError>) -> Void) {
+        NetworkManager.standard.GETRequest(url: RepositoryEndpoints.commits(fullName, page, perPage).url, responseType: [CommitModel].self, completion: completion)
     }
     
-    func getRepositoryLicense(fullName: String, branch: String, completion: @escaping (Data?, Error?) -> Void) {
-        _ = NetworkManager.shared.downloadData(url: RepositoryEndpoints.license(fullName, branch).url) { data, error in
-            completion(data, error)
-        }
+    func getRepositoryLicense(fullName: String, branch: String, completion: @escaping (Result<Data,NetworkError>) -> Void) {
+        _ = NetworkManager.standard.downloadData(url: RepositoryEndpoints.license(fullName, branch).url, completion: completion)
     }
     
-    func getRepositoryReadme(fullName: String, branch: String, completion: @escaping (Data?, Error?) -> Void) {
-        _ = NetworkManager.shared.downloadData(url: RepositoryEndpoints.readme(fullName, branch).url) { data, error in
-            completion(data, error)
-        }
+    func getRepositoryReadme(fullName: String, branch: String, completion: @escaping (Result<Data,NetworkError>) -> Void) {
+        _ = NetworkManager.standard.downloadData(url: RepositoryEndpoints.readme(fullName, branch).url, completion: completion)
     }
     
     // MARK: - Organization Search Methods
     
-    func getOrganizationPage(page: Int, perPage: Int, completion: @escaping ([OrganizationModel], Error?) -> Void) {
-        NetworkManager.shared.GETRequest(url: OrganizationEndpoints.list(page, perPage).url, responseType: BatchResponse<OrganizationModel>.self) { response, error in
-            if let response = response {
-                completion(response.items, nil)
-            } else {
-                completion([], error)
+    func getOrganizationPage(page: Int, perPage: Int, completion: @escaping (Result<[OrganizationModel],NetworkError>) -> Void) {
+        NetworkManager.standard.GETRequest(url: OrganizationEndpoints.list(page, perPage).url, responseType: BatchResponse<OrganizationModel>.self) { result in
+            switch result {
+            case .success(let response): completion(.success(response.items))
+            case .failure(let networkError): completion(.failure(networkError))
             }
         }
     }
     
-    func getOrganizationSearchPage(keyword: String, page: Int, perPage: Int, completion: @escaping (BatchResponse<OrganizationModel>?, Error?) -> Void) {
-        NetworkManager.shared.GETRequest(url: OrganizationEndpoints.search(keyword, page, perPage).url, responseType: BatchResponse<OrganizationModel>.self) { response, error in
-            if let response = response {
-                completion(response, nil)
-            } else {
-                completion(nil, error)
-            }
-        }
+    func getOrganizationSearchPage(keyword: String, page: Int, perPage: Int, completion: @escaping (Result<BatchResponse<OrganizationModel>,NetworkError>) -> Void) {
+        NetworkManager.standard.GETRequest(url: OrganizationEndpoints.search(keyword, page, perPage).url, responseType: BatchResponse<OrganizationModel>.self, completion: completion)
     }
     
     // MARK: - Organization Methods
     
-    func getOrganization(organizationLogin: String, completion: @escaping (OrganizationModel?, Error?) -> Void) {
-        NetworkManager.shared.GETRequest(url: OrganizationEndpoints.oragnization(organizationLogin).url, responseType: OrganizationModel.self) { response, error in
-            if let response = response {
-                completion(response, nil)
-            } else {
-                completion(nil, error)
-            }
-        }
+    func getOrganization(organizationLogin: String, completion: @escaping (Result<OrganizationModel,NetworkError>) -> Void) {
+        NetworkManager.standard.GETRequest(url: OrganizationEndpoints.oragnization(organizationLogin).url, responseType: OrganizationModel.self, completion: completion)
     }
     
-    func getOrganizationMemebers(organizationLogin: String, page: Int, perPage: Int, completion: @escaping ([UserModel], Error?) -> Void) {
-        NetworkManager.shared.GETRequest(url: OrganizationEndpoints.members(organizationLogin, page, perPage).url, responseType: [UserModel].self) { response, error in
-            if let response = response {
-                completion(response, nil)
-            } else {
-                completion([], error)
-            }
-        }
+    func getOrganizationMemebers(organizationLogin: String, page: Int, perPage: Int, completion: @escaping (Result<[UserModel],NetworkError>) -> Void) {
+        NetworkManager.standard.GETRequest(url: OrganizationEndpoints.members(organizationLogin, page, perPage).url, responseType: [UserModel].self, completion: completion)
     }
     
-    func getOrganizationRepositories(organizationLogin: String, page: Int, perPage: Int, completion: @escaping ([RepositoryModel], Error?) -> Void) {
-        NetworkManager.shared.GETRequest(url: OrganizationEndpoints.repositories(organizationLogin, page, perPage).url, responseType: [RepositoryModel].self) { response, error in
-            if let response = response {
-                completion(response, nil)
-            } else {
-                completion([], error)
-            }
-        }
+    func getOrganizationRepositories(organizationLogin: String, page: Int, perPage: Int, completion: @escaping (Result<[RepositoryModel],NetworkError>) -> Void) {
+        NetworkManager.standard.GETRequest(url: OrganizationEndpoints.repositories(organizationLogin, page, perPage).url, responseType: [RepositoryModel].self, completion: completion)
     }
     
-    // MARK: - Avatar Download Methods
+    // MARK: - Download Methods
     
-    func downloadAvatar(url: URL, completion: @escaping (Data?, Error?) -> Void) -> URLSessionDataTask {
-        return NetworkManager.shared.downloadData(url: url) { data, error in
-            completion(data,error)
+    func downloadImage(at url: URL, completion: @escaping (Result<Data,NetworkError>) -> Void) -> URLSessionDataTask {
+        return NetworkManager.standard.downloadData(url: url) { result in
+            completion(result)
         }
     }
 

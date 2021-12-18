@@ -31,10 +31,10 @@ class CommitTableViewCell: UITableViewCell, ReusableTableViewCell {
         messageLabel.text = nil
     }
 
-    func configure<Type: Model>(with model: Type) {
+    func configure<Type: Model>(with model: Type, completion: @escaping (NetworkError?) -> Void) {
         let commit = model as! CommitModel
         if commit.author != nil {
-            avatarImageView.load(at: commit.author!.avatarURL)
+            avatarImageView.load(at: commit.author!.avatarURL, completion: completion)
             loginLabel.text = commit.author!.login
         } else {
             avatarImageView.image = UIImage(systemName: "person.crop.circle.badge.exclamationmark")

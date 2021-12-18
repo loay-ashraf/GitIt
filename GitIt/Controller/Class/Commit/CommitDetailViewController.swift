@@ -116,7 +116,7 @@ extension CommitDetailViewController {
     
     private func updateUI() {
         if model.author != nil {
-            avatarImageView.load(at: model.author!.avatarURL)
+            avatarImageView.load(at: model.author!.avatarURL) { networkError in print(networkError) }
             loginLabel.text = model.author!.login
         } else {
             avatarImageView.image = UIImage(systemName: "person.crop.circle.badge.exclamationmark")

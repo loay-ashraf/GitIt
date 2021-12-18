@@ -23,9 +23,12 @@ class OrganizationDetailLogicController {
     // MARK: - Business Logic Methods
     
     func load(then handler: @escaping ViewStateHandler) {
-        GithubClient.standard.getOrganization(organizationLogin: model.login) { response, error in
-            self.model = response!
-            self.checkIfBookmarked(then: handler)
+        GithubClient.standard.getOrganization(organizationLogin: model.login) { result in
+            switch result {
+            case .success(let response): self.model = response
+                                         self.checkIfBookmarked(then: handler)
+            case .failure(let networkError): handler(.failed(networkError))
+            }
         }
     }
     

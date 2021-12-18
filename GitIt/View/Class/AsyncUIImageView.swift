@@ -22,20 +22,18 @@ class AsyncUIImageView: UIImageView {
         addSubview(loadingSpinner!)
     }
     
-    func load(at url: URL) {
+    func load(at url: URL, completion: @escaping (NetworkError?) -> Void) {
         if runningRequestUUID != nil { cancel() }
         loadingSpinner.startAnimating()
         runningRequestUUID = ImageLoader.standard.loadImage(url) { [weak self] result in
-            do {
-                let image = try result.get()
-                self?.image = image
-                self?.loadingSpinner.stopAnimating()
-            } catch {
-                fatalError("Failed to load image \(self?.description)")
+            switch result {
+            case .success(let image): self?.image = image
+                                      self?.loadingSpinner.stopAnimating()
+            case .failure(let error): completion(error)
             }
         }
     }
-    
+
     func cancel() {
         if runningRequestUUID != nil {
             ImageLoader.standard.cancelLoad(runningRequestUUID)

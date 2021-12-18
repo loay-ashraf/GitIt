@@ -58,7 +58,7 @@ extension ProfileViewController {
     }
     
     private func updateUI() {
-        avatarImageView.load(at: SessionManager.standard.sessionUser.avatarURL)
+        avatarImageView.load(at: SessionManager.standard.sessionUser.avatarURL) { networkError in print(networkError) }
         if SessionManager.standard.sessionUser.name != nil {
             fullNameLabel.text = SessionManager.standard.sessionUser.name
         } else  {

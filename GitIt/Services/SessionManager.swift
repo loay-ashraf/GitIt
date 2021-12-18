@@ -25,7 +25,6 @@ class SessionManager {
             let queryItems = URLComponents(string: url.absoluteString)?.queryItems
             let accessToken = queryItems?.filter({$0.name == "access-token"}).first?.value
             setSessionAttributes(sessionType: .authenticated, accessToken: accessToken)
-            validateAuthenticatedSession()
         } else {
             setSessionAttributes(sessionType: .guest, accessToken: "")
         }
@@ -36,18 +35,32 @@ class SessionManager {
         setSessionAttributes(sessionType: .signedOut, accessToken: "")
     }
     
-    func setup(completion: @escaping () -> Void) {
+    func setup(completion: @escaping (NetworkError?) -> Void) {
         getSessionAttributes()
         if sessionType == .authenticated && NetworkReachability.shared.isInternetConnected {
-            validateAuthenticatedSession(completion: completion)
+            fetchAuthenticatedUser() { networkError in
+                if networkError == nil {
+                    self.validateAuthenticatedSession(completion: completion)
+                } else {
+                    completion(networkError)
+                }
+            }
         } else {
-            completion()
+            completion(nil)
         }
     }
     
     func isSignedIn() -> Bool {
         if sessionType == .authenticated || sessionType == .guest { return true }
         return false
+    }
+    
+    func isAuthenticated() -> Bool {
+        return sessionType == .authenticated ? true : false
+    }
+    
+    func isGuest() -> Bool {
+        return sessionType == .guest ? true : false
     }
     
     private func setSessionAttributes(sessionType: SessionType, accessToken: String?) {
@@ -62,14 +75,24 @@ class SessionManager {
         sessionToken = TokenManager.shared.retrieveAccessToken()
     }
 
-    private func validateAuthenticatedSession(completion: (() -> Void)? = nil) {
-        GithubClient.standard.getAuthenticatedUser() { response, error in
-            if error == nil {
-                self.sessionUser = response
+    private func fetchAuthenticatedUser(completion: @escaping (NetworkError?) -> Void) {
+        GithubClient.standard.getAuthenticatedUser() { result in
+            switch result {
+            case .success(let response): self.sessionUser = response
+                                         completion(nil)
+            case .failure(let networkError): completion(networkError)
+            }
+        }
+    }
+    
+    private func validateAuthenticatedSession(completion: @escaping (NetworkError?) -> Void) {
+        GithubClient.standard.authenticatedUserStar(fullName: "loay-ashraf/GitIt") { networkError in
+            if networkError == nil {
+                GithubClient.standard.authenticatedUserUnstar(fullName: "loay-ashraf/GitIt", completion: completion)
             } else {
                 self.setSessionAttributes(sessionType: .signedOut, accessToken: "")
+                completion(networkError)
             }
-            completion?()
         }
     }
     

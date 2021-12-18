@@ -27,7 +27,7 @@ protocol ReusableTableViewCell: UITableViewCell {
     
     static var reuseIdentifier: String { get }
     static var nib: UINib { get }
-    func configure<Type: Model>(with model: Type)
+    func configure<Type: Model>(with model: Type, completion: @escaping (NetworkError?) -> Void)
     
 }
 

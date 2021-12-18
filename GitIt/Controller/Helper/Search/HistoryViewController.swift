@@ -84,7 +84,7 @@ class HistoryViewController<Type: Model>: UITableViewController, UICollectionVie
         let item = historyModels[indexPath.row]
         
         // Configure the cell...
-        cell.configure(with: item as! Type)
+        cell.configure(with: item as! Type) { networkError in print(networkError) }
         
         return cell
     }

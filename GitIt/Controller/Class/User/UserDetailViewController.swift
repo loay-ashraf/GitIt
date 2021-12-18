@@ -199,7 +199,7 @@ extension UserDetailViewController {
     }
     
     private func updateUI() {
-        avatarImageView.load(at: model.avatarURL)
+        avatarImageView.load(at: model.avatarURL) { networkError in print(networkError) }
         if model.name != nil {
             fullNameLabel.text = model.name
         } else  {

@@ -16,11 +16,15 @@ class SplashViewController: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        SessionManager.standard.setup {
-            if SessionManager.standard.isSignedIn() {
-                self.presentTabBarViewController()
+        SessionManager.standard.setup { networkError in
+            if let networkError = networkError {
+                fatalError(networkError.localizedDescription)
             } else {
-                self.presentSignInViewController()
+                if SessionManager.standard.isSignedIn() {
+                    self.presentTabBarViewController()
+                } else {
+                    self.presentSignInViewController()
+                }
             }
         }
     }
