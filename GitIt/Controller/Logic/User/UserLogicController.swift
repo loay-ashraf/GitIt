@@ -45,7 +45,7 @@ class UserLogicController {
     }
     
     private func loadMain(then handler: @escaping ViewStateHandler) {
-        GithubClient.standard.getUserPage(page: model.currentPage, perPage: 10) { result in
+        NetworkClient.standard.getUserPage(page: model.currentPage, perPage: 10) { result in
             switch result {
             case .success(let response): self.model.append(contentsOf: response)
                                          self.updateModelParameters()
@@ -57,7 +57,7 @@ class UserLogicController {
     
     private func loadFollowers(then handler: @escaping ViewStateHandler) {
         let parameters = contextParameters as! UserContext.FollowersParameters
-        GithubClient.standard.getUserFollowers(userLogin: parameters.0, page: model.currentPage, perPage: 10) { result in
+        NetworkClient.standard.getUserFollowers(userLogin: parameters.0, page: model.currentPage, perPage: 10) { result in
             switch result {
             case .success(let response): self.model.append(contentsOf: response)
                                          self.updateModelParameters()
@@ -69,7 +69,7 @@ class UserLogicController {
     
     private func loadFollowing(then handler: @escaping ViewStateHandler) {
         let parameters = contextParameters as! UserContext.FollowingParameters
-        GithubClient.standard.getUserFollowing(userLogin: parameters.0, page: model.currentPage, perPage: 10) { result in
+        NetworkClient.standard.getUserFollowing(userLogin: parameters.0, page: model.currentPage, perPage: 10) { result in
             switch result {
             case .success(let response): self.model.append(contentsOf: response)
                                          self.updateModelParameters()
@@ -81,7 +81,7 @@ class UserLogicController {
     
     private func loadStars(then handler: @escaping ViewStateHandler) {
         let parameters = contextParameters as! UserContext.StarsParameters
-        GithubClient.standard.getRepositoryStars(fullName: parameters.0, page: model.currentPage, perPage: 10) { result in
+        NetworkClient.standard.getRepositoryStars(fullName: parameters.0, page: model.currentPage, perPage: 10) { result in
             switch result {
             case .success(let response): self.model.append(contentsOf: response)
                                          self.updateModelParameters()
@@ -93,7 +93,7 @@ class UserLogicController {
     
     private func loadContributers(then handler: @escaping ViewStateHandler) {
         let parameters = contextParameters as! UserContext.ContributorsParameters
-        GithubClient.standard.getRepositoryContributors(fullName: parameters, page: model.currentPage, perPage: 10) { result in
+        NetworkClient.standard.getRepositoryContributors(fullName: parameters, page: model.currentPage, perPage: 10) { result in
             switch result {
             case .success(let response): self.model.append(contentsOf: response)
                                          self.updateModelParameters(newItemsCount: response.count)
@@ -105,7 +105,7 @@ class UserLogicController {
     
     private func loadMembers(then handler: @escaping ViewStateHandler) {
         let parameters = contextParameters as! UserContext.MembersParameters
-        GithubClient.standard.getOrganizationMemebers(organizationLogin: parameters, page: model.currentPage, perPage: 10) { result in
+        NetworkClient.standard.getOrganizationMemebers(organizationLogin: parameters, page: model.currentPage, perPage: 10) { result in
             switch result {
             case .success(let response): self.model.append(contentsOf: response)
                                          self.updateModelParameters(newItemsCount: response.count)

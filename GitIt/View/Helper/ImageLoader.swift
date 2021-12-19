@@ -29,7 +29,7 @@ class ImageLoader {
         
         let taskUUID = UUID()
         
-        let task = GithubClient.standard.downloadImage(at: url) { result in
+        let task = NetworkClient.standard.downloadImage(at: url) { result in
             switch result {
             case .success(let data): if let image = UIImage(data: data) {
                                         self.cache.setObject(image, forKey: url as NSURL)

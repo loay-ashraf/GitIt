@@ -28,7 +28,7 @@ class RepositoryDetailLogicController {
     }
     
     func loadREADME(then handler: @escaping ViewStateHandler) {
-        GithubClient.standard.getRepositoryReadme(fullName: model.fullName, branch: model.defaultBranch) { result in
+        NetworkClient.standard.getRepositoryReadme(fullName: model.fullName, branch: model.defaultBranch) { result in
             switch result {
             case .success(let response): self.model.READMEString = String(data: response, encoding: .utf8)
                                          self.checkIfStarredOrBookmarked(then: handler)
@@ -39,7 +39,7 @@ class RepositoryDetailLogicController {
     
     func star(then handler: @escaping ViewStateHandler) {
         if !isStarred {
-            GithubClient.standard.authenticatedUserStar(fullName: model.fullName) { error in
+            NetworkClient.standard.authenticatedUserStar(fullName: model.fullName) { error in
                 guard error != nil else {
                     self.isStarred = true
                     handler(.starred)
@@ -47,7 +47,7 @@ class RepositoryDetailLogicController {
                 }
             }
         } else {
-            GithubClient.standard.authenticatedUserUnstar(fullName: model.fullName) { error in
+            NetworkClient.standard.authenticatedUserUnstar(fullName: model.fullName) { error in
                 guard error != nil else {
                     self.isStarred = false
                     handler(.starred)
@@ -69,7 +69,7 @@ class RepositoryDetailLogicController {
     }
     
     func checkIfStarredOrBookmarked(then handler: @escaping ViewStateHandler) {
-        GithubClient.standard.checkAuthenticatedUserDidStar(fullName: model.fullName) { error in
+        NetworkClient.standard.checkAuthenticatedUserDidStar(fullName: model.fullName) { error in
             defer { handler(.presenting) }
             if DataController.standard.exists(self.model) { self.isBookmarked = true }
             guard error != nil else {

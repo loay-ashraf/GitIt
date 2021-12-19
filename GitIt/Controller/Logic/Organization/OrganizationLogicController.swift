@@ -34,7 +34,7 @@ class OrganizationLogicController {
     }
     
     private func loadMain(then handler: @escaping ViewStateHandler) {
-        GithubClient.standard.getOrganizationPage(page: model.currentPage, perPage: 10) { result in
+        NetworkClient.standard.getOrganizationPage(page: model.currentPage, perPage: 10) { result in
             switch result {
             case .success(let response): self.model.append(contentsOf: response)
                                          self.updateModelParameters()
@@ -46,7 +46,7 @@ class OrganizationLogicController {
     
     private func loadUser(then handler: @escaping ViewStateHandler) {
         let parameters = contextParameters as! OrganizationContext.UserParameters
-        GithubClient.standard.getUserOrganizations(userLogin: parameters, page: model.currentPage, perPage: 10) { result in
+        NetworkClient.standard.getUserOrganizations(userLogin: parameters, page: model.currentPage, perPage: 10) { result in
             switch result {
             case .success(let response): self.model.append(contentsOf: response)
                                          self.updateModelParameters(newItemsCount: response.count)

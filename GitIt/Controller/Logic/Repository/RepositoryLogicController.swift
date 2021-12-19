@@ -43,7 +43,7 @@ class RepositoryLogicController {
     }
 
     private func loadMain(then handler: @escaping ViewStateHandler) {
-        GithubClient.standard.getRepositoryPage(page: model.currentPage, perPage: 10) { result in
+        NetworkClient.standard.getRepositoryPage(page: model.currentPage, perPage: 10) { result in
             switch result {
             case .success(let response): self.model.append(contentsOf: response)
                                          self.updateModelParameters()
@@ -55,7 +55,7 @@ class RepositoryLogicController {
 
     private func loadUser(then handler: @escaping ViewStateHandler) {
         let parameters = contextParameters as! RepositoryContext.UserParameters
-        GithubClient.standard.getUserRepositories(userLogin: parameters.0, page: model.currentPage, perPage: 10) { result in
+        NetworkClient.standard.getUserRepositories(userLogin: parameters.0, page: model.currentPage, perPage: 10) { result in
             switch result {
             case .success(let response): self.model.append(contentsOf: response)
                                          self.updateModelParameters()
@@ -67,7 +67,7 @@ class RepositoryLogicController {
 
     private func loadOrganization(then handler: @escaping ViewStateHandler) {
         let parameters = contextParameters as! RepositoryContext.OrganizationParameters
-        GithubClient.standard.getOrganizationRepositories(organizationLogin: parameters.0, page: model.currentPage, perPage: 10) { result in
+        NetworkClient.standard.getOrganizationRepositories(organizationLogin: parameters.0, page: model.currentPage, perPage: 10) { result in
             switch result {
             case .success(let response): self.model.append(contentsOf: response)
                                          self.updateModelParameters()
@@ -79,7 +79,7 @@ class RepositoryLogicController {
     
     private func loadForks(then handler: @escaping ViewStateHandler) {
         let parameters = contextParameters as! RepositoryContext.OrganizationParameters
-        GithubClient.standard.getRepositoryForks(fullName: parameters.0, page: model.currentPage, perPage: 10) { result in
+        NetworkClient.standard.getRepositoryForks(fullName: parameters.0, page: model.currentPage, perPage: 10) { result in
             switch result {
             case .success(let response): self.model.append(contentsOf: response)
                                          self.updateModelParameters()
@@ -91,7 +91,7 @@ class RepositoryLogicController {
     
     private func loadStarred(then handler: @escaping ViewStateHandler) {
         let parameters = contextParameters as! RepositoryContext.StarredParameters
-        GithubClient.standard.getUserStarred(userLogin: parameters, page: model.currentPage, perPage: 10) { result in
+        NetworkClient.standard.getUserStarred(userLogin: parameters, page: model.currentPage, perPage: 10) { result in
             switch result {
             case .success(let response): self.model.append(contentsOf: response)
                                          self.updateModelParameters(newItemsCount: response.count)

@@ -24,7 +24,7 @@ class CommitLogicController {
     }
 
     func load(then handler: @escaping ViewStateHandler) {
-        GithubClient.standard.getRepositoryCommits(fullName: parameters, page: model.currentPage, perPage: 10) { result in
+        NetworkClient.standard.getRepositoryCommits(fullName: parameters, page: model.currentPage, perPage: 10) { result in
             switch result {
             case .success(let response): self.model.append(contentsOf: response)
                                          self.updateModelParameters(newItemsCount: response.count)

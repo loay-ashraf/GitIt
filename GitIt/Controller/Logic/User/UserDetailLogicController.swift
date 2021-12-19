@@ -24,7 +24,7 @@ class UserDetailLogicController {
     // MARK: - Business Logic Methods
     
     func load(then handler: @escaping ViewStateHandler) {
-        GithubClient.standard.getUser(userLogin: model.login) { result in
+        NetworkClient.standard.getUser(userLogin: model.login) { result in
             switch result {
             case .success(let response): self.model = response
                                          self.checkIfFollowedOrBookmarked(then: handler)
@@ -35,7 +35,7 @@ class UserDetailLogicController {
     
     func follow(then handler: @escaping ViewStateHandler) {
         if !isFollowed {
-            GithubClient.standard.authenticatedUserFollow(userLogin: model.login) { error in
+            NetworkClient.standard.authenticatedUserFollow(userLogin: model.login) { error in
                 guard error != nil else {
                     self.isFollowed = true
                     handler(.followed)
@@ -43,7 +43,7 @@ class UserDetailLogicController {
                 }
             }
         } else {
-            GithubClient.standard.authenticatedUserUnfollow(userLogin: model.login) { error in
+            NetworkClient.standard.authenticatedUserUnfollow(userLogin: model.login) { error in
                 guard error != nil else {
                     self.isFollowed = false
                     handler(.followed)
@@ -65,7 +65,7 @@ class UserDetailLogicController {
     }
     
     func checkIfFollowedOrBookmarked(then handler: @escaping ViewStateHandler) {
-        GithubClient.standard.checkAuthenticatedUserIsFollowing(userLogin: model.login) { error in
+        NetworkClient.standard.checkAuthenticatedUserIsFollowing(userLogin: model.login) { error in
             defer { handler(.presenting) }
             if DataController.standard.exists(self.model) { self.isBookmarked = true }
             guard error != nil else {

@@ -45,9 +45,9 @@ extension SearchCoordinator {
     
     func search() {
         switch Type.self {
-        case is UserModel.Type: GithubClient.standard.getUserSearchPage(keyword: searchController.keyword, page: results.currentPage, perPage: 10, completion: processUser(result:))
-        case is RepositoryModel.Type: GithubClient.standard.getRepositorySearchPage(keyword: searchController.keyword, page: results.currentPage, perPage: 10, completion: processRepository(result:))
-        case is OrganizationModel.Type: GithubClient.standard.getOrganizationSearchPage(keyword: searchController.keyword, page: results.currentPage, perPage: 10, completion: processOrganization(result:))
+        case is UserModel.Type: NetworkClient.standard.getUserSearchPage(keyword: searchController.keyword, page: results.currentPage, perPage: 10, completionHandler: processUser(result:))
+        case is RepositoryModel.Type: NetworkClient.standard.getRepositorySearchPage(keyword: searchController.keyword, page: results.currentPage, perPage: 10, completionHandler: processRepository(result:))
+        case is OrganizationModel.Type: NetworkClient.standard.getOrganizationSearchPage(keyword: searchController.keyword, page: results.currentPage, perPage: 10, completionHandler: processOrganization(result:))
         default: print("dummy")
         }
     }

@@ -76,7 +76,7 @@ class SessionManager {
     }
 
     private func fetchAuthenticatedUser(completion: @escaping (NetworkError?) -> Void) {
-        GithubClient.standard.getAuthenticatedUser() { result in
+        NetworkClient.standard.getAuthenticatedUser() { result in
             switch result {
             case .success(let response): self.sessionUser = response
                                          completion(nil)
@@ -86,9 +86,9 @@ class SessionManager {
     }
     
     private func validateAuthenticatedSession(completion: @escaping (NetworkError?) -> Void) {
-        GithubClient.standard.authenticatedUserStar(fullName: "loay-ashraf/GitIt") { networkError in
+        NetworkClient.standard.authenticatedUserStar(fullName: "loay-ashraf/GitIt") { networkError in
             if networkError == nil {
-                GithubClient.standard.authenticatedUserUnstar(fullName: "loay-ashraf/GitIt", completion: completion)
+                NetworkClient.standard.authenticatedUserUnstar(fullName: "loay-ashraf/GitIt", completionHandler: completion)
             } else {
                 self.setSessionAttributes(sessionType: .signedOut, accessToken: "")
                 completion(networkError)
