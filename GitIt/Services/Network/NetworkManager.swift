@@ -10,7 +10,10 @@ import Foundation
 class NetworkManager {
     
     static let standard = NetworkManager()
+    var isInternetConnected: Bool { return reachabilityHelper.isInternetConnected }
+    
     private let urlSession: URLSession!
+    private let reachabilityHelper: ReachabilityHelper!
     
     // MARK: - Initialisation
     
@@ -18,6 +21,7 @@ class NetworkManager {
         let urlSessionConfiguration = URLSessionConfiguration.default
         urlSessionConfiguration.requestCachePolicy = .returnCacheDataElseLoad
         urlSession = URLSession(configuration: urlSessionConfiguration)
+        reachabilityHelper = ReachabilityHelper()
     }
     
     // MARK: - GET Request Methods

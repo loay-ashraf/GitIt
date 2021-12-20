@@ -190,35 +190,3 @@ enum ContextMenuActions<Type: Model> {
     }
     
 }
-
-enum ThemeType {
-    
-    case followSystem
-    case light
-    case dark
-    
-    var stringValue: String {
-        switch self {
-            case .followSystem: return "Follow System"
-            case .light: return "Light"
-            case .dark: return "Dark"
-        }
-    }
-    
-}
-
-enum SessionType {
-    
-    case authenticated
-    case guest
-    case signedOut
-    
-    var stringValue: String {
-        switch self {
-            case .authenticated: return "authenticated"
-            case .guest: return "guest"
-            case .signedOut: return "signedOut"
-        }
-    }
-    
-}

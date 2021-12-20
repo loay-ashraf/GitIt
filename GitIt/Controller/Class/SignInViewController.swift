@@ -23,10 +23,10 @@ class SignInViewController: UIViewController {
     }
     
     @IBAction func signInWithGithub(_ sender: Any) {
-        if NetworkReachability.shared.isInternetConnected {
+        if NetworkManager.standard.isInternetConnected {
             authenticate()
         } else {
-            NetworkReachability.shared.presentNetworkReachabilityAlert(message: "You're not conntected to the internet, Can't connect to authentication server.", handler: nil)
+            //NetworkManager.standard.presentNetworkReachabilityAlert(message: "You're not conntected to the internet, Can't connect to authentication server.", handler: nil)
         }
     }
     

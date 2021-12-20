@@ -52,7 +52,7 @@ class ResultsViewController<Type: Model>: UITableViewController {
     // MARK: - Table View Pagination
     
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        NetworkReachability.shared.isInternetConnected ? coordinator?.paginate() : nil
+        NetworkManager.standard.isInternetConnected ? coordinator?.paginate() : nil
     }
     
     // MARK: - Table View Helper Methods

@@ -52,13 +52,13 @@ extension UserViewController {
     // MARK: - Table View Refresh
     
     @objc func handleRefreshControl() {
-        NetworkReachability.shared.isInternetConnected ? logicController.refresh(then: render(_:)) : tableView.refreshControl?.endRefreshing()
+        NetworkManager.standard.isInternetConnected ? logicController.refresh(then: render(_:)) : tableView.refreshControl?.endRefreshing()
     }
     
     // MARK: - Table View Pagination
     
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        NetworkReachability.shared.isInternetConnected ? paginate() : nil
+        NetworkManager.standard.isInternetConnected ? paginate() : nil
     }
     
     // MARK: - Table View Helper Methods

@@ -142,22 +142,30 @@ extension SearchCoordinator {
     // MARK: - Search History Helper Methods
     
     private func saveHistory() {
+        var saveError: LibraryError?
         searchHistory.models = searchHistoryModels.array as! [Type]
         searchHistory.keywords = searchHistoryKeywords.array as! [String]
         switch Type.self {
-        case is UserModel.Type: DataManager.shared.saveUserSearchHistory(searchHistory: searchHistory as! SearchHistory<UserModel>)
-        case is RepositoryModel.Type: DataManager.shared.saveRepositorySearchHistory(searchHistory: searchHistory as! SearchHistory<RepositoryModel>)
-        case is OrganizationModel.Type: DataManager.shared.saveOrganizationSearchHistory(searchHistory: searchHistory as! SearchHistory<OrganizationModel>)
+        case is UserModel.Type: saveError = LibraryManager.standard.saveUserSearchHistory(searchHistory: searchHistory as! SearchHistory<UserModel>)
+        case is RepositoryModel.Type: saveError = LibraryManager.standard.saveRepositorySearchHistory(searchHistory: searchHistory as! SearchHistory<RepositoryModel>)
+        case is OrganizationModel.Type: saveError = LibraryManager.standard.saveOrganizationSearchHistory(searchHistory: searchHistory as! SearchHistory<OrganizationModel>)
         default: return
+        }
+        guard saveError == nil else {
+            return
         }
     }
     
     private func loadHistory() {
-        switch Type.self {
-        case is UserModel.Type: searchHistory = DataManager.shared.loadUserSearchHistory() as? SearchHistory<Type>
-        case is RepositoryModel.Type: searchHistory = DataManager.shared.loadRepositorySearchHistory() as? SearchHistory<Type>
-        case is OrganizationModel.Type: searchHistory = DataManager.shared.loadOrganizationSearchHistory() as? SearchHistory<Type>
-        default: return
+        do {
+            switch Type.self {
+            case is UserModel.Type: try searchHistory = LibraryManager.standard.loadUserSearchHistory().get() as? SearchHistory<Type>
+            case is RepositoryModel.Type: try searchHistory = LibraryManager.standard.loadRepositorySearchHistory().get() as? SearchHistory<Type>
+            case is OrganizationModel.Type: try searchHistory = LibraryManager.standard.loadOrganizationSearchHistory().get() as? SearchHistory<Type>
+            default: return
+            }
+        } catch {
+            
         }
         if searchHistory == nil {
             searchHistory = SearchHistory<Type>()

@@ -12,7 +12,6 @@ class SplashViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         DataController.standard.load()
-        NetworkReachability.shared.setup()
     }
     
     override func viewDidAppear(_ animated: Bool) {

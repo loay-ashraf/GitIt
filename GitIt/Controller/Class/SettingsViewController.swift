@@ -9,19 +9,19 @@ import UIKit
 
 class SettingsViewController: UITableViewController {
     
-    var theme: ThemeType!
+    var themeType: ThemeType!
     
     @IBOutlet weak var currentThemeLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        theme = DataManager.shared.getThemeType()
-        currentThemeLabel.text = theme.stringValue
+        getThemeType()
+        currentThemeLabel.text = themeType.rawValue
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row == 1 {
-            let alertController = UIAlertController(title: "Sign Out", message: "You're about to sign out, continue?", preferredStyle: .alert)
+            let alertController = UIAlertController(title: "Sign Out?", message: "You're about to sign out, continue?", preferredStyle: .alert)
             alertController.addAction(UIAlertAction(title: "Sign Out", style: .destructive, handler: signOut(action:)))
             alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
             present(alertController, animated: true, completion: nil)
@@ -34,9 +34,18 @@ class SettingsViewController: UITableViewController {
         performSegue(withIdentifier: "unwindToSplash", sender: self)
     }
     
-    func getSelectedTheme(themeType: ThemeType) {
-        DataManager.shared.setThemeType(themeType: themeType)
-        currentThemeLabel.text = themeType.stringValue
+    func setSelectedThemeType(themeType: ThemeType) {
+        LibraryManager.standard.setThemeType(themeType: themeType)
+        currentThemeLabel.text = themeType.rawValue
+    }
+    
+    private func getThemeType() {
+        let themeTypeResult = LibraryManager.standard.getThemeType()
+        switch themeTypeResult {
+        case .success(let themeType): self.themeType = themeType
+        case .failure(LibraryError.userDefaults): themeType = .followSystem
+        default: return
+        }
     }
     
     // MARK: - Navigation
@@ -44,7 +53,7 @@ class SettingsViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier != "unwindToSplash" {
             let selectorVC = segue.destination as! ThemeSelectorViewController
-            selectorVC.callback = getSelectedTheme(themeType:)
+            selectorVC.callback = setSelectedThemeType(themeType:)
         }
     }
     

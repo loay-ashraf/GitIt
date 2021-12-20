@@ -11,9 +11,7 @@ class NetworkClient {
     
     static let standard = NetworkClient()
     
-    private init() {
-        
-    }
+    private init() {}
     
     // MARK: - User Search Methods
     

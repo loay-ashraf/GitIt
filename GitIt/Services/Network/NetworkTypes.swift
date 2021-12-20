@@ -50,7 +50,6 @@ enum NetworkError: Error {
 }
 
 extension NetworkError {
-    
     init?(data: Data?, response: URLResponse?, error: Error?) {
         if let error = error {
             self = .client(error)
@@ -84,7 +83,6 @@ extension NetworkError {
         
         return nil
     }
-    
 }
 
 enum HTTPError: Error {

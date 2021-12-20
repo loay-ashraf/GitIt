@@ -1,5 +1,5 @@
 //
-//  KeychainWrapper.swift
+//  KeychainManager.swift
 //  GitIt
 //
 //  Created by Loay Ashraf on 02/11/2021.
@@ -7,13 +7,13 @@
 
 import Foundation
 
-class KeychainHelper {
+class KeychainManager {
     
-    static let standard = KeychainHelper()
+    static let standard = KeychainManager()
     
     private init() {}
     
-    func storeItem(data: Data, service: String, account: String) {
+    func storeItem(data: Data, service: String, account: String) -> Error? {
         let query = [kSecValueData: data,
                     kSecClass: kSecClassGenericPassword,
                     kSecAttrService: service,
@@ -30,16 +30,20 @@ class KeychainHelper {
                             ] as CFDictionary
 
                 let attributesToUpdate = [kSecValueData: data] as CFDictionary
-                SecItemUpdate(query, attributesToUpdate)
-            } else {
-                print("Error: \(status)")
+                let status = SecItemUpdate(query, attributesToUpdate)
+                guard status == errSecSuccess else {
+                    let error = NSError(domain: "", code: Int(status), userInfo: nil) as Error
+                    return error
+                }
+                return nil
             }
-            return
+            let error = NSError(domain: "", code: Int(status), userInfo: nil) as Error
+            return error
         }
-        
+        return nil
     }
     
-    func retrieveItem(service: String, account: String) -> Data? {
+    func retrieveItem(service: String, account: String) -> Result<Data,Error> {
         let query = [kSecAttrService: service,
                     kSecAttrAccount: account,
                     kSecClass: kSecClassGenericPassword,
@@ -50,10 +54,11 @@ class KeychainHelper {
         let status = SecItemCopyMatching(query, &result)
         
         guard status == errSecSuccess else {
-            print("Error: \(status)")
-            return nil
+            let error = NSError(domain: "", code: Int(status), userInfo: nil) as Error
+            return .failure(error)
         }
             
-        return (result as? Data)
+        return .success((result as! Data))
     }
+    
 }

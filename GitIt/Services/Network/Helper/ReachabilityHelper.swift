@@ -1,5 +1,5 @@
 //
-//  NetworkReachability.swift
+//  ReachabilityHelper.swift
 //  GitIt
 //
 //  Created by Loay Ashraf on 06/11/2021.
@@ -9,9 +9,7 @@ import Foundation
 import UIKit
 import Network
 
-class NetworkReachability {
-    
-    static let shared = NetworkReachability()
+class ReachabilityHelper {
     
     let wifiMonitor: NWPathMonitor!
     let cellularMonitor: NWPathMonitor!
@@ -21,18 +19,17 @@ class NetworkReachability {
     var isWifiConnected: Bool = false
     var isCellularConnected: Bool = false
     var isEthernetConnected: Bool = false
-    var isInternetConnected: Bool {
-        return isWifiConnected || isCellularConnected || isEthernetConnected
-    }
+    var isInternetConnected: Bool { return isWifiConnected || isCellularConnected || isEthernetConnected }
     
-    private init() {
+    init() {
         wifiMonitor = NWPathMonitor(requiredInterfaceType: .wifi)
         cellularMonitor = NWPathMonitor(requiredInterfaceType: .cellular)
         ethernetMonitor = NWPathMonitor(requiredInterfaceType: .wiredEthernet)
         queue = DispatchQueue.global(qos: .background)
+        setup()
     }
 
-    func setup() {
+    private func setup() {
         wifiMonitor.pathUpdateHandler = { path in
             if path.status == .satisfied {
                 self.isWifiConnected = true

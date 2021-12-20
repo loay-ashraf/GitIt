@@ -37,7 +37,7 @@ class RepositoryTableViewCell: UITableViewCell, ReusableTableViewCell {
         descriptionLabel.text = repository.description
         starsLabel.text = GitIt.formatPoints(num: Double(repository.stars))
         if let language = repository.language {
-            if let colorString = DataManager.shared.colors[language] {
+            if let colorString = LibraryManager.standard.languageColors[language] {
                 let color = UIColor(hex: colorString)
                 languageImageView.tintColor = color
                 languageLabel.text = repository.language
