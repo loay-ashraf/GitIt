@@ -106,10 +106,10 @@ class ResultsViewController<Type: Model>: UITableViewController {
             var bookmark: UIAction! = nil
             var share: UIAction! = nil
             let model = self.model[indexPath.row]
-            if DataController.standard.exists(model) {
-                bookmark = ContextMenuActions.unbookmark(model).action
-            } else {
-                bookmark = ContextMenuActions.bookmark(model).action
+            let fetchResult = DataController.standard.exists(model)
+            switch fetchResult {
+            case .success(let exists): bookmark = exists ? ContextMenuActions.unbookmark(model).action : ContextMenuActions.bookmark(model).action
+            case .failure(_): bookmark = ContextMenuActions.bookmark(model).action
             }
             share = ContextMenuActions.share(model).action
             return UIMenu(title: "Quick Actions", children: [bookmark, share])

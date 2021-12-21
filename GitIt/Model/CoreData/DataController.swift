@@ -8,6 +8,14 @@
 import Foundation
 import CoreData
 
+enum CoreDataError: Error {
+    case saving(Error)
+    case loading(Error)
+    case fetching(Error)
+    case deleting(Error)
+    case noData
+}
+
 class DataController {
     
     static let standard = DataController()
@@ -24,30 +32,31 @@ class DataController {
         viewContext.mergePolicy = NSMergePolicy.overwrite
     }
     
-    func load(completion: (() -> Void)? = nil) {
+    func load(completion: ((CoreDataError?) -> Void)? = nil) {
         persistentContainer.loadPersistentStores { storeDescription, error in
             guard error == nil else {
-                fatalError(error!.localizedDescription)
+                completion?(.loading(error!))
+                return
             }
             self.configureContexts()
-            completion?()
+            completion?(nil)
         }
     }
     
     // MARK: - Core Data Saving support
 
-    func save() {
+    func save() -> CoreDataError? {
         if viewContext.hasChanges {
             do {
                 try viewContext.save()
             } catch {
-                let nserror = error as NSError
-                fatalError("Unresolved error \(nserror), \(nserror.localizedDescription)")
+                return .saving(error)
             }
         }
+        return nil
     }
     
-    func exists<Type: Model>(_ model: Type) -> Bool {
+    func exists<Type: Model>(_ model: Type) -> Result<Bool,CoreDataError> {
         let id = model.id
         let typeName = String(describing: Type.self)
         let entityName = typeName.replacingOccurrences(of: "Model", with: "")
@@ -57,38 +66,50 @@ class DataController {
         fetchRequest.returnsObjectsAsFaults = false
         do {
             let count = try self.viewContext.count(for: fetchRequest)
-            return count > 0 ? true : false
+            return count > 0 ? .success(true) : .success(false)
         } catch let error {
-            print("\(model) with id: \(String(describing: id)) error :", error)
-            return false
+            return .failure(.fetching(error))
         }
     }
     
-    func fetchSync<Entity: NSManagedObject>(entity: Entity.Type, sortKey: String? = nil, ascending: Bool? = nil) -> [Any]? {
+    func fetchSync<Entity: NSManagedObject>(entity: Entity.Type, sortKey: String? = nil, ascending: Bool? = nil) -> Result<[Entity],CoreDataError> {
         let fetchRequest = entity.fetchRequest()
         if sortKey != nil, ascending != nil {
             let sortDescriptor = NSSortDescriptor(key: sortKey, ascending: ascending!)
             fetchRequest.sortDescriptors = [sortDescriptor]
         }
-        let results = try? viewContext.fetch(fetchRequest)
-        return results
+        do {
+            if let results = try viewContext.fetch(fetchRequest) as? [Entity] {
+                return .success(results)
+            } else {
+                return .failure(.noData)
+            }
+        } catch {
+            return .failure(.fetching(error))
+        }
     }
     
-    func fetch<Entity: NSManagedObject>(entity: Entity.Type, sortKey: String? = nil, ascending: Bool? = nil, completion: @escaping ([NSFetchRequestResult]?) -> Void) {
+    func fetch<Entity: NSManagedObject>(entity: Entity.Type, sortKey: String? = nil, ascending: Bool? = nil, completion: @escaping (Result<[Entity],CoreDataError>) -> Void) {
         let fetchRequest = entity.fetchRequest()
         if sortKey != nil, ascending != nil {
             let sortDescriptor = NSSortDescriptor(key: sortKey, ascending: ascending!)
             fetchRequest.sortDescriptors = [sortDescriptor]
         }
         let asynchronousFetchRequest = NSAsynchronousFetchRequest(fetchRequest: fetchRequest) { result in
-            if let result = result.finalResult {
-                completion(result)
+            if let result = result.finalResult as? [Entity] {
+                completion(.success(result))
+            } else {
+                completion(.failure(.noData))
             }
         }
-        _ = try? viewContext.execute(asynchronousFetchRequest)
+        do {
+            _ = try viewContext.execute(asynchronousFetchRequest)
+        } catch {
+            completion(.failure(.fetching(error)))
+        }
     }
     
-    func insert<Type: Model>(_ model: Type) {
+    func insert<Type: Model>(_ model: Type) -> CoreDataError? {
         let mirror = Mirror(reflecting: model)
         let typeName = String(describing: Type.self)
         let entityName = typeName.replacingOccurrences(of: "Model", with: "")
@@ -120,10 +141,10 @@ class DataController {
             }
         }
         
-        save()
+        return save()
     }
     
-    func delete<Type: Model>(_ model: Type) {
+    func delete<Type: Model>(_ model: Type) -> CoreDataError? {
         let id = model.id
         let typeName = String(describing: Type.self)
         let entityName = typeName.replacingOccurrences(of: "Model", with: "")
@@ -132,18 +153,17 @@ class DataController {
         fetchRequest.predicate = predicate
         fetchRequest.returnsObjectsAsFaults = false
         do {
-            let results = try self.viewContext.fetch(fetchRequest)
+            let results = try viewContext.fetch(fetchRequest)
             for object in results {
-                guard object != nil else { continue }
-                self.viewContext.delete(object as! NSManagedObject)
-                self.save()
+                viewContext.delete(object as! NSManagedObject)
             }
-        } catch let error {
-            print("Deleting \(model) with id: \(String(describing: id)) error :", error)
+            return save()
+        } catch {
+            return .deleting(error)
         }
     }
     
-    func delete<Entity: NSManagedObject>(_ object: Entity) {
+    func delete<Entity: NSManagedObject>(_ object: Entity) -> CoreDataError? {
         let objectType = type(of: object)
         let id = object.value(forKey: "id") as! Int32
         let fetchRequest = objectType.fetchRequest()
@@ -151,29 +171,27 @@ class DataController {
         fetchRequest.predicate = predicate
         fetchRequest.returnsObjectsAsFaults = false
         do {
-            let results = try self.viewContext.fetch(fetchRequest)
+            let results = try viewContext.fetch(fetchRequest)
             for object in results {
-                guard object != nil else { continue }
-                self.viewContext.delete(object as! NSManagedObject)
-                self.save()
+                viewContext.delete(object as! NSManagedObject)
             }
-        } catch let error {
-            print("Deleting all data in \(object) with id: \(id) error :", error)
+            return save()
+        } catch {
+            return .deleting(error)
         }
     }
     
-    func deleteAll<Entity: NSManagedObject>(_ entity: Entity.Type) {
+    func deleteAll<Entity: NSManagedObject>(_ entity: Entity.Type) -> CoreDataError? {
         let fetchRequest = entity.fetchRequest()
         fetchRequest.returnsObjectsAsFaults = false
         do {
-            let results = try self.viewContext.fetch(fetchRequest)
+            let results = try viewContext.fetch(fetchRequest)
             for object in results {
-                guard object != nil else { continue }
-                self.viewContext.delete(object as! NSManagedObject)
-                self.save()
+                viewContext.delete(object as! NSManagedObject)
             }
+            return save()
         } catch let error {
-            print("Deleting all data in \(entity) error :", error)
+            return .deleting(error)
         }
     }
     

@@ -21,10 +21,10 @@ enum UserDefaultsError: Error {
 
 enum FileManagerError: Error {
     case fileDoesNotExist
-    case directoryDoesNotExist
-    case directoryCreationFailed
-    case fileWritingFailed
-    case fileReadingFailed
-    case encodingJSONFailed
-    case decodingJSONFailed
+    case directoryDoesNotExist(Error)
+    case directoryCreationFailed(Error)
+    case fileWritingFailed(Error)
+    case fileReadingFailed(Error)
+    case encodingJSONFailed(Error)
+    case decodingJSONFailed(Error)
 }

@@ -27,7 +27,9 @@ class LibraryManager {
     
     func getSessionType() -> Result<SessionType,LibraryError> {
         if let sessionTypeString = UserDefaults.standard.string(forKey: "Session Type") {
-            if let sessionType = SessionType(rawValue: sessionTypeString) { return .success(sessionType) }
+            if let sessionType = SessionType(rawValue: sessionTypeString) {
+                return .success(sessionType)
+            }
             return .failure(.userDefaults(.unknownPropertyValue))
         } else {
             return .failure(.userDefaults(.propertyNotFound))
@@ -42,7 +44,9 @@ class LibraryManager {
     
     func getThemeType() -> Result<ThemeType,LibraryError> {
         if let themeTypeString = UserDefaults.standard.string(forKey: "Theme Type") {
-            if let themeType = ThemeType(rawValue: themeTypeString) { return .success(themeType) }
+            if let themeType = ThemeType(rawValue: themeTypeString) {
+                return .success(themeType)
+            }
             return .failure(.userDefaults(.unknownPropertyValue))
         } else {
             return .failure(.userDefaults(.propertyNotFound))
@@ -59,7 +63,7 @@ class LibraryManager {
             do {
                 try fileManager.createDirectory(atPath: folderUrl!.path, withIntermediateDirectories: false, attributes: [:])
             } catch {
-                return .fileManager(.directoryCreationFailed)
+                return .fileManager(.directoryCreationFailed(error))
             }
         }
         let fileUrl = folderUrl?.appendingPathComponent("UserSearchHistory.json")
@@ -67,13 +71,13 @@ class LibraryManager {
         do {
             data = try JSONEncoder().encode(searchHistory)
         } catch {
-            return .fileManager(.encodingJSONFailed)
+            return .fileManager(.encodingJSONFailed(error))
         }
         if fileManager.fileExists(atPath: fileUrl!.path) {
             do {
                 try data.write(to: fileUrl!)
             } catch {
-                return .fileManager(.fileWritingFailed)
+                return .fileManager(.fileWritingFailed(error))
             }
         } else {
             fileManager.createFile(atPath: fileUrl!.path, contents: data, attributes: [:])
@@ -89,7 +93,7 @@ class LibraryManager {
             do {
                 try fileManager.createDirectory(atPath: folderUrl!.path, withIntermediateDirectories: false, attributes: [:])
             } catch {
-                return .fileManager(.directoryCreationFailed)
+                return .fileManager(.directoryCreationFailed(error))
             }
         }
         let fileUrl = folderUrl?.appendingPathComponent("RepositorySearchHistory.json")
@@ -97,13 +101,13 @@ class LibraryManager {
         do {
             data = try JSONEncoder().encode(searchHistory)
         } catch {
-            return .fileManager(.encodingJSONFailed)
+            return .fileManager(.encodingJSONFailed(error))
         }
         if fileManager.fileExists(atPath: fileUrl!.path) {
             do {
                 try data.write(to: fileUrl!)
             } catch {
-                return .fileManager(.fileWritingFailed)
+                return .fileManager(.fileWritingFailed(error))
             }
         } else {
             fileManager.createFile(atPath: fileUrl!.path, contents: data, attributes: [:])
@@ -119,7 +123,7 @@ class LibraryManager {
             do {
                 try fileManager.createDirectory(atPath: folderUrl!.path, withIntermediateDirectories: false, attributes: [:])
             } catch {
-                return .fileManager(.directoryCreationFailed)
+                return .fileManager(.directoryCreationFailed(error))
             }
         }
         let fileUrl = folderUrl?.appendingPathComponent("OrganizationSearchHistory.json")
@@ -127,13 +131,13 @@ class LibraryManager {
         do {
             data = try JSONEncoder().encode(searchHistory)
         } catch {
-            return .fileManager(.encodingJSONFailed)
+            return .fileManager(.encodingJSONFailed(error))
         }
         if fileManager.fileExists(atPath: fileUrl!.path) {
             do {
                 try data.write(to: fileUrl!)
             } catch {
-                return .fileManager(.fileWritingFailed)
+                return .fileManager(.fileWritingFailed(error))
             }
         } else {
             fileManager.createFile(atPath: fileUrl!.path, contents: data, attributes: [:])
@@ -152,7 +156,7 @@ class LibraryManager {
                 let data = try JSONDecoder().decode(SearchHistory<UserModel>.self, from: contents!)
                 return .success(data)
             } catch {
-                return .failure(.fileManager(.decodingJSONFailed))
+                return .failure(.fileManager(.decodingJSONFailed(error)))
             }
         }
         return .failure(.fileManager(.fileDoesNotExist))
@@ -169,7 +173,7 @@ class LibraryManager {
                 let data = try JSONDecoder().decode(SearchHistory<RepositoryModel>.self, from: contents!)
                 return .success(data)
             } catch {
-                return .failure(.fileManager(.decodingJSONFailed))
+                return .failure(.fileManager(.decodingJSONFailed(error)))
             }
         }
         return .failure(.fileManager(.fileDoesNotExist))
@@ -186,7 +190,7 @@ class LibraryManager {
                 let data = try JSONDecoder().decode(SearchHistory<OrganizationModel>.self, from: contents!)
                 return .success(data)
             } catch {
-                return .failure(.fileManager(.decodingJSONFailed))
+                return .failure(.fileManager(.decodingJSONFailed(error)))
             }
         }
         return .failure(.fileManager(.fileDoesNotExist))

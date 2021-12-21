@@ -176,15 +176,15 @@ enum ContextMenuActions<Type: Model> {
     var action: UIAction {
         switch self {
             case .bookmark(let model): return UIAction(title: "Bookmark", image: UIImage(systemName: "bookmark"), identifier: nil) { action in
-                                                    DataController.standard.insert(model)
+                                                    _ = DataController.standard.insert(model)
                                                 }
             
             case .unbookmark(let model): return UIAction(title: "Unbookmark", image: UIImage(systemName: "bookmark.fill"), identifier: nil) { action in
-                                                    DataController.standard.delete(model)
+                                                   _ = DataController.standard.delete(model)
                                                 }
             
             case .share(let model): return UIAction(title: "Share", image: UIImage(systemName: "square.and.arrow.up"), identifier: nil) { action in
-                                                    URLHelper.shareURL(model.htmlURL)
+                                                URLHelper.shareURL(model.htmlURL)
                                             }
         }
     }

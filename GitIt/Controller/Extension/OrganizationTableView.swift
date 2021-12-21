@@ -71,13 +71,13 @@ extension OrganizationViewController {
          let actionProvider: UIContextMenuActionProvider = { actions -> UIMenu? in
              var bookmark: UIAction! = nil
              var share: UIAction! = nil
-             let userModel = self.model.items[indexPath.row]
-             if DataController.standard.exists(userModel) {
-                 bookmark = ContextMenuActions.unbookmark(userModel).action
-             } else {
-                 bookmark = ContextMenuActions.bookmark(userModel).action
+             let organizationModel = self.model.items[indexPath.row]
+             let fetchResult = DataController.standard.exists(organizationModel)
+             switch fetchResult {
+             case .success(let exists): bookmark = exists ? ContextMenuActions.unbookmark(organizationModel).action : ContextMenuActions.bookmark(organizationModel).action
+             case .failure(_): bookmark = ContextMenuActions.bookmark(organizationModel).action
              }
-             share = ContextMenuActions.share(userModel).action
+             share = ContextMenuActions.share(organizationModel).action
              return UIMenu(title: "Quick Actions", children: [bookmark, share])
          }
          return UIContextMenuConfiguration(identifier: nil, previewProvider: nil, actionProvider: actionProvider)

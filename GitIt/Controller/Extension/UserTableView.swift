@@ -76,10 +76,10 @@ extension UserViewController {
              var bookmark: UIAction! = nil
              var share: UIAction! = nil
              let userModel = self.model.items[indexPath.row]
-             if DataController.standard.exists(userModel) {
-                 bookmark = ContextMenuActions.unbookmark(userModel).action
-             } else {
-                 bookmark = ContextMenuActions.bookmark(userModel).action
+             let fetchResult = DataController.standard.exists(userModel)
+             switch fetchResult {
+             case .success(let exists): bookmark = exists ? ContextMenuActions.unbookmark(userModel).action : ContextMenuActions.bookmark(userModel).action
+             case .failure(_): bookmark = ContextMenuActions.bookmark(userModel).action
              }
              share = ContextMenuActions.share(userModel).action
              return UIMenu(title: "Quick Actions", children: [bookmark, share])

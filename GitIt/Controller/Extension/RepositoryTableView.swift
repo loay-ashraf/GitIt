@@ -76,10 +76,10 @@ extension RepositoryViewController {
              var bookmark: UIAction! = nil
              var share: UIAction! = nil
              let repositoryModel = self.model.items[indexPath.row]
-             if DataController.standard.exists(repositoryModel) {
-                 bookmark = ContextMenuActions.unbookmark(repositoryModel).action
-             } else {
-                 bookmark = ContextMenuActions.bookmark(repositoryModel).action
+             let fetchResult = DataController.standard.exists(repositoryModel)
+             switch fetchResult {
+             case .success(let exists): bookmark = exists ? ContextMenuActions.unbookmark(repositoryModel).action : ContextMenuActions.bookmark(repositoryModel).action
+             case .failure(_): bookmark = ContextMenuActions.bookmark(repositoryModel).action
              }
              share = ContextMenuActions.share(repositoryModel).action
              return UIMenu(title: "Quick Actions", children: [bookmark, share])
