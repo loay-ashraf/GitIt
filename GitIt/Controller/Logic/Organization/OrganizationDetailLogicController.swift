@@ -35,12 +35,12 @@ class OrganizationDetailLogicController {
     func bookmark(then handler: @escaping ViewStateHandler) {
         defer { handler(.bookmarked) }
         if !isBookmarked {
-            guard DataController.standard.insert(model) != nil else {
+            guard CoreDataManager.standard.insert(model) != nil else {
                 isBookmarked = true
                 return
             }
         } else {
-            guard DataController.standard.delete(model) != nil else {
+            guard CoreDataManager.standard.delete(model) != nil else {
                 isBookmarked = false
                 return
             }
@@ -48,7 +48,7 @@ class OrganizationDetailLogicController {
     }
     
     func checkIfBookmarked(then handler: @escaping ViewStateHandler) {
-        let fetchResult = DataController.standard.exists(self.model)
+        let fetchResult = CoreDataManager.standard.exists(self.model)
         switch fetchResult {
         case .success(let exists): self.isBookmarked = exists
         case .failure(_): self.isBookmarked = false

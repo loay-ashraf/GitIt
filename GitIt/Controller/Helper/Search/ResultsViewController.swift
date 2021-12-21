@@ -106,7 +106,7 @@ class ResultsViewController<Type: Model>: UITableViewController {
             var bookmark: UIAction! = nil
             var share: UIAction! = nil
             let model = self.model[indexPath.row]
-            let fetchResult = DataController.standard.exists(model)
+            let fetchResult = CoreDataManager.standard.exists(model)
             switch fetchResult {
             case .success(let exists): bookmark = exists ? ContextMenuActions.unbookmark(model).action : ContextMenuActions.bookmark(model).action
             case .failure(_): bookmark = ContextMenuActions.bookmark(model).action

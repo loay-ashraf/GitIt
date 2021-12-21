@@ -11,7 +11,7 @@ class SplashViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        DataController.standard.load()
+        CoreDataManager.standard.load()
     }
     
     override func viewDidAppear(_ animated: Bool) {

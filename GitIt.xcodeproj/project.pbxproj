@@ -20,6 +20,7 @@
 		C64F6F082736DCF900E2E727 /* UserLogicController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C64F6F072736DCF900E2E727 /* UserLogicController.swift */; };
 		C64F6F0A2736F33700E2E727 /* ReachabilityHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C64F6F092736F33700E2E727 /* ReachabilityHelper.swift */; };
 		C64F6F0C27374F0300E2E727 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C64F6F0B27374F0300E2E727 /* ProfileViewController.swift */; };
+		C6584B8C27721BB6000A9EA6 /* CoreDataTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6584B8B27721BB6000A9EA6 /* CoreDataTypes.swift */; };
 		C65C0E04276A36DD00ED17CB /* OrganizationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C65C0E03276A36DD00ED17CB /* OrganizationViewController.swift */; };
 		C65C0E06276A36F200ED17CB /* OrganizationDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C65C0E05276A36F200ED17CB /* OrganizationDetailViewController.swift */; };
 		C65C0E08276A371900ED17CB /* OrganizationLogicController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C65C0E07276A371900ED17CB /* OrganizationLogicController.swift */; };
@@ -65,7 +66,7 @@
 		C6B26AF02768B5D100ED41F8 /* CommitTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B26AEF2768B5D100ED41F8 /* CommitTableView.swift */; };
 		C6B26AF32768C76600ED41F8 /* CommitTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B26AF12768C76600ED41F8 /* CommitTableViewCell.swift */; };
 		C6B26AF42768C76600ED41F8 /* CommitTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C6B26AF22768C76600ED41F8 /* CommitTableViewCell.xib */; };
-		C6B2DF712720887600AB0C8F /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B2DF702720887600AB0C8F /* DataController.swift */; };
+		C6B2DF712720887600AB0C8F /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B2DF702720887600AB0C8F /* CoreDataManager.swift */; };
 		C6C605FA273EC7B700BA27C2 /* CommonTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C605F9273EC7B700BA27C2 /* CommonTypes.swift */; };
 		C6C605FD273EC89000BA27C2 /* SearchCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C605FC273EC89000BA27C2 /* SearchCoordinator.swift */; };
 		C6C605FF273EC90000BA27C2 /* Spinner.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C605FE273EC90000BA27C2 /* Spinner.swift */; };
@@ -101,6 +102,7 @@
 		C64F6F072736DCF900E2E727 /* UserLogicController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLogicController.swift; sourceTree = "<group>"; };
 		C64F6F092736F33700E2E727 /* ReachabilityHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReachabilityHelper.swift; sourceTree = "<group>"; };
 		C64F6F0B27374F0300E2E727 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		C6584B8B27721BB6000A9EA6 /* CoreDataTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataTypes.swift; sourceTree = "<group>"; };
 		C65C0E03276A36DD00ED17CB /* OrganizationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrganizationViewController.swift; sourceTree = "<group>"; };
 		C65C0E05276A36F200ED17CB /* OrganizationDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrganizationDetailViewController.swift; sourceTree = "<group>"; };
 		C65C0E07276A371900ED17CB /* OrganizationLogicController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrganizationLogicController.swift; sourceTree = "<group>"; };
@@ -148,7 +150,7 @@
 		C6B26AEF2768B5D100ED41F8 /* CommitTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommitTableView.swift; sourceTree = "<group>"; };
 		C6B26AF12768C76600ED41F8 /* CommitTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommitTableViewCell.swift; sourceTree = "<group>"; };
 		C6B26AF22768C76600ED41F8 /* CommitTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CommitTableViewCell.xib; sourceTree = "<group>"; };
-		C6B2DF702720887600AB0C8F /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
+		C6B2DF702720887600AB0C8F /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		C6C605F9273EC7B700BA27C2 /* CommonTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonTypes.swift; sourceTree = "<group>"; };
 		C6C605FC273EC89000BA27C2 /* SearchCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCoordinator.swift; sourceTree = "<group>"; };
 		C6C605FE273EC90000BA27C2 /* Spinner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spinner.swift; sourceTree = "<group>"; };
@@ -432,7 +434,8 @@
 			isa = PBXGroup;
 			children = (
 				C68B64F3271DD34B00A26D05 /* GitIt.xcdatamodeld */,
-				C6B2DF702720887600AB0C8F /* DataController.swift */,
+				C6B2DF702720887600AB0C8F /* CoreDataManager.swift */,
+				C6584B8B27721BB6000A9EA6 /* CoreDataTypes.swift */,
 			);
 			path = CoreData;
 			sourceTree = "<group>";
@@ -713,6 +716,7 @@
 				C68FCBC8273838A50019C932 /* ExploreViewController.swift in Sources */,
 				C6F46E7827541B2700498614 /* SearchController.swift in Sources */,
 				C6B26AEE2768B53100ED41F8 /* CommitDetailLogicController.swift in Sources */,
+				C6584B8C27721BB6000A9EA6 /* CoreDataTypes.swift in Sources */,
 				C6F46E7C27541D0E00498614 /* HistoryViewController.swift in Sources */,
 				C6CCED86275D36A00052CC8E /* LicenseLogicController.swift in Sources */,
 				C65C0E04276A36DD00ED17CB /* OrganizationViewController.swift in Sources */,
@@ -736,7 +740,7 @@
 				C6CCED72275D0D590052CC8E /* UIColor.swift in Sources */,
 				C64F6F042736DBDC00E2E727 /* UserTableView.swift in Sources */,
 				C6DD54A3277114CF00DA0223 /* ThemeTypes.swift in Sources */,
-				C6B2DF712720887600AB0C8F /* DataController.swift in Sources */,
+				C6B2DF712720887600AB0C8F /* CoreDataManager.swift in Sources */,
 				C6CCED79275D132D0052CC8E /* ImageLoader.swift in Sources */,
 				C69ECCD927323D5A00E158A3 /* TokenHelper.swift in Sources */,
 				C685667E274BF7EB00833D6E /* HistoryCollectionViewCell.swift in Sources */,

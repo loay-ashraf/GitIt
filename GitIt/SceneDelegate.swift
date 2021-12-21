@@ -32,7 +32,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     @available(iOS 13.0, *)
     func sceneWillResignActive(_ scene: UIScene) {
-        _ = DataController.standard.save()
+        _ = CoreDataManager.standard.save()
     }
 
     @available(iOS 13.0, *)
@@ -43,7 +43,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     @available(iOS 13.0, *)
     func sceneDidEnterBackground(_ scene: UIScene) {
-        _ = DataController.standard.save()
+        _ = CoreDataManager.standard.save()
     }
 
 

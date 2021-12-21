@@ -72,7 +72,7 @@ extension OrganizationViewController {
              var bookmark: UIAction! = nil
              var share: UIAction! = nil
              let organizationModel = self.model.items[indexPath.row]
-             let fetchResult = DataController.standard.exists(organizationModel)
+             let fetchResult = CoreDataManager.standard.exists(organizationModel)
              switch fetchResult {
              case .success(let exists): bookmark = exists ? ContextMenuActions.unbookmark(organizationModel).action : ContextMenuActions.bookmark(organizationModel).action
              case .failure(_): bookmark = ContextMenuActions.bookmark(organizationModel).action

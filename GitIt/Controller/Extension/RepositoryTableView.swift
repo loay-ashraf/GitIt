@@ -76,7 +76,7 @@ extension RepositoryViewController {
              var bookmark: UIAction! = nil
              var share: UIAction! = nil
              let repositoryModel = self.model.items[indexPath.row]
-             let fetchResult = DataController.standard.exists(repositoryModel)
+             let fetchResult = CoreDataManager.standard.exists(repositoryModel)
              switch fetchResult {
              case .success(let exists): bookmark = exists ? ContextMenuActions.unbookmark(repositoryModel).action : ContextMenuActions.bookmark(repositoryModel).action
              case .failure(_): bookmark = ContextMenuActions.bookmark(repositoryModel).action

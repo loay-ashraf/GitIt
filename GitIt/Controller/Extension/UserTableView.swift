@@ -76,7 +76,7 @@ extension UserViewController {
              var bookmark: UIAction! = nil
              var share: UIAction! = nil
              let userModel = self.model.items[indexPath.row]
-             let fetchResult = DataController.standard.exists(userModel)
+             let fetchResult = CoreDataManager.standard.exists(userModel)
              switch fetchResult {
              case .success(let exists): bookmark = exists ? ContextMenuActions.unbookmark(userModel).action : ContextMenuActions.bookmark(userModel).action
              case .failure(_): bookmark = ContextMenuActions.bookmark(userModel).action
