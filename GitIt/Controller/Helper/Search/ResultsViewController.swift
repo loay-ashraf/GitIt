@@ -7,24 +7,35 @@
 
 import UIKit
 
-class ResultsViewController<Type: Model>: UITableViewController {
+class ResultsViewController<Type: Model>: SFDynamicTableViewController<Type> {
 
     private weak var coordinator: SearchCoordinator<Type>!
-    private var model: [Type] { return coordinator.results.items }
+    override var model: List<Type>! { return coordinator.results }
     
     // MARK: - Initialisation
     
     init(_ coordinator: SearchCoordinator<Type>) {
         super.init(nibName: nil, bundle: nil)
         self.coordinator = coordinator
-        self.configureTableView()
+        //self.configureTableView()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: - Table View Data Source
+    // MARK: - Loading Methods
+    
+    /*override func load(with loadingViewState: LoadingViewState) {
+        super.load(with: loadingViewState)
+        switch loadingViewState {
+        case .initial: coordinator.load(then: loadHandler(error:))
+        case .refresh: coordinator.search(then: refreshHandler(error:))
+        case .paginate: coordinator.load(then: paginateHandler(error:))
+        }
+    }*/
+    
+    /*// MARK: - Table View Data Source
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -71,12 +82,12 @@ class ResultsViewController<Type: Model>: UITableViewController {
         let item = model[indexPath.row]
             
         // Configure the cell...
-        cell?.configure(with: item) { networkError in print(networkError) }
+        cell?.configure(with: item)
         
         return cell
     }
     
-    private func instantiateTableViewCell(for indexPath: IndexPath) -> ReusableTableViewCell? {
+    private func instantiateTableViewCell(for indexPath: IndexPath) -> IBTableViewCell? {
         switch Type.self {
         case is UserModel.Type: return tableView.dequeueReusableCell(withIdentifier: UserTableViewCell.reuseIdentifier, for: indexPath) as! UserTableViewCell
         case is RepositoryModel.Type: return tableView.dequeueReusableCell(withIdentifier: RepositoryTableViewCell.reuseIdentifier, for: indexPath) as! RepositoryTableViewCell
@@ -115,6 +126,6 @@ class ResultsViewController<Type: Model>: UITableViewController {
             return UIMenu(title: "Quick Actions", children: [bookmark, share])
         }
         return UIContextMenuConfiguration(identifier: nil, previewProvider: nil, actionProvider: actionProvider)
-    }
+    }*/
 
 }

@@ -12,7 +12,7 @@ class LicenseLogicController {
     var model = String()
     var parameters: (String,String)
     
-    typealias ViewStateHandler = (LicenseViewState) -> Void
+    typealias ViewStateHandler = (ViewState) -> Void
 
     // MARK: - Initialisation
 
@@ -27,7 +27,7 @@ class LicenseLogicController {
             switch result {
             case .success(let response): self.model = String(data: response, encoding: .utf8) ?? "Error loading license"
                                          handler(.presenting)
-            case .failure(let networkError): handler(.failed(networkError))
+            case .failure(let networkError): handler(.failed(.initial(networkError)))
             }
         }
     }

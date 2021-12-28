@@ -13,8 +13,6 @@ class UserLogicController {
     var context: UserContext
     private var contextParameters: Any?
     
-    typealias ViewStateHandler = (ViewState) -> Void
-    
     init(context: UserContext, contextParameters: Any? = nil) {
         self.context = context
         self.contextParameters = contextParameters
@@ -28,12 +26,7 @@ class UserLogicController {
         }
     }
     
-    func refresh(then handler: @escaping ViewStateHandler) {
-        model.reset()
-        load(then: handler)
-    }
-    
-    func load(then handler: @escaping ViewStateHandler) {
+    func load(then handler: @escaping ErrorHandler) {
         switch context {
         case .main: loadMain(then: handler)
         case .followers: loadFollowers(then: handler)
@@ -44,73 +37,78 @@ class UserLogicController {
         }
     }
     
-    private func loadMain(then handler: @escaping ViewStateHandler) {
+    func refresh(then handler: @escaping ErrorHandler) {
+        model.reset()
+        load(then: handler)
+    }
+    
+    private func loadMain(then handler: @escaping ErrorHandler) {
         NetworkClient.standard.getUserPage(page: model.currentPage, perPage: 10) { result in
             switch result {
             case .success(let response): self.model.append(contentsOf: response)
                                          self.updateModelParameters()
-                                         handler(.presenting)
-            case .failure(let networkError): handler(.failed(networkError))
+                                         handler(nil)
+            case .failure(let networkError): handler(networkError)
             }
         }
     }
     
-    private func loadFollowers(then handler: @escaping ViewStateHandler) {
+    private func loadFollowers(then handler: @escaping ErrorHandler) {
         let parameters = contextParameters as! UserContext.FollowersParameters
         NetworkClient.standard.getUserFollowers(userLogin: parameters.0, page: model.currentPage, perPage: 10) { result in
             switch result {
             case .success(let response): self.model.append(contentsOf: response)
                                          self.updateModelParameters()
-                                         handler(.presenting)
-            case .failure(let networkError): handler(.failed(networkError))
+                                         handler(nil)
+            case .failure(let networkError): handler(networkError)
             }
         }
     }
     
-    private func loadFollowing(then handler: @escaping ViewStateHandler) {
+    private func loadFollowing(then handler: @escaping ErrorHandler) {
         let parameters = contextParameters as! UserContext.FollowingParameters
         NetworkClient.standard.getUserFollowing(userLogin: parameters.0, page: model.currentPage, perPage: 10) { result in
             switch result {
             case .success(let response): self.model.append(contentsOf: response)
                                          self.updateModelParameters()
-                                         handler(.presenting)
-            case .failure(let networkError): handler(.failed(networkError))
+                                         handler(nil)
+            case .failure(let networkError): handler(networkError)
             }
         }
     }
     
-    private func loadStars(then handler: @escaping ViewStateHandler) {
+    private func loadStars(then handler: @escaping ErrorHandler) {
         let parameters = contextParameters as! UserContext.StarsParameters
         NetworkClient.standard.getRepositoryStars(fullName: parameters.0, page: model.currentPage, perPage: 10) { result in
             switch result {
             case .success(let response): self.model.append(contentsOf: response)
                                          self.updateModelParameters()
-                                         handler(.presenting)
-            case .failure(let networkError): handler(.failed(networkError))
+                                         handler(nil)
+            case .failure(let networkError): handler(networkError)
             }
         }
     }
     
-    private func loadContributers(then handler: @escaping ViewStateHandler) {
+    private func loadContributers(then handler: @escaping ErrorHandler) {
         let parameters = contextParameters as! UserContext.ContributorsParameters
         NetworkClient.standard.getRepositoryContributors(fullName: parameters, page: model.currentPage, perPage: 10) { result in
             switch result {
             case .success(let response): self.model.append(contentsOf: response)
                                          self.updateModelParameters(newItemsCount: response.count)
-                                         handler(.presenting)
-            case .failure(let networkError): handler(.failed(networkError))
+                                         handler(nil)
+            case .failure(let networkError): handler(networkError)
             }
         }
     }
     
-    private func loadMembers(then handler: @escaping ViewStateHandler) {
+    private func loadMembers(then handler: @escaping ErrorHandler) {
         let parameters = contextParameters as! UserContext.MembersParameters
         NetworkClient.standard.getOrganizationMemebers(organizationLogin: parameters, page: model.currentPage, perPage: 10) { result in
             switch result {
             case .success(let response): self.model.append(contentsOf: response)
                                          self.updateModelParameters(newItemsCount: response.count)
-                                         handler(.presenting)
-            case .failure(let networkError): handler(.failed(networkError))
+                                         handler(nil)
+            case .failure(let networkError): handler(networkError)
             }
         }
     }

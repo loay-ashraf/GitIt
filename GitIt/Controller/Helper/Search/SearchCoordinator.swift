@@ -16,9 +16,7 @@ class SearchCoordinator<Type: Model> {
     private var resultsController: ResultsViewController<Type>!
     private var historyController: HistoryViewController<Type>!
     private var spinner: Spinner!
-    var resultsTableView: UITableView {
-        return resultsController.tableView
-    }
+    var resultsTableView: UITableView { return resultsController.tableView }
     
     private var searchHistory: SearchHistory<Type>!
     var searchHistoryModels: NSMutableOrderedSet!
@@ -26,7 +24,7 @@ class SearchCoordinator<Type: Model> {
     
     // MARK: - Initialisation
     
-    init(_ parentTableViewController: UITableViewController) {
+    init(_ parentTableViewController: SFDynamicTableViewController<Type>) {
         resultsController = ResultsViewController(self)
         historyController = HistoryViewController(self)
         searchController = SearchController(self, searchResultsController: resultsController)

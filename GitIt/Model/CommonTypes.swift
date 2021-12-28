@@ -103,57 +103,30 @@ enum OrganizationContext {
     
 }
 
+typealias ViewStateHandler = (ViewState) -> Void
+typealias ErrorHandler = (Error?) -> Void
+
 enum ViewState {
     
-    case loading
-    case paginating
+    case loading(LoadingViewState)
     case presenting
-    case failed(Error)
+    case failed(FailedViewState)
     
 }
 
-enum LicenseViewState {
+enum LoadingViewState {
     
-    case loading
-    case presenting
-    case failed(Error)
-    
-}
-
-enum UserDetailViewState {
-    
-    case loading
-    case followed
-    case bookmarked
-    case presenting
-    case failed(Error)
+    case initial
+    case refresh
+    case paginate
     
 }
 
-enum RepositoryDetailViewState {
+enum FailedViewState {
     
-    case loading
-    case starred
-    case bookmarked
-    case presenting
-    case failed(Error)
-    
-}
-
-enum CommitDetailViewState {
-    
-    case loading
-    case presenting
-    case failed(Error)
-    
-}
-
-enum OrganizationDetailViewState {
-    
-    case loading
-    case bookmarked
-    case presenting
-    case failed(Error)
+    case initial(Error)
+    case refresh(Error)
+    case paginate(Error)
     
 }
 
@@ -190,3 +163,34 @@ enum ContextMenuActions<Type: Model> {
     }
     
 }
+
+struct ErrorModel {
+    
+    var image: UIImage?
+    var title: String
+    var message: String
+    
+    private init(image: UIImage?, title: String, message: String) {
+        self.image = image
+        self.title = title
+        self.message = message
+    }
+    
+    init?(from error: Error) {
+        if let networkError = error as? NetworkError {
+            switch networkError {
+            case .noResponse,.noData: self.init(image: UIImage(systemName: "wifi.exclamationmark"), title: "No Internet", message: "You're not connected to Internet,\nplease try again later.")
+            case .client,.server,.api,.decoding,.encoding: self.init(image: UIImage(systemName: "exclamationmark.icloud"), title: "Network Error", message: "We're working on it,\nWe will be back soon.")
+            }
+        } else if let libraryError = error as? LibraryError {
+            self.init(image: UIImage(systemName: "externaldrive.badge.xmark"), title: "Couldn't Retrieve Data", message: "We're working on it,\nWe will be back soon.")
+        } else if let coreDataError = error as? CoreDataError {
+            self.init(image: UIImage(systemName: "externaldrive.badge.xmark"), title: "Couldn't Retrieve Data", message: "We're working on it,\nWe will be back soon.")
+        } else {
+            return nil
+        }
+    }
+    
+}
+
+

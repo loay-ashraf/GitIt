@@ -15,22 +15,6 @@ protocol Model: Codable, Equatable {
     
 }
 
-protocol StoryboardViewController: UIViewController {
-    
-    static var storyboardIdentifier: String { get }
-    static func instatiateFromStoryboard(with parameters: Any) -> UIViewController
-    static func instatiateFromStoryboard<Type: Model>(with model: Type) -> UIViewController
-    
-}
-
-protocol ReusableTableViewCell: UITableViewCell {
-    
-    static var reuseIdentifier: String { get }
-    static var nib: UINib { get }
-    func configure<Type: Model>(with model: Type, completion: @escaping (NetworkError?) -> Void)
-    
-}
-
 struct UserModel: Model {
     
     let id: Int

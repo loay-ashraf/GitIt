@@ -11,8 +11,8 @@ class OrganizationDetailLogicController {
     
     var model: OrganizationModel
     var isBookmarked: Bool = false
-    
-    typealias ViewStateHandler = (OrganizationDetailViewState) -> Void
+
+    typealias BookmarkActionHandler = (Bool) -> Void
     
     // MARK: - Initialisation
     
@@ -22,18 +22,18 @@ class OrganizationDetailLogicController {
     
     // MARK: - Business Logic Methods
     
-    func load(then handler: @escaping ViewStateHandler) {
+    func load(then handler: @escaping ErrorHandler, then bookmarkHandler: @escaping BookmarkActionHandler) {
         NetworkClient.standard.getOrganization(organizationLogin: model.login) { result in
             switch result {
             case .success(let response): self.model = response
-                                         self.checkIfBookmarked(then: handler)
-            case .failure(let networkError): handler(.failed(networkError))
+                                         self.checkIfBookmarked(then: handler, then: bookmarkHandler)
+            case .failure(let networkError): handler(networkError)
             }
         }
     }
     
-    func bookmark(then handler: @escaping ViewStateHandler) {
-        defer { handler(.bookmarked) }
+    func bookmark(then handler: @escaping BookmarkActionHandler) {
+        defer { handler(isBookmarked) }
         if !isBookmarked {
             guard CoreDataManager.standard.insert(model) != nil else {
                 isBookmarked = true
@@ -47,13 +47,14 @@ class OrganizationDetailLogicController {
         }
     }
     
-    func checkIfBookmarked(then handler: @escaping ViewStateHandler) {
+    func checkIfBookmarked(then handler: @escaping ErrorHandler, then bookmarkHandler: @escaping BookmarkActionHandler) {
         let fetchResult = CoreDataManager.standard.exists(self.model)
         switch fetchResult {
         case .success(let exists): self.isBookmarked = exists
+                                   bookmarkHandler(self.isBookmarked)
         case .failure(_): self.isBookmarked = false
         }
-        handler(.presenting)
+        handler(nil)
     }
     
 }

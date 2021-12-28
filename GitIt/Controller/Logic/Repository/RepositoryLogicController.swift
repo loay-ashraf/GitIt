@@ -27,12 +27,7 @@ class RepositoryLogicController {
         }
     }
 
-    func refresh(then handler: @escaping ViewStateHandler) {
-        model.reset()
-        load(then: handler)
-    }
-
-    func load(then handler: @escaping ViewStateHandler) {
+    func load(then handler: @escaping ErrorHandler) {
         switch context {
         case .main: loadMain(then: handler)
         case .user: loadUser(then: handler)
@@ -41,62 +36,67 @@ class RepositoryLogicController {
         case .starred: loadStarred(then: handler)
         }
     }
+    
+    func refresh(then handler: @escaping ErrorHandler) {
+        model.reset()
+        load(then: handler)
+    }
 
-    private func loadMain(then handler: @escaping ViewStateHandler) {
+    private func loadMain(then handler: @escaping ErrorHandler) {
         NetworkClient.standard.getRepositoryPage(page: model.currentPage, perPage: 10) { result in
             switch result {
             case .success(let response): self.model.append(contentsOf: response)
                                          self.updateModelParameters()
-                                         handler(.presenting)
-            case .failure(let networkError): handler(.failed(networkError))
+                                         handler(nil)
+            case .failure(let networkError): handler(networkError)
             }
         }
     }
 
-    private func loadUser(then handler: @escaping ViewStateHandler) {
+    private func loadUser(then handler: @escaping ErrorHandler) {
         let parameters = contextParameters as! RepositoryContext.UserParameters
         NetworkClient.standard.getUserRepositories(userLogin: parameters.0, page: model.currentPage, perPage: 10) { result in
             switch result {
             case .success(let response): self.model.append(contentsOf: response)
                                          self.updateModelParameters()
-                                         handler(.presenting)
-            case .failure(let networkError): handler(.failed(networkError))
+                                         handler(nil)
+            case .failure(let networkError): handler(networkError)
             }
         }
     }
 
-    private func loadOrganization(then handler: @escaping ViewStateHandler) {
+    private func loadOrganization(then handler: @escaping ErrorHandler) {
         let parameters = contextParameters as! RepositoryContext.OrganizationParameters
         NetworkClient.standard.getOrganizationRepositories(organizationLogin: parameters.0, page: model.currentPage, perPage: 10) { result in
             switch result {
             case .success(let response): self.model.append(contentsOf: response)
                                          self.updateModelParameters()
-                                         handler(.presenting)
-            case .failure(let networkError): handler(.failed(networkError))
+                                         handler(nil)
+            case .failure(let networkError): handler(networkError)
             }
         }
     }
     
-    private func loadForks(then handler: @escaping ViewStateHandler) {
+    private func loadForks(then handler: @escaping ErrorHandler) {
         let parameters = contextParameters as! RepositoryContext.OrganizationParameters
         NetworkClient.standard.getRepositoryForks(fullName: parameters.0, page: model.currentPage, perPage: 10) { result in
             switch result {
             case .success(let response): self.model.append(contentsOf: response)
                                          self.updateModelParameters()
-                                         handler(.presenting)
-            case .failure(let networkError): handler(.failed(networkError))
+                                         handler(nil)
+            case .failure(let networkError): handler(networkError)
             }
         }
     }
     
-    private func loadStarred(then handler: @escaping ViewStateHandler) {
+    private func loadStarred(then handler: @escaping ErrorHandler) {
         let parameters = contextParameters as! RepositoryContext.StarredParameters
         NetworkClient.standard.getUserStarred(userLogin: parameters, page: model.currentPage, perPage: 10) { result in
             switch result {
             case .success(let response): self.model.append(contentsOf: response)
                                          self.updateModelParameters(newItemsCount: response.count)
-                                         handler(.presenting)
-            case .failure(let networkError): handler(.failed(networkError))
+                                         handler(nil)
+            case .failure(let networkError): handler(networkError)
             }
         }
     }
