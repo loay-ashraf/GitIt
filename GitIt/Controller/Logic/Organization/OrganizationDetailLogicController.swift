@@ -11,8 +11,8 @@ class OrganizationDetailLogicController {
     
     var model: OrganizationModel
     var isBookmarked: Bool = false
-    
-    typealias ViewStateHandler = (OrganizationDetailViewState) -> Void
+
+    typealias BookmarkActionHandler = (Bool) -> Void
     
     // MARK: - Initialisation
     
@@ -22,27 +22,39 @@ class OrganizationDetailLogicController {
     
     // MARK: - Business Logic Methods
     
-    func load(then handler: @escaping ViewStateHandler) {
-        GithubClient.standard.getOrganization(organizationLogin: model.login) { response, error in
-            self.model = response!
-            self.checkIfBookmarked(then: handler)
+    func load(then handler: @escaping ErrorHandler, then bookmarkHandler: @escaping BookmarkActionHandler) {
+        NetworkClient.standard.getOrganization(organizationLogin: model.login) { result in
+            switch result {
+            case .success(let response): self.model = response
+                                         self.checkIfBookmarked(then: handler, then: bookmarkHandler)
+            case .failure(let networkError): handler(networkError)
+            }
         }
     }
     
-    func bookmark(then handler: @escaping ViewStateHandler) {
+    func bookmark(then handler: @escaping BookmarkActionHandler) {
+        defer { handler(isBookmarked) }
         if !isBookmarked {
-            DataController.standard.insert(model)
-            isBookmarked = true
+            guard CoreDataManager.standard.insert(model) != nil else {
+                isBookmarked = true
+                return
+            }
         } else {
-            DataController.standard.delete(model)
-            isBookmarked = false
+            guard CoreDataManager.standard.delete(model) != nil else {
+                isBookmarked = false
+                return
+            }
         }
-        handler(.bookmarked)
     }
     
-    func checkIfBookmarked(then handler: @escaping ViewStateHandler) {
-        if DataController.standard.exists(self.model) { self.isBookmarked = true }
-        handler(.presenting)
+    func checkIfBookmarked(then handler: @escaping ErrorHandler, then bookmarkHandler: @escaping BookmarkActionHandler) {
+        let fetchResult = CoreDataManager.standard.exists(self.model)
+        switch fetchResult {
+        case .success(let exists): self.isBookmarked = exists
+                                   bookmarkHandler(self.isBookmarked)
+        case .failure(_): self.isBookmarked = false
+        }
+        handler(nil)
     }
     
 }

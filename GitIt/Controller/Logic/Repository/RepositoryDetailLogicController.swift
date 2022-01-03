@@ -13,7 +13,9 @@ class RepositoryDetailLogicController {
     var isBookmarked: Bool = false
     var isStarred: Bool = false
     
-    typealias ViewStateHandler = (RepositoryDetailViewState) -> Void
+    typealias StarActionHandler = (Bool) -> Void
+    typealias BookmarkActionHandler = (Bool) -> Void
+    typealias READMEHandler = (NetworkError?) -> Void
     
     // MARK: - Initialisation
     
@@ -23,58 +25,67 @@ class RepositoryDetailLogicController {
     
     // MARK: - Business Logic Methods
     
-    func load(then handler: @escaping ViewStateHandler) {
-        loadREADME(then: handler)
+    func load(then handler: @escaping ErrorHandler, then starHandler: @escaping StarActionHandler, then bookmarkHandler: @escaping BookmarkActionHandler, then readmeHandler: @escaping READMEHandler) {
+        checkIfStarredOrBookmarked(then: handler, then: starHandler, then: bookmarkHandler)
+        loadREADME(then: readmeHandler)
     }
     
-    func loadREADME(then handler: @escaping ViewStateHandler) {
-        GithubClient.standard.getRepositoryReadme(fullName: model.fullName, branch: model.defaultBranch) { data, error in
-            defer { self.checkIfStarredOrBookmarked(then: handler) }
-            if error != nil {
-                self.model.READMEString = nil
-            } else {
-                self.model.READMEString = String(data: data!, encoding: .utf8)
+    func loadREADME(then readmeHandler: @escaping READMEHandler) {
+        NetworkClient.standard.getRepositoryReadme(fullName: model.fullName, branch: model.defaultBranch) { result in
+            switch result {
+            case .success(let response): self.model.READMEString = String(data: response, encoding: .utf8); readmeHandler(nil)
+            case .failure(let networkError): readmeHandler(networkError)
             }
         }
     }
     
-    func star(then handler: @escaping ViewStateHandler) {
+    func star(then handler: @escaping StarActionHandler) {
         if !isStarred {
-            GithubClient.standard.authenticatedUserStar(fullName: model.fullName) { error in
+            NetworkClient.standard.authenticatedUserStar(fullName: model.fullName) { error in
                 guard error != nil else {
                     self.isStarred = true
-                    handler(.starred)
+                    handler(self.isStarred)
                     return
                 }
             }
         } else {
-            GithubClient.standard.authenticatedUserUnstar(fullName: model.fullName) { error in
+            NetworkClient.standard.authenticatedUserUnstar(fullName: model.fullName) { error in
                 guard error != nil else {
                     self.isStarred = false
-                    handler(.starred)
+                    handler(self.isStarred)
                     return
                 }
             }
         }
     }
     
-    func bookmark(then handler: @escaping ViewStateHandler) {
+    func bookmark(then handler: @escaping BookmarkActionHandler) {
+        defer { handler(isBookmarked) }
         if !isBookmarked {
-            DataController.standard.insert(model)
-            isBookmarked = true
+            guard CoreDataManager.standard.insert(model) != nil else {
+                isBookmarked = true
+                return
+            }
         } else {
-            DataController.standard.delete(model)
-            isBookmarked = false
+            guard CoreDataManager.standard.delete(model) != nil else {
+                isBookmarked = false
+                return
+            }
         }
-        handler(.bookmarked)
     }
     
-    func checkIfStarredOrBookmarked(then handler: @escaping ViewStateHandler) {
-        GithubClient.standard.checkAuthenticatedUserDidStar(fullName: model.fullName) { error in
-            defer { handler(.presenting) }
-            if DataController.standard.exists(self.model) { self.isBookmarked = true }
+    func checkIfStarredOrBookmarked(then handler: @escaping ErrorHandler, then starHandler: @escaping StarActionHandler, then bookmarkHandler: @escaping BookmarkActionHandler) {
+        NetworkClient.standard.checkAuthenticatedUserDidStar(fullName: model.fullName) { error in
+            defer { handler(nil) }
+            let fetchResult = CoreDataManager.standard.exists(self.model)
+            switch fetchResult {
+            case .success(let exists): self.isBookmarked = exists
+                                       bookmarkHandler(self.isBookmarked)
+            case .failure(_): self.isBookmarked = false
+            }
             guard error != nil else {
                 self.isStarred = true
+                starHandler(self.isStarred)
                 return
             }
         }

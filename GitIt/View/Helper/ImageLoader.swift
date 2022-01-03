@@ -12,8 +12,8 @@ class ImageLoader {
     
     static let standard = ImageLoader()
     
-    private var cache: NSCache<NSURL, UIImage>!
-    private var runningRequests: [UUID: URLSessionDataTask]
+    private var cache: NSCache<NSURL,UIImage>!
+    private var runningRequests: [UUID:URLSessionDataTask]
     
     private init() {
         cache = NSCache()
@@ -21,7 +21,7 @@ class ImageLoader {
         runningRequests = [UUID: URLSessionDataTask]()
     }
     
-    func loadImage(_ url: URL, completion: @escaping (Result<UIImage, Error>) -> Void) -> UUID? {
+    func loadImage(_ url: URL, completion: @escaping (Result<UIImage,NetworkError>) -> Void) -> UUID? {
         if let image = cache.object(forKey: url as NSURL) {
             completion(.success(image))
             return nil
@@ -29,18 +29,13 @@ class ImageLoader {
         
         let taskUUID = UUID()
         
-        let task = GithubClient.standard.downloadAvatar(url: url) { data, error in
-            if let data = data, let image = UIImage(data: data) {
-                self.cache.setObject(image, forKey: url as NSURL)
-                completion(.success(image))
-                return
-            }
-            guard let error = error else {
-                return
-            }
-            guard (error as NSError).code == NSURLErrorCancelled else {
-                completion(.failure(error))
-                return
+        let task = NetworkClient.standard.downloadImage(at: url) { result in
+            switch result {
+            case .success(let data): if let image = UIImage(data: data) {
+                                        self.cache.setObject(image, forKey: url as NSURL)
+                                        completion(.success(image))
+                                     }
+            case .failure(let error): completion(.failure(error))
             }
         }
         

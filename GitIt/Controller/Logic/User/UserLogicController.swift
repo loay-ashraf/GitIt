@@ -12,8 +12,7 @@ class UserLogicController {
     var model = List<UserModel>()
     var context: UserContext
     private var contextParameters: Any?
-    
-    typealias ViewStateHandler = (ViewState) -> Void
+    private var handler: LoadingHandler?
     
     init(context: UserContext, contextParameters: Any? = nil) {
         self.context = context
@@ -28,96 +27,62 @@ class UserLogicController {
         }
     }
     
-    func refresh(then handler: @escaping ViewStateHandler) {
+    func load(then handler: @escaping LoadingHandler) {
+        self.handler = handler
+        switch context {
+        case .main: loadMain()
+        case .followers: loadFollowers()
+        case .following: loadFollowing()
+        case .stars: loadStars()
+        case .contributors: loadContributers()
+        case .members: loadMembers()
+        }
+    }
+    
+    func refresh(then handler: @escaping LoadingHandler) {
         model.reset()
         load(then: handler)
     }
     
-    func load(then handler: @escaping ViewStateHandler) {
-        switch context {
-        case .main: loadMain(then: handler)
-        case .followers: loadFollowers(then: handler)
-        case .following: loadFollowing(then: handler)
-        case .stars: loadStars(then: handler)
-        case .contributors: loadContributers(then: handler)
-        case .members: loadMembers(then: handler)
-        }
+    private func loadMain() {
+        NetworkClient.standard.getUserPage(page: model.currentPage, perPage: 10, completionHandler: processResult(result:))
     }
     
-    private func loadMain(then handler: @escaping ViewStateHandler) {
-        GithubClient.standard.getUserPage(page: model.currentPage, perPage: 10) { response, error in
-            if let error = error {
-                print(error.localizedDescription)
-            } else {
-                self.model.append(contentsOf: response)
-                self.updateModelParameters()
-                handler(.presenting)
-            }
-        }
-    }
-    
-    private func loadFollowers(then handler: @escaping ViewStateHandler) {
+    private func loadFollowers() {
         let parameters = contextParameters as! UserContext.FollowersParameters
-        GithubClient.standard.getUserFollowers(userLogin: parameters.0, page: model.currentPage, perPage: 10) { response, error in
-            if let error = error {
-                print(error.localizedDescription)
-            } else {
-                self.model.append(contentsOf: response)
-                self.updateModelParameters()
-                handler(.presenting)
-            }
-        }
+        NetworkClient.standard.getUserFollowers(userLogin: parameters.0, page: model.currentPage, perPage: 10, completion: processResult(result:))
     }
     
-    private func loadFollowing(then handler: @escaping ViewStateHandler) {
+    private func loadFollowing() {
         let parameters = contextParameters as! UserContext.FollowingParameters
-        GithubClient.standard.getUserFollowing(userLogin: parameters.0, page: model.currentPage, perPage: 10) { response, error in
-            if let error = error {
-                print(error.localizedDescription)
-            } else {
-                self.model.append(contentsOf: response)
-                self.updateModelParameters(newItemsCount: response.count)
-                handler(.presenting)
-            }
-        }
+        NetworkClient.standard.getUserFollowing(userLogin: parameters.0, page: model.currentPage, perPage: 10, completion: processResult(result:))
     }
     
-    private func loadStars(then handler: @escaping ViewStateHandler) {
+    private func loadStars() {
         let parameters = contextParameters as! UserContext.StarsParameters
-        GithubClient.standard.getRepositoryStars(fullName: parameters.0, page: model.currentPage, perPage: 10) { response, error in
-            if let error = error {
-                print(error.localizedDescription)
-            } else {
-                self.model.append(contentsOf: response)
-                self.updateModelParameters()
-                handler(.presenting)
-            }
-        }
+        NetworkClient.standard.getRepositoryStars(fullName: parameters.0, page: model.currentPage, perPage: 10, completionHandler: processResult(result:))
     }
     
-    private func loadContributers(then handler: @escaping ViewStateHandler) {
+    private func loadContributers() {
         let parameters = contextParameters as! UserContext.ContributorsParameters
-        GithubClient.standard.getRepositoryContributors(fullName: parameters, page: model.currentPage, perPage: 10) { response, error in
-            if let error = error {
-                print(error.localizedDescription)
-            } else {
-                self.model.append(contentsOf: response)
-                self.updateModelParameters(newItemsCount: response.count)
-                handler(.presenting)
-            }
-        }
+        NetworkClient.standard.getRepositoryContributors(fullName: parameters, page: model.currentPage, perPage: 10, completionHandler: processResult(result:))
     }
     
-    private func loadMembers(then handler: @escaping ViewStateHandler) {
+    private func loadMembers() {
         let parameters = contextParameters as! UserContext.MembersParameters
-        GithubClient.standard.getOrganizationMemebers(organizationLogin: parameters, page: model.currentPage, perPage: 10) { response, error in
-            if let error = error {
-                print(error.localizedDescription)
-            } else {
-                self.model.append(contentsOf: response)
-                self.updateModelParameters(newItemsCount: response.count)
-                handler(.presenting)
-            }
+        NetworkClient.standard.getOrganizationMemebers(organizationLogin: parameters, page: model.currentPage, perPage: 10, completionHandler: processResult(result:))
+    }
+    
+    private func processResult(result: Result<[UserModel],NetworkError>) {
+        switch result {
+        case .success(let response): self.model.append(contentsOf: response)
+                                     self.updateModelParameters(newItemsCount: response.count)
+                                     if self.model.isEmpty {
+                                         handler?(nil,.user)
+                                     } else {
+                                         handler?(nil,nil)
+                                     }
+        case .failure(let networkError): handler?(networkError, nil)
         }
     }
     

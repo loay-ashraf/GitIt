@@ -13,7 +13,8 @@ class UserDetailLogicController {
     var isBookmarked: Bool = false
     var isFollowed: Bool = false
     
-    typealias ViewStateHandler = (UserDetailViewState) -> Void
+    typealias FollowActionHandler = (Bool) -> Void
+    typealias BookmarkActionHandler = (Bool) -> Void
     
     // MARK: - Initialisation
     
@@ -23,50 +24,63 @@ class UserDetailLogicController {
     
     // MARK: - Business Logic Methods
     
-    func load(then handler: @escaping ViewStateHandler) {
-        GithubClient.standard.getUser(userLogin: model.login) { response, error in
-            self.model = response!
-            self.checkIfFollowedOrBookmarked(then: handler)
+    func load(then handler: @escaping ErrorHandler, then followHandler: @escaping FollowActionHandler, then bookmarkHandler: @escaping BookmarkActionHandler) {
+        NetworkClient.standard.getUser(userLogin: model.login) { result in
+            switch result {
+            case .success(let response): self.model = response
+                                         self.checkIfFollowedOrBookmarked(then: handler, then: followHandler, then: bookmarkHandler)
+            case .failure(let networkError): handler(networkError)
+            }
         }
     }
     
-    func follow(then handler: @escaping ViewStateHandler) {
+    func follow(then handler: @escaping FollowActionHandler) {
         if !isFollowed {
-            GithubClient.standard.authenticatedUserFollow(userLogin: model.login) { error in
+            NetworkClient.standard.authenticatedUserFollow(userLogin: model.login) { error in
                 guard error != nil else {
                     self.isFollowed = true
-                    handler(.followed)
+                    handler(self.isFollowed)
                     return
                 }
             }
         } else {
-            GithubClient.standard.authenticatedUserUnfollow(userLogin: model.login) { error in
+            NetworkClient.standard.authenticatedUserUnfollow(userLogin: model.login) { error in
                 guard error != nil else {
                     self.isFollowed = false
-                    handler(.followed)
+                    handler(self.isFollowed)
                     return
                 }
             }
         }
     }
     
-    func bookmark(then handler: @escaping ViewStateHandler) {
+    func bookmark(then handler: @escaping BookmarkActionHandler) {
+        defer { handler(isBookmarked) }
         if !isBookmarked {
-            DataController.standard.insert(model)
-            isBookmarked = true
+            guard CoreDataManager.standard.insert(model) != nil else {
+                isBookmarked = true
+                return
+            }
         } else {
-            DataController.standard.delete(model)
-            isBookmarked = false
+            guard CoreDataManager.standard.delete(model) != nil else {
+                isBookmarked = false
+                return
+            }
         }
-        handler(.bookmarked)
     }
     
-    func checkIfFollowedOrBookmarked(then handler: @escaping ViewStateHandler) {
-        GithubClient.standard.checkAuthenticatedUserIsFollowing(userLogin: model.login) { error in
-            defer { handler(.presenting) }
-            if DataController.standard.exists(self.model) { self.isBookmarked = true }
+    func checkIfFollowedOrBookmarked(then handler: @escaping ErrorHandler, then followHandler: @escaping FollowActionHandler, then bookmarkHandler: @escaping BookmarkActionHandler) {
+        NetworkClient.standard.checkAuthenticatedUserIsFollowing(userLogin: model.login) { error in
+            defer { handler(nil) }
+            let fetchResult = CoreDataManager.standard.exists(self.model)
+            switch fetchResult {
+            case .success(let exists): self.isBookmarked = exists
+                                       bookmarkHandler(self.isBookmarked)
+            case .failure(_): self.isBookmarked = false
+            }
             guard error != nil else {
                 self.isFollowed = true
+                followHandler(self.isFollowed)
                 return
             }
         }

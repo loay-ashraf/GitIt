@@ -11,8 +11,6 @@ class CommitDetailLogicController {
     
     var model: CommitModel
     
-    typealias ViewStateHandler = (CommitDetailViewState) -> Void
-    
     // MARK: - Initialisation
     
     init(_ model: CommitModel) {
@@ -21,8 +19,8 @@ class CommitDetailLogicController {
     
     // MARK: - Business Logic Methods
     
-    func load(then handler: @escaping ViewStateHandler) {
-        handler(.presenting)
+    func load(then handler: @escaping ErrorHandler) {
+        handler(nil)
     }
     
 }

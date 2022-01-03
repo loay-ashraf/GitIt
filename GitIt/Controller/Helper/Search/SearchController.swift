@@ -18,7 +18,7 @@ class SearchController<Type: Model>: UISearchController, UISearchControllerDeleg
     
     // MARK: - Initialisation
 
-    init(_ coordinator: SearchCoordinator<Type>, searchResultsController: UITableViewController) {
+    init(_ coordinator: SearchCoordinator<Type>, searchResultsController: UIViewController) {
         super.init(searchResultsController: searchResultsController)
         self.coordinator = coordinator
         self.configure()
@@ -43,7 +43,6 @@ class SearchController<Type: Model>: UISearchController, UISearchControllerDeleg
     private func timerSearch() {
         timer.cancel()
         coordinator.willSearch()
-        coordinator.search()
     }
 
     // MARK: - Search Controller Delegate
@@ -59,14 +58,11 @@ class SearchController<Type: Model>: UISearchController, UISearchControllerDeleg
     // MARK: - Search Bar Delegate
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        coordinator.results.reset()
         if searchText != "" {
             timer.activate()
         } else {
             timer.cancel()
             coordinator.didSearch()
-            coordinator.resultsTableView.reloadData()
-            coordinator.resultsTableView.tableFooterView = UIView()
         }
     }
 
