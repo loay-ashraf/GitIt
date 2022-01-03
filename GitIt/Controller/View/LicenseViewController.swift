@@ -32,14 +32,14 @@ class LicenseViewController: UIViewController, IBViewController {
         fatalError("Fatal Error, this view controller shouldn't be instantiated via storyboard segue.")
     }
     
-    static func instatiateFromStoryboard(with parameters: Any) -> UIViewController {
+    static func instatiateWithParameters(with parameters: Any) -> UIViewController {
         let storyBoard = UIStoryboard(name: "Main", bundle: nil)
         return storyBoard.instantiateViewController(identifier: LicenseViewController.storyboardIdentifier, creator: {coder ->                                  LicenseViewController in
                         LicenseViewController(coder: coder, parameters: parameters as! (String,String))!
                 })
     }
     
-    static func instatiateFromStoryboard<Type>(with model: Type) -> UIViewController where Type : Model {
+    static func instatiateWithModel(with model: Any) -> UIViewController {
         fatalError("This View controller is instaniated only using parameters")
     }
     
@@ -86,6 +86,7 @@ class LicenseViewController: UIViewController, IBViewController {
     internal func render(_ viewState: ViewState) {
         self.viewState = viewState
         switch viewState {
+        case .empty(let emptyContext): return
         case .loading(let loadingViewState): showActivityIndicator(for: loadingViewState)
         case .presenting: updateUI()
         case .failed(let failedViewState): showError(with: failedViewState)

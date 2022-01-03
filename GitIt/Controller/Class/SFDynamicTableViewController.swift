@@ -7,22 +7,26 @@
 
 import UIKit
 
-class SFDynamicTableViewController<Type: Model>: UITableViewController {
+class SFDynamicTableViewController<Type: Equatable>: UITableViewController {
     
-    var dynamicTableView: SFDynamicTableView! { return tableView as? SFDynamicTableView }
+    var xTableView: SFDynamicTableView! { return tableView as? SFDynamicTableView }
     
     var cellType: IBTableViewCell.Type!
-    var detailViewControllerType: IBViewController.Type!
-    
+    var detailViewControllerType: IBViewController.Type?
+
     private(set) var model: List<Type>!
     
     // MARK: - Initialisation
     
-    override init(nibName: String?, bundle: Bundle?) {
+    init(cellType: IBTableViewCell.Type, detailViewControllerType: IBViewController.Type? = nil) {
+        super.init(nibName: nil, bundle: nil)
+        self.cellType = cellType
+        self.detailViewControllerType = detailViewControllerType
+        self.model = List<Type>()
+    }
+    
+    override private init(nibName: String?, bundle: Bundle?) {
         super.init(nibName: nibName, bundle: bundle)
-        model = List<Type>()
-        cellType = Constants.Model.modelToCellType(type: Type.self)
-        detailViewControllerType = Constants.Model.modelToDetailViewControllerType(type: Type.self)
     }
     
     required init?(coder: NSCoder) {
@@ -32,35 +36,59 @@ class SFDynamicTableViewController<Type: Model>: UITableViewController {
     // MARK: - Lifecycle
     
     override func loadView() {
-        let window = UIApplication.shared.windows.filter({$0.isKeyWindow}).first
-        tableView = SFDynamicTableView(frame: window!.bounds, style: .plain)
+        super.loadView()
+        if xTableView == nil {
+            // re-initialize table view with SFDynamic table view initializer
+            let window = UIApplication.shared.windows.filter({$0.isKeyWindow}).first
+            tableView = SFDynamicTableView(frame: window!.bounds, style: .plain)
+        }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureView()
     }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        switch xTableView.state {
+        case .presenting: enableSearchBar()
+        default: disableSearchBar()
+        }
+    }
 
     // MARK: - View Helper Methods
     
     func configureView() {
-        dynamicTableView.dataSource = self
-        dynamicTableView.delegate = self
-        dynamicTableView.errorAction = { [weak self] in self?.load(with: .initial) }
-        dynamicTableView.footerErrorAction = { [weak self] in self?.load(with: .paginate) }
-        dynamicTableView.register(cellType.nib, forCellReuseIdentifier: cellType.reuseIdentifier)
-        dynamicTableView.tableHeaderView = UIView()
-        dynamicTableView.tableFooterView = UIView()
-        dynamicTableView.refreshControl = UIRefreshControl()
-        dynamicTableView.refreshControl?.addTarget(self, action: #selector(refresh), for: .valueChanged)
-        // View bounds compensation for right positioning of loading indicators
-        if let navigationController = navigationController { view.bounds.size.height -= navigationController.navigationBar.frame.height }
-        if let tabBarController = tabBarController { view.bounds.size.height -= tabBarController.tabBar.frame.height }
+        // Setup table view cell, data source and delegates
+        if let cellType = cellType, xTableView.registeredNibs.isEmpty, xTableView.registeredCellIdentifiers.isEmpty {
+            xTableView.register(cellType.nib, forCellReuseIdentifier: cellType.reuseIdentifier)
+        }
+        xTableView.dataSource = self
+        xTableView.delegate = self
+        if xTableView.tableHeaderView == nil { xTableView.tableHeaderView = UIView() }
+        if xTableView.tableFooterView == nil { xTableView.tableFooterView = UIView() }
+        xTableView.refreshControl = UIRefreshControl()
+        xTableView.refreshControl?.addTarget(self, action: #selector(refresh), for: .valueChanged)
+        // Setup error actions
+        xTableView.errorAction = { [weak self] in self?.load(with: .initial) }
+        xTableView.footerErrorAction = { [weak self] in self?.load(with: .paginate) }
+    }
+    
+    func updateView() {
+        xTableView.reloadData()
+    }
+    
+    func registerCell(cellType: IBTableViewCell.Type) {
+        xTableView.register(cellType.nib, forCellReuseIdentifier: cellType.reuseIdentifier)
     }
     
     func configureContextMenu(indexPath: IndexPath) -> UIContextMenuConfiguration {
         let modelItem = model.items[indexPath.row]
-        return Constants.Model.modelToContextMenuConfiguration(type: Type.self, for: modelItem)!
+        if let configuration = Constants.Model.modelToContextMenuConfiguration(type: Type.self, for: modelItem) {
+            return configuration
+        }
+        return UIContextMenuConfiguration()
     }
     
     func enableSearchBar() {
@@ -73,10 +101,27 @@ class SFDynamicTableViewController<Type: Model>: UITableViewController {
         navigationItem.searchController?.searchBar.alpha = 0.5
     }
     
-    // MARK: - Load, Refresh and Paginate Methods
+    func enableRefreshControl() {
+        xTableView.refreshControl = UIRefreshControl()
+        xTableView.refreshControl?.addTarget(self, action: #selector(refresh), for: .valueChanged)
+    }
+    
+    func disableRefreshControl() {
+        xTableView.refreshControl = nil
+    }
+    
+    func enableBouncing() {
+        xTableView.bounces = true
+    }
+    
+    func disableBouncing() {
+        xTableView.bounces = false
+    }
+    
+    // MARK: - Load, Refresh, Paginate and Reset Methods
     
     func load(with loadingViewState: LoadingViewState) {
-        dynamicTableView.transition(to: .loading(loadingViewState))
+        xTableView.transition(to: .loading(loadingViewState))
     }
     
     @objc func refresh() {
@@ -87,7 +132,7 @@ class SFDynamicTableViewController<Type: Model>: UITableViewController {
         let lastRowIndex = tableView.indexPathsForVisibleRows?.last?.row
         if let lastRowIndex = lastRowIndex {
             if model.isPaginable, lastRowIndex + 1 == model.items.count {
-                switch self.dynamicTableView.state {
+                switch self.xTableView.state {
                 case .loading, .failed: return
                 default: load(with: .paginate)
                 }
@@ -95,36 +140,48 @@ class SFDynamicTableViewController<Type: Model>: UITableViewController {
         }
     }
     
-    // MARK: - Load, Refresh and Paginate Handlers
+    func reset() {
+        xTableView.transition(to: .loading(.initial))
+    }
     
-    func loadHandler(error: Error?) {
+    // MARK: - Load, Refresh, Paginate and Reset Handlers
+    
+    func loadHandler(error: Error?, emptyContext: EmptyContext?) {
         if let error = error {
-            dynamicTableView.transition(to: .failed(.initial(error)))
+            xTableView.transition(to: .failed(.initial(error)))
+            disableSearchBar()
+        } else if let emptyContext = emptyContext{
+            xTableView.transition(to: .empty(emptyContext))
             disableSearchBar()
         } else {
-            dynamicTableView.transition(to: .presenting)
+            xTableView.transition(to: .presenting)
             enableSearchBar()
         }
     }
     
-    func refreshHandler(error: Error?) {
+    func refreshHandler(error: Error?, emptyContext: EmptyContext?) {
         if let error = error {
-            dynamicTableView.transition(to: .failed(.refresh(error)))
+            xTableView.transition(to: .failed(.refresh(error)))
             disableSearchBar()
         } else {
-            dynamicTableView.transition(to: .presenting)
+            xTableView.transition(to: .presenting)
             enableSearchBar()
         }
     }
     
-    func paginateHandler(error: Error?) {
+    func paginateHandler(error: Error?, emptyContext: EmptyContext?) {
         if let error = error {
-            dynamicTableView.transition(to: .failed(.paginate(error)))
+            xTableView.transition(to: .failed(.paginate(error)))
             disableSearchBar()
         } else {
-            dynamicTableView.transition(to: .presenting)
+            xTableView.transition(to: .presenting)
             enableSearchBar()
         }
+    }
+    
+    func resetHandler() {
+        xTableView.transition(to: .presenting)
+        enableSearchBar()
     }
     
     // MARK: - Table View Data Source
@@ -134,27 +191,32 @@ class SFDynamicTableViewController<Type: Model>: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return model.items.count
+        return model?.items.count ?? 0
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if tableView.refreshControl!.isRefreshing { return UITableViewCell() }
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellType.reuseIdentifier, for: indexPath) as! IBTableViewCell
-        let item = model.items[indexPath.row]
-        
-        // Configure the cell...
-        cell.configure(with: item)
-        
-        return cell
+        if let refreshControl = xTableView.refreshControl, refreshControl.isRefreshing { return UITableViewCell() }
+        if let cellIdentifier = xTableView.registeredCellIdentifiers.first {
+            let cell = xTableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! IBTableViewCell
+            let item = model.items[indexPath.row]
+            
+            // Configure the cell...
+            cell.configure(with: item)
+
+            return cell
+        }
+        return UITableViewCell()
     }
     
     // MARK: - Table View Delegate
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-        let modelItem = model.items[indexPath.row]
-        let detailVC = detailViewControllerType.instatiateFromStoryboard(with: modelItem)
-        navigationController?.pushViewController(detailVC, animated: true)
+        xTableView.deselectRow(at: indexPath, animated: true)
+        if let detailViewControllerType = detailViewControllerType {
+            let modelItem = model.items[indexPath.row]
+            let detailVC = detailViewControllerType.instatiateWithModel(with: modelItem)
+            navigationController?.pushViewController(detailVC, animated: true)
+        }
     }
     
     override func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {

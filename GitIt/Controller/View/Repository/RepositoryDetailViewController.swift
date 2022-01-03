@@ -44,15 +44,19 @@ class RepositoryDetailViewController: SFStaticTableViewController, IBViewControl
         fatalError("Fatal Error, this view controller shouldn't be instantiated via storyboard segue.")
     }
     
-    static func instatiateFromStoryboard(with parameters: Any) -> UIViewController {
+    static func instatiateWithParameters(with parameters: Any) -> UIViewController {
         fatalError("This View controller is instaniated only using a model")
     }
     
-    static func instatiateFromStoryboard<Type: Model>(with model: Type) -> UIViewController {
+    static func instatiateWithModel(with model: Any) -> UIViewController {
         let storyBoard = UIStoryboard(name: "Main", bundle: nil)
         return storyBoard.instantiateViewController(identifier: self.storyboardIdentifier, creator: {coder -> RepositoryDetailViewController in
                         self.init(coder: coder, model: model as! RepositoryModel)!
                 })
+    }
+    
+    deinit {
+        print("Controller deallocated")
     }
     
     // MARK: - Lifecycle
@@ -62,12 +66,27 @@ class RepositoryDetailViewController: SFStaticTableViewController, IBViewControl
         load()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        if subViewsOffsetSize != .searchScreenWithNavBar {
+            subViewsOffsetSize = .mainScreenWithSearch
+        } else {
+            subViewsOffsetSize = .searchScreen
+        }
+    }
+    
     // MARK: - View Helper Methods
     
     override func configureView() {
         super.configureView()
         
         navigationItem.largeTitleDisplayMode = .never
+        
+        if subViewsOffsetSize != .searchScreen {
+            subViewsOffsetSize = .subScreen
+        } else {
+            subViewsOffsetSize = .searchScreenWithNavBar
+        }
         
         avatarImageView.cornerRadius = 16.0
         avatarImageView.cornerCurve = .continuous
@@ -156,7 +175,7 @@ class RepositoryDetailViewController: SFStaticTableViewController, IBViewControl
             navigationController?.pushViewController(userDetailVC!, animated: true)
         } else if model.owner.type == .organization {
             let organizationModel = OrganizationModel(from: model.owner)
-            let organizationDetailVC = OrganizationDetailViewController.instatiateFromStoryboard(with: organizationModel)
+            let organizationDetailVC = OrganizationDetailViewController.instatiateWithModel(with: organizationModel)
             navigationController?.pushViewController(organizationDetailVC, animated: true)
         }
     }
@@ -187,7 +206,7 @@ class RepositoryDetailViewController: SFStaticTableViewController, IBViewControl
     }
     
     func showLicense() {
-        let licenseVC = LicenseViewController.instatiateFromStoryboard(with: (model.fullName,model.defaultBranch))
+        let licenseVC = LicenseViewController.instatiateWithParameters(with: (model.fullName,model.defaultBranch))
         navigationController?.pushViewController(licenseVC, animated: true)
     }
     

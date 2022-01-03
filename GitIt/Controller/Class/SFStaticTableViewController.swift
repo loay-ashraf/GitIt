@@ -9,7 +9,7 @@ import UIKit
 
 class SFStaticTableViewController: UITableViewController {
     
-    var staticTableView: SFStaticTableView! { return tableView as? SFStaticTableView }
+    var xTableView: SFStaticTableView! { return tableView as? SFStaticTableView }
     
     // MARK: - Initialisation
     
@@ -37,24 +37,22 @@ class SFStaticTableViewController: UITableViewController {
     // MARK: - View Helper Methods
     
     func configureView() {
-        staticTableView.errorAction = { [weak self] in self?.load() }
-        staticTableView.updateView = { [weak self] in self?.updateView() }
-        // View bounds compensation for right positioning of loading indicators
-        if let navigationController = navigationController { view.bounds.origin.y -= navigationController.navigationBar.frame.height }
-        if let tabBarController = tabBarController { view.bounds.size.height -= tabBarController.tabBar.frame.height }
+        // Setup actions
+        xTableView.updateView = { [weak self] in self?.updateView() }
+        xTableView.errorAction = { [weak self] in self?.load() }
     }
     
     func updateView() { /* Override this method in subclass to provide view updater method */ }
     
     func fitTableHeaderView() {
-        guard let headerView = staticTableView.tableHeaderView else {
+        guard let headerView = xTableView.tableHeaderView else {
             return
         }
         let size = headerView.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
         if headerView.frame.size.height != size.height {
             headerView.frame.size.height = size.height
-            staticTableView.tableHeaderView = headerView
-            staticTableView.layoutIfNeeded()
+            xTableView.tableHeaderView = headerView
+            xTableView.layoutIfNeeded()
         }
     }
     
@@ -73,22 +71,22 @@ class SFStaticTableViewController: UITableViewController {
     // MARK: - View Action Methods
     
     func showViewController(forRowAt indexPath: IndexPath) {
-        staticTableView.deselectRow(at: indexPath, animated: true)
+        xTableView.deselectRow(at: indexPath, animated: true)
     }
 
     // MARK: - Load, Refresh and Paginate Methods
     
     func load() {
-        staticTableView.transition(to: .loading(.initial))
+        xTableView.transition(to: .loading(.initial))
     }
     
     // MARK: - Load, Refresh and Paginate Handlers
     
     func loadHandler(error: Error?) {
         if let error = error {
-            staticTableView.transition(to: .failed(.initial(error)))
+            xTableView.transition(to: .failed(.initial(error)))
         } else {
-            staticTableView.transition(to: .presenting)
+            xTableView.transition(to: .presenting)
         }
     }
     

@@ -32,15 +32,21 @@ class ActivityIndicatorView: UIView {
     }
     
     func show(on superView: UIView) {
-        frame = superView.bounds
+        let window = UIApplication.shared.windows.filter({$0.isKeyWindow}).first
+        if superView.superview == nil {
+            superView.frame.size.height = (window?.frame.height)! - subViewsOffsetSize.rawValue
+        }
+        frame = superView.frame
         superView.addSubview(self)
         spinner.startAnimating()
     }
     
     func show(on superView: UIView, with heightOffset: CGFloat) {
-        frame = superView.bounds
-        frame.origin.y -= heightOffset
-        superView.addSubview(self)
+        frame = superView.frame
+        frame.size.height -= heightOffset
+        UIView.transition(with: superView, duration: 0.25, options: [.transitionCrossDissolve], animations: {
+            superView.addSubview(self)
+        }, completion: nil)
         spinner.startAnimating()
     }
     

@@ -11,7 +11,7 @@ import UIKit
 protocol IBViewController: UIViewController {
     
     static var storyboardIdentifier: String { get }
-    static func instatiateFromStoryboard(with parameters: Any) -> UIViewController
-    static func instatiateFromStoryboard<Type: Model>(with model: Type) -> UIViewController
+    static func instatiateWithParameters(with parameters: Any) -> UIViewController
+    static func instatiateWithModel(with model: Any) -> UIViewController
     
 }

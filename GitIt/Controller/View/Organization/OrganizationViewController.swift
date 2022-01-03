@@ -20,12 +20,16 @@ class OrganizationViewController: SFDynamicTableViewController<OrganizationModel
     
     init(context: OrganizationContext, contextParameters: Any? = nil) {
         logicController = OrganizationLogicController(context: context, contextParameters: contextParameters)
-        super.init(nibName: nil, bundle: nil)
+        super.init(cellType: OrganizationTableViewCell.self, detailViewControllerType: OrganizationDetailViewController.self)
         hidesBottomBarWhenPushed = true
     }
     
     required init?(coder: NSCoder) {
         fatalError("Fatal Error, this view controller shouldn't be instantiated from storyboard.")
+    }
+    
+    deinit {
+        print("Controller deallocated")
     }
 
     // MARK: - Lifecycle
@@ -43,6 +47,14 @@ class OrganizationViewController: SFDynamicTableViewController<OrganizationModel
         title = context.titleValue
         navigationItem.largeTitleDisplayMode = context == .main ? .always : .never
         
+        if subViewsOffsetSize != .searchScreen {
+            if context != .main {
+                subViewsOffsetSize = .subScreen
+            } else {
+                subViewsOffsetSize = .mainScreenWithSearch
+            }
+        }
+        
         searchCoordinator = context == .main ? SearchCoordinator(self) : nil
     }
     
@@ -51,9 +63,9 @@ class OrganizationViewController: SFDynamicTableViewController<OrganizationModel
     override func load(with loadingViewState: LoadingViewState) {
         super.load(with: loadingViewState)
         switch loadingViewState {
-        case .initial: logicController.load(then: loadHandler(error:))
-        case .refresh: logicController.refresh(then: refreshHandler(error:))
-        case .paginate: logicController.load(then: paginateHandler(error:))
+        case .initial: logicController.load { [weak self] error, emptyContext in self?.loadHandler(error: error, emptyContext: emptyContext) }
+        case .refresh: logicController.refresh { [weak self] error, emptyContext in self?.refreshHandler(error: error, emptyContext: emptyContext) }
+        case .paginate: logicController.load { [weak self] error, emptyContext in self?.paginateHandler(error: error, emptyContext: emptyContext) }
         }
     }
     

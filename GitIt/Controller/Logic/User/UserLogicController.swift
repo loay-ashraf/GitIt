@@ -12,6 +12,7 @@ class UserLogicController {
     var model = List<UserModel>()
     var context: UserContext
     private var contextParameters: Any?
+    private var handler: LoadingHandler?
     
     init(context: UserContext, contextParameters: Any? = nil) {
         self.context = context
@@ -26,90 +27,62 @@ class UserLogicController {
         }
     }
     
-    func load(then handler: @escaping ErrorHandler) {
+    func load(then handler: @escaping LoadingHandler) {
+        self.handler = handler
         switch context {
-        case .main: loadMain(then: handler)
-        case .followers: loadFollowers(then: handler)
-        case .following: loadFollowing(then: handler)
-        case .stars: loadStars(then: handler)
-        case .contributors: loadContributers(then: handler)
-        case .members: loadMembers(then: handler)
+        case .main: loadMain()
+        case .followers: loadFollowers()
+        case .following: loadFollowing()
+        case .stars: loadStars()
+        case .contributors: loadContributers()
+        case .members: loadMembers()
         }
     }
     
-    func refresh(then handler: @escaping ErrorHandler) {
+    func refresh(then handler: @escaping LoadingHandler) {
         model.reset()
         load(then: handler)
     }
     
-    private func loadMain(then handler: @escaping ErrorHandler) {
-        NetworkClient.standard.getUserPage(page: model.currentPage, perPage: 10) { result in
-            switch result {
-            case .success(let response): self.model.append(contentsOf: response)
-                                         self.updateModelParameters()
-                                         handler(nil)
-            case .failure(let networkError): handler(networkError)
-            }
-        }
+    private func loadMain() {
+        NetworkClient.standard.getUserPage(page: model.currentPage, perPage: 10, completionHandler: processResult(result:))
     }
     
-    private func loadFollowers(then handler: @escaping ErrorHandler) {
+    private func loadFollowers() {
         let parameters = contextParameters as! UserContext.FollowersParameters
-        NetworkClient.standard.getUserFollowers(userLogin: parameters.0, page: model.currentPage, perPage: 10) { result in
-            switch result {
-            case .success(let response): self.model.append(contentsOf: response)
-                                         self.updateModelParameters()
-                                         handler(nil)
-            case .failure(let networkError): handler(networkError)
-            }
-        }
+        NetworkClient.standard.getUserFollowers(userLogin: parameters.0, page: model.currentPage, perPage: 10, completion: processResult(result:))
     }
     
-    private func loadFollowing(then handler: @escaping ErrorHandler) {
+    private func loadFollowing() {
         let parameters = contextParameters as! UserContext.FollowingParameters
-        NetworkClient.standard.getUserFollowing(userLogin: parameters.0, page: model.currentPage, perPage: 10) { result in
-            switch result {
-            case .success(let response): self.model.append(contentsOf: response)
-                                         self.updateModelParameters()
-                                         handler(nil)
-            case .failure(let networkError): handler(networkError)
-            }
-        }
+        NetworkClient.standard.getUserFollowing(userLogin: parameters.0, page: model.currentPage, perPage: 10, completion: processResult(result:))
     }
     
-    private func loadStars(then handler: @escaping ErrorHandler) {
+    private func loadStars() {
         let parameters = contextParameters as! UserContext.StarsParameters
-        NetworkClient.standard.getRepositoryStars(fullName: parameters.0, page: model.currentPage, perPage: 10) { result in
-            switch result {
-            case .success(let response): self.model.append(contentsOf: response)
-                                         self.updateModelParameters()
-                                         handler(nil)
-            case .failure(let networkError): handler(networkError)
-            }
-        }
+        NetworkClient.standard.getRepositoryStars(fullName: parameters.0, page: model.currentPage, perPage: 10, completionHandler: processResult(result:))
     }
     
-    private func loadContributers(then handler: @escaping ErrorHandler) {
+    private func loadContributers() {
         let parameters = contextParameters as! UserContext.ContributorsParameters
-        NetworkClient.standard.getRepositoryContributors(fullName: parameters, page: model.currentPage, perPage: 10) { result in
-            switch result {
-            case .success(let response): self.model.append(contentsOf: response)
-                                         self.updateModelParameters(newItemsCount: response.count)
-                                         handler(nil)
-            case .failure(let networkError): handler(networkError)
-            }
-        }
+        NetworkClient.standard.getRepositoryContributors(fullName: parameters, page: model.currentPage, perPage: 10, completionHandler: processResult(result:))
     }
     
-    private func loadMembers(then handler: @escaping ErrorHandler) {
+    private func loadMembers() {
         let parameters = contextParameters as! UserContext.MembersParameters
-        NetworkClient.standard.getOrganizationMemebers(organizationLogin: parameters, page: model.currentPage, perPage: 10) { result in
-            switch result {
-            case .success(let response): self.model.append(contentsOf: response)
-                                         self.updateModelParameters(newItemsCount: response.count)
-                                         handler(nil)
-            case .failure(let networkError): handler(networkError)
-            }
+        NetworkClient.standard.getOrganizationMemebers(organizationLogin: parameters, page: model.currentPage, perPage: 10, completionHandler: processResult(result:))
+    }
+    
+    private func processResult(result: Result<[UserModel],NetworkError>) {
+        switch result {
+        case .success(let response): self.model.append(contentsOf: response)
+                                     self.updateModelParameters(newItemsCount: response.count)
+                                     if self.model.isEmpty {
+                                         handler?(nil,.user)
+                                     } else {
+                                         handler?(nil,nil)
+                                     }
+        case .failure(let networkError): handler?(networkError, nil)
         }
     }
     

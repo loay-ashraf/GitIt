@@ -12,6 +12,7 @@ class OrganizationLogicController {
     var model = List<OrganizationModel>()
     var context: OrganizationContext
     private var contextParameters: Any?
+    private var handler: LoadingHandler?
     
     init(context: OrganizationContext, contextParameters: Any? = nil) {
         self.context = context
@@ -19,38 +20,38 @@ class OrganizationLogicController {
         self.model.isPaginable = true
     }
     
-    func load(then handler: @escaping ErrorHandler) {
+    func load(then handler: @escaping LoadingHandler) {
+        self.handler = handler
         switch context {
-        case .main: loadMain(then: handler)
-        case .user: loadUser(then: handler)
+        case .main: loadMain()
+        case .user: loadUser()
         }
     }
     
-    func refresh(then handler: @escaping ErrorHandler) {
+    func refresh(then handler: @escaping LoadingHandler) {
         model.reset()
         load(then: handler)
     }
     
-    private func loadMain(then handler: @escaping ErrorHandler) {
-        NetworkClient.standard.getOrganizationPage(page: model.currentPage, perPage: 10) { result in
-            switch result {
-            case .success(let response): self.model.append(contentsOf: response)
-                                         self.updateModelParameters()
-                                         handler(nil)
-            case .failure(let networkError): handler(networkError)
-            }
-        }
+    private func loadMain() {
+        NetworkClient.standard.getOrganizationPage(page: model.currentPage, perPage: 10, completionHandler: processResult(result:))
     }
     
-    private func loadUser(then handler: @escaping ErrorHandler) {
+    private func loadUser() {
         let parameters = contextParameters as! OrganizationContext.UserParameters
-        NetworkClient.standard.getUserOrganizations(userLogin: parameters, page: model.currentPage, perPage: 10) { result in
-            switch result {
-            case .success(let response): self.model.append(contentsOf: response)
-                                         self.updateModelParameters(newItemsCount: response.count)
-                                         handler(nil)
-            case .failure(let networkError): handler(networkError)
-            }
+        NetworkClient.standard.getUserOrganizations(userLogin: parameters, page: model.currentPage, perPage: 10, completion: processResult(result:))
+    }
+    
+    private func processResult(result: Result<[OrganizationModel],NetworkError>) {
+        switch result {
+        case .success(let response): self.model.append(contentsOf: response)
+                                     self.updateModelParameters(newItemsCount: response.count)
+                                     if self.model.isEmpty {
+                                         handler?(nil,.organization)
+                                     } else {
+                                         handler?(nil,nil)
+                                     }
+        case .failure(let networkError): handler?(networkError, nil)
         }
     }
     

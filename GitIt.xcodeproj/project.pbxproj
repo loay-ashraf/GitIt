@@ -20,6 +20,11 @@
 		C64F6F0C27374F0300E2E727 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C64F6F0B27374F0300E2E727 /* ProfileViewController.swift */; };
 		C64FE5A6277B4646002E5FC0 /* SFStaticTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C64FE5A5277B4646002E5FC0 /* SFStaticTableViewController.swift */; };
 		C64FE5A8277B4670002E5FC0 /* SFStaticTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C64FE5A7277B4670002E5FC0 /* SFStaticTableView.swift */; };
+		C653A3AD277DEB10001A5B72 /* UITableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C653A3AC277DEB10001A5B72 /* UITableView.swift */; };
+		C653A3AF277DEB38001A5B72 /* UICollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C653A3AE277DEB38001A5B72 /* UICollectionView.swift */; };
+		C6564235277F3BFF00FBCE2F /* SFViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6564234277F3BFF00FBCE2F /* SFViewController.swift */; };
+		C6564237277F3CBD00FBCE2F /* SFView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6564236277F3CBD00FBCE2F /* SFView.swift */; };
+		C656423C277F730800FBCE2F /* SearchHistory.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C656423B277F730800FBCE2F /* SearchHistory.storyboard */; };
 		C656EB96277A20B000E39EFC /* SFDynamicTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C656EB95277A20B000E39EFC /* SFDynamicTableViewController.swift */; };
 		C656EB98277A210800E39EFC /* SFDynamicTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C656EB97277A210800E39EFC /* SFDynamicTableView.swift */; };
 		C656EB9A277A216B00E39EFC /* StatefulView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C656EB99277A216B00E39EFC /* StatefulView.swift */; };
@@ -41,6 +46,20 @@
 		C65C0E0A276A374700ED17CB /* OrganizationDetailLogicController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C65C0E09276A374700ED17CB /* OrganizationDetailLogicController.swift */; };
 		C65C0E0F276A43DB00ED17CB /* OrganizationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C65C0E0D276A43DB00ED17CB /* OrganizationTableViewCell.swift */; };
 		C65C0E10276A43DB00ED17CB /* OrganizationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C65C0E0E276A43DB00ED17CB /* OrganizationTableViewCell.xib */; };
+		C66033FE277CDF0400907494 /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66033FD277CDF0400907494 /* HistoryViewController.swift */; };
+		C6603400277CE53A00907494 /* HistoryCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66033FF277CE53A00907494 /* HistoryCollectionViewController.swift */; };
+		C6603402277CE69400907494 /* IBCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6603401277CE69400907494 /* IBCollectionViewCell.swift */; };
+		C6603404277CE86700907494 /* SFDynamicCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6603403277CE86700907494 /* SFDynamicCollectionView.swift */; };
+		C6603406277CEA9B00907494 /* SFDynamicCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6603405277CEA9B00907494 /* SFDynamicCollectionViewController.swift */; };
+		C66412312780789500D605BF /* HistoryLogicController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66412302780789500D605BF /* HistoryLogicController.swift */; };
+		C66412352780790E00D605BF /* HistoryDelegates.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66412342780790E00D605BF /* HistoryDelegates.swift */; };
+		C66412382780796E00D605BF /* HistoryExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66412372780796E00D605BF /* HistoryExtensions.swift */; };
+		C664123D27807CEA00D605BF /* ResultsLogicController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C664123C27807CEA00D605BF /* ResultsLogicController.swift */; };
+		C6641241278083D700D605BF /* ResultsDelegates.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6641240278083D700D605BF /* ResultsDelegates.swift */; };
+		C66412452780845900D605BF /* CoordinatorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66412442780845900D605BF /* CoordinatorExtensions.swift */; };
+		C66412472780859A00D605BF /* EmptyView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C66412462780859A00D605BF /* EmptyView.xib */; };
+		C66412492780888D00D605BF /* EmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66412482780888D00D605BF /* EmptyView.swift */; };
+		C664124B2780C63B00D605BF /* AlertHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C664124A2780C63B00D605BF /* AlertHelper.swift */; };
 		C6665EE7276F9DFB00178BA6 /* URLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6665EE6276F9DFB00178BA6 /* URLSession.swift */; };
 		C66F2A242740D3D1000ED46E /* NetworkTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66F2A232740D3D1000ED46E /* NetworkTypes.swift */; };
 		C6856677274BBB7400833D6E /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6856676274BBB7400833D6E /* SplashViewController.swift */; };
@@ -92,10 +111,10 @@
 		C6DD549F2771141800DA0223 /* LibraryTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6DD549E2771141800DA0223 /* LibraryTypes.swift */; };
 		C6DD54A12771146000DA0223 /* SessionTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6DD54A02771146000DA0223 /* SessionTypes.swift */; };
 		C6DD54A3277114CF00DA0223 /* ThemeTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6DD54A2277114CF00DA0223 /* ThemeTypes.swift */; };
-		C6F46E762753AC5B00498614 /* HistoryHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C6F46E752753AC5B00498614 /* HistoryHeaderView.xib */; };
+		C6F46E762753AC5B00498614 /* HistoryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C6F46E752753AC5B00498614 /* HistoryView.xib */; };
 		C6F46E7827541B2700498614 /* SearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6F46E7727541B2700498614 /* SearchController.swift */; };
 		C6F46E7A27541C9300498614 /* ResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6F46E7927541C9300498614 /* ResultsViewController.swift */; };
-		C6F46E7C27541D0E00498614 /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6F46E7B27541D0E00498614 /* HistoryViewController.swift */; };
+		C6F46E7C27541D0E00498614 /* HistoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6F46E7B27541D0E00498614 /* HistoryTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -114,6 +133,11 @@
 		C64F6F0B27374F0300E2E727 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		C64FE5A5277B4646002E5FC0 /* SFStaticTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFStaticTableViewController.swift; sourceTree = "<group>"; };
 		C64FE5A7277B4670002E5FC0 /* SFStaticTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFStaticTableView.swift; sourceTree = "<group>"; };
+		C653A3AC277DEB10001A5B72 /* UITableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableView.swift; sourceTree = "<group>"; };
+		C653A3AE277DEB38001A5B72 /* UICollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICollectionView.swift; sourceTree = "<group>"; };
+		C6564234277F3BFF00FBCE2F /* SFViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFViewController.swift; sourceTree = "<group>"; };
+		C6564236277F3CBD00FBCE2F /* SFView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFView.swift; sourceTree = "<group>"; };
+		C656423B277F730800FBCE2F /* SearchHistory.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SearchHistory.storyboard; sourceTree = "<group>"; };
 		C656EB95277A20B000E39EFC /* SFDynamicTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFDynamicTableViewController.swift; sourceTree = "<group>"; };
 		C656EB97277A210800E39EFC /* SFDynamicTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFDynamicTableView.swift; sourceTree = "<group>"; };
 		C656EB99277A216B00E39EFC /* StatefulView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatefulView.swift; sourceTree = "<group>"; };
@@ -135,6 +159,20 @@
 		C65C0E09276A374700ED17CB /* OrganizationDetailLogicController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrganizationDetailLogicController.swift; sourceTree = "<group>"; };
 		C65C0E0D276A43DB00ED17CB /* OrganizationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrganizationTableViewCell.swift; sourceTree = "<group>"; };
 		C65C0E0E276A43DB00ED17CB /* OrganizationTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OrganizationTableViewCell.xib; sourceTree = "<group>"; };
+		C66033FD277CDF0400907494 /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
+		C66033FF277CE53A00907494 /* HistoryCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryCollectionViewController.swift; sourceTree = "<group>"; };
+		C6603401277CE69400907494 /* IBCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IBCollectionViewCell.swift; sourceTree = "<group>"; };
+		C6603403277CE86700907494 /* SFDynamicCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFDynamicCollectionView.swift; sourceTree = "<group>"; };
+		C6603405277CEA9B00907494 /* SFDynamicCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFDynamicCollectionViewController.swift; sourceTree = "<group>"; };
+		C66412302780789500D605BF /* HistoryLogicController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryLogicController.swift; sourceTree = "<group>"; };
+		C66412342780790E00D605BF /* HistoryDelegates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryDelegates.swift; sourceTree = "<group>"; };
+		C66412372780796E00D605BF /* HistoryExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryExtensions.swift; sourceTree = "<group>"; };
+		C664123C27807CEA00D605BF /* ResultsLogicController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsLogicController.swift; sourceTree = "<group>"; };
+		C6641240278083D700D605BF /* ResultsDelegates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsDelegates.swift; sourceTree = "<group>"; };
+		C66412442780845900D605BF /* CoordinatorExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatorExtensions.swift; sourceTree = "<group>"; };
+		C66412462780859A00D605BF /* EmptyView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EmptyView.xib; sourceTree = "<group>"; };
+		C66412482780888D00D605BF /* EmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyView.swift; sourceTree = "<group>"; };
+		C664124A2780C63B00D605BF /* AlertHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertHelper.swift; sourceTree = "<group>"; };
 		C6665EE6276F9DFB00178BA6 /* URLSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSession.swift; sourceTree = "<group>"; };
 		C66F2A232740D3D1000ED46E /* NetworkTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkTypes.swift; sourceTree = "<group>"; };
 		C6856676274BBB7400833D6E /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
@@ -188,10 +226,10 @@
 		C6DD549E2771141800DA0223 /* LibraryTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryTypes.swift; sourceTree = "<group>"; };
 		C6DD54A02771146000DA0223 /* SessionTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionTypes.swift; sourceTree = "<group>"; };
 		C6DD54A2277114CF00DA0223 /* ThemeTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeTypes.swift; sourceTree = "<group>"; };
-		C6F46E752753AC5B00498614 /* HistoryHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HistoryHeaderView.xib; sourceTree = "<group>"; };
+		C6F46E752753AC5B00498614 /* HistoryView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HistoryView.xib; sourceTree = "<group>"; };
 		C6F46E7727541B2700498614 /* SearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchController.swift; sourceTree = "<group>"; };
 		C6F46E7927541C9300498614 /* ResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsViewController.swift; sourceTree = "<group>"; };
-		C6F46E7B27541D0E00498614 /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
+		C6F46E7B27541D0E00498614 /* HistoryTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -226,17 +264,10 @@
 		C6110ADE2754FEB30078D7E8 /* XIB */ = {
 			isa = PBXGroup;
 			children = (
-				C659EE652776087D001C1E5D /* ActivityIndicatorView.xib */,
-				C6B26AF22768C76600ED41F8 /* CommitTableViewCell.xib */,
-				C659EE6D27762447001C1E5D /* ErrorView.xib */,
-				C656EBA4277A491200E39EFC /* FooterErrorView.xib */,
-				C659EE6927762061001C1E5D /* FooterActivityIndicatorView.xib */,
-				C69A5E4827428B5F007054EA /* HistoryTableViewCell.xib */,
-				C685667D274BF7EB00833D6E /* HistoryCollectionViewCell.xib */,
-				C6F46E752753AC5B00498614 /* HistoryHeaderView.xib */,
-				C65C0E0E276A43DB00ED17CB /* OrganizationTableViewCell.xib */,
-				C69BEE4427422414005B6AA2 /* UserTableViewCell.xib */,
-				C6110AE12754FFF10078D7E8 /* RepositoryTableViewCell.xib */,
+				C656423F277F73B000FBCE2F /* Activity Indicator */,
+				C656423D277F737400FBCE2F /* Cell */,
+				C656423E277F739700FBCE2F /* Error */,
+				C6F46E752753AC5B00498614 /* HistoryView.xib */,
 			);
 			path = XIB;
 			sourceTree = "<group>";
@@ -246,6 +277,7 @@
 			children = (
 				C68B64F0271DD34B00A26D05 /* Main.storyboard */,
 				C68B64F8271DD34C00A26D05 /* LaunchScreen.storyboard */,
+				C656423B277F730800FBCE2F /* SearchHistory.storyboard */,
 			);
 			path = Storyboard;
 			sourceTree = "<group>";
@@ -281,9 +313,11 @@
 		C64FE5A9277B7C75002E5FC0 /* Stateful */ = {
 			isa = PBXGroup;
 			children = (
+				C6603403277CE86700907494 /* SFDynamicCollectionView.swift */,
 				C656EB97277A210800E39EFC /* SFDynamicTableView.swift */,
 				C6CCED75275D0E370052CC8E /* SFImageView.swift */,
 				C64FE5A7277B4670002E5FC0 /* SFStaticTableView.swift */,
+				C6564236277F3CBD00FBCE2F /* SFView.swift */,
 			);
 			path = Stateful;
 			sourceTree = "<group>";
@@ -291,6 +325,7 @@
 		C64FE5AA277B7C86002E5FC0 /* Error */ = {
 			isa = PBXGroup;
 			children = (
+				C66412482780888D00D605BF /* EmptyView.swift */,
 				C659EE6B27762433001C1E5D /* ErrorView.swift */,
 				C656EBA2277A47FA00E39EFC /* FooterErrorView.swift */,
 			);
@@ -319,11 +354,45 @@
 			path = Cell;
 			sourceTree = "<group>";
 		};
+		C656423D277F737400FBCE2F /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				C6B26AF22768C76600ED41F8 /* CommitTableViewCell.xib */,
+				C69A5E4827428B5F007054EA /* HistoryTableViewCell.xib */,
+				C685667D274BF7EB00833D6E /* HistoryCollectionViewCell.xib */,
+				C65C0E0E276A43DB00ED17CB /* OrganizationTableViewCell.xib */,
+				C69BEE4427422414005B6AA2 /* UserTableViewCell.xib */,
+				C6110AE12754FFF10078D7E8 /* RepositoryTableViewCell.xib */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		C656423E277F739700FBCE2F /* Error */ = {
+			isa = PBXGroup;
+			children = (
+				C66412462780859A00D605BF /* EmptyView.xib */,
+				C659EE6D27762447001C1E5D /* ErrorView.xib */,
+				C656EBA4277A491200E39EFC /* FooterErrorView.xib */,
+			);
+			path = Error;
+			sourceTree = "<group>";
+		};
+		C656423F277F73B000FBCE2F /* Activity Indicator */ = {
+			isa = PBXGroup;
+			children = (
+				C659EE652776087D001C1E5D /* ActivityIndicatorView.xib */,
+				C659EE6927762061001C1E5D /* FooterActivityIndicatorView.xib */,
+			);
+			path = "Activity Indicator";
+			sourceTree = "<group>";
+		};
 		C656EB93277A203B00E39EFC /* Class */ = {
 			isa = PBXGroup;
 			children = (
+				C6603405277CEA9B00907494 /* SFDynamicCollectionViewController.swift */,
 				C656EB95277A20B000E39EFC /* SFDynamicTableViewController.swift */,
 				C64FE5A5277B4646002E5FC0 /* SFStaticTableViewController.swift */,
+				C6564234277F3BFF00FBCE2F /* SFViewController.swift */,
 			);
 			path = Class;
 			sourceTree = "<group>";
@@ -341,6 +410,7 @@
 			children = (
 				C656EB99277A216B00E39EFC /* StatefulView.swift */,
 				C656EBA0277A3F6B00E39EFC /* IBTableViewCell.swift */,
+				C6603401277CE69400907494 /* IBCollectionViewCell.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -361,6 +431,118 @@
 				C65C0E09276A374700ED17CB /* OrganizationDetailLogicController.swift */,
 			);
 			path = Organization;
+			sourceTree = "<group>";
+		};
+		C664122D2780784D00D605BF /* History */ = {
+			isa = PBXGroup;
+			children = (
+				C664122E2780785E00D605BF /* Controller */,
+				C66412362780794900D605BF /* Extension */,
+				C6641233278078E500D605BF /* Protocol */,
+			);
+			path = History;
+			sourceTree = "<group>";
+		};
+		C664122E2780785E00D605BF /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				C664122F2780786E00D605BF /* Logic */,
+				C6641232278078B300D605BF /* View */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		C664122F2780786E00D605BF /* Logic */ = {
+			isa = PBXGroup;
+			children = (
+				C66412302780789500D605BF /* HistoryLogicController.swift */,
+			);
+			path = Logic;
+			sourceTree = "<group>";
+		};
+		C6641232278078B300D605BF /* View */ = {
+			isa = PBXGroup;
+			children = (
+				C66033FF277CE53A00907494 /* HistoryCollectionViewController.swift */,
+				C6F46E7B27541D0E00498614 /* HistoryTableViewController.swift */,
+				C66033FD277CDF0400907494 /* HistoryViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		C6641233278078E500D605BF /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				C66412342780790E00D605BF /* HistoryDelegates.swift */,
+			);
+			path = Protocol;
+			sourceTree = "<group>";
+		};
+		C66412362780794900D605BF /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				C66412372780796E00D605BF /* HistoryExtensions.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		C664123927807CC100D605BF /* Results */ = {
+			isa = PBXGroup;
+			children = (
+				C664123A27807CC900D605BF /* Controller */,
+				C664123F278083B300D605BF /* Protocol */,
+			);
+			path = Results;
+			sourceTree = "<group>";
+		};
+		C664123A27807CC900D605BF /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				C664123B27807CD300D605BF /* Logic */,
+				C664123E27807D1200D605BF /* View */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		C664123B27807CD300D605BF /* Logic */ = {
+			isa = PBXGroup;
+			children = (
+				C664123C27807CEA00D605BF /* ResultsLogicController.swift */,
+			);
+			path = Logic;
+			sourceTree = "<group>";
+		};
+		C664123E27807D1200D605BF /* View */ = {
+			isa = PBXGroup;
+			children = (
+				C6F46E7927541C9300498614 /* ResultsViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		C664123F278083B300D605BF /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				C6641240278083D700D605BF /* ResultsDelegates.swift */,
+			);
+			path = Protocol;
+			sourceTree = "<group>";
+		};
+		C6641242278083FE00D605BF /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				C66412432780840E00D605BF /* Extension */,
+				C6C605FC273EC89000BA27C2 /* SearchCoordinator.swift */,
+			);
+			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		C66412432780840E00D605BF /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				C66412442780845900D605BF /* CoordinatorExtensions.swift */,
+			);
+			path = Extension;
 			sourceTree = "<group>";
 		};
 		C68B64DE271DD34B00A26D05 = {
@@ -401,8 +583,8 @@
 			children = (
 				C6CCED7D275D17F20052CC8E /* CoreData */,
 				C6C605F9273EC7B700BA27C2 /* CommonTypes.swift */,
-				C6A1DC66274A11BC00E40BB8 /* Models.swift */,
 				C656EB9B277A269300E39EFC /* Constants.swift */,
+				C6A1DC66274A11BC00E40BB8 /* Models.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -447,10 +629,10 @@
 		C6A7F86C274CE02000622E76 /* Search */ = {
 			isa = PBXGroup;
 			children = (
-				C6F46E7B27541D0E00498614 /* HistoryViewController.swift */,
-				C6F46E7927541C9300498614 /* ResultsViewController.swift */,
+				C6641242278083FE00D605BF /* Coordinator */,
+				C664122D2780784D00D605BF /* History */,
+				C664123927807CC100D605BF /* Results */,
 				C6F46E7727541B2700498614 /* SearchController.swift */,
-				C6C605FC273EC89000BA27C2 /* SearchCoordinator.swift */,
 				C6C60600273ECA8300BA27C2 /* SearchTimer.swift */,
 			);
 			path = Search;
@@ -480,6 +662,7 @@
 				C6A7F86C274CE02000622E76 /* Search */,
 				C6C605FE273EC90000BA27C2 /* Spinner.swift */,
 				C60FAE862744CD7F00A6CE77 /* URLHelper.swift */,
+				C664124A2780C63B00D605BF /* AlertHelper.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -487,8 +670,10 @@
 		C6CCED6C275D0C150052CC8E /* Extension */ = {
 			isa = PBXGroup;
 			children = (
-				C6CCED6D275D0C2E0052CC8E /* UIView.swift */,
+				C653A3AE277DEB38001A5B72 /* UICollectionView.swift */,
 				C6CCED71275D0D590052CC8E /* UIColor.swift */,
+				C653A3AC277DEB10001A5B72 /* UITableView.swift */,
+				C6CCED6D275D0C2E0052CC8E /* UIView.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -541,11 +726,11 @@
 				C6CCED7F275D2FB00052CC8E /* User */,
 				C68B6507271DEC4A00A26D05 /* BookmarksViewController.swift */,
 				C68FCBC7273838A50019C932 /* ExploreViewController.swift */,
+				C6CCED83275D30B30052CC8E /* LicenseViewController.swift */,
 				C64F6F0B27374F0300E2E727 /* ProfileViewController.swift */,
 				C693C4A82729BE1D0061ED73 /* SignInViewController.swift */,
 				C694B49C273F7DF400C6F5A6 /* SettingsViewController.swift */,
 				C6856676274BBB7400833D6E /* SplashViewController.swift */,
-				C6CCED83275D30B30052CC8E /* LicenseViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -723,11 +908,13 @@
 				C69A5E4A27428B5F007054EA /* HistoryTableViewCell.xib in Resources */,
 				C6B26AF42768C76600ED41F8 /* CommitTableViewCell.xib in Resources */,
 				C6110AED275522F70078D7E8 /* LanguageColors.json in Resources */,
+				C656423C277F730800FBCE2F /* SearchHistory.storyboard in Resources */,
+				C66412472780859A00D605BF /* EmptyView.xib in Resources */,
 				C659EE6A27762061001C1E5D /* FooterActivityIndicatorView.xib in Resources */,
 				C68B64F7271DD34C00A26D05 /* Assets.xcassets in Resources */,
 				C68B64F2271DD34B00A26D05 /* Main.storyboard in Resources */,
 				C656EBA5277A491200E39EFC /* FooterErrorView.xib in Resources */,
-				C6F46E762753AC5B00498614 /* HistoryHeaderView.xib in Resources */,
+				C6F46E762753AC5B00498614 /* HistoryView.xib in Resources */,
 				C659EE6E27762447001C1E5D /* ErrorView.xib in Resources */,
 				C6110AE32754FFF10078D7E8 /* RepositoryTableViewCell.xib in Resources */,
 				C65C0E10276A43DB00ED17CB /* OrganizationTableViewCell.xib in Resources */,
@@ -784,7 +971,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				C64F6F0A2736F33700E2E727 /* ReachabilityHelper.swift in Sources */,
+				C6641241278083D700D605BF /* ResultsDelegates.swift in Sources */,
 				C69ECCDB2732441F00E158A3 /* LibraryManager.swift in Sources */,
+				C66412492780888D00D605BF /* EmptyView.swift in Sources */,
 				C6B26AEC2768B51400ED41F8 /* CommitLogicController.swift in Sources */,
 				C68B6508271DEC4A00A26D05 /* BookmarksViewController.swift in Sources */,
 				C6856677274BBB7400833D6E /* SplashViewController.swift in Sources */,
@@ -804,20 +993,24 @@
 				C68B64EB271DD34B00A26D05 /* AppDelegate.swift in Sources */,
 				C6B26AE72768B42700ED41F8 /* CommitViewController.swift in Sources */,
 				C64FE5A6277B4646002E5FC0 /* SFStaticTableViewController.swift in Sources */,
+				C66412352780790E00D605BF /* HistoryDelegates.swift in Sources */,
 				C696BFE92725E49E0078FBF4 /* UserTableViewCell.swift in Sources */,
 				C68B650A271E148B00A26D05 /* UserDetailViewController.swift in Sources */,
+				C6603406277CEA9B00907494 /* SFDynamicCollectionViewController.swift in Sources */,
 				C6665EE7276F9DFB00178BA6 /* URLSession.swift in Sources */,
+				C6564237277F3CBD00FBCE2F /* SFView.swift in Sources */,
 				C60FAE872744CD7F00A6CE77 /* URLHelper.swift in Sources */,
 				C6B26AE92768B4D600ED41F8 /* CommitDetailViewController.swift in Sources */,
 				C6F46E7A27541C9300498614 /* ResultsViewController.swift in Sources */,
 				C69ECCE32732566800E158A3 /* NetworkManager.swift in Sources */,
 				C65C0E06276A36F200ED17CB /* OrganizationDetailViewController.swift in Sources */,
 				C68FCBC8273838A50019C932 /* ExploreViewController.swift in Sources */,
+				C664123D27807CEA00D605BF /* ResultsLogicController.swift in Sources */,
 				C6F46E7827541B2700498614 /* SearchController.swift in Sources */,
 				C6B26AEE2768B53100ED41F8 /* CommitDetailLogicController.swift in Sources */,
 				C656EBA3277A47FA00E39EFC /* FooterErrorView.swift in Sources */,
 				C6584B8C27721BB6000A9EA6 /* CoreDataTypes.swift in Sources */,
-				C6F46E7C27541D0E00498614 /* HistoryViewController.swift in Sources */,
+				C6F46E7C27541D0E00498614 /* HistoryTableViewController.swift in Sources */,
 				C6CCED86275D36A00052CC8E /* LicenseLogicController.swift in Sources */,
 				C65C0E04276A36DD00ED17CB /* OrganizationViewController.swift in Sources */,
 				C65C0E0A276A374700ED17CB /* OrganizationDetailLogicController.swift in Sources */,
@@ -826,6 +1019,8 @@
 				C68B650C271E152E00A26D05 /* RepositoryDetailViewController.swift in Sources */,
 				C6A7F86E274CE0E000622E76 /* HistoryHeaderView.swift in Sources */,
 				C6C605FF273EC90000BA27C2 /* Spinner.swift in Sources */,
+				C6564235277F3BFF00FBCE2F /* SFViewController.swift in Sources */,
+				C66412382780796E00D605BF /* HistoryExtensions.swift in Sources */,
 				C659EE6427760600001C1E5D /* ActivityIndicatorView.swift in Sources */,
 				C6CCED6E275D0C2E0052CC8E /* UIView.swift in Sources */,
 				C656EB9A277A216B00E39EFC /* StatefulView.swift in Sources */,
@@ -835,22 +1030,31 @@
 				C68B64F5271DD34B00A26D05 /* GitIt.xcdatamodeld in Sources */,
 				C69A5E4927428B5F007054EA /* HistoryTableViewCell.swift in Sources */,
 				C656EB96277A20B000E39EFC /* SFDynamicTableViewController.swift in Sources */,
+				C66412312780789500D605BF /* HistoryLogicController.swift in Sources */,
+				C6603400277CE53A00907494 /* HistoryCollectionViewController.swift in Sources */,
 				C6CCED84275D30B30052CC8E /* LicenseViewController.swift in Sources */,
 				C6CCED76275D0E370052CC8E /* SFImageView.swift in Sources */,
 				C6DD549F2771141800DA0223 /* LibraryTypes.swift in Sources */,
 				C6CCED72275D0D590052CC8E /* UIColor.swift in Sources */,
 				C6DD54A3277114CF00DA0223 /* ThemeTypes.swift in Sources */,
 				C659EE6C27762433001C1E5D /* ErrorView.swift in Sources */,
+				C6603402277CE69400907494 /* IBCollectionViewCell.swift in Sources */,
 				C6B2DF712720887600AB0C8F /* CoreDataManager.swift in Sources */,
+				C653A3AD277DEB10001A5B72 /* UITableView.swift in Sources */,
 				C6CCED79275D132D0052CC8E /* ImageLoader.swift in Sources */,
 				C656EBA1277A3F6B00E39EFC /* IBTableViewCell.swift in Sources */,
 				C69ECCD927323D5A00E158A3 /* TokenHelper.swift in Sources */,
+				C66033FE277CDF0400907494 /* HistoryViewController.swift in Sources */,
 				C656EB98277A210800E39EFC /* SFDynamicTableView.swift in Sources */,
+				C6603404277CE86700907494 /* SFDynamicCollectionView.swift in Sources */,
 				C685667E274BF7EB00833D6E /* HistoryCollectionViewCell.swift in Sources */,
+				C664124B2780C63B00D605BF /* AlertHelper.swift in Sources */,
+				C653A3AF277DEB38001A5B72 /* UICollectionView.swift in Sources */,
 				C6B26AF32768C76600ED41F8 /* CommitTableViewCell.swift in Sources */,
 				C6856679274BC3E300833D6E /* UserDetailLogicController.swift in Sources */,
 				C693C4A92729BE1D0061ED73 /* SignInViewController.swift in Sources */,
 				C64FE5A8277B4670002E5FC0 /* SFStaticTableView.swift in Sources */,
+				C66412452780845900D605BF /* CoordinatorExtensions.swift in Sources */,
 				C6A1DC67274A11BC00E40BB8 /* Models.swift in Sources */,
 				C6110AE8275509AC0078D7E8 /* RepositoryLogicController.swift in Sources */,
 				C6C605FA273EC7B700BA27C2 /* CommonTypes.swift in Sources */,

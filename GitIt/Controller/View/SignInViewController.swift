@@ -26,7 +26,8 @@ class SignInViewController: UIViewController {
         if NetworkManager.standard.isInternetConnected {
             authenticate()
         } else {
-            //NetworkManager.standard.presentNetworkReachabilityAlert(message: "You're not conntected to the internet, Can't connect to authentication server.", handler: nil)
+            let okAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
+            AlertHelper.showAlert(title: "No Internet", message: "You're not conntected to the internet, Can't connect to authentication server.", style: .alert, actions: [okAction])
         }
     }
     
@@ -51,6 +52,9 @@ extension SignInViewController: ASWebAuthenticationPresentationContextProviding 
                 if authenticationError.code == ASWebAuthenticationSessionError.canceledLogin {
                     // re-setup authentication session
                     self?.setupAuthentication()
+                } else {
+                    let okAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+                    AlertHelper.showAlert(title: "Sign In Error", message: "An error occured while singing you in, please try again later.", style: .alert, actions: [okAction])
                 }
             } else {
                 guard callbackURL != nil else { return }
@@ -71,12 +75,9 @@ extension SignInViewController: ASWebAuthenticationPresentationContextProviding 
     }
     
     private func guestPrompt() {
-        let alertController = UIAlertController(title: "Continue As a Guest", message: "If you continue as a guest, features will be limted. Do you want to proceed?", preferredStyle: .actionSheet)
-        alertController.addAction(UIAlertAction(title: "Continue", style: .default) {action in
-            self.setupGuest()
-        })
-        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-        present(alertController, animated: true, completion: nil)
+        let continueAction = UIAlertAction(title: "Continue", style: .default) { action in self.setupGuest() }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        AlertHelper.showAlert(title: "Continue As a Guest", message: "If you continue as a guest, features will be limted. Do you want to proceed?", style: .actionSheet, actions: [continueAction,cancelAction])
     }
     
 }

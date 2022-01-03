@@ -50,36 +50,37 @@ class SFStaticTableView: UITableView, StatefulView {
     func render(_ viewState: ViewState) {
         state = viewState
         switch viewState {
-        case .loading(let loadingViewState): showActivityIndicator(for: loadingViewState)
         case .presenting: updateView?()
+        case .loading(let loadingViewState): showActivityIndicator(for: loadingViewState)
         case .failed(let failedViewState): showError(for: failedViewState)
+        default: return
         }
     }
     
     func showActivityIndicator(for loadingViewState: LoadingViewState) {
         switch loadingViewState {
-        case .initial: activityIndicatorView.show(on: self); self.isScrollEnabled = false
+        case .initial: activityIndicatorView.show(on: self); isScrollEnabled = false
         default: return
         }
     }
     
     func hideActivityIndicator(for loadingViewState: LoadingViewState) {
         switch loadingViewState {
-        case .initial: activityIndicatorView.hide(); self.isScrollEnabled = true
+        case .initial: activityIndicatorView.hide(); isScrollEnabled = true
         default: return
         }
     }
     
     func showError(for failedViewState: FailedViewState) {
         switch failedViewState {
-        case .initial(let error): errorView.show(on: self, with: ErrorModel(from: error)); self.isScrollEnabled = false
+        case .initial(let error): errorView.show(on: self, with: ErrorModel(from: error)); isScrollEnabled = false
         default: return
         }
     }
     
     func hideError(for failedViewState: FailedViewState) {
         switch failedViewState {
-        case .initial: errorView.hide(); self.isScrollEnabled = true
+        case .initial: errorView.hide(); isScrollEnabled = true
         default: return
         }
     }

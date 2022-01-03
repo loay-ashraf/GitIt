@@ -33,15 +33,19 @@ class CommitDetailViewController: SFStaticTableViewController, IBViewController 
         fatalError("Fatal Error, this view controller shouldn't be instantiated via storyboard segue.")
     }
     
-    static func instatiateFromStoryboard(with parameters: Any) -> UIViewController {
+    static func instatiateWithParameters(with parameters: Any) -> UIViewController {
         fatalError("This View controller is instaniated only using a model")
     }
     
-    static func instatiateFromStoryboard<Type: Model>(with model: Type) -> UIViewController {
+    static func instatiateWithModel(with model: Any) -> UIViewController {
         let storyBoard = UIStoryboard(name: "Main", bundle: nil)
         return storyBoard.instantiateViewController(identifier: self.storyboardIdentifier, creator: {coder -> CommitDetailViewController in
                         self.init(coder: coder, model: model as! CommitModel)!
                 })
+    }
+    
+    deinit {
+        print("Controller deallocated")
     }
     
     // MARK: - Lifecycle
@@ -99,7 +103,7 @@ class CommitDetailViewController: SFStaticTableViewController, IBViewController 
     @objc func showOwner() {
         if model.author != nil && model.author!.type == .user {
             let userModel = UserModel(from: model.author!)
-            let userDetailVC = UserDetailViewController.instatiateFromStoryboard(with: userModel)
+            let userDetailVC = UserDetailViewController.instatiateWithModel(with: userModel)
             navigationController?.pushViewController(userDetailVC, animated: true)
         }
     }

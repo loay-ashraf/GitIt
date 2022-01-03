@@ -33,7 +33,7 @@ class UserTableViewCell: UITableViewCell, IBTableViewCell {
         userImageView.cancel()
     }
     
-    func configure<Type: Model>(with model: Type) {
+    func configure<Type>(with model: Type) {
         let user = model as! UserModel
         userLoginLabel.text = user.login
         userImageView.load(at: user.avatarURL)

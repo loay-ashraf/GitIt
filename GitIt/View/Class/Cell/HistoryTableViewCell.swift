@@ -7,7 +7,7 @@
 
 import UIKit
 
-class HistoryTableViewCell: UITableViewCell {
+class HistoryTableViewCell: UITableViewCell, IBTableViewCell {
     
     static let reuseIdentifier = "HistoryTableViewCell"
     static var nib: UINib { return UINib(nibName: "HistoryTableViewCell", bundle: nil) }
@@ -27,9 +27,11 @@ class HistoryTableViewCell: UITableViewCell {
         recentsLabel.text = nil
     }
     
-    func configure(text: String) {
-        recentsLabel.text = text
-        setNeedsLayout()
+    func configure<Type>(with item: Type) {
+        if let text = item as? String {
+            recentsLabel.text = text
+            setNeedsLayout()
+        }
     }
     
 }

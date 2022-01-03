@@ -47,15 +47,19 @@ class UserDetailViewController: SFStaticTableViewController, IBViewController {
         fatalError("Fatal Error, this view controller shouldn't be instantiated via storyboard segue.")
     }
     
-    static func instatiateFromStoryboard(with parameters: Any) -> UIViewController {
+    static func instatiateWithParameters(with parameters: Any) -> UIViewController {
         fatalError("Fatal Error, This View controller is instaniated only using a model")
     }
     
-    static func instatiateFromStoryboard<Type: Model>(with model: Type) -> UIViewController {
+    static func instatiateWithModel(with model: Any) -> UIViewController {
         let storyBoard = UIStoryboard(name: "Main", bundle: nil)
         return storyBoard.instantiateViewController(identifier: self.storyboardIdentifier, creator: {coder -> UserDetailViewController in
                     self.init(coder: coder, model: model as! UserModel)!
                 })
+    }
+    
+    deinit {
+        print("Controller deallocated")
     }
     
     // MARK: - Lifecycle
@@ -65,12 +69,27 @@ class UserDetailViewController: SFStaticTableViewController, IBViewController {
         load()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        if subViewsOffsetSize != .searchScreenWithNavBar {
+            subViewsOffsetSize = .mainScreenWithSearch
+        } else {
+            subViewsOffsetSize = .searchScreen
+        }
+    }
+    
     // MARK: - View Helper Methods
     
     override func configureView() {
         super.configureView()
         
         navigationItem.largeTitleDisplayMode = .never
+        
+        if subViewsOffsetSize != .searchScreen {
+            subViewsOffsetSize = .subScreen
+        } else {
+            subViewsOffsetSize = .searchScreenWithNavBar
+        }
         
         avatarImageView.cornerRadius = 64.0
         avatarImageView.cornerCurve = .continuous

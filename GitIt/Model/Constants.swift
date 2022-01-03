@@ -8,6 +8,8 @@
 import Foundation
 import UIKit
 
+var subViewsOffsetSize: SubviewsOffsetSize!
+
 struct Constants {
     
     struct Model {
@@ -32,7 +34,7 @@ struct Constants {
             }
         }
         
-        static func modelToContextMenuConfiguration<Type: GitIt.Model>(type: Type.Type, for model: Type) -> UIContextMenuConfiguration? {
+        static func modelToContextMenuConfiguration<Type>(type: Type.Type, for model: Type) -> UIContextMenuConfiguration? {
             switch type {
             case is UserModel.Type: return modelContextMenuConfiguration(for: model as! UserModel)
             case is RepositoryModel.Type: return modelContextMenuConfiguration(for: model as! RepositoryModel)

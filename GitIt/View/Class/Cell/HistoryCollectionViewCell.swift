@@ -1,5 +1,5 @@
 //
-//  RecentsCollectionViewCell.swift
+//  HistoryCollectionViewCell.swift
 //  GitIt
 //
 //  Created by Loay Ashraf on 22/11/2021.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class HistoryCollectionViewCell: UICollectionViewCell {
+class HistoryCollectionViewCell: UICollectionViewCell, IBCollectionViewCell {
 
     static let reuseIdentifier = "HistoryCollectionViewCell"
     static var nib: UINib { return UINib(nibName: "HistoryCollectionViewCell", bundle: nil) }
@@ -29,7 +29,7 @@ class HistoryCollectionViewCell: UICollectionViewCell {
         recentImageView.cancel()
     }
     
-    func configure<Type: Model>(with model: Type, completion: @escaping (NetworkError?) -> Void) {
+    func configure<Type>(with model: Type) {
         switch model.self {
         case is UserModel: recentLabel.text = (model as! UserModel).login
                            recentImageView.load(at: (model as! UserModel).avatarURL)

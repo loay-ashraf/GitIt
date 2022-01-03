@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -11,71 +12,69 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="ErrorView" customModule="GitIt" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="FooterErrorView" customModule="GitIt" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="134"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GDO-Kv-edv">
-                    <rect key="frame" x="183" y="410" width="48" height="25"/>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="VZ4-in-mvg">
+                    <rect key="frame" x="191" y="10" width="32" height="32"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="25" id="VfM-I2-MGj"/>
+                        <constraint firstAttribute="height" constant="32" id="4pO-u8-U5g"/>
+                        <constraint firstAttribute="width" constant="32" id="UmP-EZ-RV7"/>
                     </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                    <nil key="textColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Htn-n9-qBe">
-                    <rect key="frame" x="188.33333333333334" y="445" width="37.333333333333343" height="18"/>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GDO-Kv-edv">
+                    <rect key="frame" x="188.33333333333334" y="57" width="37.333333333333343" height="20"/>
                     <constraints>
-                        <constraint firstAttribute="height" relation="lessThanOrEqual" constant="40" id="iNt-e6-ffy"/>
+                        <constraint firstAttribute="height" constant="20" id="VfM-I2-MGj"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rlW-Me-VIU">
-                    <rect key="frame" x="175" y="473" width="64" height="20"/>
+                    <rect key="frame" x="191" y="92" width="32" height="32"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="20" id="BzK-fE-aLO"/>
+                        <constraint firstAttribute="height" constant="32" id="Ujh-ah-dXr"/>
+                        <constraint firstAttribute="width" constant="32" id="dPf-Go-a7E"/>
                     </constraints>
                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                    <state key="normal" title="Try Again"/>
+                    <state key="normal">
+                        <color key="titleColor" systemColor="systemBlueColor"/>
+                        <imageReference key="image" image="arrow.clockwise.circle.fill" catalog="system" symbolScale="large"/>
+                    </state>
                     <connections>
                         <action selector="tryAgain:" destination="iN0-l3-epB" eventType="touchUpInside" id="cTo-lv-Ig3"/>
                     </connections>
                 </button>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="VZ4-in-mvg">
-                    <rect key="frame" x="175" y="336" width="64" height="64"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="64" id="4pO-u8-U5g"/>
-                        <constraint firstAttribute="width" constant="64" id="UmP-EZ-RV7"/>
-                    </constraints>
-                </imageView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
-                <constraint firstItem="rlW-Me-VIU" firstAttribute="top" secondItem="Htn-n9-qBe" secondAttribute="bottom" constant="10" id="5Bu-nv-5fc"/>
-                <constraint firstItem="VZ4-in-mvg" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="Dn9-Te-XWf"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="rlW-Me-VIU" secondAttribute="bottom" constant="10" id="Kzm-96-s8F"/>
+                <constraint firstItem="VZ4-in-mvg" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="10" id="Nb5-LW-SMI"/>
                 <constraint firstItem="GDO-Kv-edv" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="PNO-Wv-6bU"/>
-                <constraint firstItem="Htn-n9-qBe" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="SWQ-4f-qhh"/>
                 <constraint firstItem="VZ4-in-mvg" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="UWg-zj-rZg"/>
-                <constraint firstItem="GDO-Kv-edv" firstAttribute="top" secondItem="VZ4-in-mvg" secondAttribute="bottom" constant="10" id="trX-be-QF4"/>
+                <constraint firstItem="rlW-Me-VIU" firstAttribute="top" secondItem="GDO-Kv-edv" secondAttribute="bottom" constant="15" id="gLB-my-Hrz"/>
+                <constraint firstItem="GDO-Kv-edv" firstAttribute="top" secondItem="VZ4-in-mvg" secondAttribute="bottom" constant="15" id="trX-be-QF4"/>
                 <constraint firstItem="rlW-Me-VIU" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="tx7-Yg-5qX"/>
-                <constraint firstItem="Htn-n9-qBe" firstAttribute="top" secondItem="GDO-Kv-edv" secondAttribute="bottom" constant="10" id="wPx-KA-WPm"/>
             </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="actionButton" destination="rlW-Me-VIU" id="kjx-W7-lvI"/>
                 <outlet property="imageView" destination="VZ4-in-mvg" id="sJV-jQ-nQV"/>
-                <outlet property="messageLabel" destination="Htn-n9-qBe" id="6lH-VX-W94"/>
                 <outlet property="titleLabel" destination="GDO-Kv-edv" id="Ogq-uc-1Z9"/>
             </connections>
-            <point key="canvasLocation" x="132" y="113"/>
+            <point key="canvasLocation" x="131.8840579710145" y="-134.5108695652174"/>
         </view>
     </objects>
     <resources>
+        <image name="arrow.clockwise.circle.fill" catalog="system" width="128" height="121"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemBlueColor">
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

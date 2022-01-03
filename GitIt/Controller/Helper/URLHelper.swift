@@ -26,7 +26,7 @@ class URLHelper {
         safariConfiguration.entersReaderIfAvailable = false
         let safraiVC = SFSafariViewController(url: webURL!, configuration: safariConfiguration)
         safraiVC.dismissButtonStyle = .close
-        rootViewController!.present(safraiVC, animated: true, completion: nil)
+        rootViewController?.present(safraiVC, animated: true, completion: nil)
     }
 
     class func shareURL(_ url: URL) {
@@ -42,7 +42,7 @@ class URLHelper {
         let items = [webURL]
         let shareView = UIActivityViewController(activityItems: items as [Any], applicationActivities: nil)
         shareView.excludedActivityTypes = [.assignToContact, .print, .saveToCameraRoll, .addToReadingList]
-        rootViewController!.present(shareView, animated: true, completion: nil)
+        rootViewController?.present(shareView, animated: true, completion: nil)
     }
     
 }

@@ -121,7 +121,6 @@ class SessionManager {
             if networkError == nil {
                 NetworkClient.standard.authenticatedUserUnstar(fullName: "loay-ashraf/GitIt", completionHandler: completion)
             } else {
-                self.setSessionAttributes(sessionType: .signedOut, accessToken: nil)
                 completion(networkError)
             }
         }

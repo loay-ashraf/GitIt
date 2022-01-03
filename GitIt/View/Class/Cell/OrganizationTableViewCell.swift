@@ -33,7 +33,7 @@ class OrganizationTableViewCell: UITableViewCell, IBTableViewCell {
         loginLabel.text = nil
     }
     
-    func configure<Type: Model>(with model: Type) {
+    func configure<Type>(with model: Type) {
         let organization = model as! OrganizationModel
         avatarImageView.load(at: organization.avatarURL)
         loginLabel.text = organization.login

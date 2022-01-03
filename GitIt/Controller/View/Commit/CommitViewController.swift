@@ -17,12 +17,16 @@ class CommitViewController: SFDynamicTableViewController<CommitModel> {
     
     init(parameters: String) {
         logicController = CommitLogicController(parameters: parameters)
-        super.init(nibName: nil, bundle: nil)
+        super.init(cellType: CommitTableViewCell.self, detailViewControllerType: CommitDetailViewController.self)
         hidesBottomBarWhenPushed = true
     }
     
     required init?(coder: NSCoder) {
         fatalError("Fatal Error, this view controller shouldn't be instantiated from storyboard.")
+    }
+    
+    deinit {
+        print("Controller deallocated")
     }
 
     // MARK: - Lifecycle
@@ -39,6 +43,9 @@ class CommitViewController: SFDynamicTableViewController<CommitModel> {
         
         title = "Commits"
         navigationItem.largeTitleDisplayMode = .never
+        
+        subViewsOffsetSize = .subScreen
+        
     }
     
     // MARK: - Loading Methods
@@ -46,9 +53,9 @@ class CommitViewController: SFDynamicTableViewController<CommitModel> {
     override func load(with loadingViewState: LoadingViewState) {
         super.load(with: loadingViewState)
         switch loadingViewState {
-        case .initial: logicController.load(then: loadHandler(error:))
-        case .refresh: logicController.refresh(then: refreshHandler(error:))
-        case .paginate: logicController.load(then: paginateHandler(error:))
+        case .initial: logicController.load { [weak self] error, emptyContext in self?.loadHandler(error: error, emptyContext: emptyContext) }
+        case .refresh: logicController.refresh { [weak self] error, emptyContext in self?.refreshHandler(error: error, emptyContext: emptyContext) }
+        case .paginate: logicController.load { [weak self] error, emptyContext in self?.paginateHandler(error: error, emptyContext: emptyContext) }
         }
     }
 

@@ -31,7 +31,7 @@ class RepositoryTableViewCell: UITableViewCell, IBTableViewCell {
         languageImageView.tintColor = .black
     }
 
-    func configure<Type: Model>(with model: Type) {
+    func configure<Type>(with model: Type) {
         let repository = model as! RepositoryModel
         nameLabel.text = repository.name
         descriptionLabel.text = repository.description

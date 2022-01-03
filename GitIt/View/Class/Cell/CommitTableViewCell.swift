@@ -31,7 +31,7 @@ class CommitTableViewCell: UITableViewCell, IBTableViewCell {
         messageLabel.text = nil
     }
 
-    func configure<Type: Model>(with model: Type) {
+    func configure<Type>(with model: Type) {
         let commit = model as! CommitModel
         if commit.author != nil {
             avatarImageView.load(at: commit.author!.avatarURL)
