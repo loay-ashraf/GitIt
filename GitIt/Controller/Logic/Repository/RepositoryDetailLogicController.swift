@@ -62,12 +62,12 @@ class RepositoryDetailLogicController {
     func bookmark(then handler: @escaping BookmarkActionHandler) {
         defer { handler(isBookmarked) }
         if !isBookmarked {
-            guard CoreDataManager.standard.insert(model) != nil else {
+            guard BookmarksManager.standard.addBookmark(model: model) != nil else {
                 isBookmarked = true
                 return
             }
         } else {
-            guard CoreDataManager.standard.delete(model) != nil else {
+            guard BookmarksManager.standard.deleteBookmark(model: model) != nil else {
                 isBookmarked = false
                 return
             }

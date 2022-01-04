@@ -51,7 +51,7 @@ class BookmarksManager {
     }
     
     func deleteBookmark<Type: Model>(model: Type) -> CoreDataError? {
-        switch model.self {
+        switch Type.self {
         case is UserModel.Type: userBookmarks?.removeAll() { return $0.id == model.id }
         case is RepositoryModel.Type: repositoryBookmarks?.removeAll() { return $0.id == model.id }
         case is OrganizationModel.Type: organizationBookmarks?.removeAll() { return $0.id == model.id }
@@ -85,8 +85,13 @@ class BookmarksManager {
     
     // MARK: - Read Methods
     
-    func checkBookmark<Type: Model>(model: Type) -> Result<Bool,CoreDataError> {
-        return CoreDataManager.standard.exists(model)
+    func checkBookmark<Type: Model>(model: Type) -> Bool? {
+        switch Type.self {
+        case is UserModel.Type: return userBookmarks?.contains() { return $0.id == model.id }
+        case is RepositoryModel.Type: return repositoryBookmarks?.contains() { return $0.id == model.id }
+        case is OrganizationModel.Type: return organizationBookmarks?.contains() { return $0.id == model.id }
+        default: return nil
+        }
     }
     
     func getUserBookmarks() -> [User]? {

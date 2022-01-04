@@ -255,6 +255,7 @@ enum EmptyContext {
     case commit
     case searchHistory
     case searchResults
+    case bookmarks
     
     var model: EmptyModel {
         switch self {
@@ -264,6 +265,7 @@ enum EmptyContext {
         case .commit: return EmptyModel(image: UIImage(systemName: "exclamationmark"), title: "Looks like there's no Commits yet for this repository.")
         case .searchHistory: return EmptyModel(image: UIImage(systemName: "magnifyingglass"), title: "No Search history found, try searching first.")
         case .searchResults: return EmptyModel(image: UIImage(systemName: "magnifyingglass"), title: "No Search results found, try searching for a different term.")
+        case .bookmarks: return EmptyModel(image: UIImage(systemName: "bookmark.slash"), title: "No Bookmarks found.")
         }
     }
     
