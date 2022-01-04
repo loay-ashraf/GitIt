@@ -186,11 +186,11 @@ enum ContextMenuActions<Type: Model> {
     var action: UIAction {
         switch self {
             case .bookmark(let model): return UIAction(title: "Bookmark", image: UIImage(systemName: "bookmark"), identifier: nil) { action in
-                                                    _ = CoreDataManager.standard.insert(model)
+                                                    _ = BookmarksManager.standard.addBookmark(model: model)
                                                 }
             
             case .unbookmark(let model): return UIAction(title: "Unbookmark", image: UIImage(systemName: "bookmark.fill"), identifier: nil) { action in
-                                                   _ = CoreDataManager.standard.delete(model)
+                                                    _ = BookmarksManager.standard.deleteBookmark(model: model)
                                                 }
             
             case .share(let model): return UIAction(title: "Share", image: UIImage(systemName: "square.and.arrow.up"), identifier: nil) { action in

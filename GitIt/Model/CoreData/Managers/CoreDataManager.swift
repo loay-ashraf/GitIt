@@ -50,39 +50,18 @@ class CoreDataManager {
     
     // MARK: - Write Methods
     
-    func insert<Type: Model>(_ model: Type) -> CoreDataError? {
-        let mirror = Mirror(reflecting: model)
-        let typeName = String(describing: Type.self)
-        let entityName = typeName.replacingOccurrences(of: "Model", with: "")
-        let entityDescription = NSEntityDescription.entity(forEntityName: entityName, in: viewContext)
-        let entityInstance = NSManagedObject(entity: entityDescription!, insertInto: viewContext)
-        
-        for child in mirror.children {
-            if child.label == "description" {
-                if case Optional<Any>.none = child.value {
-                    entityInstance.setNilValueForKey("overview")
-                } else {
-                    entityInstance.setValue(child.value, forKey: "overview")
-                }
-            } else if child.label == "owner" {
-                if case Optional<Any>.none = child.value {
-                    entityInstance.setNilValueForKey("ownerLogin")
-                    entityInstance.setNilValueForKey("ownerAvatarURL")
-                } else {
-                    let owner = child.value as! OwnerModel
-                    entityInstance.setValue(owner.login, forKey: "ownerLogin")
-                    entityInstance.setValue(owner.avatarURL, forKey: "ownerAvatarURL")
-                }
-            } else {
-                if case Optional<Any>.none = child.value {
-                    entityInstance.setNilValueForKey(child.label!)
-                } else {
-                    entityInstance.setValue(child.value, forKey: child.label!)
-                }
-            }
+    func insert<Type: Model>(_ model: Type) -> Result<NSManagedObject,CoreDataError> {
+        var newManagedObject: NSManagedObject!
+        switch Type.self {
+        case is UserModel.Type: newManagedObject = User(form: model as! UserModel, in: viewContext)
+        case is RepositoryModel.Type: newManagedObject = Repository(from: model as! RepositoryModel, in: viewContext)
+        case is OrganizationModel.Type: newManagedObject = Organization(from: model as! OrganizationModel, in: viewContext)
+        default: break
         }
-        
-        return save()
+        if let error = save() {
+            return .failure(error)
+        }
+        return .success(newManagedObject)
     }
     
     func delete<Type: Model>(_ model: Type) -> CoreDataError? {

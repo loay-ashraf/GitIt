@@ -86,6 +86,23 @@ struct UserModel: Model {
         following = 0
     }
     
+    init(from user: User) {
+        self.id = user.id
+        self.login = user.login!
+        self.avatarURL = user.avatarURL
+        self.htmlURL = user.htmlURL
+        self.name = user.name
+        self.bio = user.bio
+        self.company = user.company
+        self.location = user.location
+        self.blogURL = user.blogURL
+        self.email = user.email
+        self.twitter = user.twitter
+        self.repositories = user.repositories
+        self.followers = user.followers
+        self.following = user.following
+    }
+    
 }
 
 struct RepositoryModel: Model {
@@ -135,6 +152,21 @@ struct RepositoryModel: Model {
         READMEString = nil
     }
     
+    init(from repository: Repository) {
+        self.id = repository.id
+        self.name = repository.name
+        self.fullName = repository.fullName
+        self.owner = OwnerModel(from: repository.owner)
+        self.htmlURL = repository.htmlURL
+        self.description = repository.overview
+        self.homepageURL = repository.homepageURL
+        self.language = repository.language
+        self.stars = repository.stars
+        self.forks = repository.forks
+        self.defaultBranch = repository.defaultBranch
+        self.READMEString = repository.readmeString
+    }
+    
 }
 
 struct OwnerModel: Model {
@@ -160,6 +192,22 @@ struct OwnerModel: Model {
         case htmlURL = "html_url"
         case type
         
+    }
+    
+    init(id: Int, login: String, avatarURL: URL, htmURL: URL, type: OwnerType) {
+        self.id = id
+        self.login = login
+        self.avatarURL = avatarURL
+        self.htmlURL = htmURL
+        self.type = type
+    }
+    
+    init(from owner: Owner) {
+        self.id = owner.id
+        self.login = owner.login
+        self.avatarURL = owner.avatarURL
+        self.htmlURL = owner.htmlURL
+        self.type = OwnerType(rawValue: owner.type)!
     }
     
 }
@@ -261,6 +309,20 @@ struct OrganizationModel: Model {
         email = nil
         twitter = nil
         repositories = nil
+    }
+    
+    init(from organization: Organization) {
+        self.id = organization.id
+        self.login = organization.login
+        self.avatarURL = organization.avatarURL
+        self.htmlURL = organization.htmlURL
+        self.name = organization.name
+        self.description = organization.overview
+        self.location = organization.location
+        self.blogURL = organization.blogURL
+        self.email = organization.email
+        self.twitter = organization.twitter
+        self.repositories = organization.repositories
     }
     
 }
