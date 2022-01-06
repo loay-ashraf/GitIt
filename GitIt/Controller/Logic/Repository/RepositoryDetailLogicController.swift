@@ -26,14 +26,20 @@ class RepositoryDetailLogicController {
     // MARK: - Business Logic Methods
     
     func load(then handler: @escaping ErrorHandler, then starHandler: @escaping StarActionHandler, then bookmarkHandler: @escaping BookmarkActionHandler, then readmeHandler: @escaping READMEHandler) {
-        checkIfStarredOrBookmarked(then: handler, then: starHandler, then: bookmarkHandler)
-        loadREADME(then: readmeHandler)
+        if !model.isComplete {
+            checkIfStarredOrBookmarked(then: handler, then: starHandler, then: bookmarkHandler)
+            loadREADME(then: readmeHandler)
+        } else {
+            checkIfStarredOrBookmarked(then: handler, then: starHandler, then: bookmarkHandler)
+            readmeHandler(nil)
+        }
     }
     
     func loadREADME(then readmeHandler: @escaping READMEHandler) {
         NetworkClient.standard.getRepositoryReadme(fullName: model.fullName, branch: model.defaultBranch) { result in
             switch result {
             case .success(let response): self.model.READMEString = String(data: response, encoding: .utf8); readmeHandler(nil)
+                                         self.model.isComplete = true
             case .failure(let networkError): readmeHandler(networkError)
             }
         }

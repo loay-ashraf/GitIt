@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CoreData
 
 class BookmarksManager {
     
@@ -39,15 +40,56 @@ class BookmarksManager {
     // MARK: - Write Methods
     
     func addBookmark<Type: Model>(model: Type) -> CoreDataError? {
-        let result = CoreDataManager.standard.insert(model)
-        switch result {
-        case let .success(managedObject) where managedObject.self is User: userBookmarks?.append(managedObject as! User)
-        case let .success(managedObject) where managedObject.self is Repository: repositoryBookmarks?.append(managedObject as! Repository)
-        case let .success(managedObject) where managedObject.self is Organization: organizationBookmarks?.append(managedObject as! Organization)
-        case .failure(let coreDataError): return coreDataError
-        default: break
+        if !model.isComplete {
+            if let userModel = model as? UserModel {
+                getCompleteUser(with: userModel) { completeUserModel in
+                    var result: Result<NSManagedObject,CoreDataError>?
+                    if let completeUserModel = completeUserModel {
+                       result = CoreDataManager.standard.insert(completeUserModel)
+                    }
+                    switch result {
+                    case .success(let managedObject): self.userBookmarks?.append(managedObject as! User)
+                    case .failure: return
+                    case .none: return
+                    }
+                }
+            } else if let repositoryModel = model as? RepositoryModel {
+                getCompleteRepository(with: repositoryModel) { completeRepositoryModel in
+                    var result: Result<NSManagedObject,CoreDataError>?
+                    if let completeRepositoryModel = completeRepositoryModel {
+                       result = CoreDataManager.standard.insert(completeRepositoryModel)
+                    }
+                    switch result {
+                    case .success(let managedObject): self.repositoryBookmarks?.append(managedObject as! Repository)
+                    case .failure: return
+                    case .none: return
+                    }
+                }
+            } else if let organizationModel = model as? OrganizationModel {
+                getCompleteOrganization(with: organizationModel) { completeOrganizationModel in
+                    var result: Result<NSManagedObject,CoreDataError>?
+                    if let completeOrganizationModel = completeOrganizationModel {
+                       result = CoreDataManager.standard.insert(completeOrganizationModel)
+                    }
+                    switch result {
+                    case .success(let managedObject): self.organizationBookmarks?.append(managedObject as! Organization)
+                    case .failure: return
+                    case .none: return
+                    }
+                }
+            }
+            return nil
+        } else {
+            let result = CoreDataManager.standard.insert(model)
+            switch result {
+            case let .success(managedObject) where managedObject.self is User: userBookmarks?.append(managedObject as! User)
+            case let .success(managedObject) where managedObject.self is Repository: repositoryBookmarks?.append(managedObject as! Repository)
+            case let .success(managedObject) where managedObject.self is Organization: organizationBookmarks?.append(managedObject as! Organization)
+            case .failure(let coreDataError): return coreDataError
+            default: break
+            }
+            return nil
         }
-        return nil
     }
     
     func deleteBookmark<Type: Model>(model: Type) -> CoreDataError? {
@@ -104,6 +146,44 @@ class BookmarksManager {
     
     func getOrganizationBookmarks() -> [Organization]? {
         return organizationBookmarks
+    }
+    
+    // MARK: - Completing Models Methods
+    
+    func getCompleteUser(with userModel: UserModel, then handler: @escaping (UserModel?) -> Void) {
+        NetworkClient.standard.getUser(userLogin: userModel.login) { result in
+            switch result {
+            case .success(var response): response.isComplete = true
+                                         handler(response)
+            case .failure: handler(nil)
+            }
+        }
+    }
+    
+    func getCompleteRepository(with repositoryModel: RepositoryModel, then handler: @escaping (RepositoryModel?) -> Void) {
+        NetworkClient.standard.getRepository(fullName: repositoryModel.fullName) { result in
+            switch result {
+            case .success(var response): NetworkClient.standard.getRepositoryReadme(fullName: response.fullName, branch: response.defaultBranch) { result in
+                switch result {
+                case .success(let readMeString): response.READMEString = String(data: readMeString, encoding: .utf8)
+                                                 response.isComplete = true
+                                                 handler(response)
+                case .failure: handler(nil)
+                }
+            }
+            case .failure: handler(nil)
+            }
+        }
+    }
+    
+    func getCompleteOrganization(with organizationModel: OrganizationModel, then handler: @escaping (OrganizationModel?) -> Void) {
+        NetworkClient.standard.getOrganization(organizationLogin: organizationModel.login) { result in
+            switch result {
+            case .success(var response): response.isComplete = true
+                                         handler(response)
+            case .failure: handler(nil)
+            }
+        }
     }
     
 }

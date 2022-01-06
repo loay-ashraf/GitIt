@@ -23,12 +23,17 @@ class OrganizationDetailLogicController {
     // MARK: - Business Logic Methods
     
     func load(then handler: @escaping ErrorHandler, then bookmarkHandler: @escaping BookmarkActionHandler) {
-        NetworkClient.standard.getOrganization(organizationLogin: model.login) { result in
-            switch result {
-            case .success(let response): self.model = response
-                                         self.checkIfBookmarked(then: handler, then: bookmarkHandler)
-            case .failure(let networkError): handler(networkError)
+        if !model.isComplete {
+            NetworkClient.standard.getOrganization(organizationLogin: model.login) { result in
+                switch result {
+                case .success(let response): self.model = response
+                                             self.model.isComplete = true
+                                             self.checkIfBookmarked(then: handler, then: bookmarkHandler)
+                case .failure(let networkError): handler(networkError)
+                }
             }
+        } else {
+            checkIfBookmarked(then: handler, then: bookmarkHandler)
         }
     }
     
