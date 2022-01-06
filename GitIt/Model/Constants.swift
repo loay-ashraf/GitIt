@@ -48,10 +48,11 @@ struct Constants {
             let actionProvider: UIContextMenuActionProvider = { actions -> UIMenu? in
                 var bookmark: UIAction! = nil
                 var share: UIAction! = nil
-                let fetchResult = CoreDataManager.standard.exists(model)
+                let fetchResult = BookmarksManager.standard.checkBookmark(model: model)
                 switch fetchResult {
-                case .success(let exists): bookmark = exists ? ContextMenuActions.unbookmark(model).action : ContextMenuActions.bookmark(model).action
-                case .failure(_): bookmark = ContextMenuActions.bookmark(model).action
+                case true: bookmark = ContextMenuActions.unbookmark(model).action
+                case false: bookmark = ContextMenuActions.bookmark(model).action
+                default: break
                 }
                 share = ContextMenuActions.share(model).action
                 return UIMenu(title: "Quick Actions", children: [bookmark, share])
@@ -63,10 +64,11 @@ struct Constants {
             let actionProvider: UIContextMenuActionProvider = { actions -> UIMenu? in
                 var bookmark: UIAction! = nil
                 var share: UIAction! = nil
-                let fetchResult = CoreDataManager.standard.exists(model)
+                let fetchResult = BookmarksManager.standard.checkBookmark(model: model)
                 switch fetchResult {
-                case .success(let exists): bookmark = exists ? ContextMenuActions.unbookmark(model).action : ContextMenuActions.bookmark(model).action
-                case .failure(_): bookmark = ContextMenuActions.bookmark(model).action
+                case true: bookmark = ContextMenuActions.unbookmark(model).action
+                case false: bookmark = ContextMenuActions.bookmark(model).action
+                default: break
                 }
                 share = ContextMenuActions.share(model).action
                 return UIMenu(title: "Quick Actions", children: [bookmark, share])
@@ -78,10 +80,11 @@ struct Constants {
             let actionProvider: UIContextMenuActionProvider = { actions -> UIMenu? in
                 var bookmark: UIAction! = nil
                 var share: UIAction! = nil
-                let fetchResult = CoreDataManager.standard.exists(model)
+                let fetchResult = BookmarksManager.standard.checkBookmark(model: model)
                 switch fetchResult {
-                case .success(let exists): bookmark = exists ? ContextMenuActions.unbookmark(model).action : ContextMenuActions.bookmark(model).action
-                case .failure(_): bookmark = ContextMenuActions.bookmark(model).action
+                case true: bookmark = ContextMenuActions.unbookmark(model).action
+                case false: bookmark = ContextMenuActions.bookmark(model).action
+                default: break
                 }
                 share = ContextMenuActions.share(model).action
                 return UIMenu(title: "Quick Actions", children: [bookmark, share])

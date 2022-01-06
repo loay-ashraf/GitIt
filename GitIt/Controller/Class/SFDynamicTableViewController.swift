@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SFDynamicTableViewController<Type: Equatable>: UITableViewController {
+class SFDynamicTableViewController<Type>: UITableViewController {
     
     var xTableView: SFDynamicTableView! { return tableView as? SFDynamicTableView }
     
@@ -196,8 +196,16 @@ class SFDynamicTableViewController<Type: Equatable>: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let refreshControl = xTableView.refreshControl, refreshControl.isRefreshing { return UITableViewCell() }
-        if let cellIdentifier = xTableView.registeredCellIdentifiers.first {
+        if let cellIdentifier = xTableView.registeredCellIdentifiers.first, cellType == nil {
             let cell = xTableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! IBTableViewCell
+            let item = model.items[indexPath.row]
+            
+            // Configure the cell...
+            cell.configure(with: item)
+
+            return cell
+        } else if cellType != nil {
+            let cell = xTableView.dequeueReusableCell(withIdentifier: cellType.reuseIdentifier, for: indexPath) as! IBTableViewCell
             let item = model.items[indexPath.row]
             
             // Configure the cell...

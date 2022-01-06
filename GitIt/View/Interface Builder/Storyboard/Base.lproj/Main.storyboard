@@ -1802,41 +1802,23 @@
         <scene sceneID="tYo-38-0yc">
             <objects>
                 <tableViewController id="QVR-wu-qrk" customClass="BookmarksViewController" customModule="GitIt" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="UVe-zW-CTZ">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="UVe-zW-CTZ" customClass="SFDynamicTableView" customModule="GitIt" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="Tpn-JV-unJ" userLabel="Header">
-                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="5"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <subviews>
-                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="vb3-9y-G9o">
-                                    <rect key="frame" x="128" y="6" width="158" height="32"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <color key="backgroundColor" systemColor="systemGray6Color"/>
-                                    <segments>
-                                        <segment title="">
-                                            <imageReference key="image" image="person.2" catalog="system" symbolScale="large"/>
-                                        </segment>
-                                        <segment title="">
-                                            <imageReference key="image" image="book.closed" catalog="system" symbolScale="large"/>
-                                        </segment>
-                                        <segment title="">
-                                            <imageReference key="image" image="building" catalog="system" symbolScale="large"/>
-                                        </segment>
-                                    </segments>
-                                </segmentedControl>
-                            </subviews>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         </view>
                         <view key="tableFooterView" contentMode="scaleToFill" id="3ol-GL-EXU" userLabel="Footer">
-                            <rect key="frame" x="0.0" y="155.00000000000003" width="414" height="5"/>
+                            <rect key="frame" x="0.0" y="116" width="414" height="5"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         </view>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="BookmarkCell" id="x8J-sR-WoN">
-                                <rect key="frame" x="0.0" y="88.666666030883789" width="414" height="43.666667938232422"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="x8J-sR-WoN">
+                                <rect key="frame" x="0.0" y="49.666666030883789" width="414" height="43.666667938232422"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="x8J-sR-WoN" id="hS5-5o-zZq">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="43.666667938232422"/>
@@ -1850,7 +1832,30 @@
                             <outlet property="delegate" destination="QVR-wu-qrk" id="Fpn-VA-OJV"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Bookmarks" largeTitleDisplayMode="always" id="VLR-xD-p64"/>
+                    <navigationItem key="navigationItem" title="Bookmarks" largeTitleDisplayMode="always" id="VLR-xD-p64">
+                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="vb3-9y-G9o">
+                            <rect key="frame" x="128" y="6" width="158" height="32"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" systemColor="systemGray6Color"/>
+                            <segments>
+                                <segment title="">
+                                    <imageReference key="image" image="person.2" catalog="system" symbolScale="large"/>
+                                </segment>
+                                <segment title="">
+                                    <imageReference key="image" image="book.closed" catalog="system" symbolScale="large"/>
+                                </segment>
+                                <segment title="">
+                                    <imageReference key="image" image="building" catalog="system" symbolScale="large"/>
+                                </segment>
+                            </segments>
+                            <connections>
+                                <action selector="selectorChanged:" destination="QVR-wu-qrk" eventType="valueChanged" id="loP-Nd-QFH"/>
+                            </connections>
+                        </segmentedControl>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="selectorSegmentedControl" destination="vb3-9y-G9o" id="zWU-cn-dMt"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qih-4A-pay" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

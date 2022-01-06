@@ -12,6 +12,7 @@ protocol Model: Codable, Equatable {
     
     var id: Int { get }
     var htmlURL: URL { get }
+    var isComplete: Bool { get set }
     
 }
 
@@ -31,6 +32,7 @@ struct UserModel: Model {
     let repositories: Int?
     let followers: Int?
     let following: Int?
+    var isComplete: Bool
     
     enum CodingKeys: String, CodingKey {
         
@@ -67,6 +69,7 @@ struct UserModel: Model {
         repositories = try values.decodeIfPresent(Int.self, forKey: .repositories)
         followers = try values.decodeIfPresent(Int.self, forKey: .followers)
         following = try values.decodeIfPresent(Int.self, forKey: .following)
+        isComplete = false
     }
     
     init(from owner: OwnerModel) {
@@ -84,6 +87,25 @@ struct UserModel: Model {
         repositories = nil
         followers = 0
         following = 0
+        isComplete = false
+    }
+    
+    init(from user: User) {
+        self.id = user.id
+        self.login = user.login!
+        self.avatarURL = user.avatarURL
+        self.htmlURL = user.htmlURL
+        self.name = user.name
+        self.bio = user.bio
+        self.company = user.company
+        self.location = user.location
+        self.blogURL = user.blogURL
+        self.email = user.email
+        self.twitter = user.twitter
+        self.repositories = user.repositories
+        self.followers = user.followers
+        self.following = user.following
+        isComplete = true
     }
     
 }
@@ -102,6 +124,7 @@ struct RepositoryModel: Model {
     let forks: Int
     let defaultBranch: String
     var READMEString: String?
+    var isComplete: Bool
     
     enum CodingKeys: String, CodingKey {
         
@@ -133,6 +156,23 @@ struct RepositoryModel: Model {
         forks = try values.decode(Int.self, forKey: .forks)
         defaultBranch = try values.decode(String.self, forKey: .defaultBranch)
         READMEString = nil
+        isComplete = false
+    }
+    
+    init(from repository: Repository) {
+        self.id = repository.id
+        self.name = repository.name
+        self.fullName = repository.fullName
+        self.owner = OwnerModel(from: repository.owner)
+        self.htmlURL = repository.htmlURL
+        self.description = repository.overview
+        self.homepageURL = repository.homepageURL
+        self.language = repository.language
+        self.stars = repository.stars
+        self.forks = repository.forks
+        self.defaultBranch = repository.defaultBranch
+        self.READMEString = repository.readmeString
+        isComplete = true
     }
     
 }
@@ -144,6 +184,7 @@ struct OwnerModel: Model {
     let avatarURL: URL
     let htmlURL: URL
     let type: OwnerType
+    var isComplete: Bool
     
     enum OwnerType: String, Codable {
         
@@ -162,6 +203,34 @@ struct OwnerModel: Model {
         
     }
     
+    init(id: Int, login: String, avatarURL: URL, htmURL: URL, type: OwnerType) {
+        self.id = id
+        self.login = login
+        self.avatarURL = avatarURL
+        self.htmlURL = htmURL
+        self.type = type
+        isComplete = true
+    }
+    
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        id = try container.decode(Int.self, forKey: .id)
+        login = try container.decode(String.self, forKey: .login)
+        avatarURL = try container.decode(URL.self, forKey: .avatarURL)
+        htmlURL = try container.decode(URL.self, forKey: .htmlURL)
+        type = try container.decode(OwnerType.self, forKey: .type)
+        isComplete = true
+    }
+    
+    init(from owner: Owner) {
+        self.id = owner.id
+        self.login = owner.login
+        self.avatarURL = owner.avatarURL
+        self.htmlURL = owner.htmlURL
+        self.type = OwnerType(rawValue: owner.type)!
+        isComplete = true
+    }
+    
 }
 
 struct CommitModel: Model {
@@ -170,6 +239,7 @@ struct CommitModel: Model {
     let message: String
     let htmlURL: URL
     let author: OwnerModel?
+    var isComplete: Bool
     
     enum CodingKeys: String, CodingKey {
         
@@ -192,6 +262,7 @@ struct CommitModel: Model {
         message = try nestedContainer.decode(String.self, forKey: .message)
         htmlURL = try container.decode(URL.self, forKey: .htmlURL)
         author = try? container.decode(OwnerModel.self, forKey: .author)
+        isComplete = true
     }
     
     func encode(to encoder: Encoder) throws {
@@ -217,6 +288,7 @@ struct OrganizationModel: Model {
     let email: String?
     let twitter: String?
     let repositories: Int?
+    var isComplete: Bool
     
     enum CodingKeys: String, CodingKey {
         
@@ -247,6 +319,7 @@ struct OrganizationModel: Model {
         email = try container.decodeIfPresent(String.self, forKey: .email)
         twitter = try container.decodeIfPresent(String.self, forKey: .twitter)
         repositories = try container.decodeIfPresent(Int.self, forKey: .repositories)
+        isComplete = false
     }
     
     init(from owner: OwnerModel) {
@@ -261,6 +334,22 @@ struct OrganizationModel: Model {
         email = nil
         twitter = nil
         repositories = nil
+        isComplete = false
+    }
+    
+    init(from organization: Organization) {
+        self.id = organization.id
+        self.login = organization.login
+        self.avatarURL = organization.avatarURL
+        self.htmlURL = organization.htmlURL
+        self.name = organization.name
+        self.description = organization.overview
+        self.location = organization.location
+        self.blogURL = organization.blogURL
+        self.email = organization.email
+        self.twitter = organization.twitter
+        self.repositories = organization.repositories
+        isComplete = true
     }
     
 }

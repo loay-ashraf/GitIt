@@ -14,6 +14,9 @@
 		C6110AE8275509AC0078D7E8 /* RepositoryLogicController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6110AE7275509AC0078D7E8 /* RepositoryLogicController.swift */; };
 		C6110AED275522F70078D7E8 /* LanguageColors.json in Resources */ = {isa = PBXBuildFile; fileRef = C6110AEC275522F70078D7E8 /* LanguageColors.json */; };
 		C6110AEF275545730078D7E8 /* RepositoryDetailLogicController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6110AEE275545730078D7E8 /* RepositoryDetailLogicController.swift */; };
+		C62899E12783EA8D007155E8 /* Owner+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C62899E02783EA8D007155E8 /* Owner+CoreDataClass.swift */; };
+		C62899E22783EA8D007155E8 /* Owner+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C62899DF2783EA8D007155E8 /* Owner+CoreDataProperties.swift */; };
+		C62899E7278400EE007155E8 /* BookmarksLogicController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C62899E6278400EE007155E8 /* BookmarksLogicController.swift */; };
 		C635C00B2731AF7600ADA247 /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C635C00A2731AF7600ADA247 /* KeychainManager.swift */; };
 		C64F6F082736DCF900E2E727 /* UserLogicController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C64F6F072736DCF900E2E727 /* UserLogicController.swift */; };
 		C64F6F0A2736F33700E2E727 /* ReachabilityHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C64F6F092736F33700E2E727 /* ReachabilityHelper.swift */; };
@@ -66,6 +69,13 @@
 		C6856679274BC3E300833D6E /* UserDetailLogicController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6856678274BC3E200833D6E /* UserDetailLogicController.swift */; };
 		C685667E274BF7EB00833D6E /* HistoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C685667C274BF7EB00833D6E /* HistoryCollectionViewCell.swift */; };
 		C685667F274BF7EB00833D6E /* HistoryCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C685667D274BF7EB00833D6E /* HistoryCollectionViewCell.xib */; };
+		C68AC80027831E4000FE0C08 /* BookmarksManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C68AC7FF27831E4000FE0C08 /* BookmarksManager.swift */; };
+		C68AC80B2783404700FE0C08 /* User+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C68AC80A2783404700FE0C08 /* User+CoreDataClass.swift */; };
+		C68AC80C2783404700FE0C08 /* User+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C68AC8092783404700FE0C08 /* User+CoreDataProperties.swift */; };
+		C68AC80F278340F500FE0C08 /* Repository+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C68AC80E278340F500FE0C08 /* Repository+CoreDataClass.swift */; };
+		C68AC810278340F500FE0C08 /* Repository+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C68AC80D278340F500FE0C08 /* Repository+CoreDataProperties.swift */; };
+		C68AC8132783414400FE0C08 /* Organization+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C68AC8122783414400FE0C08 /* Organization+CoreDataClass.swift */; };
+		C68AC8142783414400FE0C08 /* Organization+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C68AC8112783414400FE0C08 /* Organization+CoreDataProperties.swift */; };
 		C68B64EB271DD34B00A26D05 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C68B64EA271DD34B00A26D05 /* AppDelegate.swift */; };
 		C68B64ED271DD34B00A26D05 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C68B64EC271DD34B00A26D05 /* SceneDelegate.swift */; };
 		C68B64F2271DD34B00A26D05 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C68B64F0271DD34B00A26D05 /* Main.storyboard */; };
@@ -127,6 +137,9 @@
 		C6110AE7275509AC0078D7E8 /* RepositoryLogicController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryLogicController.swift; sourceTree = "<group>"; };
 		C6110AEC275522F70078D7E8 /* LanguageColors.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = LanguageColors.json; sourceTree = "<group>"; };
 		C6110AEE275545730078D7E8 /* RepositoryDetailLogicController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryDetailLogicController.swift; sourceTree = "<group>"; };
+		C62899DF2783EA8D007155E8 /* Owner+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Owner+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		C62899E02783EA8D007155E8 /* Owner+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Owner+CoreDataClass.swift"; sourceTree = "<group>"; };
+		C62899E6278400EE007155E8 /* BookmarksLogicController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksLogicController.swift; sourceTree = "<group>"; };
 		C635C00A2731AF7600ADA247 /* KeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
 		C64F6F072736DCF900E2E727 /* UserLogicController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLogicController.swift; sourceTree = "<group>"; };
 		C64F6F092736F33700E2E727 /* ReachabilityHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReachabilityHelper.swift; sourceTree = "<group>"; };
@@ -179,6 +192,13 @@
 		C6856678274BC3E200833D6E /* UserDetailLogicController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailLogicController.swift; sourceTree = "<group>"; };
 		C685667C274BF7EB00833D6E /* HistoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryCollectionViewCell.swift; sourceTree = "<group>"; };
 		C685667D274BF7EB00833D6E /* HistoryCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HistoryCollectionViewCell.xib; sourceTree = "<group>"; };
+		C68AC7FF27831E4000FE0C08 /* BookmarksManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksManager.swift; sourceTree = "<group>"; };
+		C68AC8092783404700FE0C08 /* User+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		C68AC80A2783404700FE0C08 /* User+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "User+CoreDataClass.swift"; sourceTree = "<group>"; };
+		C68AC80D278340F500FE0C08 /* Repository+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Repository+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		C68AC80E278340F500FE0C08 /* Repository+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Repository+CoreDataClass.swift"; sourceTree = "<group>"; };
+		C68AC8112783414400FE0C08 /* Organization+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Organization+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		C68AC8122783414400FE0C08 /* Organization+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Organization+CoreDataClass.swift"; sourceTree = "<group>"; };
 		C68B64E7271DD34B00A26D05 /* GitIt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GitIt.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C68B64EA271DD34B00A26D05 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C68B64EC271DD34B00A26D05 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -290,6 +310,7 @@
 				C6CCED82275D2FEF0052CC8E /* Repository */,
 				C6CCED81275D2FE60052CC8E /* User */,
 				C6CCED85275D36A00052CC8E /* LicenseLogicController.swift */,
+				C62899E6278400EE007155E8 /* BookmarksLogicController.swift */,
 			);
 			path = Logic;
 			sourceTree = "<group>";
@@ -308,6 +329,30 @@
 				C6110AEC275522F70078D7E8 /* LanguageColors.json */,
 			);
 			path = Assets;
+			sourceTree = "<group>";
+		};
+		C62899E32783FA4F007155E8 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				C62899E02783EA8D007155E8 /* Owner+CoreDataClass.swift */,
+				C62899DF2783EA8D007155E8 /* Owner+CoreDataProperties.swift */,
+				C68AC8122783414400FE0C08 /* Organization+CoreDataClass.swift */,
+				C68AC8112783414400FE0C08 /* Organization+CoreDataProperties.swift */,
+				C68AC80E278340F500FE0C08 /* Repository+CoreDataClass.swift */,
+				C68AC80D278340F500FE0C08 /* Repository+CoreDataProperties.swift */,
+				C68AC80A2783404700FE0C08 /* User+CoreDataClass.swift */,
+				C68AC8092783404700FE0C08 /* User+CoreDataProperties.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		C62899E42783FA64007155E8 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				C6B2DF702720887600AB0C8F /* CoreDataManager.swift */,
+				C68AC7FF27831E4000FE0C08 /* BookmarksManager.swift */,
+			);
+			path = Managers;
 			sourceTree = "<group>";
 		};
 		C64FE5A9277B7C75002E5FC0 /* Stateful */ = {
@@ -710,8 +755,9 @@
 		C6CCED7D275D17F20052CC8E /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
+				C62899E42783FA64007155E8 /* Managers */,
+				C62899E32783FA4F007155E8 /* Models */,
 				C68B64F3271DD34B00A26D05 /* GitIt.xcdatamodeld */,
-				C6B2DF702720887600AB0C8F /* CoreDataManager.swift */,
 				C6584B8B27721BB6000A9EA6 /* CoreDataTypes.swift */,
 			);
 			path = CoreData;
@@ -976,11 +1022,14 @@
 				C66412492780888D00D605BF /* EmptyView.swift in Sources */,
 				C6B26AEC2768B51400ED41F8 /* CommitLogicController.swift in Sources */,
 				C68B6508271DEC4A00A26D05 /* BookmarksViewController.swift in Sources */,
+				C68AC80B2783404700FE0C08 /* User+CoreDataClass.swift in Sources */,
 				C6856677274BBB7400833D6E /* SplashViewController.swift in Sources */,
 				C6DD54A12771146000DA0223 /* SessionTypes.swift in Sources */,
+				C68AC80F278340F500FE0C08 /* Repository+CoreDataClass.swift in Sources */,
 				C635C00B2731AF7600ADA247 /* KeychainManager.swift in Sources */,
 				C65C0E0F276A43DB00ED17CB /* OrganizationTableViewCell.swift in Sources */,
 				C64F6F082736DCF900E2E727 /* UserLogicController.swift in Sources */,
+				C68AC80027831E4000FE0C08 /* BookmarksManager.swift in Sources */,
 				C68B6506271DEB8E00A26D05 /* RepositoryViewController.swift in Sources */,
 				C6C605FD273EC89000BA27C2 /* SearchCoordinator.swift in Sources */,
 				C656EB9C277A269300E39EFC /* Constants.swift in Sources */,
@@ -1007,9 +1056,11 @@
 				C68FCBC8273838A50019C932 /* ExploreViewController.swift in Sources */,
 				C664123D27807CEA00D605BF /* ResultsLogicController.swift in Sources */,
 				C6F46E7827541B2700498614 /* SearchController.swift in Sources */,
+				C68AC8132783414400FE0C08 /* Organization+CoreDataClass.swift in Sources */,
 				C6B26AEE2768B53100ED41F8 /* CommitDetailLogicController.swift in Sources */,
 				C656EBA3277A47FA00E39EFC /* FooterErrorView.swift in Sources */,
 				C6584B8C27721BB6000A9EA6 /* CoreDataTypes.swift in Sources */,
+				C62899E7278400EE007155E8 /* BookmarksLogicController.swift in Sources */,
 				C6F46E7C27541D0E00498614 /* HistoryTableViewController.swift in Sources */,
 				C6CCED86275D36A00052CC8E /* LicenseLogicController.swift in Sources */,
 				C65C0E04276A36DD00ED17CB /* OrganizationViewController.swift in Sources */,
@@ -1032,11 +1083,13 @@
 				C656EB96277A20B000E39EFC /* SFDynamicTableViewController.swift in Sources */,
 				C66412312780789500D605BF /* HistoryLogicController.swift in Sources */,
 				C6603400277CE53A00907494 /* HistoryCollectionViewController.swift in Sources */,
+				C68AC8142783414400FE0C08 /* Organization+CoreDataProperties.swift in Sources */,
 				C6CCED84275D30B30052CC8E /* LicenseViewController.swift in Sources */,
 				C6CCED76275D0E370052CC8E /* SFImageView.swift in Sources */,
 				C6DD549F2771141800DA0223 /* LibraryTypes.swift in Sources */,
 				C6CCED72275D0D590052CC8E /* UIColor.swift in Sources */,
 				C6DD54A3277114CF00DA0223 /* ThemeTypes.swift in Sources */,
+				C62899E22783EA8D007155E8 /* Owner+CoreDataProperties.swift in Sources */,
 				C659EE6C27762433001C1E5D /* ErrorView.swift in Sources */,
 				C6603402277CE69400907494 /* IBCollectionViewCell.swift in Sources */,
 				C6B2DF712720887600AB0C8F /* CoreDataManager.swift in Sources */,
@@ -1044,7 +1097,9 @@
 				C6CCED79275D132D0052CC8E /* ImageLoader.swift in Sources */,
 				C656EBA1277A3F6B00E39EFC /* IBTableViewCell.swift in Sources */,
 				C69ECCD927323D5A00E158A3 /* TokenHelper.swift in Sources */,
+				C62899E12783EA8D007155E8 /* Owner+CoreDataClass.swift in Sources */,
 				C66033FE277CDF0400907494 /* HistoryViewController.swift in Sources */,
+				C68AC80C2783404700FE0C08 /* User+CoreDataProperties.swift in Sources */,
 				C656EB98277A210800E39EFC /* SFDynamicTableView.swift in Sources */,
 				C6603404277CE86700907494 /* SFDynamicCollectionView.swift in Sources */,
 				C685667E274BF7EB00833D6E /* HistoryCollectionViewCell.swift in Sources */,
@@ -1053,6 +1108,7 @@
 				C6B26AF32768C76600ED41F8 /* CommitTableViewCell.swift in Sources */,
 				C6856679274BC3E300833D6E /* UserDetailLogicController.swift in Sources */,
 				C693C4A92729BE1D0061ED73 /* SignInViewController.swift in Sources */,
+				C68AC810278340F500FE0C08 /* Repository+CoreDataProperties.swift in Sources */,
 				C64FE5A8277B4670002E5FC0 /* SFStaticTableView.swift in Sources */,
 				C66412452780845900D605BF /* CoordinatorExtensions.swift in Sources */,
 				C6A1DC67274A11BC00E40BB8 /* Models.swift in Sources */,

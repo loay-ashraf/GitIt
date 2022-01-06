@@ -25,12 +25,17 @@ class UserDetailLogicController {
     // MARK: - Business Logic Methods
     
     func load(then handler: @escaping ErrorHandler, then followHandler: @escaping FollowActionHandler, then bookmarkHandler: @escaping BookmarkActionHandler) {
-        NetworkClient.standard.getUser(userLogin: model.login) { result in
-            switch result {
-            case .success(let response): self.model = response
-                                         self.checkIfFollowedOrBookmarked(then: handler, then: followHandler, then: bookmarkHandler)
-            case .failure(let networkError): handler(networkError)
+        if !model.isComplete {
+            NetworkClient.standard.getUser(userLogin: model.login) { result in
+                switch result {
+                case .success(let response): self.model = response
+                                             self.model.isComplete = true
+                                             self.checkIfFollowedOrBookmarked(then: handler, then: followHandler, then: bookmarkHandler)
+                case .failure(let networkError): handler(networkError)
+                }
             }
+        } else {
+            checkIfFollowedOrBookmarked(then: handler, then: followHandler, then: bookmarkHandler)
         }
     }
     
@@ -57,12 +62,12 @@ class UserDetailLogicController {
     func bookmark(then handler: @escaping BookmarkActionHandler) {
         defer { handler(isBookmarked) }
         if !isBookmarked {
-            guard CoreDataManager.standard.insert(model) != nil else {
+            guard BookmarksManager.standard.addBookmark(model: model) != nil else {
                 isBookmarked = true
                 return
             }
         } else {
-            guard CoreDataManager.standard.delete(model) != nil else {
+            guard BookmarksManager.standard.deleteBookmark(model: model) != nil else {
                 isBookmarked = false
                 return
             }
