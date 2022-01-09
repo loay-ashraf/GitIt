@@ -12,22 +12,18 @@ class ProfileViewController: SFStaticTableViewController {
     // MARK: - View Outlets
     
     @IBOutlet weak var avatarImageView: SFImageView!
+    @IBOutlet weak var avatarHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var avatarWidthConstraint: NSLayoutConstraint!
     @IBOutlet weak var fullNameLabel: UILabel!
     @IBOutlet weak var loginLabel: UILabel!
     @IBOutlet weak var bioLabel: UILabel!
-    @IBOutlet weak var companyStackView: UIStackView!
-    @IBOutlet weak var locationStackView: UIStackView!
-    @IBOutlet weak var blogStackView: UIStackView!
-    @IBOutlet weak var emailStackView: UIStackView!
-    @IBOutlet weak var twitterStackView: UIStackView!
-    @IBOutlet weak var followStackView: UIStackView!
-    @IBOutlet weak var companyLabel: UILabel!
-    @IBOutlet weak var locationLabel: UILabel!
-    @IBOutlet weak var blogLabel: UILabel!
-    @IBOutlet weak var emailLabel: UILabel!
-    @IBOutlet weak var twitterLabel: UILabel!
-    @IBOutlet weak var followersLabel: UILabel!
-    @IBOutlet weak var followingLabel: UILabel!
+    @IBOutlet weak var companyTextView: IconicTextView!
+    @IBOutlet weak var locationTextView: IconicTextView!
+    @IBOutlet weak var blogTextView: IconicTextView!
+    @IBOutlet weak var emailTextView: IconicTextView!
+    @IBOutlet weak var twitterTextView: IconicTextView!
+    @IBOutlet weak var socialStatusNumericView: IconicNumericView!
+    @IBOutlet weak var signInButton: UIButton!
     @IBOutlet weak var settingsButton: UIBarButtonItem!
     @IBOutlet weak var shareButton: UIBarButtonItem!
 
@@ -51,33 +47,40 @@ class ProfileViewController: SFStaticTableViewController {
             subViewsOffsetSize = .searchScreenWithNavBar
         }
         
-        avatarImageView.cornerRadius = 64.0
-        avatarImageView.cornerCurve = .continuous
-        avatarImageView.masksToBounds = true
-        
-        let avatarLongPressesGesture = UILongPressGestureRecognizer(target: self, action: #selector(saveAvatar))
-        avatarImageView.addGestureRecognizer(avatarLongPressesGesture)
-        avatarImageView.isUserInteractionEnabled = true
-        
-        let blogLabelTapGesture = UITapGestureRecognizer(target: self,action: #selector(self.goToBlog))
-        blogLabel.addGestureRecognizer(blogLabelTapGesture)
-        blogLabel.isUserInteractionEnabled = true
-        
-        let emailLabelTapGesture = UITapGestureRecognizer(target: self,action: #selector(self.composeMail))
-        emailLabel.addGestureRecognizer(emailLabelTapGesture)
-        emailLabel.isUserInteractionEnabled = true
-        
-        let twitterLabelTapGesture = UITapGestureRecognizer(target: self,action: #selector(self.goToTwitter))
-        twitterLabel.addGestureRecognizer(twitterLabelTapGesture)
-        twitterLabel.isUserInteractionEnabled = true
-        
-        let followersLabelTapGesture = UITapGestureRecognizer(target: self,action: #selector(self.showFollowers))
-        followersLabel.addGestureRecognizer(followersLabelTapGesture)
-        followersLabel.isUserInteractionEnabled = true
-        
-        let followingLabelTapGesture = UITapGestureRecognizer(target: self,action: #selector(self.showFollowing))
-        followingLabel.addGestureRecognizer(followingLabelTapGesture)
-        followingLabel.isUserInteractionEnabled = true
+        if SessionManager.standard.sessionType == .authenticated, SessionManager.standard.sessionUser != nil {
+            avatarImageView.cornerRadius = 64.0
+            avatarImageView.cornerCurve = .continuous
+            avatarImageView.masksToBounds = true
+            
+            blogTextView.action = { [weak self] in self?.goToBlog() }
+            emailTextView.action = { [weak self] in self?.composeMail() }
+            twitterTextView.action = { [weak self] in self?.goToTwitter() }
+            socialStatusNumericView.actions = [{ [weak self] in self?.showFollowers() },{ [weak self] in self?.showFollowing() }]
+            
+            signInButton.isHidden = true
+        } else {
+            avatarImageView.cornerRadius = 0.0
+            avatarHeightConstraint.constant = 64.0
+            avatarWidthConstraint.constant = 64.0
+            
+            avatarImageView.image = UIImage(systemName: "person")
+            fullNameLabel.text = "Signed in as a Guest"
+            loginLabel.isHidden = true
+            bioLabel.text = "sign in with your Github account to enable extended features."
+            companyTextView.isHidden = true
+            locationTextView.isHidden = true
+            blogTextView.isHidden = true
+            emailTextView.isHidden = true
+            twitterTextView.isHidden = true
+            socialStatusNumericView.isHidden = true
+            
+            signInButton.isHidden = false
+            signInButton.cornerRadius = 10.0
+            signInButton.cornerCurve = .continuous
+            signInButton.masksToBounds = true
+            settingsButton.isEnabled = true
+            shareButton.isEnabled = false
+        }
     }
     
     override func updateView() {
@@ -94,50 +97,12 @@ class ProfileViewController: SFStaticTableViewController {
             } else {
                 bioLabel.isHidden = true
             }
-            if model.company != nil {
-                companyLabel.text = model.company
-            } else {
-                companyStackView.isHidden = true
-            }
-            if model.location != nil {
-                locationLabel.text = model.location
-            } else {
-                locationStackView.isHidden = true
-            }
-            if model.blogURL != nil {
-                blogLabel.text = model.blogURL?.absoluteString
-            } else {
-                blogStackView.isHidden = true
-            }
-            if model.email != nil {
-                emailLabel.text = model.email
-            } else {
-                emailStackView.isHidden = true
-            }
-            if model.twitter != nil {
-                let atCharacter = "@"
-                twitterLabel.text = atCharacter + model.twitter!
-            } else {
-                twitterStackView.isHidden = true
-            }
-            followersLabel.text = GitIt.formatPoints(num: Double(model.followers!))
-            followingLabel.text = GitIt.formatPoints(num: Double(model.following!))
-            settingsButton.isEnabled = true
-            shareButton.isEnabled = true
-        } else {
-            avatarImageView.image = UIImage(systemName: "person")
-            fullNameLabel.text = "Guest"
-            loginLabel.isHidden = true
-            bioLabel.isHidden = true
-            companyStackView.isHidden = true
-            locationStackView.isHidden = true
-            blogStackView.isHidden = true
-            emailStackView.isHidden = true
-            twitterStackView.isHidden = true
-            followStackView.isHidden = true
-            settingsButton.isEnabled = true
-            shareButton.isEnabled = false
-            xTableView.rowHeight = 0.0
+            companyTextView.text = model.company
+            locationTextView.text = model.location
+            blogTextView.text = model.blogURL?.absoluteString
+            emailTextView.text = model.email
+            twitterTextView.text = model.twitter != nil ? "@".appending(model.twitter!) : nil
+            socialStatusNumericView.numbers = [Double(model.followers!),Double(model.following!)]
         }
     }
     
@@ -150,20 +115,25 @@ class ProfileViewController: SFStaticTableViewController {
         }
     }
     
-    @objc func saveAvatar(_ sender: UILongPressGestureRecognizer) {
+    @IBAction func saveAvatar(_ sender: UILongPressGestureRecognizer) {
         if sender.state == .ended {
             UIImageWriteToSavedPhotosAlbum(avatarImageView.image!, self, nil, nil)
         }
     }
     
-    @objc func goToBlog() {
+    @IBAction func signIn(_ sender: UIButton) {
+        SessionManager.standard.signOut()
+        performSegue(withIdentifier: "unwindToSplash", sender: self)
+    }
+    
+    func goToBlog() {
         if let model = SessionManager.standard.sessionUser {
             let webURL = model.blogURL
             URLHelper.openURL(webURL!)
         }
     }
     
-    @objc func composeMail() {
+    func composeMail() {
         if let model = SessionManager.standard.sessionUser {
             let appURL = URL(string: "mailto://" + model.email!)!
             if UIApplication.shared.canOpenURL(appURL) {
@@ -172,7 +142,7 @@ class ProfileViewController: SFStaticTableViewController {
         }
     }
     
-    @objc func goToTwitter() {
+    func goToTwitter() {
         if let model = SessionManager.standard.sessionUser {
             let appURL = URL(string: "twitter://user?screen_name=" + model.twitter!)!
             let webURL = URL(string: "https://twitter.com/" + model.twitter!)!
@@ -184,14 +154,14 @@ class ProfileViewController: SFStaticTableViewController {
         }
     }
     
-    @objc func showFollowers() {
+    func showFollowers() {
         if let model = SessionManager.standard.sessionUser {
             let followersVC = UserViewController(context: .followers, contextParameters: (model.login,model.followers))
             navigationController?.pushViewController(followersVC, animated: true)
         }
     }
     
-    @objc func showFollowing() {
+    func showFollowing() {
         if let model = SessionManager.standard.sessionUser {
             let followingVC = UserViewController(context: .following, contextParameters: (model.login,model.following))
             navigationController?.pushViewController(followingVC, animated: true)
