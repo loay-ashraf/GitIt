@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>StringsTable</key>
+	<string>Root</string>
+	<key>PreferenceSpecifiers</key>
+	<array>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>General</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSMultiValueSpecifier</string>
+			<key>Title</key>
+			<string>Theme</string>
+			<key>Key</key>
+			<string>theme</string>
+			<key>DefaultValue</key>
+			<string>follow-system</string>
+			<key>Values</key>
+			<array>
+				<string>follow-system</string>
+				<string>light</string>
+				<string>dark</string>
+			</array>
+			<key>Titles</key>
+			<array>
+				<string>Follow System</string>
+				<string>Light</string>
+				<string>Dark</string>
+			</array>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSMultiValueSpecifier</string>
+			<key>Title</key>
+			<string>Language</string>
+			<key>Key</key>
+			<string>language</string>
+			<key>DefaultValue</key>
+			<string>en</string>
+			<key>Values</key>
+			<array>
+				<string>en</string>
+				<string>ar</string>
+			</array>
+			<key>Titles</key>
+			<array>
+				<string>English</string>
+				<string>عربي</string>
+			</array>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>IASKButtonSpecifier</string>
+			<key>Title</key>
+			<string>Clear Data</string>
+			<key>Key</key>
+			<string>clearButton</string>
+			<key>IASKTextAlignment</key>
+			<string>IASKUITextAlignmentLeft</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>More Options</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>IASKOpenURLSpecifier</string>
+			<key>Title</key>
+			<string>Terms Of Service</string>
+			<key>Identifier</key>
+			<string>tosButton</string>
+			<key>File</key>
+			<string>https://docs.github.com/en/github/site-policy/github-terms-of-service</string>
+			<key>IASKTextAlignment</key>
+			<string>IASKUITextAlignmentLeft</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>IASKOpenURLSpecifier</string>
+			<key>Title</key>
+			<string>Privacy Policy</string>
+			<key>Identifier</key>
+			<string>ppButton</string>
+			<key>File</key>
+			<string>https://docs.github.com/en/github/site-policy/github-privacy-statement</string>
+			<key>IASKTextAlignment</key>
+			<string>IASKUITextAlignmentLeft</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>IASKOpenURLSpecifier</string>
+			<key>Title</key>
+			<string>Open Source Libraries</string>
+			<key>Identifier</key>
+			<string>oslButton</string>
+			<key>IASKTextAlignment</key>
+			<string>IASKUITextAlignmentLeft</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string></string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>IASKCustomViewSpecifier</string>
+			<key>Key</key>
+			<string>soButton</string>
+		</dict>
+	</array>
+</dict>
+</plist>

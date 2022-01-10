@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import InAppSettingsKit
 
 class LibraryManager {
     
@@ -14,9 +15,14 @@ class LibraryManager {
     var languageColors: [String:String]
     
     private init() {
+        // Load Colors JSON
         let url = Bundle.main.url(forResource: "LanguageColors", withExtension: "json")
         let data = try? Data(contentsOf: url!, options: .mappedIfSafe)
         languageColors = try! JSONSerialization.jsonObject(with: data!, options: []) as! [String:String]
+        // Register default preferences
+        let settingsReader = IASKSettingsReader()
+        let defaultDict = settingsReader.gatherDefaultsLimited(toEditableFields: true)
+        UserDefaults.standard.register(defaults: defaultDict)
     }
     
     // MARK: - Session Property Methods
@@ -36,16 +42,25 @@ class LibraryManager {
         }
     }
     
-    // MARK: - Theme Property Methods
+    // MARK: - Theme Preference Methods
     
-    func setThemeType(themeType: ThemeType) {
-        UserDefaults.standard.set(themeType.rawValue, forKey: "Theme Type")
+    func getTheme() -> Result<Theme,LibraryError> {
+        if let themeString = UserDefaults.standard.string(forKey: "theme") {
+            if let theme = Theme(rawValue: themeString) {
+                return .success(theme)
+            }
+            return .failure(.userDefaults(.unknownPropertyValue))
+        } else {
+            return .failure(.userDefaults(.propertyNotFound))
+        }
     }
     
-    func getThemeType() -> Result<ThemeType,LibraryError> {
-        if let themeTypeString = UserDefaults.standard.string(forKey: "Theme Type") {
-            if let themeType = ThemeType(rawValue: themeTypeString) {
-                return .success(themeType)
+    // MARK: - Language Preference Methods
+    
+    func getLanguage() -> Result<Language,LibraryError> {
+        if let languageString = UserDefaults.standard.string(forKey: "language") {
+            if let language = Language(rawValue: languageString) {
+                return .success(language)
             }
             return .failure(.userDefaults(.unknownPropertyValue))
         } else {
