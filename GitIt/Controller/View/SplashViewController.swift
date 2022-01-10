@@ -14,9 +14,11 @@ class SplashViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         CoreDataManager.standard.load()
+        ThemeManager.standard.setup()
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        ThemeManager.standard.applyPreferedTheme()
         if BookmarksManager.standard.loadBookmarks() != nil {
             let okAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
             AlertHelper.showAlert(title: "Data Error", message: "We couldn't load your saved bookamrks, we're working on a fix for the issue.", style: .alert, actions: [okAction])
