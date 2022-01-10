@@ -1,16 +1,20 @@
 PODS:
+  - InAppSettingsKit (3.3.5)
   - MarkdownView (1.8.3)
 
 DEPENDENCIES:
+  - InAppSettingsKit
   - MarkdownView
 
 SPEC REPOS:
   trunk:
+    - InAppSettingsKit
     - MarkdownView
 
 SPEC CHECKSUMS:
+  InAppSettingsKit: e6123b1241711bac01fe7d837fd71f864bb473c0
   MarkdownView: 44a260beec01538e6cdbbce9c2f631b1f3634907
 
-PODFILE CHECKSUM: 7c7d34ebe3e24dd3382edff5e40908fe3fbd0b0e
+PODFILE CHECKSUM: 7e8ee3e6fff1c01efb7c5efffdd82d290fb2d903
 
 COCOAPODS: 1.11.2

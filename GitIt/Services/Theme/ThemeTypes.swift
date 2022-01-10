@@ -9,8 +9,10 @@ import Foundation
 
 // MARK: - Theme Types
 
-enum ThemeType: String {
-    case followSystem = "Follow System"
-    case light = "Light"
-    case dark = "Dark"
+enum Theme: String {
+    
+    case followSystem = "follow-system"
+    case light = "light"
+    case dark = "dark"
+    
 }
