@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="gRp-iw-8DU">
-    <device id="retina5_5" orientation="portrait" appearance="light"/>
+    <device id="retina5_5" orientation="portrait" appearance="dark"/>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
         <capability name="Image references" minToolsVersion="12.0"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -27,10 +28,11 @@
                             </imageView>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="X7u-Hj-in2">
                                 <rect key="frame" x="188.66666666666666" y="536" width="37" height="37"/>
+                                <color key="color" systemColor="labelColor"/>
                             </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="QHF-8q-gxw"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" name="Background Color"/>
                         <constraints>
                             <constraint firstItem="X7u-Hj-in2" firstAttribute="top" secondItem="POE-iT-gay" secondAttribute="bottom" constant="40" id="1CU-iY-TOe"/>
                             <constraint firstItem="X7u-Hj-in2" firstAttribute="centerX" secondItem="NKC-kx-1bl" secondAttribute="centerX" id="BM3-ml-K9U"/>
@@ -71,7 +73,7 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="static" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="1" sectionFooterHeight="1" id="IRs-2D-YdW" customClass="SFStaticTableView" customModule="GitIt" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" name="Background Color"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="ewV-s2-MHH" userLabel="Header">
                             <rect key="frame" x="0.0" y="0.0" width="414" height="345"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -208,7 +210,7 @@
                                         </stackView>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BA8-Tv-fzF">
                                             <rect key="frame" x="0.0" y="255" width="394" height="40"/>
-                                            <color key="backgroundColor" red="0.86274509799999999" green="0.92053419349999999" blue="0.99187606569999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="backgroundColor" name="Button Background Color"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="40" id="Oos-Dt-ImU"/>
                                             </constraints>
@@ -228,13 +230,13 @@
                                 </stackView>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pQH-2o-nh8" userLabel="Separator">
                                     <rect key="frame" x="0.0" y="325" width="414" height="20"/>
-                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                    <color key="backgroundColor" name="Background Color"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="20" id="5mg-MR-S4C"/>
                                     </constraints>
                                 </view>
                             </subviews>
-                            <color key="backgroundColor" systemColor="systemGray6Color"/>
+                            <color key="backgroundColor" name="Foreground Color"/>
                             <constraints>
                                 <constraint firstAttribute="bottom" secondItem="pQH-2o-nh8" secondAttribute="bottom" id="26S-FZ-pmJ"/>
                                 <constraint firstAttribute="trailing" secondItem="pQH-2o-nh8" secondAttribute="trailing" id="7cz-8d-ELt"/>
@@ -251,7 +253,7 @@
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YHQ-yV-hqU" userLabel="Separator">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="20"/>
-                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                    <color key="backgroundColor" name="Background Color"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="20" id="iLQ-rn-ibt"/>
                                     </constraints>
@@ -309,7 +311,7 @@
                                     </constraints>
                                 </stackView>
                             </subviews>
-                            <color key="backgroundColor" systemColor="systemGray6Color"/>
+                            <color key="backgroundColor" name="Foreground Color"/>
                             <constraints>
                                 <constraint firstAttribute="trailing" secondItem="KCc-MY-xq6" secondAttribute="trailing" constant="10" id="bVW-RP-3er"/>
                                 <constraint firstItem="KCc-MY-xq6" firstAttribute="top" secondItem="YHQ-yV-hqU" secondAttribute="bottom" constant="15" id="h8L-yr-dSS"/>
@@ -344,7 +346,7 @@
                                                 </imageView>
                                             </subviews>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" systemColor="systemGray6Color"/>
+                                        <color key="backgroundColor" name="Foreground Color"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="Qya-SK-mZS" imageView="3vl-mp-IC7" rowHeight="60" style="IBUITableViewCellStyleDefault" id="QZf-2I-hhH">
                                         <rect key="frame" x="0.0" y="406" width="414" height="60"/>
@@ -367,7 +369,7 @@
                                                 </imageView>
                                             </subviews>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" systemColor="systemGray6Color"/>
+                                        <color key="backgroundColor" name="Foreground Color"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="F1b-wT-ijQ" imageView="y2y-Ru-cZE" rowHeight="60" style="IBUITableViewCellStyleDefault" id="uiX-JR-piG">
                                         <rect key="frame" x="0.0" y="466" width="414" height="60"/>
@@ -390,7 +392,7 @@
                                                 </imageView>
                                             </subviews>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" systemColor="systemGray6Color"/>
+                                        <color key="backgroundColor" name="Foreground Color"/>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -478,7 +480,7 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" alwaysBounceVertical="YES" bouncesZoom="NO" dataMode="static" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="vvk-6X-nph" customClass="SFStaticTableView" customModule="GitIt" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" name="Background Color"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="CHL-8j-ZDV" userLabel="Header">
                             <rect key="frame" x="0.0" y="0.0" width="414" height="126"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -520,13 +522,13 @@
                                 </stackView>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bBv-zO-url" userLabel="Separator">
                                     <rect key="frame" x="0.0" y="106" width="414" height="20"/>
-                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                    <color key="backgroundColor" name="Background Color"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="20" id="dNL-s4-joI"/>
                                     </constraints>
                                 </view>
                             </subviews>
-                            <color key="backgroundColor" systemColor="systemGray6Color"/>
+                            <color key="backgroundColor" name="Foreground Color"/>
                             <constraints>
                                 <constraint firstItem="bBv-zO-url" firstAttribute="top" secondItem="Ljc-hI-xPe" secondAttribute="bottom" constant="15" id="Bqa-zV-97p"/>
                                 <constraint firstAttribute="bottom" secondItem="bBv-zO-url" secondAttribute="bottom" id="FdC-I2-Arf"/>
@@ -538,9 +540,9 @@
                             </constraints>
                         </view>
                         <view key="tableFooterView" contentMode="scaleToFill" id="lzh-sj-lus" userLabel="Footer">
-                            <rect key="frame" x="0.0" y="126" width="414" height="5"/>
+                            <rect key="frame" x="0.0" y="126" width="414" height="1"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            <color key="backgroundColor" name="Foreground Color"/>
                         </view>
                         <sections/>
                         <connections>
@@ -577,6 +579,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="yqW-GE-zC5">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" name="Foreground Color"/>
                     </navigationBar>
                     <connections>
                         <segue destination="QVR-wu-qrk" kind="relationship" relationship="rootViewController" id="3Gu-kD-ZWA"/>
@@ -590,25 +593,25 @@
         <scene sceneID="UST-xA-czQ">
             <objects>
                 <tableViewController storyboardIdentifier="exploreVC" id="aKn-b7-1Sw" customClass="ExploreViewController" customModule="GitIt" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="static" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="40" sectionFooterHeight="40" id="igY-TJ-LTT">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="static" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="20" sectionFooterHeight="20" id="igY-TJ-LTT">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" name="Background Color"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="4H5-8T-Y7j" userLabel="Header">
-                            <rect key="frame" x="0.0" y="0.0" width="414" height="5"/>
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="20"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            <color key="backgroundColor" name="Background Color"/>
                         </view>
                         <view key="tableFooterView" contentMode="scaleToFill" id="CGb-rw-vPv" userLabel="Footer">
-                            <rect key="frame" x="0.0" y="379.66666412353516" width="414" height="5"/>
+                            <rect key="frame" x="0.0" y="351.66666603088379" width="414" height="20"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            <color key="backgroundColor" name="Background Color"/>
                         </view>
                         <sections>
                             <tableViewSection id="nQv-fa-vJI">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="YdF-3V-vH4" imageView="aIM-es-Vah" rowHeight="60" style="IBUITableViewCellStyleDefault" id="4RZ-BU-nZH">
-                                        <rect key="frame" x="0.0" y="49.666666030883789" width="414" height="60"/>
+                                        <rect key="frame" x="0.0" y="40" width="414" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="4RZ-BU-nZH" id="Sz8-ge-8QW">
                                             <rect key="frame" x="0.0" y="0.0" width="384.33333333333331" height="60"/>
@@ -628,10 +631,10 @@
                                                 </imageView>
                                             </subviews>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" systemColor="systemGray6Color"/>
+                                        <color key="backgroundColor" name="Foreground Color"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="LsM-lV-FTw" imageView="vr9-aN-bf1" rowHeight="60" style="IBUITableViewCellStyleDefault" id="3zR-IP-oZB">
-                                        <rect key="frame" x="0.0" y="109.66666603088379" width="414" height="60"/>
+                                        <rect key="frame" x="0.0" y="100" width="414" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="3zR-IP-oZB" id="I4p-LP-gYF">
                                             <rect key="frame" x="0.0" y="0.0" width="384.33333333333331" height="60"/>
@@ -651,10 +654,10 @@
                                                 </imageView>
                                             </subviews>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" systemColor="systemGray6Color"/>
+                                        <color key="backgroundColor" name="Foreground Color"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="Ssq-qN-292" imageView="aA6-uO-B4l" rowHeight="60" style="IBUITableViewCellStyleDefault" id="51e-Kg-fXP">
-                                        <rect key="frame" x="0.0" y="169.66666603088379" width="414" height="60"/>
+                                        <rect key="frame" x="0.0" y="160" width="414" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="51e-Kg-fXP" id="pdj-0l-644">
                                             <rect key="frame" x="0.0" y="0.0" width="384.33333333333331" height="60"/>
@@ -674,14 +677,14 @@
                                                 </imageView>
                                             </subviews>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" systemColor="systemGray6Color"/>
+                                        <color key="backgroundColor" name="Foreground Color"/>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
                             <tableViewSection headerTitle="Repository" id="hJr-1O-fiW">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="NDD-h1-xj2" imageView="h5D-L0-F8j" rowHeight="60" style="IBUITableViewCellStyleDefault" id="mlO-1h-ud0">
-                                        <rect key="frame" x="0.0" y="296.99999809265137" width="414" height="60"/>
+                                        <rect key="frame" x="0.0" y="271.66666603088379" width="414" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="mlO-1h-ud0" id="DTq-AP-iY2">
                                             <rect key="frame" x="0.0" y="0.0" width="384.33333333333331" height="60"/>
@@ -701,7 +704,7 @@
                                                 </imageView>
                                             </subviews>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" systemColor="systemGray6Color"/>
+                                        <color key="backgroundColor" name="Foreground Color"/>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -724,7 +727,7 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="static" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="1" sectionFooterHeight="1" id="a3e-CF-TGq" customClass="SFStaticTableView" customModule="GitIt" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" name="Background Color"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="61I-bb-FTa" userLabel="Header">
                             <rect key="frame" x="0.0" y="0.0" width="414" height="501"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -896,7 +899,7 @@
                                                                 </label>
                                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="o48-M1-AEi">
                                                                     <rect key="frame" x="80.666666666666671" y="7.333333333333333" width="10" height="5.333333333333333"/>
-                                                                    <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                    <color key="tintColor" systemColor="labelColor"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="width" constant="10" id="EKS-WR-lVx"/>
                                                                         <constraint firstAttribute="height" constant="10" id="aGv-9f-zNe"/>
@@ -929,12 +932,11 @@
                                         </stackView>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7TF-7g-OIi">
                                             <rect key="frame" x="0.0" y="411" width="394" height="40"/>
-                                            <color key="backgroundColor" red="0.86274509803921573" green="0.92053419349999999" blue="0.99187606569999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="backgroundColor" name="Button Background Color"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="40" id="0YJ-sw-7kv"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                            <color key="tintColor" systemColor="systemBlueColor"/>
                                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="15" maxY="0.0"/>
                                             <state key="normal" title="Follow">
                                                 <imageReference key="image" image="plus" catalog="system" symbolScale="large"/>
@@ -951,14 +953,14 @@
                                 </stackView>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yeP-90-suH" userLabel="Separator">
                                     <rect key="frame" x="0.0" y="481" width="414" height="20"/>
-                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                    <color key="backgroundColor" name="Background Color"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="20" id="Xsu-oE-1JS"/>
                                     </constraints>
                                 </view>
                             </subviews>
                             <viewLayoutGuide key="safeArea" id="LB0-Mh-wTo"/>
-                            <color key="backgroundColor" systemColor="systemGray6Color"/>
+                            <color key="backgroundColor" name="Foreground Color"/>
                             <constraints>
                                 <constraint firstItem="hOR-jl-oes" firstAttribute="top" secondItem="LB0-Mh-wTo" secondAttribute="top" constant="15" id="1XU-Xt-uuc"/>
                                 <constraint firstItem="yeP-90-suH" firstAttribute="leading" secondItem="LB0-Mh-wTo" secondAttribute="leading" id="6gT-aK-k2x"/>
@@ -970,9 +972,9 @@
                             </constraints>
                         </view>
                         <view key="tableFooterView" contentMode="scaleToFill" id="SqC-nq-sOa" userLabel="Footer">
-                            <rect key="frame" x="0.0" y="683.00000000000011" width="414" height="5"/>
+                            <rect key="frame" x="0.0" y="683.00000000000011" width="414" height="1"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            <color key="backgroundColor" name="Foreground Color"/>
                         </view>
                         <sections>
                             <tableViewSection id="ek5-r8-fex">
@@ -998,7 +1000,7 @@
                                                 </imageView>
                                             </subviews>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" systemColor="systemGray6Color"/>
+                                        <color key="backgroundColor" name="Foreground Color"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="CHy-Wc-tfY" imageView="8PE-Sw-H1d" rowHeight="60" style="IBUITableViewCellStyleDefault" id="BSz-0G-TRz">
                                         <rect key="frame" x="0.0" y="562" width="414" height="60"/>
@@ -1021,7 +1023,7 @@
                                                 </imageView>
                                             </subviews>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" systemColor="systemGray6Color"/>
+                                        <color key="backgroundColor" name="Foreground Color"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="soY-Nt-YE7" imageView="VU9-02-v5N" rowHeight="60" style="IBUITableViewCellStyleDefault" id="Fgr-Vq-4RL">
                                         <rect key="frame" x="0.0" y="622" width="414" height="60"/>
@@ -1044,7 +1046,7 @@
                                                 </imageView>
                                             </subviews>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" systemColor="systemGray6Color"/>
+                                        <color key="backgroundColor" name="Foreground Color"/>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -1101,7 +1103,7 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" bouncesZoom="NO" dataMode="static" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="1" sectionFooterHeight="1" id="rjE-Gw-Z3G" customClass="SFStaticTableView" customModule="GitIt" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" name="Background Color"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="fh4-IB-lz9" userLabel="Header">
                             <rect key="frame" x="0.0" y="0.0" width="414" height="373"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1253,14 +1255,14 @@
                                 </stackView>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="79I-PF-K2x" userLabel="Separator">
                                     <rect key="frame" x="0.0" y="353" width="414" height="20"/>
-                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                    <color key="backgroundColor" name="Background Color"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="20" id="80y-ro-UGB"/>
                                     </constraints>
                                 </view>
                             </subviews>
                             <viewLayoutGuide key="safeArea" id="CM5-Ex-O9r"/>
-                            <color key="backgroundColor" systemColor="systemGray6Color"/>
+                            <color key="backgroundColor" name="Foreground Color"/>
                             <constraints>
                                 <constraint firstItem="CM5-Ex-O9r" firstAttribute="trailing" secondItem="2gH-hM-PhR" secondAttribute="trailing" constant="10" id="ApY-HR-Tgh"/>
                                 <constraint firstItem="79I-PF-K2x" firstAttribute="bottom" secondItem="CM5-Ex-O9r" secondAttribute="bottom" id="AuG-Ux-pwm"/>
@@ -1272,9 +1274,9 @@
                             </constraints>
                         </view>
                         <view key="tableFooterView" contentMode="scaleToFill" id="7sK-iM-3KF" userLabel="Footer">
-                            <rect key="frame" x="0.0" y="495" width="414" height="5"/>
+                            <rect key="frame" x="0.0" y="495" width="414" height="1"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            <color key="backgroundColor" name="Foreground Color"/>
                         </view>
                         <sections>
                             <tableViewSection id="Oxa-qm-aFl">
@@ -1300,7 +1302,7 @@
                                                 </imageView>
                                             </subviews>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" systemColor="systemGray6Color"/>
+                                        <color key="backgroundColor" name="Foreground Color"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="0dW-Bb-kJM" imageView="Rxi-GZ-J5a" rowHeight="60" style="IBUITableViewCellStyleDefault" id="1t6-Z4-5qz">
                                         <rect key="frame" x="0.0" y="434" width="414" height="60"/>
@@ -1323,7 +1325,7 @@
                                                 </imageView>
                                             </subviews>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" systemColor="systemGray6Color"/>
+                                        <color key="backgroundColor" name="Foreground Color"/>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -1379,6 +1381,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="L4k-5B-zeO">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" name="Foreground Color"/>
                     </navigationBar>
                     <connections>
                         <segue destination="q6w-vH-VeW" kind="relationship" relationship="rootViewController" id="BBg-dq-3Qx"/>
@@ -1395,7 +1398,7 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="1" sectionFooterHeight="1" id="aeo-Aa-o03" customClass="SFStaticTableView" customModule="GitIt" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" name="Background Color"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="wkd-mH-Qnc" userLabel="Header">
                             <rect key="frame" x="0.0" y="0.0" width="414" height="444"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1532,12 +1535,11 @@
                                         </view>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wXA-bt-gph">
                                             <rect key="frame" x="0.0" y="354" width="394" height="40"/>
-                                            <color key="backgroundColor" red="0.86274509799999999" green="0.92053419349999999" blue="0.99187606569999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <color key="backgroundColor" name="Button Background Color"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="40" id="W53-KN-gug"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                            <color key="tintColor" systemColor="systemBlueColor"/>
                                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="15" maxY="0.0"/>
                                             <state key="normal" title="Sign In"/>
                                             <connections>
@@ -1553,14 +1555,14 @@
                                 </stackView>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PZo-gG-sOs" userLabel="Separator">
                                     <rect key="frame" x="0.0" y="424" width="414" height="20"/>
-                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                    <color key="backgroundColor" name="Background Color"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="20" id="80D-OA-tub"/>
                                     </constraints>
                                 </view>
                             </subviews>
                             <viewLayoutGuide key="safeArea" id="KB0-HI-VYk"/>
-                            <color key="backgroundColor" systemColor="systemGray6Color"/>
+                            <color key="backgroundColor" name="Foreground Color"/>
                             <constraints>
                                 <constraint firstItem="PZo-gG-sOs" firstAttribute="bottom" secondItem="KB0-HI-VYk" secondAttribute="bottom" id="6CF-SC-w4p"/>
                                 <constraint firstItem="KB0-HI-VYk" firstAttribute="trailing" secondItem="lSh-Xy-XJF" secondAttribute="trailing" constant="10" id="KOg-zH-FBW"/>
@@ -1572,9 +1574,9 @@
                             </constraints>
                         </view>
                         <view key="tableFooterView" contentMode="scaleToFill" id="Xce-ad-xhB" userLabel="Footer">
-                            <rect key="frame" x="0.0" y="626.00000000000011" width="414" height="5"/>
+                            <rect key="frame" x="0.0" y="626.00000000000011" width="414" height="1"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            <color key="backgroundColor" name="Background Color"/>
                         </view>
                         <sections>
                             <tableViewSection id="rKs-pR-TJo">
@@ -1600,7 +1602,7 @@
                                                 </imageView>
                                             </subviews>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" systemColor="systemGray6Color"/>
+                                        <color key="backgroundColor" name="Foreground Color"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="DEo-gH-m3n" imageView="sSJ-Nb-kgl" rowHeight="60" style="IBUITableViewCellStyleDefault" id="e3c-NW-9Tf">
                                         <rect key="frame" x="0.0" y="505" width="414" height="60"/>
@@ -1623,7 +1625,7 @@
                                                 </imageView>
                                             </subviews>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" systemColor="systemGray6Color"/>
+                                        <color key="backgroundColor" name="Foreground Color"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="TSa-Md-4oW" imageView="Mim-fM-l22" rowHeight="60" style="IBUITableViewCellStyleDefault" id="u22-SL-ptL">
                                         <rect key="frame" x="0.0" y="565" width="414" height="60"/>
@@ -1646,7 +1648,7 @@
                                                 </imageView>
                                             </subviews>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" systemColor="systemGray6Color"/>
+                                        <color key="backgroundColor" name="Foreground Color"/>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -1706,7 +1708,7 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" id="NzH-dy-ON1">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" name="Background Color"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="signOutCell" id="onA-gH-Vgf">
                                 <rect key="frame" x="0.0" y="49" width="414" height="43.666667938232422"/>
@@ -1756,26 +1758,26 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="UVe-zW-CTZ" customClass="SFDynamicTableView" customModule="GitIt" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" name="Background Color"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="Tpn-JV-unJ" userLabel="Header">
-                            <rect key="frame" x="0.0" y="0.0" width="414" height="5"/>
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="20"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            <color key="backgroundColor" name="Background Color"/>
                         </view>
                         <view key="tableFooterView" contentMode="scaleToFill" id="3ol-GL-EXU" userLabel="Footer">
-                            <rect key="frame" x="0.0" y="116" width="414" height="5"/>
+                            <rect key="frame" x="0.0" y="131" width="414" height="20"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            <color key="backgroundColor" name="Background Color"/>
                         </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="x8J-sR-WoN">
-                                <rect key="frame" x="0.0" y="49.666666030883789" width="414" height="43.666667938232422"/>
+                                <rect key="frame" x="0.0" y="64.666666030883789" width="414" height="43.666667938232422"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="x8J-sR-WoN" id="hS5-5o-zZq">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="43.666667938232422"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
-                                <color key="backgroundColor" systemColor="systemGray6Color"/>
+                                <color key="backgroundColor" name="Foreground Color"/>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -1787,7 +1789,7 @@
                         <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="vb3-9y-G9o">
                             <rect key="frame" x="128" y="6" width="158" height="32"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" systemColor="systemGray6Color"/>
+                            <color key="backgroundColor" name="Background Color"/>
                             <segments>
                                 <segment title="">
                                     <imageReference key="image" image="person.2" catalog="system" symbolScale="large"/>
@@ -1888,6 +1890,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="VMp-Hm-HDv">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" name="Foreground Color"/>
                     </navigationBar>
                     <connections>
                         <segue destination="aKn-b7-1Sw" kind="relationship" relationship="rootViewController" id="6ah-Zv-aXn"/>
@@ -1923,17 +1926,20 @@
         <image name="star" catalog="system" width="128" height="116"/>
         <image name="tuningfork" catalog="system" width="128" height="116"/>
         <image name="twitter-50" width="50" height="50"/>
+        <namedColor name="Background Color">
+            <color red="0.94900000095367432" green="0.94900000095367432" blue="0.96899998188018799" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="Button Background Color">
+            <color red="0.86274509803921573" green="0.92156862745098034" blue="0.99215686274509807" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="Foreground Color">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </namedColor>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-        <systemColor name="systemBlueColor">
-            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="systemGray6Color">
-            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

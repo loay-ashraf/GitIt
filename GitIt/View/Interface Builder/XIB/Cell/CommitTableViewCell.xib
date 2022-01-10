@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina5_5" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -12,14 +15,14 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="94"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="294.5" height="94"/>
+                <rect key="frame" x="0.0" y="0.0" width="294.33333333333331" height="94"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="top" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="FSy-ky-1L6">
-                        <rect key="frame" x="10" y="10" width="273" height="74"/>
+                        <rect key="frame" x="10" y="10" width="274.33333333333331" height="74"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="o0A-G4-Th9">
-                                <rect key="frame" x="0.0" y="0.0" width="129.5" height="32"/>
+                                <rect key="frame" x="0.0" y="0.0" width="129.66666666666666" height="32"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="72x-iG-zH2" customClass="SFImageView" customModule="GitIt" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="32" height="32"/>
@@ -29,7 +32,7 @@
                                         </constraints>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Author Login" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B3O-gH-KZ2">
-                                        <rect key="frame" x="42" y="6" width="87.5" height="20"/>
+                                        <rect key="frame" x="42.000000000000007" y="6" width="87.666666666666686" height="20"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="20" id="SbH-fL-BWb"/>
                                         </constraints>
@@ -40,7 +43,7 @@
                                 </subviews>
                             </stackView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Message" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cse-kp-6Bn">
-                                <rect key="frame" x="0.0" y="54" width="65.5" height="20"/>
+                                <rect key="frame" x="0.0" y="54" width="65.666666666666671" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20" id="tiA-5p-TSI"/>
                                 </constraints>
@@ -59,6 +62,7 @@
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <color key="backgroundColor" name="Foreground Color"/>
             <connections>
                 <outlet property="avatarImageView" destination="72x-iG-zH2" id="Bi2-xA-AKr"/>
                 <outlet property="loginLabel" destination="B3O-gH-KZ2" id="8Yw-Wp-ZPl"/>
@@ -67,4 +71,9 @@
             <point key="canvasLocation" x="131.8840579710145" y="132.88043478260872"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <namedColor name="Foreground Color">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </namedColor>
+    </resources>
 </document>
