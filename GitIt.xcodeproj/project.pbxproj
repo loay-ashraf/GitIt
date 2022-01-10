@@ -65,6 +65,8 @@
 		C664124B2780C63B00D605BF /* AlertHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C664124A2780C63B00D605BF /* AlertHelper.swift */; };
 		C6665EE7276F9DFB00178BA6 /* URLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6665EE6276F9DFB00178BA6 /* URLSession.swift */; };
 		C66F2A242740D3D1000ED46E /* NetworkTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66F2A232740D3D1000ED46E /* NetworkTypes.swift */; };
+		C67AB9922789E01E00D7E084 /* IconicNumericView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C67AB9912789E01E00D7E084 /* IconicNumericView.xib */; };
+		C67AB9942789E30200D7E084 /* IconicNumericView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C67AB9932789E30200D7E084 /* IconicNumericView.swift */; };
 		C6856677274BBB7400833D6E /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6856676274BBB7400833D6E /* SplashViewController.swift */; };
 		C6856679274BC3E300833D6E /* UserDetailLogicController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6856678274BC3E200833D6E /* UserDetailLogicController.swift */; };
 		C685667E274BF7EB00833D6E /* HistoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C685667C274BF7EB00833D6E /* HistoryCollectionViewCell.swift */; };
@@ -108,6 +110,8 @@
 		C6B26AF32768C76600ED41F8 /* CommitTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B26AF12768C76600ED41F8 /* CommitTableViewCell.swift */; };
 		C6B26AF42768C76600ED41F8 /* CommitTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C6B26AF22768C76600ED41F8 /* CommitTableViewCell.xib */; };
 		C6B2DF712720887600AB0C8F /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B2DF702720887600AB0C8F /* CoreDataManager.swift */; };
+		C6B3EB3E278AD96200CBEA48 /* IconicTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6B3EB3D278AD96200CBEA48 /* IconicTextView.swift */; };
+		C6B3EB40278AD9B100CBEA48 /* IconicTextView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C6B3EB3F278AD9B100CBEA48 /* IconicTextView.xib */; };
 		C6C605FA273EC7B700BA27C2 /* CommonTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C605F9273EC7B700BA27C2 /* CommonTypes.swift */; };
 		C6C605FD273EC89000BA27C2 /* SearchCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C605FC273EC89000BA27C2 /* SearchCoordinator.swift */; };
 		C6C605FF273EC90000BA27C2 /* Spinner.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6C605FE273EC90000BA27C2 /* Spinner.swift */; };
@@ -188,6 +192,8 @@
 		C664124A2780C63B00D605BF /* AlertHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertHelper.swift; sourceTree = "<group>"; };
 		C6665EE6276F9DFB00178BA6 /* URLSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSession.swift; sourceTree = "<group>"; };
 		C66F2A232740D3D1000ED46E /* NetworkTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkTypes.swift; sourceTree = "<group>"; };
+		C67AB9912789E01E00D7E084 /* IconicNumericView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IconicNumericView.xib; sourceTree = "<group>"; };
+		C67AB9932789E30200D7E084 /* IconicNumericView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconicNumericView.swift; sourceTree = "<group>"; };
 		C6856676274BBB7400833D6E /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
 		C6856678274BC3E200833D6E /* UserDetailLogicController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailLogicController.swift; sourceTree = "<group>"; };
 		C685667C274BF7EB00833D6E /* HistoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -233,6 +239,8 @@
 		C6B26AF12768C76600ED41F8 /* CommitTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommitTableViewCell.swift; sourceTree = "<group>"; };
 		C6B26AF22768C76600ED41F8 /* CommitTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CommitTableViewCell.xib; sourceTree = "<group>"; };
 		C6B2DF702720887600AB0C8F /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		C6B3EB3D278AD96200CBEA48 /* IconicTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconicTextView.swift; sourceTree = "<group>"; };
+		C6B3EB3F278AD9B100CBEA48 /* IconicTextView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IconicTextView.xib; sourceTree = "<group>"; };
 		C6C605F9273EC7B700BA27C2 /* CommonTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonTypes.swift; sourceTree = "<group>"; };
 		C6C605FC273EC89000BA27C2 /* SearchCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCoordinator.swift; sourceTree = "<group>"; };
 		C6C605FE273EC90000BA27C2 /* Spinner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spinner.swift; sourceTree = "<group>"; };
@@ -288,6 +296,8 @@
 				C656423D277F737400FBCE2F /* Cell */,
 				C656423E277F739700FBCE2F /* Error */,
 				C6F46E752753AC5B00498614 /* HistoryView.xib */,
+				C67AB9912789E01E00D7E084 /* IconicNumericView.xib */,
+				C6B3EB3F278AD9B100CBEA48 /* IconicTextView.xib */,
 			);
 			path = XIB;
 			sourceTree = "<group>";
@@ -740,6 +750,8 @@
 				C64FE5AA277B7C86002E5FC0 /* Error */,
 				C64FE5A9277B7C75002E5FC0 /* Stateful */,
 				C6A7F86D274CE0E000622E76 /* HistoryHeaderView.swift */,
+				C67AB9932789E30200D7E084 /* IconicNumericView.swift */,
+				C6B3EB3D278AD96200CBEA48 /* IconicTextView.swift */,
 			);
 			path = Class;
 			sourceTree = "<group>";
@@ -952,8 +964,10 @@
 				C69BEE4627422414005B6AA2 /* UserTableViewCell.xib in Resources */,
 				C659EE662776087D001C1E5D /* ActivityIndicatorView.xib in Resources */,
 				C69A5E4A27428B5F007054EA /* HistoryTableViewCell.xib in Resources */,
+				C6B3EB40278AD9B100CBEA48 /* IconicTextView.xib in Resources */,
 				C6B26AF42768C76600ED41F8 /* CommitTableViewCell.xib in Resources */,
 				C6110AED275522F70078D7E8 /* LanguageColors.json in Resources */,
+				C67AB9922789E01E00D7E084 /* IconicNumericView.xib in Resources */,
 				C656423C277F730800FBCE2F /* SearchHistory.storyboard in Resources */,
 				C66412472780859A00D605BF /* EmptyView.xib in Resources */,
 				C659EE6A27762061001C1E5D /* FooterActivityIndicatorView.xib in Resources */,
@@ -1048,6 +1062,7 @@
 				C6603406277CEA9B00907494 /* SFDynamicCollectionViewController.swift in Sources */,
 				C6665EE7276F9DFB00178BA6 /* URLSession.swift in Sources */,
 				C6564237277F3CBD00FBCE2F /* SFView.swift in Sources */,
+				C67AB9942789E30200D7E084 /* IconicNumericView.swift in Sources */,
 				C60FAE872744CD7F00A6CE77 /* URLHelper.swift in Sources */,
 				C6B26AE92768B4D600ED41F8 /* CommitDetailViewController.swift in Sources */,
 				C6F46E7A27541C9300498614 /* ResultsViewController.swift in Sources */,
@@ -1079,6 +1094,7 @@
 				C68B64ED271DD34B00A26D05 /* SceneDelegate.swift in Sources */,
 				C6110AE22754FFF10078D7E8 /* RepositoryTableViewCell.swift in Sources */,
 				C68B64F5271DD34B00A26D05 /* GitIt.xcdatamodeld in Sources */,
+				C6B3EB3E278AD96200CBEA48 /* IconicTextView.swift in Sources */,
 				C69A5E4927428B5F007054EA /* HistoryTableViewCell.swift in Sources */,
 				C656EB96277A20B000E39EFC /* SFDynamicTableViewController.swift in Sources */,
 				C66412312780789500D605BF /* HistoryLogicController.swift in Sources */,

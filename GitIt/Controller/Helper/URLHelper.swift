@@ -46,32 +46,3 @@ class URLHelper {
     }
     
 }
-
-func formatPoints(num: Double) -> String{
-    let thousandNum = num/1000
-    let millionNum = num/1000000
-    if num >= 1000 && num < 1000000{
-        if(thousandNum.truncatingRemainder(dividingBy: 1) < 0.1){
-            return("\(Int(thousandNum))K")
-        }
-        return("\(thousandNum.truncate(places: 1))K")
-    }
-    if num > 1000000{
-        if(millionNum.truncatingRemainder(dividingBy: 1) < 0.1){
-            return("\(Int(thousandNum))M")
-        }
-        return("\(millionNum.truncate(places: 1))M")
-    }
-    else{
-        if(num.truncatingRemainder(dividingBy: 1) < 0.1){
-            return ("\(Int(num))")
-        }
-        return ("\(num)")
-    }
-}
-
-extension Double {
-    func truncate(places : Int)-> Double {
-        return Double(floor(pow(10.0, Double(places)) * self)/pow(10.0, Double(places)))
-    }
-}
