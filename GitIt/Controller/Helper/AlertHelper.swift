@@ -15,10 +15,21 @@ class AlertHelper {
             rootViewController = presentedViewController
         }
         
-        let alertViewController = UIAlertController(title: title, message: message, preferredStyle: style)
-        for action in actions { alertViewController.addAction(action) }
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: style)
+        for action in actions { alertController.addAction(action) }
         
-        rootViewController?.present(alertViewController, animated: true, completion: nil)
+        rootViewController?.present(alertController, animated: true, completion: nil)
+    }
+    
+    class func showAlert(with alertController: UIAlertController, actions: [UIAlertAction]) {
+        var rootViewController = UIApplication.shared.windows.first!.rootViewController
+        while let presentedViewController = rootViewController?.presentedViewController {
+            rootViewController = presentedViewController
+        }
+        
+        for action in actions { alertController.addAction(action) }
+        
+        rootViewController?.present(alertController, animated: true, completion: nil)
     }
     
 }

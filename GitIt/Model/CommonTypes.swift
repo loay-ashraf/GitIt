@@ -66,12 +66,12 @@ enum UserContext {
     
     var titleValue: String {
         switch self {
-        case .main: return "Users"
-        case .followers: return "Followers"
-        case .following: return "Following"
-        case .stars: return "Stargazers"
-        case .contributors: return "Contributors"
-        case .members: return "Members"
+        case .main: return Constants.view.titles.users.main
+        case .followers: return Constants.view.titles.users.followers
+        case .following: return Constants.view.titles.users.following
+        case .stars: return Constants.view.titles.users.stargazers
+        case .contributors: return Constants.view.titles.users.contributors
+        case .members: return Constants.view.titles.users.members
         }
     }
     
@@ -93,9 +93,9 @@ enum RepositoryContext {
     
     var titleValue: String {
         switch self {
-        case .forks: return "Forks"
-        case .starred: return "Starred"
-        default: return "Repositories"
+        case .forks: return Constants.view.titles.repositories.forks
+        case .starred: return Constants.view.titles.repositories.starred
+        default: return Constants.view.titles.repositories.main
         }
     }
     
@@ -113,7 +113,7 @@ enum OrganizationContext {
     
     var titleValue: String {
         switch self {
-        default: return "Organizations"
+        default: return Constants.view.titles.organizations.main
         }
     }
     
@@ -177,6 +177,33 @@ enum SearchUIState {
     
 }
 
+enum SearchContext {
+    
+    case general
+    case users
+    case repositories
+    case organizations
+    
+    var barPlacholder: String {
+        switch self {
+        case .general: return Constants.view.searchBar.general
+        case .users: return Constants.view.searchBar.users
+        case .repositories: return Constants.view.searchBar.repositories
+        case .organizations: return Constants.view.searchBar.organizations
+        }
+    }
+    
+    init?<Type: Model>(from modelType: Type.Type) {
+        switch Type.self {
+        case is UserModel.Type: self = .users
+        case is RepositoryModel.Type: self = .repositories
+        case is OrganizationModel.Type: self = .organizations
+        default: self = .general
+        }
+    }
+    
+}
+
 enum ContextMenuActions<Type: Model> {
     
     case bookmark(Type)
@@ -184,19 +211,27 @@ enum ContextMenuActions<Type: Model> {
     case share(Type)
     
     var action: UIAction {
+        let title: String
+        let image: UIImage?
+        let handler: UIAction
         switch self {
-            case .bookmark(let model): return UIAction(title: "Bookmark", image: UIImage(systemName: "bookmark"), identifier: nil) { action in
-                                                    _ = BookmarksManager.standard.addBookmark(model: model)
-                                                }
-            
-            case .unbookmark(let model): return UIAction(title: "Unbookmark", image: UIImage(systemName: "bookmark.fill"), identifier: nil) { action in
-                                                    _ = BookmarksManager.standard.deleteBookmark(model: model)
-                                                }
-            
-            case .share(let model): return UIAction(title: "Share", image: UIImage(systemName: "square.and.arrow.up"), identifier: nil) { action in
-                                                URLHelper.shareURL(model.htmlURL)
-                                            }
+        case .bookmark(let model): title = Constants.view.contextMenu.bookmark.title
+                                   image = Constants.view.contextMenu.bookmark.image
+                                    handler = UIAction(title: title, image: image, identifier: nil) { action in
+                                        _ = BookmarksManager.standard.addBookmark(model: model)
+                                    }
+        case .unbookmark(let model): title = Constants.view.contextMenu.unBookmark.title
+                                     image = Constants.view.contextMenu.unBookmark.image
+                                     handler = UIAction(title: title, image: image, identifier: nil) { action in
+                                         _ = BookmarksManager.standard.deleteBookmark(model: model)
+                                     }
+        case .share(let model): title = Constants.view.contextMenu.share.title
+                                image = Constants.view.contextMenu.share.image
+                                handler = UIAction(title: title, image: image, identifier: nil) { action in
+                                    URLHelper.shareURL(model.htmlURL)
+                                }
         }
+        return handler
     }
     
 }
@@ -214,23 +249,35 @@ struct ErrorModel {
     }
     
     init?(from error: Error) {
+        let image: UIImage?
+        let title: String
+        let message: String
         if let networkError = error as? NetworkError {
             switch networkError {
-            case .noResponse,.noData: self.init(image: UIImage(systemName: "wifi.exclamationmark"), title: "No Internet", message: "You're not connected to Internet,\nplease try again later.")
+            case .noResponse,.noData: image = Constants.view.error.internet.image
+                                      title = Constants.view.error.internet.title
+                                      message = Constants.view.error.internet.message
             case .client(let clientError): if (clientError as NSError).code == NSURLErrorNotConnectedToInternet {
-                self.init(image: UIImage(systemName: "wifi.exclamationmark"), title: "No Internet", message: "You're not connected to Internet,\nplease try again later.")
+                image = Constants.view.error.internet.image
+                title = Constants.view.error.internet.title
+                message = Constants.view.error.internet.message
             } else {
-                self.init(image: UIImage(systemName: "exclamationmark.icloud"), title: "Network Error", message: "We're working on it,\nWe will be back soon.")
+                image = Constants.view.error.network.image
+                title = Constants.view.error.network.title
+                message = Constants.view.error.network.message
             }
-            case .server,.api,.decoding,.encoding: self.init(image: UIImage(systemName: "exclamationmark.icloud"), title: "Network Error", message: "We're working on it,\nWe will be back soon.")
+            case .server,.api,.decoding,.encoding: image = Constants.view.error.network.image
+                                                   title = Constants.view.error.network.title
+                                                   message = Constants.view.error.network.message
             }
-        } else if let libraryError = error as? LibraryError {
-            self.init(image: UIImage(systemName: "externaldrive.badge.xmark"), title: "Couldn't Retrieve Data", message: "We're working on it,\nWe will be back soon.")
-        } else if let coreDataError = error as? CoreDataError {
-            self.init(image: UIImage(systemName: "externaldrive.badge.xmark"), title: "Couldn't Retrieve Data", message: "We're working on it,\nWe will be back soon.")
-        } else {
-            return nil
+            self.init(image: image, title: title, message: message)
+        } else if error.self is LibraryError || error.self is CoreDataError {
+            image = Constants.view.error.data.image
+            title = Constants.view.error.data.title
+            message = Constants.view.error.data.message
+            self.init(image: image, title: title, message: message)
         }
+        return nil
     }
     
 }
@@ -258,15 +305,26 @@ enum EmptyContext {
     case bookmarks
     
     var model: EmptyModel {
+        let image: UIImage?
+        let title: String
         switch self {
-        case .user: return EmptyModel(image: UIImage(systemName: "exclamationmark"), title: "Looks like there's no Users in here.")
-        case .repository: return EmptyModel(image: UIImage(systemName: "exclamationmark"), title: "Looks like there's no Repositories in here.")
-        case .organization: return EmptyModel(image: UIImage(systemName: "exclamationmark"), title: "Looks like this User is not a member of any Organization.")
-        case .commit: return EmptyModel(image: UIImage(systemName: "exclamationmark"), title: "Looks like there's no Commits yet for this repository.")
-        case .searchHistory: return EmptyModel(image: UIImage(systemName: "magnifyingglass"), title: "No Search history found, try searching first.")
-        case .searchResults: return EmptyModel(image: UIImage(systemName: "magnifyingglass"), title: "No Search results found, try searching for a different term.")
-        case .bookmarks: return EmptyModel(image: UIImage(systemName: "bookmark.slash"), title: "No Bookmarks found.")
+        case .user: image = Constants.view.empty.users.image
+                    title = Constants.view.empty.users.title
+        case .repository: image = Constants.view.empty.repositories.image
+                          title = Constants.view.empty.repositories.title
+        case .organization: image = Constants.view.empty.organizations.image
+                            title = Constants.view.empty.organizations.title
+        case .commit: image = Constants.view.empty.commits.image
+                      title = Constants.view.empty.commits.title
+        case .searchHistory: image = Constants.view.empty.searchHistory.image
+                             title = Constants.view.empty.searchHistory.title
+        case .searchResults: image = Constants.view.empty.searchResults.image
+                             title = Constants.view.empty.searchHistory.title
+        case .bookmarks: image = Constants.view.empty.bookmarks.image
+                         title = Constants.view.empty.bookmarks.title
         }
+        let model = EmptyModel(image: image, title: title)
+        return model
     }
     
 }

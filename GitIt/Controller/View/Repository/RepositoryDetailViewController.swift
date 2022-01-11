@@ -15,16 +15,14 @@ class RepositoryDetailViewController: SFStaticTableViewController, IBViewControl
     private var logicController: RepositoryDetailLogicController
     private var model: RepositoryModel { return logicController.model }
     
-    // MARK: - UI Outlets
+    // MARK: - View Outlets
     
-    @IBOutlet weak var avatarImageView: SFImageView!
-    @IBOutlet weak var loginLabel: UILabel!
+    @IBOutlet weak var ownerTextView: IconicTextView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
-    @IBOutlet weak var homepageImageView: UIImageView!
-    @IBOutlet weak var homepageLabel: UILabel!
-    @IBOutlet weak var starsLabel: UILabel!
-    @IBOutlet weak var forksLabel: UILabel!
+    @IBOutlet weak var homepageTextView: IconicTextView!
+    @IBOutlet weak var starsNumericView: IconicNumericView!
+    @IBOutlet weak var forksNumericView: IconicNumericView!
     @IBOutlet weak var READMEStackView: UIStackView!
     @IBOutlet weak var defaultBranchLabel: UILabel!
     @IBOutlet weak var READMEView: MarkdownView!
@@ -88,30 +86,16 @@ class RepositoryDetailViewController: SFStaticTableViewController, IBViewControl
             subViewsOffsetSize = .searchScreenWithNavBar
         }
         
-        avatarImageView.cornerRadius = 16.0
-        avatarImageView.cornerCurve = .continuous
-        avatarImageView.masksToBounds = true
+        ownerTextView.action = { [weak self] in self?.showOwner() }
+        homepageTextView.action = { [weak self] in self?.goToHomepage() }
+        starsNumericView.actions = [ { [weak self] in self?.showStars() } ]
+        forksNumericView.actions = [ { [weak self] in self?.showForks() } ]
         
-        let avatarLongPressesGesture = UILongPressGestureRecognizer(target: self, action: #selector(saveAvatar))
-        avatarImageView.addGestureRecognizer(avatarLongPressesGesture)
-        avatarImageView.isUserInteractionEnabled = true
-        
-        let loginLabelTapGesture = UITapGestureRecognizer(target:self,action:#selector(self.showOwner))
-        loginLabel.addGestureRecognizer(loginLabelTapGesture)
-        loginLabel.isUserInteractionEnabled = true
-        
-        let homepageLabelTapGesture = UITapGestureRecognizer(target:self,action:#selector(self.goToHomepage))
-        homepageLabel.addGestureRecognizer(homepageLabelTapGesture)
-        homepageLabel.isUserInteractionEnabled = true
-        
-        let starsLabelTapGesture = UITapGestureRecognizer(target:self,action:#selector(self.showStars))
-        starsLabel.addGestureRecognizer(starsLabelTapGesture)
-        starsLabel.isUserInteractionEnabled = true
-        
-        let forksLabelTapGesture = UITapGestureRecognizer(target:self,action:#selector(self.showForks))
-        forksLabel.addGestureRecognizer(forksLabelTapGesture)
-        forksLabel.isUserInteractionEnabled = true
-        
+        switch UIApplication.shared.userInterfaceLayoutDirection {
+        case .leftToRight: starButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 15.0)
+        case .rightToLeft: starButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 15.0, bottom: 0, right: 0)
+        @unknown default: break
+        }
         starButton.cornerRadius = 10
         
         READMEView.isScrollEnabled = false
@@ -125,22 +109,17 @@ class RepositoryDetailViewController: SFStaticTableViewController, IBViewControl
     }
     
     override func updateView() {
-        avatarImageView.load(at: model.owner.avatarURL)
-        loginLabel.text = model.owner.login
+        ownerTextView.text = model.owner.login
+        ownerTextView.loadImage(at: model.owner.avatarURL)
         nameLabel.text = model.name
         if model.description != nil {
             descriptionLabel.text = model.description
         } else {
             descriptionLabel.isHidden = true
         }
-        if model.homepageURL != nil {
-            homepageLabel.text = model.homepageURL?.absoluteString
-        } else {
-            homepageLabel.isHidden = true
-            homepageImageView.isHidden = true
-        }
-        starsLabel.text = GitIt.formatPoints(num: Double(model.stars))
-        forksLabel.text = GitIt.formatPoints(num: Double(model.forks))
+        homepageTextView.text = model.homepageURL?.absoluteString
+        starsNumericView.numbers = [Double(model.stars)]
+        forksNumericView.numbers = [Double(model.forks)]
         bookmarkButton.isEnabled = true
         shareButton.isEnabled = true
     }
@@ -158,12 +137,6 @@ class RepositoryDetailViewController: SFStaticTableViewController, IBViewControl
     @IBAction func share(_ sender: Any) {
         let htmlURL = model.htmlURL
         URLHelper.shareURL(htmlURL)
-    }
-    
-    @objc func saveAvatar(_ sender: UILongPressGestureRecognizer) {
-        if sender.state == .ended {
-            UIImageWriteToSavedPhotosAlbum(avatarImageView.image!, self, nil, nil)
-        }
     }
     
     @objc func showOwner() {
@@ -236,19 +209,19 @@ extension RepositoryDetailViewController {
     
     private func updateStarButton(isStarred: Bool) {
         if isStarred {
-            starButton.setTitle("Starred", for: .normal)
-            starButton.setImage(UIImage(systemName: "star.fill"), for: .normal)
+            starButton.setTitle(Constants.view.button.star.starredTitle, for: .normal)
+            starButton.setImage(Constants.view.button.star.starredImage, for: .normal)
         } else {
-            starButton.setTitle("Star", for: .normal)
-            starButton.setImage(UIImage(systemName: "star"), for: .normal)
+            starButton.setTitle(Constants.view.button.star.defaultTitle, for: .normal)
+            starButton.setImage(Constants.view.button.star.defaultImage, for: .normal)
         }
     }
     
     private func updateBookmarkButton(isBookmarked: Bool) {
         if isBookmarked {
-            bookmarkButton.image = UIImage(systemName: "bookmark.fill")
+            bookmarkButton.image = Constants.view.button.bookmark.bookmarkedImage
         } else {
-            bookmarkButton.image = UIImage(systemName: "bookmark")
+            bookmarkButton.image = Constants.view.button.bookmark.defaultImage
         }
     }
     

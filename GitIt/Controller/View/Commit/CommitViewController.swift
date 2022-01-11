@@ -41,7 +41,7 @@ class CommitViewController: SFDynamicTableViewController<CommitModel> {
     override func configureView() {
         super.configureView()
         
-        title = "Commits"
+        title = "Commits".localized()
         navigationItem.largeTitleDisplayMode = .never
         
         subViewsOffsetSize = .subScreen
