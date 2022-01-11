@@ -104,18 +104,6 @@
 			<key>IASKTextAlignment</key>
 			<string>IASKUITextAlignmentLeft</string>
 		</dict>
-		<dict>
-			<key>Type</key>
-			<string>PSGroupSpecifier</string>
-			<key>Title</key>
-			<string></string>
-		</dict>
-		<dict>
-			<key>Type</key>
-			<string>IASKCustomViewSpecifier</string>
-			<key>Key</key>
-			<string>soButton</string>
-		</dict>
 	</array>
 </dict>
 </plist>

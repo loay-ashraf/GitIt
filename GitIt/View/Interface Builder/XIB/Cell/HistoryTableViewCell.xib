@@ -27,7 +27,7 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow.up.left" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="hI1-6U-WHg">
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arrow.up.backward" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="hI1-6U-WHg">
                         <rect key="frame" x="379" y="17.5" width="20" height="14.5"/>
                         <color key="tintColor" name="AccentColor"/>
                         <constraints>
@@ -54,7 +54,7 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="arrow.up.left" catalog="system" width="128" height="112"/>
+        <image name="arrow.up.backward" catalog="system" width="128" height="112"/>
         <namedColor name="AccentColor">
             <color red="0.0" green="0.46000000000000002" blue="0.89000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
