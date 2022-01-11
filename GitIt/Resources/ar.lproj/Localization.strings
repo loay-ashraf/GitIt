@@ -1,0 +1,88 @@
+/* 
+  Localization.strings
+  GitIt
+
+  Created by Loay Ashraf on 11/01/2022.
+  
+*/
+
+// Titles section
+"Users" = "المستخدمون";
+"Followers" = "المتابعون";
+"Following" = "المتابعون";
+"Stargazers" = "مراقبو النجوم";
+"Contributors" = "المساهمون";
+"Members" = "أعضاء";
+
+"Repositories" = "المستودعات";
+"Forks" = "انبثاقات";
+"Starred" = "مميز بنجمة";
+
+"Organizations" = "المنظمات";
+
+"Commits" = "المساهمات";
+
+"Settings" = "الإعدادات";
+
+// Mini titles section
+"followers" = "متابع";
+"following" = "متابع";
+"stars" = "نجمة";
+"forks" = "انبثاق";
+
+// Search section
+"Search..." = "ابحث...";
+"Search All Users" = "ابحث في جميع المستخدمين";
+"Search All Repositories" = "ابحث في جميع المستودعات";
+"Search All Organizations" = "ابحث في جميع المنظمات";
+
+// Context menu section
+"Bookmark" = "اضف الى الإشارات المرجعية";
+"Unbookmark" = "احذف من الإشارات المرجعية";
+"Share" = "شارك";
+
+// Alert section
+"Sign In Error" = "خطأ في تسجيل الدخول";
+"Continue As a Guest?" = "هل تريد الاستمرار كضيف؟";
+"Clear search history?" = "امسح سجل البحث؟";
+"Clear Data?" = "امسح البيانات؟";
+"Sign Out?" = "تسجيل خروج؟";
+"You're not conntected to the internet, Can't connect to authentication server." = "أنت غير متصل بالإنترنت ، لا يمكننا الاتصال بخادم المصادقة.";
+"An error occured while signing you in, please try again later." = "حدث خطأ أثناء تسجيل دخولك ، يرجى المحاولة مرة أخرى لاحقًا.";
+"If you continue as a guest, features will be limted. Do you want to proceed?" = "إذا واصلت كضيف ، فسيتم تقييد الميزات. هل تريد المتابعة؟";
+"This can't be undone and you'll remove your search history." = "لا يمكن التراجع عن هذا وستزيل سجل البحث الخاص بك.";
+"You're about to erase your local data, proceed?" = "أنت على وشك محو بياناتك المحلية ، تابع؟";
+"If you sign out all of your data will be erased, continue?" = "إذا قمت بتسجيل الخروج ، فسيتم مسح جميع بياناتك ، هل تريد المتابعة؟";
+"Ok" = "موافق";
+"Cancel" = "إلغاء";
+"Continue" = "واصل";
+"Clear History" = "امسح السجل";
+"Clear Data" = "امسح البيانات";
+"Sign Out" = "تسجيل خروج";
+
+// Error view section
+"No Internet" = "لا انترنت";
+"Network Error" = "خطأ في الشبكة";
+"Couldn't Retrieve Data" = "تعذر استرداد البيانات";
+
+"You're not connected to Internet,\nplease try again later." = "أنت غير متصل بالإنترنت ، \n الرجاء المحاولة مرة أخرى لاحقًا.";
+"We're working on it,\nWe will be back soon." = "نحن نعمل على ذلك ، \n سنعود قريبًا.";
+
+// Empty view section
+"Looks like there's no Users in here." = "يبدو أنه لا يوجد مستخدمون هنا.";
+"Looks like there's no Repositories in here." = "يبدو أنه لا توجد مستودعات هنا.";
+"Looks like this User is not a member of any Organization." = "يبدو أن هذا المستخدم ليس عضوًا في أي منظمة.";
+"Looks like there's no Commits yet for this repository." = "يبدو أنه لا يوجد أي مساهمات لهذا المستودع حتى الآن.";
+"No Search history found, try searching first." = "لم يتم العثور على سجل البحث ، حاول البحث أولاً.";
+"No Search results found, try searching for a different term." = "لم يتم العثور على نتائج بحث ، حاول البحث عن مصطلح مختلف.";
+"No Bookmarks found." = "لم يتم العثور على إشارات مرجعية.";
+
+// Buttons section
+"Follow" = "تابع";
+"Followed" = "متابع";
+"Star" = "ميز بنجمة";
+"Starred" = "مميز بنجمة";
+
+// Labels section
+"K" = "أ";
+"M" = "م";
