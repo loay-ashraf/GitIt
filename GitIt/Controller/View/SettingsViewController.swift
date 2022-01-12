@@ -15,6 +15,7 @@ class SettingsViewController: IASKAppSettingsViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         delegate = self
+        navigationItem.title = Constants.view.titles.settings
     }
     
     // MARK: - View Actions
@@ -28,6 +29,15 @@ class SettingsViewController: IASKAppSettingsViewController {
         performSegue(withIdentifier: "unwindToSplash", sender: self)
     }
     
+    @IBAction func signOut(_ sender: UIButton) {
+        let alertTitle = Constants.view.alert.signOut.title
+        let alertMessage = Constants.view.alert.signOut.message
+        let signOutActionTitle = Constants.view.alert.signOut.signOutActionTitle
+        let signOutAction = UIAlertAction(title: signOutActionTitle, style: .destructive, handler: signOut(action:))
+        let cancelAction = Constants.view.alert.cancelAction
+        AlertHelper.showAlert(title: alertTitle, message: alertMessage, style: .actionSheet, actions: [signOutAction,cancelAction])
+    }
+    
 }
 
 extension SettingsViewController: IASKSettingsDelegate {
@@ -37,28 +47,18 @@ extension SettingsViewController: IASKSettingsDelegate {
     func settingsViewControllerDidEnd(_ settingsViewController: IASKAppSettingsViewController) { }
     
     func settingsViewController(_ settingsViewController: IASKAppSettingsViewController, buttonTappedFor specifier: IASKSpecifier) {
-        if specifier.key == "clearButton" {
-            let clearAction = UIAlertAction(title: "Clear Data", style: .destructive, handler: clearData(action:))
-            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-            AlertHelper.showAlert(title: "Clear Data?", message: "You're about to erase your local data, proceed?", style: .actionSheet, actions: [clearAction,cancelAction])
-        }
-    }
-    
-    func settingsViewController(_ settingsViewController: UITableViewController & IASKViewController, heightFor specifier: IASKSpecifier) -> CGFloat {
-        return 45.0
-    }
-    
-    func settingsViewController(_ settingsViewController: UITableViewController & IASKViewController, cellFor specifier: IASKSpecifier) -> UITableViewCell? {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "signOutCell")
-        return cell
-    }
-    
-    func settingsViewController(_ settingsViewController: IASKAppSettingsViewController, didSelectCustomViewSpecifier specifier: IASKSpecifier) {
-        if specifier.key == "soButton" {
-            settingsViewController.tableView.deselectRow(at: IndexPath(row: 0, section: 2), animated: true)
-            let signOutAction = UIAlertAction(title: "Sign Out", style: .destructive, handler: signOut(action:))
-            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-            AlertHelper.showAlert(title: "Sign Out?", message: "If you sign out all of your data will be erased, continue?", style: .actionSheet, actions: [signOutAction,cancelAction])
+        if specifier.key == "clButton" {
+            let appURL = URL(string: UIApplication.openSettingsURLString)!
+            if UIApplication.shared.canOpenURL(appURL) {
+                UIApplication.shared.open(appURL)
+            }
+        } else if specifier.key == "clearButton" {
+            let alertTitle = Constants.view.alert.clearData.title
+            let alertMessage = Constants.view.alert.clearData.message
+            let clearActionTitle = Constants.view.alert.clearData.clearActionTitle
+            let clearAction = UIAlertAction(title: clearActionTitle, style: .destructive, handler: clearData(action:))
+            let cancelAction = Constants.view.alert.cancelAction
+            AlertHelper.showAlert(title: alertTitle, message: alertMessage, style: .actionSheet, actions: [clearAction,cancelAction])
         }
     }
     

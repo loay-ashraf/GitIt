@@ -112,12 +112,15 @@ class HistoryViewController<Type: Model>: SFViewController {
     // MARK: - View Actions
     
     @IBAction func clearAction(_ sender: UIButton) {
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        let clearAction = UIAlertAction(title: "Clear", style: .destructive) { action in
+        let alertTitle = Constants.view.alert.clearSearchHistory.title
+        let alertMessage = Constants.view.alert.clearSearchHistory.message
+        let cancelAction = Constants.view.alert.cancelAction
+        let clearActionTitle = Constants.view.alert.clearSearchHistory.clearActionTitle
+        let clearAction = UIAlertAction(title: clearActionTitle, style: .destructive) { action in
         self.logicController.clearHistory()
         self.layoutView()
         }
-        AlertHelper.showAlert(title: "Clear search history?", message: "This can't be undone and you'll remove your search history.", style: .actionSheet, actions: [cancelAction,clearAction])
+        AlertHelper.showAlert(title: alertTitle, message: alertMessage, style: .actionSheet, actions: [cancelAction,clearAction])
     }
     
     // MARK: - Navigation Segue

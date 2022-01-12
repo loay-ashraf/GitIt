@@ -24,9 +24,9 @@ class URLHelper {
         let safariConfiguration  = SFSafariViewController.Configuration()
         safariConfiguration.barCollapsingEnabled = false
         safariConfiguration.entersReaderIfAvailable = false
-        let safraiVC = SFSafariViewController(url: webURL!, configuration: safariConfiguration)
-        safraiVC.dismissButtonStyle = .close
-        rootViewController?.present(safraiVC, animated: true, completion: nil)
+        let safariVC = SFSafariViewController(url: webURL!, configuration: safariConfiguration)
+        safariVC.dismissButtonStyle = .close
+        rootViewController?.present(safariVC, animated: true, completion: nil)
     }
 
     class func shareURL(_ url: URL) {

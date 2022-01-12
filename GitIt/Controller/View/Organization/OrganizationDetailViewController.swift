@@ -20,14 +20,10 @@ class OrganizationDetailViewController: SFStaticTableViewController, IBViewContr
     @IBOutlet weak var fullNameLabel: UILabel!
     @IBOutlet weak var loginLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
-    @IBOutlet weak var locationStackView: UIStackView!
-    @IBOutlet weak var blogStackView: UIStackView!
-    @IBOutlet weak var emailStackView: UIStackView!
-    @IBOutlet weak var twitterStackView: UIStackView!
-    @IBOutlet weak var locationLabel: UILabel!
-    @IBOutlet weak var blogLabel: UILabel!
-    @IBOutlet weak var emailLabel: UILabel!
-    @IBOutlet weak var twitterLabel: UILabel!
+    @IBOutlet weak var locationTextView: IconicTextView!
+    @IBOutlet weak var blogTextView: IconicTextView!
+    @IBOutlet weak var emailTextView: IconicTextView!
+    @IBOutlet weak var twitterTextView: IconicTextView!
     @IBOutlet weak var bookmarkButton: UIBarButtonItem!
     @IBOutlet weak var shareButton: UIBarButtonItem!
     
@@ -90,21 +86,9 @@ class OrganizationDetailViewController: SFStaticTableViewController, IBViewContr
         avatarImageView.cornerCurve = .continuous
         avatarImageView.masksToBounds = true
         
-        let avatarLongPressesGesture = UILongPressGestureRecognizer(target: self, action: #selector(saveAvatar))
-        avatarImageView.addGestureRecognizer(avatarLongPressesGesture)
-        avatarImageView.isUserInteractionEnabled = true
-        
-        let blogLabelTapGesture = UITapGestureRecognizer(target:self,action:#selector(self.goToBlog))
-        blogLabel.addGestureRecognizer(blogLabelTapGesture)
-        blogLabel.isUserInteractionEnabled = true
-        
-        let emailLabelTapGesture = UITapGestureRecognizer(target:self,action:#selector(self.composeMail))
-        emailLabel.addGestureRecognizer(emailLabelTapGesture)
-        emailLabel.isUserInteractionEnabled = true
-        
-        let twitterLabelTapGesture = UITapGestureRecognizer(target:self,action:#selector(self.goToTwitter))
-        twitterLabel.addGestureRecognizer(twitterLabelTapGesture)
-        twitterLabel.isUserInteractionEnabled = true
+        blogTextView.action = { [weak self] in self?.goToBlog() }
+        emailTextView.action = { [weak self] in self?.composeMail() }
+        twitterTextView.action = { [weak self] in self?.goToTwitter() }
     }
     
     override func updateView() {
@@ -120,27 +104,10 @@ class OrganizationDetailViewController: SFStaticTableViewController, IBViewContr
         } else {
             descriptionLabel.isHidden = true
         }
-        if model.location != nil {
-            locationLabel.text = model.location
-        } else {
-            locationStackView.isHidden = true
-        }
-        if model.blogURL != nil {
-            blogLabel.text = model.blogURL?.absoluteString
-        } else {
-            blogStackView.isHidden = true
-        }
-        if model.email != nil {
-            emailLabel.text = model.email
-        } else {
-            emailStackView.isHidden = true
-        }
-        if model.twitter != nil {
-            let atCharacter = "@"
-            twitterLabel.text = atCharacter + model.twitter!
-        } else {
-            twitterStackView.isHidden = true
-        }
+        locationTextView.text = model.location
+        blogTextView.text = model.blogURL?.absoluteString
+        emailTextView.text = model.email
+        twitterTextView.text = model.twitter != nil ? "@".appending(model.twitter!) : nil
         bookmarkButton.isEnabled = true
         shareButton.isEnabled = true
     }
@@ -156,7 +123,7 @@ class OrganizationDetailViewController: SFStaticTableViewController, IBViewContr
         URLHelper.shareURL(htmlURL)
     }
     
-    @objc func saveAvatar(_ sender: UILongPressGestureRecognizer) {
+    @IBAction func saveAvatar(_ sender: UILongPressGestureRecognizer) {
         if sender.state == .ended {
             UIImageWriteToSavedPhotosAlbum(avatarImageView.image!, self, nil, nil)
         }
@@ -185,12 +152,12 @@ class OrganizationDetailViewController: SFStaticTableViewController, IBViewContr
     }
     
     func showMemebers() {
-        let usersVC = UserViewController(context: .members, contextParameters: model.login)
+        let usersVC = UserViewController.instatiateWithContextAndParameters(with: .members, with: model.login)
         navigationController?.pushViewController(usersVC, animated: true)
     }
     
     func showRepositories() {
-        let repositoriesVC = RepositoryViewController(context: .user, contextParameters: (model.login,model.repositories!))
+        let repositoriesVC = RepositoryViewController.instatiateWithContextAndParameters(with: .user, with: (model.login,model.repositories!))
         navigationController?.pushViewController(repositoriesVC, animated: true)
     }
     

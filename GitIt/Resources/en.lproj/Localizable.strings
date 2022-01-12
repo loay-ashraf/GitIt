@@ -1,0 +1,93 @@
+/* 
+  Localization.strings
+  GitIt
+
+  Created by Loay Ashraf on 11/01/2022.
+  
+*/
+
+// Titles section
+"Users" = "Users";
+"Followers" = "Followers";
+"Following" = "Following";
+"Stargazers" = "Stargazers";
+"Contributors" = "Contributors";
+"Members" = "Members";
+
+"Repositories" = "Repositories";
+"Forks" = "Forks";
+"Starred" = "Starred";
+
+"Commits" = "Commits";
+
+"Organizations" = "Organizations";
+
+"Settings" = "Settings";
+
+// Mini titles section
+"followers" = "followers";
+"following" = "following";
+"stars" = "stars";
+"forks" = "forks";
+
+// Search section
+"Search..." = "Search...";
+"Search All Users" = "Search All Users";
+"Search All Repositories" = "Search All Repositories";
+"Search All Organizations" = "Search All Organizations";
+
+// Context menu section
+"Bookmark" = "Bookmark";
+"Unbookmark" = "Unbookmark";
+"Share" = "Share";
+
+// Alert section
+"Sign In Error" = "Sign In Error";
+"Data Error" = "Data Error";
+"Continue As a Guest?" = "Continue As a Guest?";
+"Clear search history?" = "Clear search history?";
+"Clear Data?" = "Clear Data?";
+"Sign Out?" = "Sign Out?";
+"We can't connect to server at time, would you like to rety or exit?" = "We can't connect to server at time, would you like to rety or exit?";
+"We couldn't load your saved bookmarks, we're working on a fix for the issue." = "We couldn't load your saved bookmarks, we're working on a fix for the issue.";
+"You're not conntected to the internet, Can't connect to authentication server." = "You're not conntected to the internet, Can't connect to authentication server.";
+"An error occured while signing you in, please try again later." = "An error occured while signing you in, please try again later.";
+"If you continue as a guest, features will be limted. Do you want to proceed?" = "If you continue as a guest, features will be limted. Do you want to proceed?";
+"This can't be undone and you'll remove your search history." = "This can't be undone and you'll remove your search history.";
+"You're about to erase your local data, proceed?" = "You're about to erase your local data, proceed?";
+"If you sign out all of your data will be erased, continue?" = "If you sign out all of your data will be erased, continue?";
+"Ok" = "Ok";
+"Continue" = "Continue";
+"Retry" = "Retry";
+"Clear History" = "Clear History";
+"Clear Data" = "Clear Data";
+"Cancel" = "Cancel";
+"Sign Out" = "Sign Out";
+"Exit" = "Exit";
+
+// Error view section
+"No Internet" = "No Internet";
+"Network Error" = "Network Error";
+"Couldn't Retrieve Data" = "Couldn't Retrieve Data";
+
+"You're not connected to Internet,\nplease try again later." = "You're not connected to Internet,\nplease try again later.";
+"We're working on it,\nWe will be back soon." = "We're working on it,\nWe will be back soon.";
+
+// Empty view section
+"Looks like there's no Users in here." = "Looks like there's no Users in here.";
+"Looks like there's no Repositories in here." = "Looks like there's no Repositories in here.";
+"Looks like this User is not a member of any Organization." = "Looks like this User is not a member of any Organization.";
+"Looks like there's no Commits yet for this repository." = "Looks like there's no Commits yet for this repository.";
+"No Search history found, try searching first." = "No Search history found, try searching first.";
+"No Search results found, try searching for a different term." = "No Search results found, try searching for a different term.";
+"No Bookmarks found." = "No Bookmarks found.";
+
+// Buttons section
+"Follow" = "Follow";
+"Followed" = "Followed";
+"Star" = "Star";
+"Starred" = "Starred";
+
+// Labels section
+"K" = "K";
+"M" = "M";

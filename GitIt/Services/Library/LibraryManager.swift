@@ -55,19 +55,6 @@ class LibraryManager {
         }
     }
     
-    // MARK: - Language Preference Methods
-    
-    func getLanguage() -> Result<Language,LibraryError> {
-        if let languageString = UserDefaults.standard.string(forKey: "language") {
-            if let language = Language(rawValue: languageString) {
-                return .success(language)
-            }
-            return .failure(.userDefaults(.unknownPropertyValue))
-        } else {
-            return .failure(.userDefaults(.propertyNotFound))
-        }
-    }
-    
     // MARK: - Search History Methods
     
     func saveUserSearchHistory(searchHistory: SearchHistory<UserModel>) -> LibraryError? {

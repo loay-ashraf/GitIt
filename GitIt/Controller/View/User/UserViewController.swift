@@ -7,7 +7,9 @@
 
 import UIKit
 
-class UserViewController: SFDynamicTableViewController<UserModel> {
+class UserViewController: SFDynamicTableViewController<UserModel>, IBViewController {
+    
+    static var storyboardIdentifier = "UserVC"
     
     override var model: List<UserModel>! { return logicController.model }
     
@@ -18,14 +20,28 @@ class UserViewController: SFDynamicTableViewController<UserModel> {
     
     // MARK: - Initialisation
     
-    init(context: UserContext, contextParameters: Any? = nil) {
+    required init?(coder: NSCoder, context: UserContext, contextParameters: Any? = nil) {
         logicController = UserLogicController(context: context, contextParameters: contextParameters)
-        super.init(cellType: UserTableViewCell.self, detailViewControllerType: UserDetailViewController.self)
-        hidesBottomBarWhenPushed = true
+        super.init(coder: coder, cellType: UserTableViewCell.self, detailViewControllerType: UserDetailViewController.self)
     }
     
     required init?(coder: NSCoder) {
-        fatalError("Fatal Error, this view controller shouldn't be instantiated from storyboard.")
+        fatalError("Fatal Error, coder initializer not implemented.")
+    }
+    
+    static func instatiateWithContextAndParameters(with context: UserContext, with contextParameters: Any? = nil) -> UIViewController {
+        let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+        return storyBoard.instantiateViewController(identifier: self.storyboardIdentifier, creator: { coder -> UserViewController in
+                    self.init(coder: coder, context: context, contextParameters: contextParameters)!
+                })
+    }
+    
+    static func instatiateWithParameters(with parameters: Any) -> UIViewController {
+        fatalError("Fatal Error, This View controller is instaniated only using context and context parameters")
+    }
+    
+    static func instatiateWithModel(with model: Any) -> UIViewController {
+        fatalError("Fatal Error, This View controller is instaniated only using context and context parameters")
     }
     
     deinit {

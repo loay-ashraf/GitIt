@@ -19,8 +19,23 @@ class IconicNumericView: UIView {
     @IBOutlet weak var secondTextLabel: UILabel!
     
     @IBInspectable var icon: UIImage? {
-        get { return iconImageView.image }
-        set(image) { iconImageView.image = image }
+        didSet {
+            iconImageView.image = icon
+        }
+    }
+    
+    @IBInspectable var iconTintColor: UIColor? {
+        didSet {
+            iconImageView.tintColor = iconTintColor
+        }
+    }
+    
+    @IBInspectable var iconCornerRadius: CGFloat = 0.0 {
+        didSet {
+            iconImageView.cornerRadius = iconCornerRadius
+            iconImageView.cornerCurve = .continuous
+            iconImageView.masksToBounds = true
+        }
     }
     
     @IBInspectable var numberOfSections: Int = 2 {
@@ -39,12 +54,12 @@ class IconicNumericView: UIView {
     
     @IBInspectable var firstText: String? {
         get { return firstTextLabel.text }
-        set(text) { firstTextLabel.text = text }
+        set(text) { firstTextLabel.text = text?.localized() }
     }
     
     @IBInspectable var secondText: String? {
         get { return secondTextLabel.text }
-        set(text) { secondTextLabel.text = text }
+        set(text) { secondTextLabel.text = text?.localized() }
     }
     
     @IBInspectable var isLink: Bool = false {
@@ -63,6 +78,18 @@ class IconicNumericView: UIView {
         }
     }
     
+    @IBInspectable var showDescriptiveText: Bool = false {
+        didSet {
+            if showDescriptiveText {
+                firstTextLabel.isHidden = false
+                secondTextLabel.isHidden = false
+            } else {
+                firstTextLabel.isHidden = true
+                secondTextLabel.isHidden = true
+            }
+        }
+    }
+    
     @IBAction func firstNumberTapped(_ sender: UITapGestureRecognizer) {
         actions?[0]()
     }
@@ -73,8 +100,12 @@ class IconicNumericView: UIView {
     
     var numbers: [Double]? {
         didSet {
-            firstNumberLabel.text = formatPoints(num: numbers![0])
-            secondNumberLabel.text = formatPoints(num: numbers![1])
+            if let numbers = numbers, !numbers.isEmpty {
+                firstNumberLabel.text = formatPoints(num: numbers[0])
+                if numberOfSections >= 2 {
+                    secondNumberLabel.text = formatPoints(num: numbers[1])
+                }
+            }
         }
     }
     
@@ -107,30 +138,26 @@ class IconicNumericView: UIView {
 }
 
 func formatPoints(num: Double) -> String {
+    let formatter = NumberFormatter()
+    formatter.numberStyle = .decimal
+    formatter.maximumFractionDigits = 1
     let thousandNum = num/1000
     let millionNum = num/1000000
     if num >= 1000 && num < 1000000{
-        if(thousandNum.truncatingRemainder(dividingBy: 1) < 0.1){
-            return("\(Int(thousandNum))K")
-        }
-        return("\(thousandNum.truncate(places: 1))K")
+        let number = NSNumber(value: thousandNum)
+        let formattedString = formatter.string(from: number)
+        let finalString = formattedString! + "K".localized()
+        return finalString
     }
     if num > 1000000{
-        if(millionNum.truncatingRemainder(dividingBy: 1) < 0.1){
-            return("\(Int(thousandNum))M")
-        }
-        return("\(millionNum.truncate(places: 1))M")
+        let number = NSNumber(value: millionNum)
+        let formattedString = formatter.string(from: number)
+        let finalString = formattedString! + "M".localized()
+        return finalString
     }
     else{
-        if(num.truncatingRemainder(dividingBy: 1) < 0.1){
-            return ("\(Int(num))")
-        }
-        return ("\(num)")
-    }
-}
-
-extension Double {
-    func truncate(places: Int) -> Double {
-        return Double(floor(pow(10.0, Double(places)) * self)/pow(10.0, Double(places)))
+        let number = NSNumber(value: num)
+        let formattedString = formatter.string(from: number)
+        return formattedString!
     }
 }

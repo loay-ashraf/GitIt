@@ -20,18 +20,12 @@ class UserDetailViewController: SFStaticTableViewController, IBViewController {
     @IBOutlet weak var fullNameLabel: UILabel!
     @IBOutlet weak var loginLabel: UILabel!
     @IBOutlet weak var bioLabel: UILabel!
-    @IBOutlet weak var companyImageView: UIImageView!
-    @IBOutlet weak var locationImageView: UIImageView!
-    @IBOutlet weak var blogImageView: UIImageView!
-    @IBOutlet weak var emailImageView: UIImageView!
-    @IBOutlet weak var twitterImageView: UIImageView!
-    @IBOutlet weak var companyLabel: UILabel!
-    @IBOutlet weak var locationLabel: UILabel!
-    @IBOutlet weak var blogLabel: UILabel!
-    @IBOutlet weak var emailLabel: UILabel!
-    @IBOutlet weak var twitterLabel: UILabel!
-    @IBOutlet weak var followersLabel: UILabel!
-    @IBOutlet weak var followingLabel: UILabel!
+    @IBOutlet weak var companyTextView: IconicTextView!
+    @IBOutlet weak var locationTextView: IconicTextView!
+    @IBOutlet weak var blogTextView: IconicTextView!
+    @IBOutlet weak var emailTextView: IconicTextView!
+    @IBOutlet weak var twitterTextView: IconicTextView!
+    @IBOutlet weak var socialStatusNumericView: IconicNumericView!
     @IBOutlet weak var followButton: UIButton!
     @IBOutlet weak var bookmarkButton: UIBarButtonItem!
     @IBOutlet weak var shareButton: UIBarButtonItem!
@@ -99,26 +93,16 @@ class UserDetailViewController: SFStaticTableViewController, IBViewController {
         avatarImageView.addGestureRecognizer(avatarLongPressesGesture)
         avatarImageView.isUserInteractionEnabled = true
         
-        let blogLabelTapGesture = UITapGestureRecognizer(target: self,action: #selector(self.goToBlog))
-        blogLabel.addGestureRecognizer(blogLabelTapGesture)
-        blogLabel.isUserInteractionEnabled = true
+        blogTextView.action = { [weak self] in self?.goToBlog() }
+        emailTextView.action = { [weak self] in self?.composeMail() }
+        twitterTextView.action = { [weak self] in self?.goToTwitter() }
+        socialStatusNumericView.actions = [{ [weak self] in self?.showFollowers() },{ [weak self] in self?.showFollowing() }]
         
-        let emailLabelTapGesture = UITapGestureRecognizer(target: self,action: #selector(self.composeMail))
-        emailLabel.addGestureRecognizer(emailLabelTapGesture)
-        emailLabel.isUserInteractionEnabled = true
-        
-        let twitterLabelTapGesture = UITapGestureRecognizer(target: self,action: #selector(self.goToTwitter))
-        twitterLabel.addGestureRecognizer(twitterLabelTapGesture)
-        twitterLabel.isUserInteractionEnabled = true
-        
-        let followersLabelTapGesture = UITapGestureRecognizer(target: self,action: #selector(self.showFollowers))
-        followersLabel.addGestureRecognizer(followersLabelTapGesture)
-        followersLabel.isUserInteractionEnabled = true
-        
-        let followingLabelTapGesture = UITapGestureRecognizer(target: self,action: #selector(self.showFollowing))
-        followingLabel.addGestureRecognizer(followingLabelTapGesture)
-        followingLabel.isUserInteractionEnabled = true
-        
+        switch UIApplication.shared.userInterfaceLayoutDirection {
+        case .leftToRight: followButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 15.0)
+        case .rightToLeft: followButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 15.0, bottom: 0, right: 0)
+        @unknown default: break
+        }
         followButton.cornerRadius = 10
     }
     
@@ -135,39 +119,12 @@ class UserDetailViewController: SFStaticTableViewController, IBViewController {
         } else {
             bioLabel.isHidden = true
         }
-        if model.company != nil {
-            companyLabel.text = model.company
-        } else {
-            companyImageView.isHidden = true
-            companyLabel.isHidden = true
-        }
-        if model.location != nil {
-            locationLabel.text = model.location
-        } else {
-            locationImageView.isHidden = true
-            locationLabel.isHidden = true
-        }
-        if model.blogURL != nil {
-            blogLabel.text = model.blogURL?.absoluteString
-        } else {
-            blogImageView.isHidden = true
-            blogLabel.isHidden = true
-        }
-        if model.email != nil {
-            emailLabel.text = model.email
-        } else {
-            emailImageView.isHidden = true
-            emailLabel.isHidden = true
-        }
-        if model.twitter != nil {
-            let atCharacter = "@"
-            twitterLabel.text = atCharacter + model.twitter!
-        } else {
-            twitterImageView.isHidden = true
-            twitterLabel.isHidden = true
-        }
-        followersLabel.text = GitIt.formatPoints(num: Double(model.followers!))
-        followingLabel.text = GitIt.formatPoints(num: Double(model.following!))
+        companyTextView.text = model.company
+        locationTextView.text = model.location
+        blogTextView.text = model.blogURL?.absoluteString
+        emailTextView.text = model.email
+        twitterTextView.text = model.twitter != nil ? "@".appending(model.twitter!) : nil
+        socialStatusNumericView.numbers = [Double(model.followers!),Double(model.following!)]
         if model.login == SessionManager.standard.sessionUser.login {
             followButton.isHidden = true
         } else {
@@ -191,7 +148,7 @@ class UserDetailViewController: SFStaticTableViewController, IBViewController {
         URLHelper.shareURL(htmlURL)
     }
     
-    @objc func saveAvatar(_ sender: UILongPressGestureRecognizer) {
+    @IBAction func saveAvatar(_ sender: UILongPressGestureRecognizer) {
         if sender.state == .ended {
             UIImageWriteToSavedPhotosAlbum(avatarImageView.image!, self, nil, nil)
         }
@@ -220,27 +177,27 @@ class UserDetailViewController: SFStaticTableViewController, IBViewController {
     }
     
     @objc func showFollowers() {
-        let followersVC = UserViewController(context: .followers, contextParameters: (self.model.login,self.model.followers))
+        let followersVC = UserViewController.instatiateWithContextAndParameters(with: .followers, with: (self.model.login,self.model.followers))
         navigationController?.pushViewController(followersVC, animated: true)
     }
     
     @objc func showFollowing() {
-        let followingVC = UserViewController(context: .following, contextParameters: (self.model.login,self.model.following))
+        let followingVC = UserViewController.instatiateWithContextAndParameters(with: .following, with: (self.model.login,self.model.following))
         navigationController?.pushViewController(followingVC, animated: true)
     }
     
     func showRepositories() {
-        let repositoriesVC = RepositoryViewController(context: .user, contextParameters: (model.login,model.repositories!))
+        let repositoriesVC = RepositoryViewController.instatiateWithContextAndParameters(with: .user, with: (model.login,model.repositories!))
         navigationController?.pushViewController(repositoriesVC, animated: true)
     }
     
     func showOrganizations() {
-        let organizationsVC = OrganizationViewController(context: .user, contextParameters: model.login)
+        let organizationsVC = OrganizationViewController.instatiateWithContextAndParameters(with: .user, with: model.login)
         navigationController?.pushViewController(organizationsVC, animated: true)
     }
     
     func showStarred() {
-        let repositoriesVC = RepositoryViewController(context: .starred, contextParameters: model.login)
+        let repositoriesVC = RepositoryViewController.instatiateWithContextAndParameters(with: .starred, with: model.login)
         navigationController?.pushViewController(repositoriesVC, animated: true)
     }
     
@@ -270,19 +227,19 @@ extension UserDetailViewController {
     
     private func updateFollowButton(isFollowed: Bool) {
         if isFollowed {
-            followButton.setTitle("Following", for: .normal)
-            followButton.setImage(UIImage(systemName: "checkmark"), for: .normal)
+            followButton.setTitle(Constants.view.button.follow.followedTitle, for: .normal)
+            followButton.setImage(Constants.view.button.follow.followedImage, for: .normal)
         } else {
-            followButton.setTitle("Follow", for: .normal)
-            followButton.setImage(UIImage(systemName: "plus"), for: .normal)
+            followButton.setTitle(Constants.view.button.follow.defaultTitle, for: .normal)
+            followButton.setImage(Constants.view.button.follow.defaultImage, for: .normal)
         }
     }
     
     private func updateBookmarkButton(isBookmarked: Bool) {
         if isBookmarked {
-            bookmarkButton.image = UIImage(systemName: "bookmark.fill")
+            bookmarkButton.image = Constants.view.button.bookmark.bookmarkedImage
         } else {
-            bookmarkButton.image = UIImage(systemName: "bookmark")
+            bookmarkButton.image = Constants.view.button.bookmark.defaultImage
         }
     }
     

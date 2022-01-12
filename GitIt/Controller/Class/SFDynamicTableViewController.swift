@@ -25,8 +25,11 @@ class SFDynamicTableViewController<Type>: UITableViewController {
         self.model = List<Type>()
     }
     
-    override private init(nibName: String?, bundle: Bundle?) {
-        super.init(nibName: nibName, bundle: bundle)
+    init?(coder: NSCoder, cellType: IBTableViewCell.Type, detailViewControllerType: IBViewController.Type? = nil) {
+        super.init(coder: coder)
+        self.cellType = cellType
+        self.detailViewControllerType = detailViewControllerType
+        self.model = List<Type>()
     }
     
     required init?(coder: NSCoder) {
@@ -66,8 +69,11 @@ class SFDynamicTableViewController<Type>: UITableViewController {
         }
         xTableView.dataSource = self
         xTableView.delegate = self
+        // Setup table view header, footer and content insets
         if xTableView.tableHeaderView == nil { xTableView.tableHeaderView = UIView() }
         if xTableView.tableFooterView == nil { xTableView.tableFooterView = UIView() }
+        xTableView.contentInset.top = 20
+        // Setup table view refresh control
         xTableView.refreshControl = UIRefreshControl()
         xTableView.refreshControl?.addTarget(self, action: #selector(refresh), for: .valueChanged)
         // Setup error actions

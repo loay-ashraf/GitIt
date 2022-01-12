@@ -7,8 +7,10 @@
 
 import UIKit
 
-class RepositoryViewController: SFDynamicTableViewController<RepositoryModel> {
-
+class RepositoryViewController: SFDynamicTableViewController<RepositoryModel>, IBViewController {
+    
+    static var storyboardIdentifier = "RepositoryVC"
+    
     override var model: List<RepositoryModel>! { return logicController.model }
     
     private let logicController: RepositoryLogicController
@@ -18,14 +20,28 @@ class RepositoryViewController: SFDynamicTableViewController<RepositoryModel> {
     
     // MARK: - Initialisation
     
-    init(context: RepositoryContext, contextParameters: Any? = nil) {
+    required init?(coder: NSCoder, context: RepositoryContext, contextParameters: Any? = nil) {
         logicController = RepositoryLogicController(context: context, contextParameters: contextParameters)
-        super.init(cellType: RepositoryTableViewCell.self, detailViewControllerType: RepositoryDetailViewController.self)
-        hidesBottomBarWhenPushed = true
+        super.init(coder: coder, cellType: RepositoryTableViewCell.self, detailViewControllerType: RepositoryDetailViewController.self)
     }
     
     required init?(coder: NSCoder) {
-        fatalError("Fatal Error, this view controller shouldn't be instantiated from storyboard.")
+        fatalError("Fatal Error, coder initializer not implemented.")
+    }
+    
+    static func instatiateWithContextAndParameters(with context: RepositoryContext, with contextParameters: Any? = nil) -> UIViewController {
+        let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+        return storyBoard.instantiateViewController(identifier: self.storyboardIdentifier, creator: { coder -> RepositoryViewController in
+                    self.init(coder: coder, context: context, contextParameters: contextParameters)!
+                })
+    }
+    
+    static func instatiateWithParameters(with parameters: Any) -> UIViewController {
+        fatalError("Fatal Error, This View controller is instaniated only using context and context parameters")
+    }
+    
+    static func instatiateWithModel(with model: Any) -> UIViewController {
+        fatalError("Fatal Error, This View controller is instaniated only using context and context parameters")
     }
     
     deinit {

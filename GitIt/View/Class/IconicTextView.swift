@@ -11,12 +11,27 @@ import UIKit
 class IconicTextView: UIView {
 
     @IBOutlet var contentView: UIView!
-    @IBOutlet weak var iconImageView: UIImageView!
+    @IBOutlet weak var iconImageView: SFImageView!
     @IBOutlet weak var textLabel: UILabel!
     
     @IBInspectable var icon: UIImage? {
-        get { return iconImageView.image }
-        set(image) { iconImageView.image = image }
+        didSet {
+            iconImageView.image = icon
+        }
+    }
+    
+    @IBInspectable var iconTintColor: UIColor? {
+        didSet {
+            iconImageView.tintColor = iconTintColor
+        }
+    }
+    
+    @IBInspectable var iconCornerRadius: CGFloat = 0.0 {
+        didSet {
+            iconImageView.cornerRadius = iconCornerRadius
+            iconImageView.cornerCurve = .continuous
+            iconImageView.masksToBounds = true
+        }
     }
     
     @IBInspectable var text: String? {
@@ -71,6 +86,15 @@ class IconicTextView: UIView {
         addSubview(view)
         contentView = view
         sizeToFit()
+    }
+    
+    func loadIcon(at url: URL) {
+        iconImageView.load(at: url)
+    }
+    
+    func cancelIconLoading() {
+        icon = nil
+        iconImageView.cancel()
     }
 
 }
