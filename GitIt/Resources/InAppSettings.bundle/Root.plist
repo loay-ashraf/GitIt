@@ -36,23 +36,13 @@
 		</dict>
 		<dict>
 			<key>Type</key>
-			<string>PSMultiValueSpecifier</string>
+			<string>IASKButtonSpecifier</string>
 			<key>Title</key>
-			<string>Language</string>
+			<string>Change Language</string>
 			<key>Key</key>
-			<string>language</string>
-			<key>DefaultValue</key>
-			<string>en</string>
-			<key>Values</key>
-			<array>
-				<string>en</string>
-				<string>ar</string>
-			</array>
-			<key>Titles</key>
-			<array>
-				<string>English</string>
-				<string>عربي</string>
-			</array>
+			<string>clButton</string>
+			<key>IASKTextAlignment</key>
+			<string>IASKUITextAlignmentLeft</string>
 		</dict>
 		<dict>
 			<key>Type</key>

@@ -19,8 +19,23 @@ class IconicNumericView: UIView {
     @IBOutlet weak var secondTextLabel: UILabel!
     
     @IBInspectable var icon: UIImage? {
-        get { return iconImageView.image }
-        set(image) { iconImageView.image = image }
+        didSet {
+            iconImageView.image = icon
+        }
+    }
+    
+    @IBInspectable var iconTintColor: UIColor? {
+        didSet {
+            iconImageView.tintColor = iconTintColor
+        }
+    }
+    
+    @IBInspectable var iconCornerRadius: CGFloat = 0.0 {
+        didSet {
+            iconImageView.cornerRadius = iconCornerRadius
+            iconImageView.cornerCurve = .continuous
+            iconImageView.masksToBounds = true
+        }
     }
     
     @IBInspectable var numberOfSections: Int = 2 {
@@ -63,6 +78,18 @@ class IconicNumericView: UIView {
         }
     }
     
+    @IBInspectable var showDescriptiveText: Bool = false {
+        didSet {
+            if showDescriptiveText {
+                firstTextLabel.isHidden = false
+                secondTextLabel.isHidden = false
+            } else {
+                firstTextLabel.isHidden = true
+                secondTextLabel.isHidden = true
+            }
+        }
+    }
+    
     @IBAction func firstNumberTapped(_ sender: UITapGestureRecognizer) {
         actions?[0]()
     }
@@ -73,9 +100,11 @@ class IconicNumericView: UIView {
     
     var numbers: [Double]? {
         didSet {
-            firstNumberLabel.text = formatPoints(num: numbers![0])
-            if numberOfSections >= 2 {
-                secondNumberLabel.text = formatPoints(num: numbers![1])
+            if let numbers = numbers, !numbers.isEmpty {
+                firstNumberLabel.text = formatPoints(num: numbers[0])
+                if numberOfSections >= 2 {
+                    secondNumberLabel.text = formatPoints(num: numbers[1])
+                }
             }
         }
     }

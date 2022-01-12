@@ -47,7 +47,12 @@ extension SettingsViewController: IASKSettingsDelegate {
     func settingsViewControllerDidEnd(_ settingsViewController: IASKAppSettingsViewController) { }
     
     func settingsViewController(_ settingsViewController: IASKAppSettingsViewController, buttonTappedFor specifier: IASKSpecifier) {
-        if specifier.key == "clearButton" {
+        if specifier.key == "clButton" {
+            let appURL = URL(string: UIApplication.openSettingsURLString)!
+            if UIApplication.shared.canOpenURL(appURL) {
+                UIApplication.shared.open(appURL)
+            }
+        } else if specifier.key == "clearButton" {
             let alertTitle = Constants.view.alert.clearData.title
             let alertMessage = Constants.view.alert.clearData.message
             let clearActionTitle = Constants.view.alert.clearData.clearActionTitle

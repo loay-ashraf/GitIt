@@ -17,13 +17,13 @@ class ExploreViewController: UITableViewController {
         tableView.deselectRow(at: indexPath, animated: true)
         let row = indexPath.row
         if row == 0 {
-            let userVC = UserViewController(context: .main)
+            let userVC = UserViewController.instatiateWithContextAndParameters(with: .main)
             navigationController?.pushViewController(userVC, animated: true)
         } else if row == 1 {
-            let repositoryVC = RepositoryViewController(context: .main)
+            let repositoryVC = RepositoryViewController.instatiateWithContextAndParameters(with: .main)
             navigationController?.pushViewController(repositoryVC, animated: true)
         } else if row == 2 {
-            let organizationVC = OrganizationViewController(context: .main)
+            let organizationVC = OrganizationViewController.instatiateWithContextAndParameters(with: .main)
             navigationController?.pushViewController(organizationVC, animated: true)
         }
     }

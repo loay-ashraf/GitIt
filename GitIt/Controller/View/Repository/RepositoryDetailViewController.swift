@@ -110,7 +110,7 @@ class RepositoryDetailViewController: SFStaticTableViewController, IBViewControl
     
     override func updateView() {
         ownerTextView.text = model.owner.login
-        ownerTextView.loadImage(at: model.owner.avatarURL)
+        ownerTextView.loadIcon(at: model.owner.avatarURL)
         nameLabel.text = model.name
         if model.description != nil {
             descriptionLabel.text = model.description
@@ -159,22 +159,22 @@ class RepositoryDetailViewController: SFStaticTableViewController, IBViewControl
     }
     
     @objc func showStars() {
-        let starsVC = UserViewController(context: .stars, contextParameters: (model.fullName,model.stars))
+        let starsVC = UserViewController.instatiateWithContextAndParameters(with: .stars, with: (model.fullName,model.stars))
         navigationController?.pushViewController(starsVC, animated: true)
     }
     
     @objc func showForks() {
-        let forksVC = RepositoryViewController(context: .forks, contextParameters: (model.fullName,model.forks))
+        let forksVC = RepositoryViewController.instatiateWithContextAndParameters(with: .forks, with: (model.fullName,model.forks))
         navigationController?.pushViewController(forksVC, animated: true)
     }
     
     func showContributors() {
-        let contributorsVC = UserViewController(context: .contributors, contextParameters: model.fullName)
+        let contributorsVC = UserViewController.instatiateWithContextAndParameters(with: .contributors, with: model.fullName)
         navigationController?.pushViewController(contributorsVC, animated: true)
     }
     
     func showCommits() {
-        let commitsVC = CommitViewController(parameters: model.fullName)
+        let commitsVC = CommitViewController.instatiateWithParameters(with: model.fullName)
         navigationController?.pushViewController(commitsVC, animated: true)
     }
     

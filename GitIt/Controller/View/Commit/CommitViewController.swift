@@ -7,7 +7,9 @@
 
 import UIKit
 
-class CommitViewController: SFDynamicTableViewController<CommitModel> {
+class CommitViewController: SFDynamicTableViewController<CommitModel>, IBViewController {
+    
+    static var storyboardIdentifier = "CommitVC"
     
     override var model: List<CommitModel>! { return logicController.model }
     
@@ -15,14 +17,25 @@ class CommitViewController: SFDynamicTableViewController<CommitModel> {
     
     // MARK: - Initialisation
     
-    init(parameters: String) {
+    required init?(coder: NSCoder, parameters: String) {
         logicController = CommitLogicController(parameters: parameters)
-        super.init(cellType: CommitTableViewCell.self, detailViewControllerType: CommitDetailViewController.self)
+        super.init(coder: coder, cellType: CommitTableViewCell.self, detailViewControllerType: CommitDetailViewController.self)
         hidesBottomBarWhenPushed = true
     }
     
     required init?(coder: NSCoder) {
-        fatalError("Fatal Error, this view controller shouldn't be instantiated from storyboard.")
+        fatalError("Fatal Error, coder initializer not implemented.")
+    }
+    
+    static func instatiateWithParameters(with parameters: Any) -> UIViewController {
+        let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+        return storyBoard.instantiateViewController(identifier: self.storyboardIdentifier, creator: { coder -> CommitViewController in
+                    self.init(coder: coder, parameters: parameters as! String)!
+                })
+    }
+    
+    static func instatiateWithModel(with model: Any) -> UIViewController {
+        fatalError("Fatal Error, This View controller is instaniated only using parameters")
     }
     
     deinit {

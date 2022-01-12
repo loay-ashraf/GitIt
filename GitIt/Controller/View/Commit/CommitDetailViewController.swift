@@ -16,11 +16,9 @@ class CommitDetailViewController: SFStaticTableViewController, IBViewController 
     
     // MARK: - UI Outlets
     
-    @IBOutlet weak var avatarImageView: SFImageView!
-    @IBOutlet weak var loginLabel: UILabel!
+    @IBOutlet weak var authorTextView: IconicTextView!
     @IBOutlet weak var messageLabel: UILabel!
     @IBOutlet weak var shareButton: UIBarButtonItem!
-    
     
     // MARK: - Initialisation
     
@@ -61,27 +59,16 @@ class CommitDetailViewController: SFStaticTableViewController, IBViewController 
         super.configureView()
         
         navigationItem.largeTitleDisplayMode = .never
-    
-        avatarImageView.cornerRadius = 16.0
-        avatarImageView.cornerCurve = .continuous
-        avatarImageView.masksToBounds = true
         
-        let avatarLongPressesGesture = UILongPressGestureRecognizer(target: self, action: #selector(saveAvatar))
-        avatarImageView.addGestureRecognizer(avatarLongPressesGesture)
-        avatarImageView.isUserInteractionEnabled = true
-        
-        let loginLabelTapGesture = UITapGestureRecognizer(target:self,action:#selector(self.showOwner))
-        loginLabel.addGestureRecognizer(loginLabelTapGesture)
-        loginLabel.isUserInteractionEnabled = true
+        authorTextView.action = { [weak self] in self?.showOwner() }
     }
     
     override func updateView() {
-        if model.author != nil {
-            avatarImageView.load(at: model.author!.avatarURL)
-            loginLabel.text = model.author!.login
+        if let author = model.author {
+            authorTextView.loadIcon(at: author.avatarURL)
+            authorTextView.text = author.login
         } else {
-            avatarImageView.image = UIImage(systemName: "person.crop.circle.badge.exclamationmark")
-            loginLabel.text = "No author found"
+            authorTextView.text = nil
         }
         messageLabel.text = model.message
         shareButton.isEnabled = true
@@ -94,13 +81,7 @@ class CommitDetailViewController: SFStaticTableViewController, IBViewController 
         URLHelper.shareURL(htmlURL)
     }
     
-    @objc func saveAvatar(_ sender: UILongPressGestureRecognizer) {
-        if model.author != nil && sender.state == .ended {
-            UIImageWriteToSavedPhotosAlbum(avatarImageView.image!, self, nil, nil)
-        }
-    }
-    
-    @objc func showOwner() {
+    func showOwner() {
         if model.author != nil && model.author!.type == .user {
             let userModel = UserModel(from: model.author!)
             let userDetailVC = UserDetailViewController.instatiateWithModel(with: userModel)

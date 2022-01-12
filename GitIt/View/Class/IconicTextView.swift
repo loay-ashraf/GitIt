@@ -20,6 +20,12 @@ class IconicTextView: UIView {
         }
     }
     
+    @IBInspectable var iconTintColor: UIColor? {
+        didSet {
+            iconImageView.tintColor = iconTintColor
+        }
+    }
+    
     @IBInspectable var iconCornerRadius: CGFloat = 0.0 {
         didSet {
             iconImageView.cornerRadius = iconCornerRadius
@@ -82,8 +88,13 @@ class IconicTextView: UIView {
         sizeToFit()
     }
     
-    func loadImage(at url: URL) {
+    func loadIcon(at url: URL) {
         iconImageView.load(at: url)
+    }
+    
+    func cancelIconLoading() {
+        icon = nil
+        iconImageView.cancel()
     }
 
 }

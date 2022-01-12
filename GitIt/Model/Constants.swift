@@ -193,6 +193,22 @@ struct Constants {
                 
             }
             
+            struct startupError {
+                
+                static let title = "Network Error".localized()
+                static let message = "We can't connect to server at time, would you like to rety or exit?".localized()
+                static let retryActionTitle = "Retry".localized()
+                static let exitActionTitle = "Exit".localized()
+                
+            }
+            
+            struct bookmarksError {
+                
+                static let title = "Data Error".localized()
+                static let message = "We couldn't load your saved bookmarks, we're working on a fix for the issue.".localized()
+                
+            }
+            
             struct signInError {
                 
                 static let title = "Sign In Error".localized()

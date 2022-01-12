@@ -18,33 +18,38 @@
                 <rect key="frame" x="0.0" y="0.0" width="294.33333333333331" height="117"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="xvP-N6-jHu">
+                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="uyZ-pC-B8x">
                         <rect key="frame" x="10" y="10" width="274.33333333333331" height="97"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="xln-zM-tc6" customClass="SFImageView" customModule="GitIt" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="16.666666666666671" width="64" height="64"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="64" id="mFd-Ez-3In"/>
-                                    <constraint firstAttribute="width" constant="64" id="xqm-aS-cba"/>
-                                </constraints>
-                            </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Login" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Fi-Nj-QH3">
-                                <rect key="frame" x="74.000000000000014" y="38.666666666666664" width="200.33333333333337" height="20"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="20" id="uKj-IY-Mol"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="xvP-N6-jHu">
+                                <rect key="frame" x="0.0" y="0.0" width="251.33333333333334" height="97"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="xln-zM-tc6" customClass="SFImageView" customModule="GitIt" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="16.666666666666671" width="64" height="64"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="64" id="mFd-Ez-3In"/>
+                                            <constraint firstAttribute="width" constant="64" id="xqm-aS-cba"/>
+                                        </constraints>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Organization Login" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Fi-Nj-QH3">
+                                        <rect key="frame" x="74.000000000000014" y="38.666666666666664" width="177.33333333333337" height="20"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="20" id="uKj-IY-Mol"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
                         </subviews>
                     </stackView>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="bottom" secondItem="xvP-N6-jHu" secondAttribute="bottom" constant="10" id="IqH-6q-7gI"/>
-                    <constraint firstItem="xvP-N6-jHu" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="RPw-1o-kmc"/>
-                    <constraint firstAttribute="trailing" secondItem="xvP-N6-jHu" secondAttribute="trailing" constant="10" id="kha-wT-ccA"/>
-                    <constraint firstItem="xvP-N6-jHu" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="o2v-a5-zbS"/>
+                    <constraint firstItem="uyZ-pC-B8x" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="GwB-N6-1cg"/>
+                    <constraint firstItem="uyZ-pC-B8x" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="f5g-ke-vgO"/>
+                    <constraint firstAttribute="trailing" secondItem="uyZ-pC-B8x" secondAttribute="trailing" constant="10" id="m4f-1w-gBo"/>
+                    <constraint firstAttribute="bottom" secondItem="uyZ-pC-B8x" secondAttribute="bottom" constant="10" id="suU-SO-1zw"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>

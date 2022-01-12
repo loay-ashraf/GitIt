@@ -20,14 +20,20 @@ class SplashViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         ThemeManager.standard.applyPreferedTheme()
         if BookmarksManager.standard.loadBookmarks() != nil {
-            let okAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
-            AlertHelper.showAlert(title: "Data Error", message: "We couldn't load your saved bookamrks, we're working on a fix for the issue.", style: .alert, actions: [okAction])
+            let okAction = Constants.view.alert.okAction
+            let alertTitle = Constants.view.alert.bookmarksError.title
+            let alertMessage = Constants.view.alert.bookmarksError.message
+            AlertHelper.showAlert(title: alertTitle, message: alertMessage, style: .alert, actions: [okAction])
         }
         SessionManager.standard.setup { networkError in
             if networkError != nil {
-                let retyAction = UIAlertAction(title: "Retry", style: .default) { action in self.retry() }
-                let exitAction = UIAlertAction(title: "Exit", style: .cancel) { action in self.exit() }
-                AlertHelper.showAlert(title: "Network Error", message: "We can't connect to server at time, would you like to rety or exit?", style: .alert, actions: [retyAction,exitAction])
+                let retryActionTitle = Constants.view.alert.startupError.retryActionTitle
+                let exitActionTitle = Constants.view.alert.startupError.exitActionTitle
+                let alertTitle = Constants.view.alert.startupError.title
+                let alertMessage = Constants.view.alert.startupError.message
+                let retyAction = UIAlertAction(title: retryActionTitle, style: .default) { action in self.retry() }
+                let exitAction = UIAlertAction(title: exitActionTitle, style: .cancel) { action in self.exit() }
+                AlertHelper.showAlert(title: alertTitle, message: alertMessage, style: .alert, actions: [retyAction,exitAction])
             } else {
                 if SessionManager.standard.isSignedIn() {
                     self.presentTabBarViewController()
@@ -45,9 +51,13 @@ class SplashViewController: UIViewController {
     private func retry() {
         SessionManager.standard.setup { networkError in
             if networkError != nil {
-                let retyAction = UIAlertAction(title: "Retry", style: .default) { action in self.retry() }
-                let exitAction = UIAlertAction(title: "Exit", style: .cancel) { action in self.exit() }
-                AlertHelper.showAlert(title: "Network Error", message: "We can't connect to server at time, would you like to rety or exit?", style: .alert, actions: [retyAction,exitAction])
+                let retryActionTitle = Constants.view.alert.startupError.retryActionTitle
+                let exitActionTitle = Constants.view.alert.startupError.exitActionTitle
+                let alertTitle = Constants.view.alert.startupError.title
+                let alertMessage = Constants.view.alert.startupError.message
+                let retyAction = UIAlertAction(title: retryActionTitle, style: .default) { action in self.retry() }
+                let exitAction = UIAlertAction(title: exitActionTitle, style: .cancel) { action in self.exit() }
+                AlertHelper.showAlert(title: alertTitle, message: alertMessage, style: .alert, actions: [retyAction,exitAction])
             } else {
                 if SessionManager.standard.isSignedIn() {
                     self.presentTabBarViewController()

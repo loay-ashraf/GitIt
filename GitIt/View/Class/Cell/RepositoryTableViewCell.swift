@@ -12,11 +12,11 @@ class RepositoryTableViewCell: UITableViewCell, IBTableViewCell {
     static let reuseIdentifier = "RepositoryTableViewCell"
     static var nib: UINib { return UINib(nibName: "RepositoryTableViewCell", bundle: nil) }
     
+    @IBOutlet weak var ownerTextView: IconicTextView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
-    @IBOutlet weak var starsLabel: UILabel!
-    @IBOutlet weak var languageLabel: UILabel!
-    @IBOutlet weak var languageImageView: UIImageView!
+    @IBOutlet weak var starsNumericView: IconicNumericView!
+    @IBOutlet weak var languageTextView: IconicTextView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -24,30 +24,32 @@ class RepositoryTableViewCell: UITableViewCell, IBTableViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
+        ownerTextView.cancelIconLoading()
         nameLabel.text = nil
         descriptionLabel.text = nil
-        starsLabel.text = nil
-        languageLabel.text = nil
-        languageImageView.tintColor = .black
+        starsNumericView.numbers = nil
+        languageTextView.text = nil
     }
 
     func configure<Type>(with model: Type) {
         let repository = model as! RepositoryModel
+        ownerTextView.loadIcon(at: repository.owner.avatarURL)
+        ownerTextView.text = repository.owner.login
         nameLabel.text = repository.name
-        descriptionLabel.text = repository.description
-        starsLabel.text = GitIt.formatPoints(num: Double(repository.stars))
+        if let description = repository.description, !description.isEmpty {
+            descriptionLabel.text = repository.description
+        } else {
+            descriptionLabel.isHidden = true
+        }
+        starsNumericView.numbers = [ Double(repository.stars) ]
+        languageTextView.text = repository.language
         if let language = repository.language {
             if let colorString = LibraryManager.standard.languageColors[language] {
                 let color = UIColor(hex: colorString)
-                languageImageView.tintColor = color
-                languageLabel.text = repository.language
+                languageTextView.iconTintColor = color
             } else {
-                languageImageView.tintColor = .black
-                languageLabel.text = "None"
+                languageTextView.text = nil
             }
-        } else {
-            languageImageView.tintColor = .black
-            languageLabel.text = "None"
         }
         setNeedsLayout()
     }

@@ -156,35 +156,35 @@ class ProfileViewController: SFStaticTableViewController {
     
     func showFollowers() {
         if let model = SessionManager.standard.sessionUser {
-            let followersVC = UserViewController(context: .followers, contextParameters: (model.login,model.followers))
+            let followersVC = UserViewController.instatiateWithContextAndParameters(with: .followers, with: (model.login,model.followers))
             navigationController?.pushViewController(followersVC, animated: true)
         }
     }
     
     func showFollowing() {
         if let model = SessionManager.standard.sessionUser {
-            let followingVC = UserViewController(context: .following, contextParameters: (model.login,model.following))
+            let followingVC = UserViewController.instatiateWithContextAndParameters(with: .following, with: (model.login,model.following))
             navigationController?.pushViewController(followingVC, animated: true)
         }
     }
     
     func showRepositories() {
         if let model = SessionManager.standard.sessionUser {
-            let repositoriesVC = RepositoryViewController(context: .user, contextParameters: (model.login,model.repositories!))
+            let repositoriesVC = RepositoryViewController.instatiateWithContextAndParameters(with: .user, with: (model.login,model.repositories!))
             navigationController?.pushViewController(repositoriesVC, animated: true)
         }
     }
     
     func showOrganizations() {
         if let model = SessionManager.standard.sessionUser {
-            let organizationsVC = OrganizationViewController(context: .user, contextParameters: model.login)
+            let organizationsVC = OrganizationViewController.instatiateWithContextAndParameters(with: .user, with: model.login)
             navigationController?.pushViewController(organizationsVC, animated: true)
         }
     }
     
     func showStarred() {
         if let model = SessionManager.standard.sessionUser {
-            let repositoriesVC = RepositoryViewController(context: .starred, contextParameters: model.login)
+            let repositoriesVC = RepositoryViewController.instatiateWithContextAndParameters(with: .starred, with: model.login)
             navigationController?.pushViewController(repositoriesVC, animated: true)
         }
     }

@@ -71,11 +71,8 @@
 /* Class = "UILabel"; text = "Full Name"; ObjectID = "GJI-bD-9xy"; */
 "GJI-bD-9xy.text" = "Full Name";
 
-/* Class = "UIButton"; configuration.title = "Sign Out"; ObjectID = "Gb5-Xx-Ugl"; */
-"Gb5-Xx-Ugl.configuration.title" = "Sign Out";
-
 /* Class = "UIButton"; normalTitle = "Button"; ObjectID = "Gb5-Xx-Ugl"; */
-"Gb5-Xx-Ugl.normalTitle" = "Button";
+"Gb5-Xx-Ugl.normalTitle" = "تسجيل الخروج";
 
 /* Class = "UILabel"; text = "Blog"; ObjectID = "JcG-Uh-brK"; */
 "JcG-Uh-brK.text" = "Blog";
@@ -147,7 +144,7 @@
 "g46-Su-kej.text" = "Login Name";
 
 /* Class = "UITableViewSection"; headerTitle = "Repository"; ObjectID = "hJr-1O-fiW"; */
-"hJr-1O-fiW.headerTitle" = "Repository";
+"hJr-1O-fiW.headerTitle" = "المستودع";
 
 /* Class = "UILabel"; text = "Twitter"; ObjectID = "hp1-bg-fBQ"; */
 "hp1-bg-fBQ.text" = "Twitter";

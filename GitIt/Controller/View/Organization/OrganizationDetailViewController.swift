@@ -152,12 +152,12 @@ class OrganizationDetailViewController: SFStaticTableViewController, IBViewContr
     }
     
     func showMemebers() {
-        let usersVC = UserViewController(context: .members, contextParameters: model.login)
+        let usersVC = UserViewController.instatiateWithContextAndParameters(with: .members, with: model.login)
         navigationController?.pushViewController(usersVC, animated: true)
     }
     
     func showRepositories() {
-        let repositoriesVC = RepositoryViewController(context: .user, contextParameters: (model.login,model.repositories!))
+        let repositoriesVC = RepositoryViewController.instatiateWithContextAndParameters(with: .user, with: (model.login,model.repositories!))
         navigationController?.pushViewController(repositoriesVC, animated: true)
     }
     
