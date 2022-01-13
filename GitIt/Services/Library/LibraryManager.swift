@@ -161,7 +161,10 @@ class LibraryManager {
                 return .failure(.fileManager(.decodingJSONFailed(error)))
             }
         }
-        return .failure(.fileManager(.fileDoesNotExist))
+        var searchHistory = SearchHistory<UserModel>()
+        searchHistory.models = []
+        searchHistory.keywords = []
+        return .success(searchHistory)
     }
     
     func loadRepositorySearchHistory() -> Result<SearchHistory<RepositoryModel>,LibraryError> {
@@ -178,7 +181,10 @@ class LibraryManager {
                 return .failure(.fileManager(.decodingJSONFailed(error)))
             }
         }
-        return .failure(.fileManager(.fileDoesNotExist))
+        var searchHistory = SearchHistory<RepositoryModel>()
+        searchHistory.models = []
+        searchHistory.keywords = []
+        return .success(searchHistory)
     }
     
     func loadOrganizationSearchHistory() -> Result<SearchHistory<OrganizationModel>,LibraryError> {
@@ -195,7 +201,10 @@ class LibraryManager {
                 return .failure(.fileManager(.decodingJSONFailed(error)))
             }
         }
-        return .failure(.fileManager(.fileDoesNotExist))
+        var searchHistory = SearchHistory<OrganizationModel>()
+        searchHistory.models = []
+        searchHistory.keywords = []
+        return .success(searchHistory)
     }
     
 }

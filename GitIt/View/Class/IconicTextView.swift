@@ -11,6 +11,7 @@ import UIKit
 class IconicTextView: UIView {
 
     @IBOutlet var contentView: UIView!
+    @IBOutlet weak var stackView: UIStackView!
     @IBOutlet weak var iconImageView: SFImageView!
     @IBOutlet weak var textLabel: UILabel!
     
@@ -48,11 +49,11 @@ class IconicTextView: UIView {
     @IBInspectable var isLink: Bool = false {
         didSet {
             if isLink {
+                stackView.isUserInteractionEnabled = true
                 textLabel.font = UIFont.boldSystemFont(ofSize: textLabel.font.pointSize)
-                textLabel.isUserInteractionEnabled = true
             } else {
+                stackView.isUserInteractionEnabled = false
                 textLabel.font = UIFont.systemFont(ofSize: textLabel.font.pointSize)
-                textLabel.isUserInteractionEnabled = false
             }
         }
     }
@@ -85,7 +86,6 @@ class IconicTextView: UIView {
         view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         addSubview(view)
         contentView = view
-        sizeToFit()
     }
     
     func loadIcon(at url: URL) {

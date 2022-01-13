@@ -12,9 +12,11 @@ class IconicNumericView: UIView {
     
     @IBOutlet var contentView: UIView!
     @IBOutlet weak var iconImageView: UIImageView!
+    @IBOutlet weak var firstStackView: UIStackView!
     @IBOutlet weak var firstNumberLabel: UILabel!
     @IBOutlet weak var firstTextLabel: UILabel!
     @IBOutlet weak var separatorImageView: UIImageView!
+    @IBOutlet weak var secondStackView: UIStackView!
     @IBOutlet weak var secondNumberLabel: UILabel!
     @IBOutlet weak var secondTextLabel: UILabel!
     
@@ -65,15 +67,15 @@ class IconicNumericView: UIView {
     @IBInspectable var isLink: Bool = false {
         didSet {
             if isLink {
+                firstStackView.isUserInteractionEnabled = true
+                secondStackView.isUserInteractionEnabled = true
                 firstNumberLabel.font = UIFont.boldSystemFont(ofSize: firstNumberLabel.font.pointSize)
-                firstNumberLabel.isUserInteractionEnabled = true
                 secondNumberLabel.font = UIFont.boldSystemFont(ofSize: secondNumberLabel.font.pointSize)
-                secondNumberLabel.isUserInteractionEnabled = true
             } else {
+                firstStackView.isUserInteractionEnabled = false
+                secondStackView.isUserInteractionEnabled = false
                 firstNumberLabel.font = UIFont.systemFont(ofSize: firstNumberLabel.font.pointSize)
-                firstNumberLabel.isUserInteractionEnabled = false
                 secondNumberLabel.font = UIFont.systemFont(ofSize: secondNumberLabel.font.pointSize)
-                secondNumberLabel.isUserInteractionEnabled = false
             }
         }
     }
