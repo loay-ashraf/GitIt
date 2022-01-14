@@ -353,15 +353,3 @@ struct OrganizationModel: Model {
     }
     
 }
-
-struct SearchHistory<Type: Model>: Codable {
-    
-    var models: [Type]
-    var keywords: [String]
-    
-    init() {
-        models = []
-        keywords = []
-    }
-    
-}

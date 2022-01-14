@@ -27,7 +27,7 @@ class BookmarksLogicController {
     }
     
     private func loadUser(then handler: LoadingHandler) {
-        let userBookmarks = BookmarksManager.standard.getUserBookmarks()!
+        let userBookmarks = BookmarksManager.standard.getUsers()!
         model.removeAll()
         if userBookmarks.isEmpty {
             handler(nil,.bookmarks)
@@ -40,7 +40,7 @@ class BookmarksLogicController {
     }
     
     private func loadRepository(then handler: LoadingHandler) {
-        let repositoryBookmarks = BookmarksManager.standard.getRepositoryBookmarks()!
+        let repositoryBookmarks = BookmarksManager.standard.getRepositories()!
         model.removeAll()
         if repositoryBookmarks.isEmpty {
             handler(nil,.bookmarks)
@@ -53,7 +53,7 @@ class BookmarksLogicController {
     }
     
     private func loadOrganization(then handler: LoadingHandler) {
-        let organizationBookmarks = BookmarksManager.standard.getOrganizationBookmarks()!
+        let organizationBookmarks = BookmarksManager.standard.getOrganizations()!
         model.removeAll()
         if organizationBookmarks.isEmpty {
             handler(nil,.bookmarks)

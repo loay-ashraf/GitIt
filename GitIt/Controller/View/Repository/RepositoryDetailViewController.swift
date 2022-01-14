@@ -209,19 +209,19 @@ extension RepositoryDetailViewController {
     
     private func updateStarButton(isStarred: Bool) {
         if isStarred {
-            starButton.setTitle(Constants.view.button.star.starredTitle, for: .normal)
-            starButton.setImage(Constants.view.button.star.starredImage, for: .normal)
+            starButton.setTitle(Constants.View.button.star.starredTitle, for: .normal)
+            starButton.setImage(Constants.View.button.star.starredImage, for: .normal)
         } else {
-            starButton.setTitle(Constants.view.button.star.defaultTitle, for: .normal)
-            starButton.setImage(Constants.view.button.star.defaultImage, for: .normal)
+            starButton.setTitle(Constants.View.button.star.defaultTitle, for: .normal)
+            starButton.setImage(Constants.View.button.star.defaultImage, for: .normal)
         }
     }
     
     private func updateBookmarkButton(isBookmarked: Bool) {
         if isBookmarked {
-            bookmarkButton.image = Constants.view.button.bookmark.bookmarkedImage
+            bookmarkButton.image = Constants.View.button.bookmark.bookmarkedImage
         } else {
-            bookmarkButton.image = Constants.view.button.bookmark.defaultImage
+            bookmarkButton.image = Constants.View.button.bookmark.defaultImage
         }
     }
     

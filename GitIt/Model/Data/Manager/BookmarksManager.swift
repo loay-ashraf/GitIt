@@ -11,6 +11,7 @@ import CoreData
 class BookmarksManager {
     
     static let standard = BookmarksManager()
+    let coreDataHelper = DataManager.standard.coreDataHelper
     
     private var userBookmarks: [User]?
     private var repositoryBookmarks: [Repository]?
@@ -20,32 +21,27 @@ class BookmarksManager {
     
     private init() {}
     
-    // MARK: - Main Methods
+    // MARK: - Save and Load Methods
     
-    func saveBookmarks() -> CoreDataError? {
-        return CoreDataManager.standard.save()
+    func save() throws {
+        try coreDataHelper.saveContexts()
     }
     
-    func loadBookmarks() -> CoreDataError? {
-        do {
-            userBookmarks = try CoreDataManager.standard.fetchSync(entity: User.self, sortKey: nil, ascending: true).get()
-            repositoryBookmarks = try CoreDataManager.standard.fetchSync(entity: Repository.self, sortKey: nil, ascending: true).get()
-            organizationBookmarks = try CoreDataManager.standard.fetchSync(entity: Organization.self, sortKey: nil, ascending: true).get()
-        } catch {
-            return error as? CoreDataError
-        }
-        return nil
+    func load() throws {
+        userBookmarks = try coreDataHelper.fetchSync(entity: User.self, sortKey: nil, ascending: true).get()
+        repositoryBookmarks = try coreDataHelper.fetchSync(entity: Repository.self, sortKey: nil, ascending: true).get()
+        organizationBookmarks = try coreDataHelper.fetchSync(entity: Organization.self, sortKey: nil, ascending: true).get()
     }
     
     // MARK: - Write Methods
     
-    func addBookmark<Type: Model>(model: Type) -> CoreDataError? {
+    func add<Type: Model>(model: Type) throws {
         if !model.isComplete {
             if let userModel = model as? UserModel {
                 getCompleteUser(with: userModel) { completeUserModel in
                     var result: Result<NSManagedObject,CoreDataError>?
                     if let completeUserModel = completeUserModel {
-                       result = CoreDataManager.standard.insert(completeUserModel)
+                        result = self.coreDataHelper.insert(completeUserModel)
                     }
                     switch result {
                     case .success(let managedObject): self.userBookmarks?.append(managedObject as! User)
@@ -57,7 +53,7 @@ class BookmarksManager {
                 getCompleteRepository(with: repositoryModel) { completeRepositoryModel in
                     var result: Result<NSManagedObject,CoreDataError>?
                     if let completeRepositoryModel = completeRepositoryModel {
-                       result = CoreDataManager.standard.insert(completeRepositoryModel)
+                        result = self.coreDataHelper.insert(completeRepositoryModel)
                     }
                     switch result {
                     case .success(let managedObject): self.repositoryBookmarks?.append(managedObject as! Repository)
@@ -69,7 +65,7 @@ class BookmarksManager {
                 getCompleteOrganization(with: organizationModel) { completeOrganizationModel in
                     var result: Result<NSManagedObject,CoreDataError>?
                     if let completeOrganizationModel = completeOrganizationModel {
-                       result = CoreDataManager.standard.insert(completeOrganizationModel)
+                        result = self.coreDataHelper.insert(completeOrganizationModel)
                     }
                     switch result {
                     case .success(let managedObject): self.organizationBookmarks?.append(managedObject as! Organization)
@@ -78,56 +74,49 @@ class BookmarksManager {
                     }
                 }
             }
-            return nil
         } else {
-            let result = CoreDataManager.standard.insert(model)
+            let result = coreDataHelper.insert(model)
             switch result {
             case let .success(managedObject) where managedObject.self is User: userBookmarks?.append(managedObject as! User)
             case let .success(managedObject) where managedObject.self is Repository: repositoryBookmarks?.append(managedObject as! Repository)
             case let .success(managedObject) where managedObject.self is Organization: organizationBookmarks?.append(managedObject as! Organization)
-            case .failure(let coreDataError): return coreDataError
+            case .failure(let coreDataError): throw coreDataError
             default: break
             }
-            return nil
         }
     }
     
-    func deleteBookmark<Type: Model>(model: Type) -> CoreDataError? {
+    func delete<Type: Model>(model: Type) throws {
         switch Type.self {
         case is UserModel.Type: userBookmarks?.removeAll() { return $0.id == model.id }
         case is RepositoryModel.Type: repositoryBookmarks?.removeAll() { return $0.id == model.id }
         case is OrganizationModel.Type: organizationBookmarks?.removeAll() { return $0.id == model.id }
         default: break
         }
-        return CoreDataManager.standard.delete(model)
+        try coreDataHelper.delete(model)
     }
     
-    func clearBookmarks<Type: Model>(for modelType: Type.Type) -> CoreDataError? {
+    func clear<Type: Model>(for modelType: Type.Type) throws {
         switch modelType {
-        case is UserModel.Type: return CoreDataManager.standard.deleteAll(User.self)
-        case is RepositoryModel.Type: return CoreDataManager.standard.deleteAll(Repository.self)
-        case is OrganizationModel.Type: return CoreDataManager.standard.deleteAll(Organization.self)
-        default: return nil
+        case is UserModel.Type: userBookmarks?.removeAll()
+                               try coreDataHelper.deleteAll(User.self)
+        case is RepositoryModel.Type: repositoryBookmarks?.removeAll()
+                                      try coreDataHelper.deleteAll(Repository.self)
+        case is OrganizationModel.Type: organizationBookmarks?.removeAll()
+                                        try coreDataHelper.deleteAll(Organization.self)
+        default: break
         }
     }
     
-    func clearAllBookmarks() -> CoreDataError? {
-        let userError = CoreDataManager.standard.deleteAll(User.self)
-        let repositoryError = CoreDataManager.standard.deleteAll(Repository.self)
-        let organizationError = CoreDataManager.standard.deleteAll(Organization.self)
-        if userError != nil {
-            return userError
-        } else if repositoryError != nil {
-            return repositoryError
-        } else if organizationError != nil {
-            return organizationError
-        }
-        return nil
+    func clearAll() throws {
+        try clear(for: UserModel.self)
+        try clear(for: RepositoryModel.self)
+        try clear(for: OrganizationModel.self)
     }
     
     // MARK: - Read Methods
     
-    func checkBookmark<Type: Model>(model: Type) -> Bool? {
+    func check<Type: Model>(model: Type) -> Bool? {
         switch Type.self {
         case is UserModel.Type: return userBookmarks?.contains() { return $0.id == model.id }
         case is RepositoryModel.Type: return repositoryBookmarks?.contains() { return $0.id == model.id }
@@ -136,15 +125,15 @@ class BookmarksManager {
         }
     }
     
-    func getUserBookmarks() -> [User]? {
+    func getUsers() -> [User]? {
         return userBookmarks
     }
     
-    func getRepositoryBookmarks() -> [Repository]? {
+    func getRepositories() -> [Repository]? {
         return repositoryBookmarks
     }
     
-    func getOrganizationBookmarks() -> [Organization]? {
+    func getOrganizations() -> [Organization]? {
         return organizationBookmarks
     }
     

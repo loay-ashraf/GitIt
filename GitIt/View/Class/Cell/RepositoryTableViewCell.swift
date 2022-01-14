@@ -11,6 +11,16 @@ class RepositoryTableViewCell: UITableViewCell, IBTableViewCell {
 
     static let reuseIdentifier = "RepositoryTableViewCell"
     static var nib: UINib { return UINib(nibName: "RepositoryTableViewCell", bundle: nil) }
+    let bundleHelper = DataManager.standard.bundleHelper
+    var languageColors: [String:String]? {
+        get {
+            if let languageColors = try? bundleHelper.loadResource(title: "LanguageColors", withExtension: "json").get() {
+                let dict = try? JSONSerialization.jsonObject(with: languageColors, options: [])
+                return dict as? [String:String]
+            }
+           return nil
+        }
+    }
     
     @IBOutlet weak var ownerTextView: IconicTextView!
     @IBOutlet weak var nameLabel: UILabel!
@@ -43,8 +53,8 @@ class RepositoryTableViewCell: UITableViewCell, IBTableViewCell {
         }
         starsNumericView.numbers = [ Double(repository.stars) ]
         languageTextView.text = repository.language
-        if let language = repository.language {
-            if let colorString = LibraryManager.standard.languageColors[language] {
+        if let language = repository.language, let languageColors = languageColors {
+            if let colorString = languageColors[language] {
                 let color = UIColor(hex: colorString)
                 languageTextView.iconTintColor = color
             } else {

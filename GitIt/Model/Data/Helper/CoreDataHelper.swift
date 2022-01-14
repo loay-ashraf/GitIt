@@ -1,5 +1,5 @@
 //
-//  CoreDataManager.swift
+//  CoreDataHelper.swift
 //  GitIt
 //
 //  Created by Loay Ashraf on 20/10/2021.
@@ -8,42 +8,36 @@
 import Foundation
 import CoreData
 
-class CoreDataManager {
-    
-    static let standard = CoreDataManager()
-    
-    var viewContext: NSManagedObjectContext { return persistentContainer.viewContext }
+class CoreDataHelper {
     
     private var persistentContainer: NSPersistentContainer!
-    
-    private init() {}
+    private var viewContext: NSManagedObjectContext { return persistentContainer.viewContext }
     
     // MARK: - Main Methods
     
-    func configure() {
+    func configureContexts() {
         viewContext.automaticallyMergesChangesFromParent = true
         viewContext.mergePolicy = NSMergePolicy.overwrite
     }
     
-    func save() -> CoreDataError? {
+    func saveContexts() throws {
         if viewContext.hasChanges {
             do {
                 try viewContext.save()
             } catch {
-                return .saving(error)
+                throw CoreDataError.saving(error)
             }
         }
-        return nil
     }
     
-    func load(completionHandler: ((CoreDataError?) -> Void)? = nil) {
+    func setup(completionHandler: ((CoreDataError?) -> Void)? = nil) {
         persistentContainer = NSPersistentContainer(name: "GitIt")
         persistentContainer.loadPersistentStores { storeDescription, error in
             guard error == nil else {
                 completionHandler?(.loading(error!))
                 return
             }
-            self.configure()
+            self.configureContexts()
             completionHandler?(nil)
         }
     }
@@ -58,48 +52,42 @@ class CoreDataManager {
         case is OrganizationModel.Type: newManagedObject = Organization(from: model as! OrganizationModel, in: viewContext)
         default: break
         }
-        if let error = save() {
-            return .failure(error)
-        }
         return .success(newManagedObject)
     }
     
-    func delete<Type: Model>(_ model: Type) -> CoreDataError? {
+    func delete<Type: Model>(_ model: Type) throws {
         let fetchRequest = composeRequest(model)
         do {
             let results = try viewContext.fetch(fetchRequest)
             for object in results {
                 viewContext.delete(object as! NSManagedObject)
             }
-            return save()
         } catch {
-            return .deleting(error)
+            throw CoreDataError.deleting(error)
         }
     }
     
-    func delete<Entity: NSManagedObject>(_ object: Entity) -> CoreDataError? {
+    func delete<Entity: NSManagedObject>(_ object: Entity) throws {
         let fetchRequest = composeRequest(object)
         do {
             let results = try viewContext.fetch(fetchRequest)
             for object in results {
                 viewContext.delete(object as! NSManagedObject)
             }
-            return save()
         } catch {
-            return .deleting(error)
+            throw CoreDataError.deleting(error)
         }
     }
     
-    func deleteAll<Entity: NSManagedObject>(_ entity: Entity.Type) -> CoreDataError? {
+    func deleteAll<Entity: NSManagedObject>(_ entity: Entity.Type) throws {
         let fetchRequest = composeRequest(entity)
         do {
             let results = try viewContext.fetch(fetchRequest)
             for object in results {
                 viewContext.delete(object as! NSManagedObject)
             }
-            return save()
-        } catch let error {
-            return .deleting(error)
+        } catch {
+            throw CoreDataError.deleting(error)
         }
     }
     
@@ -144,9 +132,19 @@ class CoreDataManager {
         }
     }
     
+    // MARK: Clear Methods
+    
+    func clear() throws {
+        let storeCoordinator = persistentContainer.persistentStoreCoordinator
+        // Delete each existing persistent store
+        for store in storeCoordinator.persistentStores {
+            try storeCoordinator.destroyPersistentStore( at: store.url!, ofType: store.type, options: nil)
+        }
+    }
+    
 }
 
-extension CoreDataManager {
+extension CoreDataHelper {
     
     // MARK: - Fetch Request Helper Methods
     

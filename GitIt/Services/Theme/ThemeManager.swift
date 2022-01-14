@@ -10,6 +10,7 @@ import UIKit
 class ThemeManager: NSObject {
     
     static let standard = ThemeManager()
+    let userDefaultsHelper = DataManager.standard.userDefaultsHelper
     
     // MARK: - Initialisation
     
@@ -18,13 +19,13 @@ class ThemeManager: NSObject {
     }
     
     deinit {
-        UserDefaults.standard.removeObserver(self, forKeyPath: "theme", context: nil)
+        userDefaultsHelper.removeValueObserver(observer: self, for: "theme")
     }
     
     // MARK: - Setup Methods
     
     func setup() {
-        UserDefaults.standard.addObserver(self, forKeyPath: "theme", options: [.new], context: nil)
+        userDefaultsHelper.addValueObserver(observer: self, for: "theme", options: [.new])
     }
     
     // MARK: - Observer Methods
@@ -50,15 +51,12 @@ class ThemeManager: NSObject {
     
     func applyPreferedTheme() {
         if let window = UIApplication.shared.windows.filter({$0.isKeyWindow}).first {
-            do {
-                let theme = try LibraryManager.standard.getTheme().get()
+            if let value = try? userDefaultsHelper.getValue(for: "theme").get() as? String, let theme = Theme(rawValue: value) {
                 switch theme {
                 case .followSystem: window.overrideUserInterfaceStyle = .unspecified
                 case .light: window.overrideUserInterfaceStyle = .light
                 case .dark: window.overrideUserInterfaceStyle = .dark
                 }
-            } catch {
-                
             }
         }
     }

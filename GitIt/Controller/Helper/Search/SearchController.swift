@@ -34,7 +34,7 @@ class SearchController<Type: Model>: UISearchController, UISearchControllerDeleg
         delegate = self
         searchBar.delegate = self
         obscuresBackgroundDuringPresentation = true
-        searchBar.placeholder = SearchContext(from: Type.self)?.barPlacholder
+        searchBar.placeholder = SearchContext(from: Type.self)?.barPlaceholder
         searchBar.autocapitalizationType = .none
         obscuresBackgroundDuringPresentation = false
         showsSearchResultsController = true

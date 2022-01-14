@@ -12,6 +12,8 @@ var subViewsOffsetSize: SubviewsOffsetSize!
 
 struct Constants {
     
+    // MARK: - Model Constants
+    
     struct Model {
        
         static func modelToCellType<Type: GitIt.Model>(type: Type.Type) -> IBTableViewCell.Type? {
@@ -48,7 +50,7 @@ struct Constants {
             let actionProvider: UIContextMenuActionProvider = { actions -> UIMenu? in
                 var bookmark: UIAction! = nil
                 var share: UIAction! = nil
-                let fetchResult = BookmarksManager.standard.checkBookmark(model: model)
+                let fetchResult = BookmarksManager.standard.check(model: model)
                 switch fetchResult {
                 case true: bookmark = ContextMenuActions.unbookmark(model).action
                 case false: bookmark = ContextMenuActions.bookmark(model).action
@@ -64,7 +66,7 @@ struct Constants {
             let actionProvider: UIContextMenuActionProvider = { actions -> UIMenu? in
                 var bookmark: UIAction! = nil
                 var share: UIAction! = nil
-                let fetchResult = BookmarksManager.standard.checkBookmark(model: model)
+                let fetchResult = BookmarksManager.standard.check(model: model)
                 switch fetchResult {
                 case true: bookmark = ContextMenuActions.unbookmark(model).action
                 case false: bookmark = ContextMenuActions.bookmark(model).action
@@ -80,7 +82,7 @@ struct Constants {
             let actionProvider: UIContextMenuActionProvider = { actions -> UIMenu? in
                 var bookmark: UIAction! = nil
                 var share: UIAction! = nil
-                let fetchResult = BookmarksManager.standard.checkBookmark(model: model)
+                let fetchResult = BookmarksManager.standard.check(model: model)
                 switch fetchResult {
                 case true: bookmark = ContextMenuActions.unbookmark(model).action
                 case false: bookmark = ContextMenuActions.bookmark(model).action
@@ -101,9 +103,31 @@ struct Constants {
             return UIContextMenuConfiguration(identifier: nil, previewProvider: nil, actionProvider: actionProvider)
         }
         
+        struct SearchHistory {
+            
+            static let baseURL = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first?.appendingPathComponent("Search History")
+            static let userURL = baseURL!.appendingPathComponent("UserSearchHistory.json")
+            static let repositoryURL = baseURL!.appendingPathComponent("RepositorySearchHistory.json")
+            static let organizationURL = baseURL!.appendingPathComponent("OrganizationSearchHistory.json")
+            
+        }
+        
+        struct Bookmarks {
+            
+        }
+        
     }
     
-    struct view {
+    // MARK: - Services Constants
+    
+    struct Services {
+        
+        
+    }
+    
+    // MARK: - View Constants
+    
+    struct View {
         
         struct titles {
             
@@ -170,7 +194,7 @@ struct Constants {
             struct unBookmark {
                 
                 static let image = UIImage(systemName: "bookmark.fill")
-                static let title = "Bookmark".localized()
+                static let title = "Unbookmark".localized()
                 
             }
             

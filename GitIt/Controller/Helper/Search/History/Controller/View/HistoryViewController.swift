@@ -112,12 +112,12 @@ class HistoryViewController<Type: Model>: SFViewController {
     // MARK: - View Actions
     
     @IBAction func clearAction(_ sender: UIButton) {
-        let alertTitle = Constants.view.alert.clearSearchHistory.title
-        let alertMessage = Constants.view.alert.clearSearchHistory.message
-        let cancelAction = Constants.view.alert.cancelAction
-        let clearActionTitle = Constants.view.alert.clearSearchHistory.clearActionTitle
+        let alertTitle = Constants.View.alert.clearSearchHistory.title
+        let alertMessage = Constants.View.alert.clearSearchHistory.message
+        let cancelAction = Constants.View.alert.cancelAction
+        let clearActionTitle = Constants.View.alert.clearSearchHistory.clearActionTitle
         let clearAction = UIAlertAction(title: clearActionTitle, style: .destructive) { action in
-        self.logicController.clearHistory()
+        self.logicController.clear()
         self.layoutView()
         }
         AlertHelper.showAlert(title: alertTitle, message: alertMessage, style: .actionSheet, actions: [cancelAction,clearAction])
@@ -148,7 +148,7 @@ class HistoryViewController<Type: Model>: SFViewController {
     
     func reset() {
         navigationController?.popToRootViewController(animated: false)
-        collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .left, animated: true)
+        collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
     }
     
     // MARK: - Load Handler Methods

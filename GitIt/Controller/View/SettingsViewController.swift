@@ -15,26 +15,27 @@ class SettingsViewController: IASKAppSettingsViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         delegate = self
-        navigationItem.title = Constants.view.titles.settings
+        navigationItem.title = Constants.View.titles.settings
     }
     
     // MARK: - View Actions
     
     func clearData(action: UIAlertAction) {
-        let _ = BookmarksManager.standard.clearAllBookmarks()
+        try? DataManager.standard.clearData()
     }
     
     func signOut(action: UIAlertAction) {
         SessionManager.standard.signOut()
+        try? DataManager.standard.clearAllData()
         performSegue(withIdentifier: "unwindToSplash", sender: self)
     }
     
     @IBAction func signOut(_ sender: UIButton) {
-        let alertTitle = Constants.view.alert.signOut.title
-        let alertMessage = Constants.view.alert.signOut.message
-        let signOutActionTitle = Constants.view.alert.signOut.signOutActionTitle
+        let alertTitle = Constants.View.alert.signOut.title
+        let alertMessage = Constants.View.alert.signOut.message
+        let signOutActionTitle = Constants.View.alert.signOut.signOutActionTitle
         let signOutAction = UIAlertAction(title: signOutActionTitle, style: .destructive, handler: signOut(action:))
-        let cancelAction = Constants.view.alert.cancelAction
+        let cancelAction = Constants.View.alert.cancelAction
         AlertHelper.showAlert(title: alertTitle, message: alertMessage, style: .actionSheet, actions: [signOutAction,cancelAction])
     }
     
@@ -53,11 +54,11 @@ extension SettingsViewController: IASKSettingsDelegate {
                 UIApplication.shared.open(appURL)
             }
         } else if specifier.key == "clearButton" {
-            let alertTitle = Constants.view.alert.clearData.title
-            let alertMessage = Constants.view.alert.clearData.message
-            let clearActionTitle = Constants.view.alert.clearData.clearActionTitle
+            let alertTitle = Constants.View.alert.clearData.title
+            let alertMessage = Constants.View.alert.clearData.message
+            let clearActionTitle = Constants.View.alert.clearData.clearActionTitle
             let clearAction = UIAlertAction(title: clearActionTitle, style: .destructive, handler: clearData(action:))
-            let cancelAction = Constants.view.alert.cancelAction
+            let cancelAction = Constants.View.alert.cancelAction
             AlertHelper.showAlert(title: alertTitle, message: alertMessage, style: .actionSheet, actions: [clearAction,cancelAction])
         }
     }

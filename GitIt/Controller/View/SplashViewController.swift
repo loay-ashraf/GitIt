@@ -13,24 +13,27 @@ class SplashViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        CoreDataManager.standard.load()
-        ThemeManager.standard.setup()
+        DataManager.standard.setup() { error in
+            ThemeManager.standard.setup()
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
         ThemeManager.standard.applyPreferedTheme()
-        if BookmarksManager.standard.loadBookmarks() != nil {
-            let okAction = Constants.view.alert.okAction
-            let alertTitle = Constants.view.alert.bookmarksError.title
-            let alertMessage = Constants.view.alert.bookmarksError.message
+        do {
+            try DataManager.standard.loadData()
+        } catch {
+            let okAction = Constants.View.alert.okAction
+            let alertTitle = Constants.View.alert.bookmarksError.title
+            let alertMessage = Constants.View.alert.bookmarksError.message
             AlertHelper.showAlert(title: alertTitle, message: alertMessage, style: .alert, actions: [okAction])
         }
         SessionManager.standard.setup { networkError in
             if networkError != nil {
-                let retryActionTitle = Constants.view.alert.startupError.retryActionTitle
-                let exitActionTitle = Constants.view.alert.startupError.exitActionTitle
-                let alertTitle = Constants.view.alert.startupError.title
-                let alertMessage = Constants.view.alert.startupError.message
+                let retryActionTitle = Constants.View.alert.startupError.retryActionTitle
+                let exitActionTitle = Constants.View.alert.startupError.exitActionTitle
+                let alertTitle = Constants.View.alert.startupError.title
+                let alertMessage = Constants.View.alert.startupError.message
                 let retyAction = UIAlertAction(title: retryActionTitle, style: .default) { action in self.retry() }
                 let exitAction = UIAlertAction(title: exitActionTitle, style: .cancel) { action in self.exit() }
                 AlertHelper.showAlert(title: alertTitle, message: alertMessage, style: .alert, actions: [retyAction,exitAction])
@@ -51,10 +54,10 @@ class SplashViewController: UIViewController {
     private func retry() {
         SessionManager.standard.setup { networkError in
             if networkError != nil {
-                let retryActionTitle = Constants.view.alert.startupError.retryActionTitle
-                let exitActionTitle = Constants.view.alert.startupError.exitActionTitle
-                let alertTitle = Constants.view.alert.startupError.title
-                let alertMessage = Constants.view.alert.startupError.message
+                let retryActionTitle = Constants.View.alert.startupError.retryActionTitle
+                let exitActionTitle = Constants.View.alert.startupError.exitActionTitle
+                let alertTitle = Constants.View.alert.startupError.title
+                let alertMessage = Constants.View.alert.startupError.message
                 let retyAction = UIAlertAction(title: retryActionTitle, style: .default) { action in self.retry() }
                 let exitAction = UIAlertAction(title: exitActionTitle, style: .cancel) { action in self.exit() }
                 AlertHelper.showAlert(title: alertTitle, message: alertMessage, style: .alert, actions: [retyAction,exitAction])

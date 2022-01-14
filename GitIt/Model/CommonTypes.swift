@@ -66,12 +66,12 @@ enum UserContext {
     
     var titleValue: String {
         switch self {
-        case .main: return Constants.view.titles.users.main
-        case .followers: return Constants.view.titles.users.followers
-        case .following: return Constants.view.titles.users.following
-        case .stars: return Constants.view.titles.users.stargazers
-        case .contributors: return Constants.view.titles.users.contributors
-        case .members: return Constants.view.titles.users.members
+        case .main: return Constants.View.titles.users.main
+        case .followers: return Constants.View.titles.users.followers
+        case .following: return Constants.View.titles.users.following
+        case .stars: return Constants.View.titles.users.stargazers
+        case .contributors: return Constants.View.titles.users.contributors
+        case .members: return Constants.View.titles.users.members
         }
     }
     
@@ -93,9 +93,9 @@ enum RepositoryContext {
     
     var titleValue: String {
         switch self {
-        case .forks: return Constants.view.titles.repositories.forks
-        case .starred: return Constants.view.titles.repositories.starred
-        default: return Constants.view.titles.repositories.main
+        case .forks: return Constants.View.titles.repositories.forks
+        case .starred: return Constants.View.titles.repositories.starred
+        default: return Constants.View.titles.repositories.main
         }
     }
     
@@ -113,7 +113,7 @@ enum OrganizationContext {
     
     var titleValue: String {
         switch self {
-        default: return Constants.view.titles.organizations.main
+        default: return Constants.View.titles.organizations.main
         }
     }
     
@@ -184,12 +184,12 @@ enum SearchContext {
     case repositories
     case organizations
     
-    var barPlacholder: String {
+    var barPlaceholder: String {
         switch self {
-        case .general: return Constants.view.searchBar.general
-        case .users: return Constants.view.searchBar.users
-        case .repositories: return Constants.view.searchBar.repositories
-        case .organizations: return Constants.view.searchBar.organizations
+        case .general: return Constants.View.searchBar.general
+        case .users: return Constants.View.searchBar.users
+        case .repositories: return Constants.View.searchBar.repositories
+        case .organizations: return Constants.View.searchBar.organizations
         }
     }
     
@@ -200,6 +200,23 @@ enum SearchContext {
         case is OrganizationModel.Type: self = .organizations
         default: self = .general
         }
+    }
+    
+}
+
+struct SearchHistory<Type: Model>: Codable {
+    
+    var models: [Type]
+    var keywords: [String]
+    
+    mutating func clear() {
+        models.removeAll()
+        keywords.removeAll()
+    }
+    
+    init() {
+        models = []
+        keywords = []
     }
     
 }
@@ -215,18 +232,18 @@ enum ContextMenuActions<Type: Model> {
         let image: UIImage?
         let handler: UIAction
         switch self {
-        case .bookmark(let model): title = Constants.view.contextMenu.bookmark.title
-                                   image = Constants.view.contextMenu.bookmark.image
+        case .bookmark(let model): title = Constants.View.contextMenu.bookmark.title
+                                   image = Constants.View.contextMenu.bookmark.image
                                     handler = UIAction(title: title, image: image, identifier: nil) { action in
-                                        _ = BookmarksManager.standard.addBookmark(model: model)
+                                    try? BookmarksManager.standard.add(model: model)
                                     }
-        case .unbookmark(let model): title = Constants.view.contextMenu.unBookmark.title
-                                     image = Constants.view.contextMenu.unBookmark.image
+        case .unbookmark(let model): title = Constants.View.contextMenu.unBookmark.title
+                                     image = Constants.View.contextMenu.unBookmark.image
                                      handler = UIAction(title: title, image: image, identifier: nil) { action in
-                                         _ = BookmarksManager.standard.deleteBookmark(model: model)
+                                     try? BookmarksManager.standard.delete(model: model)
                                      }
-        case .share(let model): title = Constants.view.contextMenu.share.title
-                                image = Constants.view.contextMenu.share.image
+        case .share(let model): title = Constants.View.contextMenu.share.title
+                                image = Constants.View.contextMenu.share.image
                                 handler = UIAction(title: title, image: image, identifier: nil) { action in
                                     URLHelper.shareURL(model.htmlURL)
                                 }
@@ -254,27 +271,27 @@ struct ErrorModel {
         let message: String
         if let networkError = error as? NetworkError {
             switch networkError {
-            case .noResponse,.noData: image = Constants.view.error.internet.image
-                                      title = Constants.view.error.internet.title
-                                      message = Constants.view.error.internet.message
+            case .noResponse,.noData: image = Constants.View.error.internet.image
+                                      title = Constants.View.error.internet.title
+                                      message = Constants.View.error.internet.message
             case .client(let clientError): if (clientError as NSError).code == NSURLErrorNotConnectedToInternet {
-                image = Constants.view.error.internet.image
-                title = Constants.view.error.internet.title
-                message = Constants.view.error.internet.message
+                image = Constants.View.error.internet.image
+                title = Constants.View.error.internet.title
+                message = Constants.View.error.internet.message
             } else {
-                image = Constants.view.error.network.image
-                title = Constants.view.error.network.title
-                message = Constants.view.error.network.message
+                image = Constants.View.error.network.image
+                title = Constants.View.error.network.title
+                message = Constants.View.error.network.message
             }
-            case .server,.api,.decoding,.encoding: image = Constants.view.error.network.image
-                                                   title = Constants.view.error.network.title
-                                                   message = Constants.view.error.network.message
+            case .server,.api,.decoding,.encoding: image = Constants.View.error.network.image
+                                                   title = Constants.View.error.network.title
+                                                   message = Constants.View.error.network.message
             }
             self.init(image: image, title: title, message: message)
-        } else if error.self is LibraryError || error.self is CoreDataError {
-            image = Constants.view.error.data.image
-            title = Constants.view.error.data.title
-            message = Constants.view.error.data.message
+        } else if error.self is DataError || error.self is CoreDataError {
+            image = Constants.View.error.data.image
+            title = Constants.View.error.data.title
+            message = Constants.View.error.data.message
             self.init(image: image, title: title, message: message)
         }
         return nil
@@ -308,20 +325,20 @@ enum EmptyContext {
         let image: UIImage?
         let title: String
         switch self {
-        case .user: image = Constants.view.empty.users.image
-                    title = Constants.view.empty.users.title
-        case .repository: image = Constants.view.empty.repositories.image
-                          title = Constants.view.empty.repositories.title
-        case .organization: image = Constants.view.empty.organizations.image
-                            title = Constants.view.empty.organizations.title
-        case .commit: image = Constants.view.empty.commits.image
-                      title = Constants.view.empty.commits.title
-        case .searchHistory: image = Constants.view.empty.searchHistory.image
-                             title = Constants.view.empty.searchHistory.title
-        case .searchResults: image = Constants.view.empty.searchResults.image
-                             title = Constants.view.empty.searchHistory.title
-        case .bookmarks: image = Constants.view.empty.bookmarks.image
-                         title = Constants.view.empty.bookmarks.title
+        case .user: image = Constants.View.empty.users.image
+                    title = Constants.View.empty.users.title
+        case .repository: image = Constants.View.empty.repositories.image
+                          title = Constants.View.empty.repositories.title
+        case .organization: image = Constants.View.empty.organizations.image
+                            title = Constants.View.empty.organizations.title
+        case .commit: image = Constants.View.empty.commits.image
+                      title = Constants.View.empty.commits.title
+        case .searchHistory: image = Constants.View.empty.searchHistory.image
+                             title = Constants.View.empty.searchHistory.title
+        case .searchResults: image = Constants.View.empty.searchResults.image
+                             title = Constants.View.empty.searchHistory.title
+        case .bookmarks: image = Constants.View.empty.bookmarks.image
+                         title = Constants.View.empty.bookmarks.title
         }
         let model = EmptyModel(image: image, title: title)
         return model

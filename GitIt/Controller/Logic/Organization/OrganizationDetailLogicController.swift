@@ -40,24 +40,23 @@ class OrganizationDetailLogicController {
     func bookmark(then handler: @escaping BookmarkActionHandler) {
         defer { handler(isBookmarked) }
         if !isBookmarked {
-            guard BookmarksManager.standard.addBookmark(model: model) != nil else {
+            if let _ = try? BookmarksManager.standard.add(model: model) {
                 isBookmarked = true
-                return
             }
         } else {
-            guard BookmarksManager.standard.deleteBookmark(model: model) != nil else {
+            if let _ = try? BookmarksManager.standard.delete(model: model) {
                 isBookmarked = false
-                return
             }
         }
     }
     
     func checkIfBookmarked(then handler: @escaping ErrorHandler, then bookmarkHandler: @escaping BookmarkActionHandler) {
-        let fetchResult = CoreDataManager.standard.exists(self.model)
+        let fetchResult = BookmarksManager.standard.check(model: self.model)
         switch fetchResult {
-        case .success(let exists): self.isBookmarked = exists
+        case true: self.isBookmarked = true
                                    bookmarkHandler(self.isBookmarked)
-        case .failure(_): self.isBookmarked = false
+        case false: self.isBookmarked = false
+        default: break
         }
         handler(nil)
     }

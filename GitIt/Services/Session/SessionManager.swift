@@ -10,6 +10,7 @@ import Foundation
 class SessionManager {
     
     static let standard = SessionManager()
+    let userDefaultsHelper = DataManager.standard.userDefaultsHelper
     
     var sessionType: SessionType!
     var sessionUser: UserModel!
@@ -72,15 +73,14 @@ class SessionManager {
     
     private func setSessionType(sessionType: SessionType) {
         self.sessionType = sessionType
-        LibraryManager.standard.setSessionType(sessionType: sessionType)
+        userDefaultsHelper.sessionTypeKey = sessionType //userDefaultsHelper.setValue(value: sessionType.rawValue, for: "session-type")
     }
     
     private func getSessionType() {
-        let sessionTypeResult = LibraryManager.standard.getSessionType()
-        switch sessionTypeResult {
-        case .success(let sessionType): self.sessionType = sessionType
-        case .failure(LibraryError.userDefaults): setSessionAttributes(sessionType: .signedOut, accessToken: nil)
-        default: return
+        if let sessionType = userDefaultsHelper.sessionTypeKey {
+            self.sessionType = sessionType
+        } else {
+            setSessionAttributes(sessionType: .signedOut, accessToken: nil)
         }
     }
     

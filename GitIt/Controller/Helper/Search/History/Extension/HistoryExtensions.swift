@@ -33,11 +33,11 @@ extension HistoryViewController: HistoryCollectionDelegate {
     var models: List<Any> { return List<Any>(with: logicController.history.models) }
     
     func add(model: Any) {
-        logicController.addToHistory(model: model as! Type)
+        logicController.add(model: model as! Type)
     }
     
     func delete(model: Any) {
-        logicController.deleteFromHistory(model: model as! Type)
+        logicController.delete(model: model as! Type)
     }
     
     func didUpdateCollection() {
@@ -53,12 +53,12 @@ extension HistoryViewController: HistoryTableDelegate {
     var keywords: List<String> { return List<String>(with: logicController.history.keywords) }
     
     func add(keyWord: String) {
-        logicController.addToHistory(keyWord: keyWord)
+        logicController.add(keyword: keyWord)
         delegate.historySearch(with: keyWord)
     }
     
     func delete(keyWord: String) {
-        logicController.deleteFromHistory(keyWord: keyWord)
+        logicController.delete(keyword: keyWord)
     }
     
     func didUpdateTable() {

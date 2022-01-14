@@ -227,19 +227,19 @@ extension UserDetailViewController {
     
     private func updateFollowButton(isFollowed: Bool) {
         if isFollowed {
-            followButton.setTitle(Constants.view.button.follow.followedTitle, for: .normal)
-            followButton.setImage(Constants.view.button.follow.followedImage, for: .normal)
+            followButton.setTitle(Constants.View.button.follow.followedTitle, for: .normal)
+            followButton.setImage(Constants.View.button.follow.followedImage, for: .normal)
         } else {
-            followButton.setTitle(Constants.view.button.follow.defaultTitle, for: .normal)
-            followButton.setImage(Constants.view.button.follow.defaultImage, for: .normal)
+            followButton.setTitle(Constants.View.button.follow.defaultTitle, for: .normal)
+            followButton.setImage(Constants.View.button.follow.defaultImage, for: .normal)
         }
     }
     
     private func updateBookmarkButton(isBookmarked: Bool) {
         if isBookmarked {
-            bookmarkButton.image = Constants.view.button.bookmark.bookmarkedImage
+            bookmarkButton.image = Constants.View.button.bookmark.bookmarkedImage
         } else {
-            bookmarkButton.image = Constants.view.button.bookmark.defaultImage
+            bookmarkButton.image = Constants.View.button.bookmark.defaultImage
         }
     }
     

@@ -62,14 +62,12 @@ class UserDetailLogicController {
     func bookmark(then handler: @escaping BookmarkActionHandler) {
         defer { handler(isBookmarked) }
         if !isBookmarked {
-            guard BookmarksManager.standard.addBookmark(model: model) != nil else {
+            if let _ = try? BookmarksManager.standard.add(model: model) {
                 isBookmarked = true
-                return
             }
         } else {
-            guard BookmarksManager.standard.deleteBookmark(model: model) != nil else {
+            if let _ = try? BookmarksManager.standard.delete(model: model) {
                 isBookmarked = false
-                return
             }
         }
     }
@@ -77,11 +75,12 @@ class UserDetailLogicController {
     func checkIfFollowedOrBookmarked(then handler: @escaping ErrorHandler, then followHandler: @escaping FollowActionHandler, then bookmarkHandler: @escaping BookmarkActionHandler) {
         NetworkClient.standard.checkAuthenticatedUserIsFollowing(userLogin: model.login) { error in
             defer { handler(nil) }
-            let fetchResult = CoreDataManager.standard.exists(self.model)
+            let fetchResult = BookmarksManager.standard.check(model: self.model)
             switch fetchResult {
-            case .success(let exists): self.isBookmarked = exists
+            case true: self.isBookmarked = true
                                        bookmarkHandler(self.isBookmarked)
-            case .failure(_): self.isBookmarked = false
+            case false: self.isBookmarked = false
+            default: break
             }
             guard error != nil else {
                 self.isFollowed = true
