@@ -16,16 +16,23 @@ class ResultsViewController<Type: Model>: SFDynamicTableViewController<Type> {
     
     // MARK: - Initialisation
     
-    init(_ delegate: ResultsDelegate) {
+    required init?(coder: NSCoder, delegate: ResultsDelegate) {
         let cellType = Constants.Model.modelToCellType(type: Type.self)
         let detailViewControllerType = Constants.Model.modelToDetailViewControllerType(type: Type.self)
-        super.init(cellType: cellType!, detailViewControllerType: detailViewControllerType!)
+        super.init(coder: coder, cellType: cellType!, detailViewControllerType: detailViewControllerType!)
         self.delegate = delegate
-        self.logicController = ResultsLogicController()
+        logicController = ResultsLogicController()
     }
     
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: coder)
+    }
+    
+    static func instatiateFromStoryboard(with delegate: ResultsDelegate) -> ResultsViewController<Type> {
+        let storyBoard = UIStoryboard(name: "Search", bundle: nil)
+        return storyBoard.instantiateViewController(identifier: "ResultsVC", creator: {coder -> ResultsViewController<Type> in
+                        self.init(coder: coder, delegate: delegate)!
+                })
     }
     
     deinit {
@@ -50,7 +57,6 @@ class ResultsViewController<Type: Model>: SFDynamicTableViewController<Type> {
     }
     
     override func reset() {
-        navigationController?.popToRootViewController(animated: false)
         logicController.reset()
         updateView()
     }

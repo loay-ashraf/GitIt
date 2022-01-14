@@ -14,8 +14,19 @@ extension SearchCoordinator {
     func render(_ state: SearchUIState) {
         switch state {
         case .searching: showResults()
+                         resetNavigationController()
         case .idle: hideResults()
+                    resetNavigationController()
         }
+    }
+    
+    func resetNavigationController() {
+        navigationController.popToRootViewController(animated: false)
+    }
+    
+    func resetControllers() {
+        historyController.reset()
+        resultsController.reset()
     }
     
     func showResults() {

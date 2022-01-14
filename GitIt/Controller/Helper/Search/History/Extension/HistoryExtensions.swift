@@ -12,14 +12,13 @@ extension HistoryViewController {
     // MARK: - Search Coordinator Outlet Methods
     
     func addModel(with model: Any) {
-        add(model: model)
+        logicController.add(model: model as! Type)
         collectionViewController.updateView()
         layoutView()
     }
     
     func addKeyword(with keyword: String) {
-        navigationController?.popToRootViewController(animated: false)
-        add(keyWord: keyword)
+        logicController.add(keyword: keyword)
         tableViewController.updateView()
         layoutView()
     }

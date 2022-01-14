@@ -193,6 +193,34 @@
             </objects>
             <point key="canvasLocation" x="5843" y="-897"/>
         </scene>
+        <!--Results View Controller-->
+        <scene sceneID="lS0-hy-Slx">
+            <objects>
+                <tableViewController storyboardIdentifier="ResultsVC" id="T7K-h3-4cx" customClass="ResultsViewController" customModule="GitIt" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="gW5-Qp-XI5" customClass="SFDynamicTableView" customModule="GitIt" customModuleProvider="target">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" name="Background Color"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="DnF-cg-Z5Q">
+                                <rect key="frame" x="0.0" y="44.666666030883789" width="414" height="43.666667938232422"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="DnF-cg-Z5Q" id="TFh-xj-Jgu">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.666667938232422"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="T7K-h3-4cx" id="e87-8W-0GA"/>
+                            <outlet property="delegate" destination="T7K-h3-4cx" id="fhe-nQ-7ZV"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fVb-6n-uiR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="6675" y="-1105"/>
+        </scene>
     </scenes>
     <resources>
         <image name="xmark.circle.fill" catalog="system" width="128" height="121"/>

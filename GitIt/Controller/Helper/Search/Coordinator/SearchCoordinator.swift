@@ -19,12 +19,14 @@ class SearchCoordinator<Type: Model> {
     var resultsController: ResultsViewController<Type>!
     var historyController: HistoryViewController<Type>!
     
+    var navigationController: UINavigationController!
+    
     // MARK: - Initialisation
     
     init(_ parentTableViewController: SFDynamicTableViewController<Type>) {
-        resultsController = ResultsViewController(self)
+        resultsController = ResultsViewController.instatiateFromStoryboard(with:self)
         historyController = HistoryViewController.instatiateFromStoryboard(with: self)
-        let navigationController = UINavigationController(rootViewController: historyController)
+        navigationController = UINavigationController(rootViewController: historyController)
         searchController = SearchController(self, searchResultsController: navigationController)
         parentTableViewController.navigationItem.searchController = searchController
         parentTableViewController.navigationItem.hidesSearchBarWhenScrolling = false
@@ -41,9 +43,8 @@ class SearchCoordinator<Type: Model> {
     func didEndSearchingSession() {
         subViewsOffsetSize = .mainScreenWithSearch
         keyword = ""
-        historyController.reset()
-        resultsController.reset()
         render(.idle)
+        resetControllers()
     }
     
     func willSearch() {
@@ -53,7 +54,6 @@ class SearchCoordinator<Type: Model> {
     }
     
     func didSearch() {
-        resultsController.reset()
         render(.idle)
     }
     

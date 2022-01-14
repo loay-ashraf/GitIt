@@ -137,7 +137,7 @@ class SFDynamicTableViewController<Type>: UITableViewController {
     func paginate() {
         let lastRowIndex = tableView.indexPathsForVisibleRows?.last?.row
         if let lastRowIndex = lastRowIndex {
-            if model.isPaginable, lastRowIndex + 1 == model.items.count {
+            if model.isPaginable, lastRowIndex + 1 == model.count {
                 switch self.xTableView.state {
                 case .loading, .failed: return
                 default: load(with: .paginate)
@@ -240,7 +240,7 @@ class SFDynamicTableViewController<Type>: UITableViewController {
     // MARK: - Scroll View Delegate
     
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        paginate()
+        if model.count > 0 { paginate() }
     }
     
 }

@@ -21,7 +21,7 @@
 		C635C00B2731AF7600ADA247 /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C635C00A2731AF7600ADA247 /* KeychainManager.swift */; };
 		C63EEC94278D437F009C842A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = C63EEC96278D437F009C842A /* Localizable.strings */; };
 		C63EEC9A278D44AD009C842A /* FoundationExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C63EEC99278D44AD009C842A /* FoundationExtensions.swift */; };
-		C63EEC9B278D6B59009C842A /* SearchHistory.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C63EEC9D278D6B59009C842A /* SearchHistory.storyboard */; };
+		C63EEC9B278D6B59009C842A /* Search.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C63EEC9D278D6B59009C842A /* Search.storyboard */; };
 		C645FCF0278BDF2C006719E2 /* InAppSettings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = C645FCEF278BDF2C006719E2 /* InAppSettings.bundle */; };
 		C64F6F082736DCF900E2E727 /* UserLogicController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C64F6F072736DCF900E2E727 /* UserLogicController.swift */; };
 		C64F6F0A2736F33700E2E727 /* ReachabilityHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C64F6F092736F33700E2E727 /* ReachabilityHelper.swift */; };
@@ -157,8 +157,8 @@
 		C63EEC95278D437F009C842A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		C63EEC97278D4381009C842A /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Localizable.strings; sourceTree = "<group>"; };
 		C63EEC99278D44AD009C842A /* FoundationExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoundationExtensions.swift; sourceTree = "<group>"; };
-		C63EEC9C278D6B59009C842A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/SearchHistory.storyboard; sourceTree = "<group>"; };
-		C63EEC9F278D6B64009C842A /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/SearchHistory.strings; sourceTree = "<group>"; };
+		C63EEC9C278D6B59009C842A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Search.storyboard; sourceTree = "<group>"; };
+		C63EEC9F278D6B64009C842A /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Search.strings; sourceTree = "<group>"; };
 		C645FCEF278BDF2C006719E2 /* InAppSettings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = InAppSettings.bundle; sourceTree = "<group>"; };
 		C64F6F072736DCF900E2E727 /* UserLogicController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLogicController.swift; sourceTree = "<group>"; };
 		C64F6F092736F33700E2E727 /* ReachabilityHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReachabilityHelper.swift; sourceTree = "<group>"; };
@@ -323,9 +323,9 @@
 		C6110ADF2754FEC60078D7E8 /* Storyboard */ = {
 			isa = PBXGroup;
 			children = (
-				C68B64F0271DD34B00A26D05 /* Main.storyboard */,
 				C68B64F8271DD34C00A26D05 /* LaunchScreen.storyboard */,
-				C63EEC9D278D6B59009C842A /* SearchHistory.storyboard */,
+				C68B64F0271DD34B00A26D05 /* Main.storyboard */,
+				C63EEC9D278D6B59009C842A /* Search.storyboard */,
 			);
 			path = Storyboard;
 			sourceTree = "<group>";
@@ -1010,7 +1010,7 @@
 				C6B26AF42768C76600ED41F8 /* CommitTableViewCell.xib in Resources */,
 				C6110AED275522F70078D7E8 /* LanguageColors.json in Resources */,
 				C67AB9922789E01E00D7E084 /* IconicNumericView.xib in Resources */,
-				C63EEC9B278D6B59009C842A /* SearchHistory.storyboard in Resources */,
+				C63EEC9B278D6B59009C842A /* Search.storyboard in Resources */,
 				C66412472780859A00D605BF /* EmptyView.xib in Resources */,
 				C659EE6A27762061001C1E5D /* FooterActivityIndicatorView.xib in Resources */,
 				C645FCF0278BDF2C006719E2 /* InAppSettings.bundle in Resources */,
@@ -1196,13 +1196,13 @@
 			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
-		C63EEC9D278D6B59009C842A /* SearchHistory.storyboard */ = {
+		C63EEC9D278D6B59009C842A /* Search.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				C63EEC9C278D6B59009C842A /* Base */,
 				C63EEC9F278D6B64009C842A /* ar */,
 			);
-			name = SearchHistory.storyboard;
+			name = Search.storyboard;
 			sourceTree = "<group>";
 		};
 		C662EE97278F071F005545DB /* ErrorView.xib */ = {

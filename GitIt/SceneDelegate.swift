@@ -32,12 +32,18 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     @available(iOS 13.0, *)
     func sceneWillResignActive(_ scene: UIScene) {
+        try? DataManager.standard.saveData()
     }
 
     @available(iOS 13.0, *)
     func sceneWillEnterForeground(_ scene: UIScene) {
         // Called as the scene transitions from the background to the foreground.
         // Use this method to undo the changes made on entering the background.
+    }
+    
+    @available(iOS 13.0, *)
+    func sceneWillEnterBackground(_ scene: UIScene) {
+        try? DataManager.standard.saveData()
     }
 
     @available(iOS 13.0, *)

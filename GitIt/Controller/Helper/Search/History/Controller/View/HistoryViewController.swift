@@ -39,7 +39,7 @@ class HistoryViewController<Type: Model>: SFViewController {
     }
     
     static func instatiateFromStoryboard(with delegate: HistoryDelegate) -> HistoryViewController<Type> {
-        let storyBoard = UIStoryboard(name: "SearchHistory", bundle: nil)
+        let storyBoard = UIStoryboard(name: "Search", bundle: nil)
         return storyBoard.instantiateViewController(identifier: "HistoryVC", creator: {coder -> HistoryViewController<Type> in
                         self.init(coder: coder, delegate: delegate)!
                 })
@@ -147,7 +147,6 @@ class HistoryViewController<Type: Model>: SFViewController {
     }
     
     func reset() {
-        navigationController?.popToRootViewController(animated: false)
         collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
     }
     
