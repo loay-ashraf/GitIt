@@ -7,6 +7,8 @@
 
 import Foundation
 import UIKit
+import CoreData
+import Network
 
 var subViewsOffsetSize: SubviewsOffsetSize!
 
@@ -129,7 +131,7 @@ struct Constants {
     
     struct View {
         
-        struct titles {
+        struct Titles {
             
             struct users {
                 
@@ -170,7 +172,7 @@ struct Constants {
             
         }
         
-        struct searchBar {
+        struct SearchBar {
             
             // Search bar placeholder strings
             static let general = "Search...".localized()
@@ -180,7 +182,7 @@ struct Constants {
             
         }
         
-        struct contextMenu {
+        struct ContextMenu {
             
             // Bookmark action image and title
             struct bookmark {
@@ -208,67 +210,144 @@ struct Constants {
             
         }
         
-        struct alert {
+        struct Alert {
             
-            struct noInternetError {
+            struct InternetError {
                 
                 static let title = "No Internet".localized()
                 static let message = "You're not conntected to the internet, Can't connect to authentication server.".localized()
                 
+                static func alertController() -> UIAlertController {
+                    let controller = UIAlertController(title: title, message: message, preferredStyle: .alert)
+                    controller.addAction(Constants.View.Alert.okAction)
+                    return controller
+                }
+                
             }
             
-            struct startupError {
+            struct NetworkError {
                 
                 static let title = "Network Error".localized()
-                static let message = "We can't connect to server at time, would you like to rety or exit?".localized()
-                static let retryActionTitle = "Retry".localized()
-                static let exitActionTitle = "Exit".localized()
+                static let message = "We can't connect to server at time, switching to offline mode.".localized()
+                
+                static func alertController() -> UIAlertController {
+                    let controller = UIAlertController(title: title, message: message, preferredStyle: .alert)
+                    controller.addAction(Constants.View.Alert.okAction)
+                    return controller
+                }
                 
             }
             
-            struct bookmarksError {
+            struct DataError {
                 
                 static let title = "Data Error".localized()
-                static let message = "We couldn't load your saved bookmarks, we're working on a fix for the issue.".localized()
+                static let message = "We couldn't load your data, we're working on a fix for the issue.".localized()
+                
+                static func alertController() -> UIAlertController {
+                    let controller = UIAlertController(title: title, message: message, preferredStyle: .alert)
+                    controller.addAction(Constants.View.Alert.okAction)
+                    return controller
+                }
                 
             }
             
-            struct signInError {
+            struct SignInError {
                 
                 static let title = "Sign In Error".localized()
                 static let message = "An error occured while signing you in, please try again later.".localized()
                 
+                static func alertController() -> UIAlertController {
+                    let controller = UIAlertController(title: title, message: message, preferredStyle: .alert)
+                    controller.addAction(Constants.View.Alert.okAction)
+                    return controller
+                }
+                
             }
             
-            struct guestSignIn {
+            struct GuestSignIn {
                 
-                static let title = "Continue As a Guest?".localized()
+                static let title = "Continue as a Guest?".localized()
                 static let message = "If you continue as a guest, features will be limted. Do you want to proceed?".localized()
                 static let continueActionTitle = "Continue".localized()
                 
+                static func alertController(with handler: @escaping () -> Void) -> UIAlertController {
+                    let controller = UIAlertController(title: title, message: message, preferredStyle: .actionSheet)
+                    controller.addAction(Constants.View.Alert.cancelAction)
+                    controller.addAction(UIAlertAction(title: continueActionTitle, style: .default) { action in
+                        handler()
+                    } )
+                    return controller
+                }
+                
             }
             
-            struct clearSearchHistory {
+            struct ClearSearchHistory {
                 
                 static let title = "Clear search history?".localized()
                 static let message = "This can't be undone and you'll remove your search history.".localized()
                 static let clearActionTitle = "Clear History".localized()
                 
+                static func alertController(with handler: @escaping () -> Void) -> UIAlertController {
+                    let controller = UIAlertController(title: title, message: message, preferredStyle: .actionSheet)
+                    controller.addAction(Constants.View.Alert.cancelAction)
+                    controller.addAction(UIAlertAction(title: clearActionTitle, style: .destructive) { action in
+                        SearchHistoryManager.standard.clearActive()
+                        handler()
+                    } )
+                    return controller
+                }
+                
             }
             
-            struct clearData {
+            struct ClearBookmarks {
                 
-                static let title = "Clear Data?".localized()
+                static let title = "Clear bookmarks?".localized()
+                static let message = "This can't be undone and you'll remove your bookmarks.".localized()
+                static let clearActionTitle = "Clear Bookmarks".localized()
+                
+                static func alertController(with handler: @escaping () -> Void) -> UIAlertController {
+                    let controller = UIAlertController(title: title, message: message, preferredStyle: .actionSheet)
+                    controller.addAction(Constants.View.Alert.cancelAction)
+                    controller.addAction(UIAlertAction(title: clearActionTitle, style: .destructive) { action in
+                        try? BookmarksManager.standard.clearActive()
+                        handler()
+                    } )
+                    return controller
+                }
+                
+            }
+            
+            struct ClearData {
+                
+                static let title = "Clear data?".localized()
                 static let message = "You're about to erase your local data, proceed?".localized()
                 static let clearActionTitle = "Clear Data".localized()
                 
+                static func alertController() -> UIAlertController {
+                    let controller = UIAlertController(title: title, message: message, preferredStyle: .actionSheet)
+                    controller.addAction(Constants.View.Alert.cancelAction)
+                    controller.addAction(UIAlertAction(title: clearActionTitle, style: .destructive) { action in
+                        try? DataManager.standard.clearData()
+                    } )
+                    return controller
+                }
+                
             }
             
-            struct signOut {
+            struct SignOut {
                 
                 static let title = "Sign Out?".localized()
                 static let message = "If you sign out all of your data will be erased, continue?".localized()
                 static let signOutActionTitle = "Sign Out".localized()
+                
+                static func alertController(with handler: @escaping () -> Void) -> UIAlertController {
+                    let controller = UIAlertController(title: title, message: message, preferredStyle: .actionSheet)
+                    controller.addAction(Constants.View.Alert.cancelAction)
+                    controller.addAction(UIAlertAction(title: signOutActionTitle, style: .destructive) { action in
+                        handler()
+                    } )
+                    return controller
+                }
                 
             }
             
@@ -277,98 +356,124 @@ struct Constants {
             
         }
         
-        struct error {
+        struct Error {
             
             // Internet error image, title and message
             struct internet {
                 
-                static let image = UIImage(systemName: "wifi.exclamationmark")
-                static let title = "No Internet".localized()
-                static let message = "You're not connected to Internet,\nplease try again later.".localized()
+                static private let image = UIImage(systemName: "wifi.exclamationmark")
+                static private let title = "No Internet".localized()
+                static private let message = "You're not connected to Internet,\nplease try again later.".localized()
+                static let viewModel = ErrorViewModel(image: image, title: title, message: message)
 
             }
             
             // Network error image, title and message
             struct network {
                 
-                static let image = UIImage(systemName: "exclamationmark.icloud")
-                static let title = "Network Error".localized()
-                static let message = "We're working on it,\nWe will be back soon.".localized()
+                static private let image = UIImage(systemName: "exclamationmark.icloud")
+                static private let title = "Network Error".localized()
+                static private let message = "We're working on it,\nWe will be back soon.".localized()
+                static let viewModel = ErrorViewModel(image: image, title: title, message: message)
                 
             }
             
             // Data error image, title and message
             struct data {
                 
-                static let image = UIImage(systemName: "externaldrive.badge.xmark")
-                static let title = "Couldn't Retrieve Data".localized()
-                static let message = "We're working on it,\nWe will be back soon.".localized()
+                static private let image = UIImage(systemName: "externaldrive.badge.xmark")
+                static private let title = "Couldn't Retrieve Data".localized()
+                static private let message = "We're working on it,\nWe will be back soon.".localized()
+                static let viewModel = ErrorViewModel(image: image, title: title, message: message)
                 
             }
             
         }
         
-        struct empty {
+        struct Empty {
+            
+            // General empty image and title
+            struct general {
+                
+                static private let image = UIImage(systemName: "exclamationmark")
+                static private let title = "WoW, such empty".localized()
+                static let viewModel = EmptyViewModel(image: image, title: title)
+                
+            }
             
             // Users empty image and title
             struct users {
                 
-                static let image = UIImage(systemName: "exclamationmark")
-                static let title = "Looks like there's no Users in here.".localized()
+                static private let image = UIImage(systemName: "exclamationmark")
+                static private let title = "There isn't any users.".localized()
+                static let viewModel = EmptyViewModel(image: image, title: title)
                 
             }
             
             // Repositories empty image and title
             struct repositories {
                 
-                static let image = UIImage(systemName: "exclamationmark")
-                static let title = "Looks like there's no Repositories in here.".localized()
+                static private let image = UIImage(systemName: "exclamationmark")
+                static private let title = "There isn't any repositories.".localized()
+                static let viewModel = EmptyViewModel(image: image, title: title)
                 
             }
             
             // Organizations empty image and title
             struct organizations {
                 
-                static let image = UIImage(systemName: "exclamationmark")
-                static let title = "Looks like this User is not a member of any Organization.".localized()
+                static private let image = UIImage(systemName: "exclamationmark")
+                static private let title = "There isn't any organizations.".localized()
+                static let viewModel = EmptyViewModel(image: image, title: title)
                 
             }
             
             // Commits empty image and title
             struct commits {
                 
-                static let image = UIImage(systemName: "exclamationmark")
-                static let title = "Looks like there's no Commits yet for this repository.".localized()
+                static private let image = UIImage(systemName: "exclamationmark")
+                static private let title = "There isn't any commits.".localized()
+                static let viewModel = EmptyViewModel(image: image, title: title)
                 
             }
             
             // Search history empty image and title
             struct searchHistory {
                 
-                static let image = UIImage(systemName: "magnifyingglass")
-                static let title = "No Search history found, try searching first.".localized()
+                static private let image = UIImage(systemName: "magnifyingglass")
+                static private let title = "No Search history found, try searching first.".localized()
+                static let viewModel = EmptyViewModel(image: image, title: title)
                 
             }
             
             // Search results image and title
             struct searchResults {
                 
-                static let image = UIImage(systemName: "magnifyingglass")
-                static let title = "No Search results found, try searching for a different term.".localized()
+                static private let image = UIImage(systemName: "magnifyingglass")
+                static private let title = "No Search results found, try searching for a different term.".localized()
+                static let viewModel = EmptyViewModel(image: image, title: title)
                 
             }
             
             // Bookmarks image and title
             struct bookmarks {
                 
-                static let image = UIImage(systemName: "bookmark.slash")
-                static let title = "No Bookmarks found.".localized()
+                static private let image = UIImage(systemName: "bookmark.slash")
+                static private let title = "No Bookmarks found.".localized()
+                static let viewModel = EmptyViewModel(image: image, title: title)
                 
             }
             
         }
         
-        struct button {
+        struct Label {
+            
+            static let guest = "Signed in as a Guest".localized()
+            static let signIn = "Sign in with your Github account to enable extended features.".localized()
+            
+        }
+        
+        struct Button {
             
             struct follow {
                 
@@ -394,6 +499,12 @@ struct Constants {
                 static let bookmarkedImage = UIImage(systemName: "bookmark.fill")
                 
             }
+            
+        }
+        
+        struct Image {
+            
+            static let guest = UIImage(systemName: "person")
             
         }
         

@@ -54,7 +54,7 @@
 "DEo-gH-m3n.text" = "المنظمات";
 
 /* Class = "UIButton"; normalTitle = "Continue as a guest"; ObjectID = "DdT-J5-wOV"; */
-"DdT-J5-wOV.normalTitle" = "Continue as a guest";
+"DdT-J5-wOV.normalTitle" = "الاستمرار كضيف";
 
 /* Class = "UILabel"; text = "following"; ObjectID = "Ega-dz-XjF"; */
 "Ega-dz-XjF.text" = "following";
@@ -114,7 +114,7 @@
 "Tgi-E9-8xR.text" = "n";
 
 /* Class = "UIButton"; normalTitle = "Sign In With Github"; ObjectID = "VGO-nu-Rrj"; */
-"VGO-nu-Rrj.normalTitle" = "Sign In With Github";
+"VGO-nu-Rrj.normalTitle" = "تسجيل الدخول بإستخدام Github";
 
 /* Class = "UINavigationItem"; title = "إشارات مرجعية"; ObjectID = "VLR-xD-p64"; */
 "VLR-xD-p64.title" = "إشارات مرجعية";
@@ -189,4 +189,4 @@
 "vze-7e-jyO.text" = "المستودعات";
 
 /* Class = "UIButton"; normalTitle = "Sign In"; ObjectID = "wXA-bt-gph"; */
-"wXA-bt-gph.normalTitle" = "Sign In";
+"wXA-bt-gph.normalTitle" = "تسجيل الدخول";

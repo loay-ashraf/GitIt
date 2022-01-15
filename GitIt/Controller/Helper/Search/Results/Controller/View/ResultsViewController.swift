@@ -10,6 +10,7 @@ import UIKit
 class ResultsViewController<Type: Model>: SFDynamicTableViewController<Type> {
     
     override var model: List<Type>! { return logicController.model }
+    override var emptyModel: EmptyViewModel { return Constants.View.Empty.searchResults.viewModel }
     
     private weak var delegate: ResultsDelegate!
     private var logicController: ResultsLogicController<Type>!
@@ -50,9 +51,9 @@ class ResultsViewController<Type: Model>: SFDynamicTableViewController<Type> {
     override func load(with loadingViewState: LoadingViewState) {
         super.load(with: loadingViewState)
         switch loadingViewState {
-        case .initial: logicController.load { [weak self] error, emptyContext in self?.loadHandler(error: error, emptyContext: emptyContext) }
-        case .refresh: logicController.refresh { [weak self] error, emptyContext in self?.refreshHandler(error: error, emptyContext: emptyContext) }
-        case .paginate: logicController.load { [weak self] error, emptyContext in self?.paginateHandler(error: error, emptyContext: emptyContext) }
+        case .initial: logicController.load { [weak self] error in self?.loadHandler(error: error) }
+        case .refresh: logicController.refresh { [weak self] error in self?.refreshHandler(error: error) }
+        case .paginate: logicController.load { [weak self] error in self?.paginateHandler(error: error) }
         }
     }
     

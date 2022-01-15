@@ -48,7 +48,7 @@
                                                             <imageReference key="image" image="xmark.circle.fill" catalog="system" symbolScale="medium"/>
                                                         </state>
                                                         <connections>
-                                                            <action selector="clearAction:" destination="Gvc-BU-OBz" eventType="touchUpInside" id="8Mk-GH-H51"/>
+                                                            <action selector="clearHistory:" destination="Gvc-BU-OBz" eventType="touchUpInside" id="PMN-ys-NER"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>

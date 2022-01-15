@@ -67,9 +67,8 @@ class SFDynamicCollectionView: UICollectionView, StatefulView {
         }
     }
     
-    func showEmpty(for context: EmptyContext) {
-        let emptyModel = context.model
-        emptyView.show(on: self, with: emptyModel)
+    func showEmpty(for model: EmptyViewModel) {
+        emptyView.show(on: self, with: model)
     }
     
     func showActivityIndicator(for loadingViewState: LoadingViewState) {
@@ -89,7 +88,7 @@ class SFDynamicCollectionView: UICollectionView, StatefulView {
     
     func showError(for failedViewState: FailedViewState) {
         switch failedViewState {
-        case .initial(let error),.refresh(let error): errorView.show(on: self, with: ErrorModel(from: error)); self.isScrollEnabled = false
+        case .initial(let error),.refresh(let error): errorView.show(on: self, with: ErrorViewModel(from: error)); self.isScrollEnabled = false
         default: return
         }
     }

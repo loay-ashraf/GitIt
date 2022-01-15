@@ -24,7 +24,7 @@ class UserDetailLogicController {
     
     // MARK: - Business Logic Methods
     
-    func load(then handler: @escaping ErrorHandler, then followHandler: @escaping FollowActionHandler, then bookmarkHandler: @escaping BookmarkActionHandler) {
+    func load(then handler: @escaping LoadingHandler, then followHandler: @escaping FollowActionHandler, then bookmarkHandler: @escaping BookmarkActionHandler) {
         if !model.isComplete {
             NetworkClient.standard.getUser(userLogin: model.login) { result in
                 switch result {
@@ -72,7 +72,7 @@ class UserDetailLogicController {
         }
     }
     
-    func checkIfFollowedOrBookmarked(then handler: @escaping ErrorHandler, then followHandler: @escaping FollowActionHandler, then bookmarkHandler: @escaping BookmarkActionHandler) {
+    func checkIfFollowedOrBookmarked(then handler: @escaping LoadingHandler, then followHandler: @escaping FollowActionHandler, then bookmarkHandler: @escaping BookmarkActionHandler) {
         NetworkClient.standard.checkAuthenticatedUserIsFollowing(userLogin: model.login) { error in
             defer { handler(nil) }
             let fetchResult = BookmarksManager.standard.check(model: self.model)

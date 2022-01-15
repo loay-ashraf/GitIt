@@ -22,7 +22,7 @@ class OrganizationDetailLogicController {
     
     // MARK: - Business Logic Methods
     
-    func load(then handler: @escaping ErrorHandler, then bookmarkHandler: @escaping BookmarkActionHandler) {
+    func load(then handler: @escaping LoadingHandler, then bookmarkHandler: @escaping BookmarkActionHandler) {
         if !model.isComplete {
             NetworkClient.standard.getOrganization(organizationLogin: model.login) { result in
                 switch result {
@@ -50,7 +50,7 @@ class OrganizationDetailLogicController {
         }
     }
     
-    func checkIfBookmarked(then handler: @escaping ErrorHandler, then bookmarkHandler: @escaping BookmarkActionHandler) {
+    func checkIfBookmarked(then handler: @escaping LoadingHandler, then bookmarkHandler: @escaping BookmarkActionHandler) {
         let fetchResult = BookmarksManager.standard.check(model: self.model)
         switch fetchResult {
         case true: self.isBookmarked = true

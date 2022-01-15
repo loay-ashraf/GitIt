@@ -26,10 +26,7 @@ class SignInViewController: UIViewController {
         if NetworkManager.standard.isInternetConnected {
             authenticate()
         } else {
-            let alertTitle = Constants.View.alert.noInternetError.title
-            let alertMessage = Constants.View.alert.noInternetError.message
-            let okAction = Constants.View.alert.okAction
-            AlertHelper.showAlert(title: alertTitle, message: alertMessage, style: .alert, actions: [okAction])
+            AlertHelper.showAlert(alert: .internetError)
         }
     }
     
@@ -55,10 +52,7 @@ extension SignInViewController: ASWebAuthenticationPresentationContextProviding 
                     // re-setup authentication session
                     self?.setupAuthentication()
                 } else {
-                    let alertTitle = Constants.View.alert.signInError.title
-                    let alertMessage = Constants.View.alert.signInError.message
-                    let okAction = Constants.View.alert.okAction
-                    AlertHelper.showAlert(title: alertTitle, message: alertMessage, style: .alert, actions: [okAction])
+                    AlertHelper.showAlert(alert: .signInError)
                 }
             } else {
                 guard callbackURL != nil else { return }
@@ -73,18 +67,17 @@ extension SignInViewController: ASWebAuthenticationPresentationContextProviding 
         session.start()
     }
     
+    private func guestPrompt() {
+        AlertHelper.showAlert(alert: .guestSignIn({ [weak self] in
+            self?.setupGuest()
+        }))
+    }
+    
     private func setupGuest() {
         SessionManager.standard.signIn(url: nil)
         performSegue(withIdentifier: "unwindToSplash", sender: self)
     }
     
-    private func guestPrompt() {
-        let alertTitle = Constants.View.alert.guestSignIn.title
-        let alertMessage = Constants.View.alert.guestSignIn.message
-        let continueActionTitle = Constants.View.alert.guestSignIn.continueActionTitle
-        let continueAction = UIAlertAction(title: continueActionTitle, style: .default) { action in self.setupGuest() }
-        let cancelAction = Constants.View.alert.cancelAction
-        AlertHelper.showAlert(title: alertTitle, message: alertMessage, style: .actionSheet, actions: [continueAction,cancelAction])
-    }
-    
 }
+
+

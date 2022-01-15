@@ -56,6 +56,7 @@
 		C6603402277CE69400907494 /* IBCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6603401277CE69400907494 /* IBCollectionViewCell.swift */; };
 		C6603404277CE86700907494 /* SFDynamicCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6603403277CE86700907494 /* SFDynamicCollectionView.swift */; };
 		C6603406277CEA9B00907494 /* SFDynamicCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6603405277CEA9B00907494 /* SFDynamicCollectionViewController.swift */; };
+		C662BE23279361690018845C /* AdaptableSizeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C662BE22279361690018845C /* AdaptableSizeButton.swift */; };
 		C662EE95278F071F005545DB /* ErrorView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C662EE97278F071F005545DB /* ErrorView.xib */; };
 		C66412312780789500D605BF /* HistoryLogicController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66412302780789500D605BF /* HistoryLogicController.swift */; };
 		C66412352780790E00D605BF /* HistoryDelegates.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66412342780790E00D605BF /* HistoryDelegates.swift */; };
@@ -193,6 +194,7 @@
 		C6603401277CE69400907494 /* IBCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IBCollectionViewCell.swift; sourceTree = "<group>"; };
 		C6603403277CE86700907494 /* SFDynamicCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFDynamicCollectionView.swift; sourceTree = "<group>"; };
 		C6603405277CEA9B00907494 /* SFDynamicCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFDynamicCollectionViewController.swift; sourceTree = "<group>"; };
+		C662BE22279361690018845C /* AdaptableSizeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdaptableSizeButton.swift; sourceTree = "<group>"; };
 		C662EE96278F071F005545DB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/ErrorView.xib; sourceTree = "<group>"; };
 		C662EE9B278F0725005545DB /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/ErrorView.strings; sourceTree = "<group>"; };
 		C66412302780789500D605BF /* HistoryLogicController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryLogicController.swift; sourceTree = "<group>"; };
@@ -782,6 +784,7 @@
 				C6A7F86D274CE0E000622E76 /* HistoryHeaderView.swift */,
 				C67AB9932789E30200D7E084 /* IconicNumericView.swift */,
 				C6B3EB3D278AD96200CBEA48 /* IconicTextView.swift */,
+				C662BE22279361690018845C /* AdaptableSizeButton.swift */,
 			);
 			path = Class;
 			sourceTree = "<group>";
@@ -1103,6 +1106,7 @@
 				C68B64EB271DD34B00A26D05 /* AppDelegate.swift in Sources */,
 				C6B26AE72768B42700ED41F8 /* CommitViewController.swift in Sources */,
 				C64FE5A6277B4646002E5FC0 /* SFStaticTableViewController.swift in Sources */,
+				C662BE23279361690018845C /* AdaptableSizeButton.swift in Sources */,
 				C66412352780790E00D605BF /* HistoryDelegates.swift in Sources */,
 				C696BFE92725E49E0078FBF4 /* UserTableViewCell.swift in Sources */,
 				C68B650A271E148B00A26D05 /* UserDetailViewController.swift in Sources */,

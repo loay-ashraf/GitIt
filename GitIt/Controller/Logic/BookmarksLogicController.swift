@@ -10,6 +10,7 @@ import Foundation
 class BookmarksLogicController {
     
     var model = [Any]()
+    var bookmarksManager = BookmarksManager.standard
     
     private var modelType: Any.Type?
     
@@ -24,45 +25,39 @@ class BookmarksLogicController {
     
     func setModelType<Type: Model>(modelType: Type.Type) {
         self.modelType = modelType
+        let bookmarksContext = BookmarksContext(from: modelType)
+        bookmarksManager.activeBookmarksContext = bookmarksContext
     }
     
     private func loadUser(then handler: LoadingHandler) {
         let userBookmarks = BookmarksManager.standard.getUsers()!
         model.removeAll()
-        if userBookmarks.isEmpty {
-            handler(nil,.bookmarks)
-        } else {
-            for bookmark in userBookmarks {
-                model.append(UserModel(from: bookmark))
-            }
-            handler(nil,nil)
+        for bookmark in userBookmarks {
+            model.append(UserModel(from: bookmark))
         }
+        handler(nil)
     }
     
     private func loadRepository(then handler: LoadingHandler) {
         let repositoryBookmarks = BookmarksManager.standard.getRepositories()!
         model.removeAll()
-        if repositoryBookmarks.isEmpty {
-            handler(nil,.bookmarks)
-        } else {
-            for bookmark in repositoryBookmarks {
-                model.append(RepositoryModel(from: bookmark))
-            }
-            handler(nil,nil)
+        for bookmark in repositoryBookmarks {
+            model.append(RepositoryModel(from: bookmark))
         }
+        handler(nil)
     }
     
     private func loadOrganization(then handler: LoadingHandler) {
         let organizationBookmarks = BookmarksManager.standard.getOrganizations()!
         model.removeAll()
-        if organizationBookmarks.isEmpty {
-            handler(nil,.bookmarks)
-        } else {
-            for bookmark in organizationBookmarks {
-                model.append(OrganizationModel(from: bookmark))
-            }
-            handler(nil,nil)
+        for bookmark in organizationBookmarks {
+            model.append(OrganizationModel(from: bookmark))
         }
+        handler(nil)
+    }
+    
+    func clear() {
+        model.removeAll()
     }
     
 }

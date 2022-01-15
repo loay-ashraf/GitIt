@@ -111,8 +111,8 @@ class LicenseViewController: UIViewController, IBViewController {
     
     internal func showError(with failedViewState: FailedViewState) {
         switch failedViewState {
-        case .initial(let error): errorView.show(on: view, with: ErrorModel(from: error))
-        case .refresh(let error): errorView.show(on: view, with: ErrorModel(from: error))
+        case .initial(let error): errorView.show(on: view, with: ErrorViewModel(from: error))
+        case .refresh(let error): errorView.show(on: view, with: ErrorViewModel(from: error))
         case .paginate: return
         }
     }

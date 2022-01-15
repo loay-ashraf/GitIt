@@ -78,9 +78,8 @@ class SFDynamicTableView: UITableView, StatefulView {
         }
     }
     
-    func showEmpty(for context: EmptyContext) {
-        let emptyModel = context.model
-        emptyView.show(on: self, with: emptyModel)
+    func showEmpty(for model: EmptyViewModel) {
+        emptyView.show(on: self, with: model)
         isScrollEnabled = false
     }
     
@@ -107,8 +106,8 @@ class SFDynamicTableView: UITableView, StatefulView {
     
     func showError(for failedViewState: FailedViewState) {
         switch failedViewState {
-        case .initial(let error),.refresh(let error): errorView.show(on: self, with: ErrorModel(from: error)); isScrollEnabled = false
-        case .paginate(let error): footerErrorView.show(with: ErrorModel(from: error))
+        case .initial(let error),.refresh(let error): errorView.show(on: self, with: ErrorViewModel(from: error)); isScrollEnabled = false
+        case .paginate(let error): footerErrorView.show(with: ErrorViewModel(from: error))
         }
     }
     

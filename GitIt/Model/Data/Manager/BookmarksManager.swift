@@ -17,6 +17,8 @@ class BookmarksManager {
     private var repositoryBookmarks: [Repository]?
     private var organizationBookmarks: [Organization]?
     
+    var activeBookmarksContext: BookmarksContext!
+    
     // MARK: - Initialisation
     
     private init() {}
@@ -99,11 +101,23 @@ class BookmarksManager {
     func clear<Type: Model>(for modelType: Type.Type) throws {
         switch modelType {
         case is UserModel.Type: userBookmarks?.removeAll()
-                               try coreDataHelper.deleteAll(User.self)
+                                try coreDataHelper.deleteAll(User.self)
         case is RepositoryModel.Type: repositoryBookmarks?.removeAll()
                                       try coreDataHelper.deleteAll(Repository.self)
         case is OrganizationModel.Type: organizationBookmarks?.removeAll()
                                         try coreDataHelper.deleteAll(Organization.self)
+        default: break
+        }
+    }
+    
+    func clearActive() throws {
+        switch activeBookmarksContext {
+        case .users: userBookmarks?.removeAll()
+                     try coreDataHelper.deleteAll(User.self)
+        case .repositories: repositoryBookmarks?.removeAll()
+                            try coreDataHelper.deleteAll(Repository.self)
+        case .organizations: organizationBookmarks?.removeAll()
+                             try coreDataHelper.deleteAll(Organization.self)
         default: break
         }
     }

@@ -10,10 +10,12 @@ import UIKit
 class BookmarksViewController: SFDynamicTableViewController<Any> {
     
     override var model: List<Any>! { return List<Any>(with: logicController.model) }
+    override var emptyModel: EmptyViewModel { return Constants.View.Empty.bookmarks.viewModel }
     
     private let logicController: BookmarksLogicController
     
     @IBOutlet weak var selectorSegmentedControl: UISegmentedControl!
+    @IBOutlet weak var clearBookmarksButton: UIBarButtonItem!
     
     required init?(coder: NSCoder) {
         logicController = BookmarksLogicController()
@@ -60,12 +62,28 @@ class BookmarksViewController: SFDynamicTableViewController<Any> {
         load(with: .initial)
     }
     
+    @IBAction func clearBookmarks(_ sender: UIBarButtonItem) {
+        AlertHelper.showAlert(alert: .clearBookmarks({ [weak self] in
+            self?.logicController.clear()
+            self?.updateView()
+        }))
+    }
+    
     override func load(with loadingViewState: LoadingViewState) {
         super.load(with: loadingViewState)
         switch loadingViewState {
-        case .initial: logicController.load { [weak self] error, emptyContext in self?.loadHandler(error: error, emptyContext: emptyContext) }
-        case .paginate: logicController.load { [weak self] error, emptyContext in self?.paginateHandler(error: error, emptyContext: emptyContext) }
+        case .initial: logicController.load { [weak self] error in self?.loadHandler(error: error) }
+        case .paginate: logicController.load { [weak self] error in self?.paginateHandler(error: error) }
         default: break
+        }
+    }
+    
+    override func loadHandler(error: Error?) {
+        super.loadHandler(error: error)
+        if model.isEmpty {
+            clearBookmarksButton.isEnabled = false
+        } else {
+            clearBookmarksButton.isEnabled = true
         }
     }
 

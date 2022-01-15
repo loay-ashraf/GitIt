@@ -41,7 +41,7 @@ class FooterErrorView: UIView {
         parentTableView = tableView
     }
     
-    func show(with errorModel: ErrorModel?) {
+    func show(with errorModel: ErrorViewModel?) {
         imageView.image = errorModel?.image
         titleLabel.text = errorModel?.title
         parentTableView.tableFooterView = self

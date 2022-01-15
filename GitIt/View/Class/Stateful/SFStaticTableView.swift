@@ -73,7 +73,7 @@ class SFStaticTableView: UITableView, StatefulView {
     
     func showError(for failedViewState: FailedViewState) {
         switch failedViewState {
-        case .initial(let error): errorView.show(on: self, with: ErrorModel(from: error)); isScrollEnabled = false
+        case .initial(let error): errorView.show(on: self, with: ErrorViewModel(from: error)); isScrollEnabled = false
         default: return
         }
     }

@@ -125,7 +125,7 @@ class UserDetailViewController: SFStaticTableViewController, IBViewController {
         emailTextView.text = model.email
         twitterTextView.text = model.twitter != nil ? "@".appending(model.twitter!) : nil
         socialStatusNumericView.numbers = [Double(model.followers!),Double(model.following!)]
-        if model.login == SessionManager.standard.sessionUser.login {
+        if model.login == SessionManager.standard.sessionUser?.login {
             followButton.isHidden = true
         } else {
             bookmarkButton.isEnabled = true
@@ -227,19 +227,19 @@ extension UserDetailViewController {
     
     private func updateFollowButton(isFollowed: Bool) {
         if isFollowed {
-            followButton.setTitle(Constants.View.button.follow.followedTitle, for: .normal)
-            followButton.setImage(Constants.View.button.follow.followedImage, for: .normal)
+            followButton.setTitle(Constants.View.Button.follow.followedTitle, for: .normal)
+            followButton.setImage(Constants.View.Button.follow.followedImage, for: .normal)
         } else {
-            followButton.setTitle(Constants.View.button.follow.defaultTitle, for: .normal)
-            followButton.setImage(Constants.View.button.follow.defaultImage, for: .normal)
+            followButton.setTitle(Constants.View.Button.follow.defaultTitle, for: .normal)
+            followButton.setImage(Constants.View.Button.follow.defaultImage, for: .normal)
         }
     }
     
     private func updateBookmarkButton(isBookmarked: Bool) {
         if isBookmarked {
-            bookmarkButton.image = Constants.View.button.bookmark.bookmarkedImage
+            bookmarkButton.image = Constants.View.Button.bookmark.bookmarkedImage
         } else {
-            bookmarkButton.image = Constants.View.button.bookmark.defaultImage
+            bookmarkButton.image = Constants.View.Button.bookmark.defaultImage
         }
     }
     

@@ -19,7 +19,7 @@ class CommitDetailLogicController {
     
     // MARK: - Business Logic Methods
     
-    func load(then handler: @escaping ErrorHandler) {
+    func load(then handler: @escaping LoadingHandler) {
         handler(nil)
     }
     

@@ -36,7 +36,7 @@ class ErrorView: UIView {
         self.action = action
     }
     
-    func show(on superView: UIView, with errorModel: ErrorModel?) {
+    func show(on superView: UIView, with errorModel: ErrorViewModel?) {
         imageView.image = errorModel?.image
         titleLabel.text = errorModel?.title
         messageLabel.text = errorModel?.message

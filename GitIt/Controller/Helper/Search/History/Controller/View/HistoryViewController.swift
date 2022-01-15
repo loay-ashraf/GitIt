@@ -12,6 +12,8 @@ class HistoryViewController<Type: Model>: SFViewController {
     weak var delegate: HistoryDelegate!
     var logicController: HistoryLogicController<Type>!
     
+    var emptyModel: EmptyViewModel { return Constants.View.Empty.searchHistory.viewModel }
+    
     var collectionViewController: HistoryCollectionViewController!
     var tableViewController: HistoryTableViewController!
     
@@ -74,7 +76,7 @@ class HistoryViewController<Type: Model>: SFViewController {
         let headerShouldBeHidden = logicController.history.models.isEmpty && logicController.history.keywords.isEmpty
         switch headerShouldBeHidden {
         case true: headerTitleStackView.isHidden = true
-                   xView.transition(to: .empty(.searchHistory))
+                   xView.transition(to: .empty(emptyModel))
         case false: headerTitleStackView.isHidden = false
                     xView.transition(to: .presenting)
         }
@@ -111,16 +113,12 @@ class HistoryViewController<Type: Model>: SFViewController {
     
     // MARK: - View Actions
     
-    @IBAction func clearAction(_ sender: UIButton) {
-        let alertTitle = Constants.View.alert.clearSearchHistory.title
-        let alertMessage = Constants.View.alert.clearSearchHistory.message
-        let cancelAction = Constants.View.alert.cancelAction
-        let clearActionTitle = Constants.View.alert.clearSearchHistory.clearActionTitle
-        let clearAction = UIAlertAction(title: clearActionTitle, style: .destructive) { action in
-        self.logicController.clear()
-        self.layoutView()
-        }
-        AlertHelper.showAlert(title: alertTitle, message: alertMessage, style: .actionSheet, actions: [cancelAction,clearAction])
+    @IBAction func clearHistory(_ sender: UIButton) {
+        AlertHelper.showAlert(alert: .clearSearchHistory({ [weak self] in
+            self?.logicController.clear()
+            self?.updateView()
+            self?.layoutView()
+        }))
     }
     
     // MARK: - Navigation Segue
@@ -143,7 +141,7 @@ class HistoryViewController<Type: Model>: SFViewController {
     
     override func load() {
         super.load()
-        logicController.load { [weak self] error, emptyContext in self?.loadHandler(error: error, emptyContext: emptyContext) }
+        logicController.load { [weak self] error in self?.loadHandler(error: error) }
     }
     
     func reset() {
@@ -152,9 +150,12 @@ class HistoryViewController<Type: Model>: SFViewController {
     
     // MARK: - Load Handler Methods
     
-    override func loadHandler(error: Error?, emptyContext: EmptyContext?) {
-        super.loadHandler(error: error, emptyContext: emptyContext)
-        layoutView()
+    override func loadHandler(error: Error?) {
+        if let error = error {
+            xView.transition(to: .failed(.initial(error)))
+        } else {
+            layoutView()
+        }
     }
 
 }

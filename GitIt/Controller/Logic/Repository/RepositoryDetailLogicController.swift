@@ -25,7 +25,7 @@ class RepositoryDetailLogicController {
     
     // MARK: - Business Logic Methods
     
-    func load(then handler: @escaping ErrorHandler, then starHandler: @escaping StarActionHandler, then bookmarkHandler: @escaping BookmarkActionHandler, then readmeHandler: @escaping READMEHandler) {
+    func load(then handler: @escaping LoadingHandler, then starHandler: @escaping StarActionHandler, then bookmarkHandler: @escaping BookmarkActionHandler, then readmeHandler: @escaping READMEHandler) {
         if !model.isComplete {
             checkIfStarredOrBookmarked(then: handler, then: starHandler, then: bookmarkHandler)
             loadREADME(then: readmeHandler)
@@ -78,7 +78,7 @@ class RepositoryDetailLogicController {
         }
     }
     
-    func checkIfStarredOrBookmarked(then handler: @escaping ErrorHandler, then starHandler: @escaping StarActionHandler, then bookmarkHandler: @escaping BookmarkActionHandler) {
+    func checkIfStarredOrBookmarked(then handler: @escaping LoadingHandler, then starHandler: @escaping StarActionHandler, then bookmarkHandler: @escaping BookmarkActionHandler) {
         NetworkClient.standard.checkAuthenticatedUserDidStar(fullName: model.fullName) { error in
             defer { handler(nil) }
             let fetchResult = BookmarksManager.standard.check(model: self.model)

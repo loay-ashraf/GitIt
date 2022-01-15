@@ -12,6 +12,7 @@ class CommitViewController: SFDynamicTableViewController<CommitModel>, IBViewCon
     static var storyboardIdentifier = "CommitVC"
     
     override var model: List<CommitModel>! { return logicController.model }
+    override var emptyModel: EmptyViewModel { return Constants.View.Empty.commits.viewModel }
     
     let logicController: CommitLogicController
     
@@ -66,9 +67,9 @@ class CommitViewController: SFDynamicTableViewController<CommitModel>, IBViewCon
     override func load(with loadingViewState: LoadingViewState) {
         super.load(with: loadingViewState)
         switch loadingViewState {
-        case .initial: logicController.load { [weak self] error, emptyContext in self?.loadHandler(error: error, emptyContext: emptyContext) }
-        case .refresh: logicController.refresh { [weak self] error, emptyContext in self?.refreshHandler(error: error, emptyContext: emptyContext) }
-        case .paginate: logicController.load { [weak self] error, emptyContext in self?.paginateHandler(error: error, emptyContext: emptyContext) }
+        case .initial: logicController.load { [weak self] error in self?.loadHandler(error: error) }
+        case .refresh: logicController.refresh { [weak self] error in self?.refreshHandler(error: error) }
+        case .paginate: logicController.load { [weak self] error in self?.paginateHandler(error: error) }
         }
     }
 

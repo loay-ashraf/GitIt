@@ -66,12 +66,12 @@ enum UserContext {
     
     var titleValue: String {
         switch self {
-        case .main: return Constants.View.titles.users.main
-        case .followers: return Constants.View.titles.users.followers
-        case .following: return Constants.View.titles.users.following
-        case .stars: return Constants.View.titles.users.stargazers
-        case .contributors: return Constants.View.titles.users.contributors
-        case .members: return Constants.View.titles.users.members
+        case .main: return Constants.View.Titles.users.main
+        case .followers: return Constants.View.Titles.users.followers
+        case .following: return Constants.View.Titles.users.following
+        case .stars: return Constants.View.Titles.users.stargazers
+        case .contributors: return Constants.View.Titles.users.contributors
+        case .members: return Constants.View.Titles.users.members
         }
     }
     
@@ -93,9 +93,9 @@ enum RepositoryContext {
     
     var titleValue: String {
         switch self {
-        case .forks: return Constants.View.titles.repositories.forks
-        case .starred: return Constants.View.titles.repositories.starred
-        default: return Constants.View.titles.repositories.main
+        case .forks: return Constants.View.Titles.repositories.forks
+        case .starred: return Constants.View.Titles.repositories.starred
+        default: return Constants.View.Titles.repositories.main
         }
     }
     
@@ -113,7 +113,7 @@ enum OrganizationContext {
     
     var titleValue: String {
         switch self {
-        default: return Constants.View.titles.organizations.main
+        default: return Constants.View.Titles.organizations.main
         }
     }
     
@@ -121,13 +121,12 @@ enum OrganizationContext {
     
 }
 
-typealias LoadingHandler = (Error?,EmptyContext?) -> Void
-typealias ErrorHandler = (Error?) -> Void
+typealias LoadingHandler = (Error?) -> Void
 
 enum ViewState {
     
     case presenting
-    case empty(EmptyContext)
+    case empty(EmptyViewModel)
     case loading(LoadingViewState)
     case failed(FailedViewState)
     
@@ -186,10 +185,10 @@ enum SearchContext {
     
     var barPlaceholder: String {
         switch self {
-        case .general: return Constants.View.searchBar.general
-        case .users: return Constants.View.searchBar.users
-        case .repositories: return Constants.View.searchBar.repositories
-        case .organizations: return Constants.View.searchBar.organizations
+        case .general: return Constants.View.SearchBar.general
+        case .users: return Constants.View.SearchBar.users
+        case .repositories: return Constants.View.SearchBar.repositories
+        case .organizations: return Constants.View.SearchBar.organizations
         }
     }
     
@@ -232,18 +231,18 @@ enum ContextMenuActions<Type: Model> {
         let image: UIImage?
         let handler: UIAction
         switch self {
-        case .bookmark(let model): title = Constants.View.contextMenu.bookmark.title
-                                   image = Constants.View.contextMenu.bookmark.image
+        case .bookmark(let model): title = Constants.View.ContextMenu.bookmark.title
+                                   image = Constants.View.ContextMenu.bookmark.image
                                     handler = UIAction(title: title, image: image, identifier: nil) { action in
                                     try? BookmarksManager.standard.add(model: model)
                                     }
-        case .unbookmark(let model): title = Constants.View.contextMenu.unBookmark.title
-                                     image = Constants.View.contextMenu.unBookmark.image
+        case .unbookmark(let model): title = Constants.View.ContextMenu.unBookmark.title
+                                     image = Constants.View.ContextMenu.unBookmark.image
                                      handler = UIAction(title: title, image: image, identifier: nil) { action in
                                      try? BookmarksManager.standard.delete(model: model)
                                      }
-        case .share(let model): title = Constants.View.contextMenu.share.title
-                                image = Constants.View.contextMenu.share.image
+        case .share(let model): title = Constants.View.ContextMenu.share.title
+                                image = Constants.View.ContextMenu.share.image
                                 handler = UIAction(title: title, image: image, identifier: nil) { action in
                                     URLHelper.shareURL(model.htmlURL)
                                 }
@@ -253,53 +252,86 @@ enum ContextMenuActions<Type: Model> {
     
 }
 
-struct ErrorModel {
+enum BookmarksContext {
+    
+    case general
+    case users
+    case repositories
+    case organizations
+    
+    init?<Type: Model>(from modelType: Type.Type) {
+        switch Type.self {
+        case is UserModel.Type: self = .users
+        case is RepositoryModel.Type: self = .repositories
+        case is OrganizationModel.Type: self = .organizations
+        default: self = .general
+        }
+    }
+    
+}
+
+enum Alert {
+    
+    case internetError
+    case networkError
+    case dataError
+    case signInError
+    case guestSignIn(() -> Void)
+    case clearSearchHistory(() -> Void)
+    case clearBookmarks(() -> Void)
+    case clearData
+    case signOut(() -> Void)
+    
+    var controller: UIAlertController {
+        typealias alertConstants = Constants.View.Alert
+        switch self {
+        case .internetError: return alertConstants.InternetError.alertController()
+        case .networkError: return alertConstants.NetworkError.alertController()
+        case .dataError: return alertConstants.DataError.alertController()
+        case .signInError: return alertConstants.SignInError.alertController()
+        case .guestSignIn(let handler): return alertConstants.GuestSignIn.alertController(with: handler)
+        case .clearSearchHistory(let handler): return alertConstants.ClearSearchHistory.alertController(with: handler)
+        case .clearBookmarks(let handler): return alertConstants.ClearBookmarks.alertController(with: handler)
+        case .clearData: return alertConstants.ClearData.alertController()
+        case .signOut(let handler): return alertConstants.SignOut.alertController(with: handler)
+        }
+    }
+    
+}
+
+struct ErrorViewModel {
     
     var image: UIImage?
     var title: String
     var message: String
     
-    private init(image: UIImage?, title: String, message: String) {
+    init(image: UIImage?, title: String, message: String) {
         self.image = image
         self.title = title
         self.message = message
     }
     
     init?(from error: Error) {
-        let image: UIImage?
-        let title: String
-        let message: String
+        typealias errorConstants = Constants.View.Error
         if let networkError = error as? NetworkError {
             switch networkError {
-            case .noResponse,.noData: image = Constants.View.error.internet.image
-                                      title = Constants.View.error.internet.title
-                                      message = Constants.View.error.internet.message
+            case .noResponse,.noData: self = errorConstants.internet.viewModel
             case .client(let clientError): if (clientError as NSError).code == NSURLErrorNotConnectedToInternet {
-                image = Constants.View.error.internet.image
-                title = Constants.View.error.internet.title
-                message = Constants.View.error.internet.message
+                self = errorConstants.internet.viewModel
             } else {
-                image = Constants.View.error.network.image
-                title = Constants.View.error.network.title
-                message = Constants.View.error.network.message
+                self = errorConstants.network.viewModel
             }
-            case .server,.api,.decoding,.encoding: image = Constants.View.error.network.image
-                                                   title = Constants.View.error.network.title
-                                                   message = Constants.View.error.network.message
+            case .server,.api,.decoding,.encoding: self = errorConstants.network.viewModel
             }
-            self.init(image: image, title: title, message: message)
         } else if error.self is DataError || error.self is CoreDataError {
-            image = Constants.View.error.data.image
-            title = Constants.View.error.data.title
-            message = Constants.View.error.data.message
-            self.init(image: image, title: title, message: message)
+            self = errorConstants.data.viewModel
         }
         return nil
     }
     
 }
 
-struct EmptyModel {
+struct EmptyViewModel {
     
     var image: UIImage?
     var title: String
@@ -307,41 +339,6 @@ struct EmptyModel {
     init(image: UIImage?, title: String) {
         self.image = image
         self.title = title
-    }
-    
-}
-
-enum EmptyContext {
-    
-    case user
-    case repository
-    case organization
-    case commit
-    case searchHistory
-    case searchResults
-    case bookmarks
-    
-    var model: EmptyModel {
-        let image: UIImage?
-        let title: String
-        switch self {
-        case .user: image = Constants.View.empty.users.image
-                    title = Constants.View.empty.users.title
-        case .repository: image = Constants.View.empty.repositories.image
-                          title = Constants.View.empty.repositories.title
-        case .organization: image = Constants.View.empty.organizations.image
-                            title = Constants.View.empty.organizations.title
-        case .commit: image = Constants.View.empty.commits.image
-                      title = Constants.View.empty.commits.title
-        case .searchHistory: image = Constants.View.empty.searchHistory.image
-                             title = Constants.View.empty.searchHistory.title
-        case .searchResults: image = Constants.View.empty.searchResults.image
-                             title = Constants.View.empty.searchHistory.title
-        case .bookmarks: image = Constants.View.empty.bookmarks.image
-                         title = Constants.View.empty.bookmarks.title
-        }
-        let model = EmptyModel(image: image, title: title)
-        return model
     }
     
 }

@@ -63,10 +63,10 @@ class ProfileViewController: SFStaticTableViewController {
             avatarHeightConstraint.constant = 64.0
             avatarWidthConstraint.constant = 64.0
             
-            avatarImageView.image = UIImage(systemName: "person")
-            fullNameLabel.text = "Signed in as a Guest"
+            avatarImageView.image = Constants.View.Image.guest
+            fullNameLabel.text = Constants.View.Label.guest
             loginLabel.isHidden = true
-            bioLabel.text = "sign in with your Github account to enable extended features."
+            bioLabel.text = Constants.View.Label.signIn
             companyTextView.isHidden = true
             locationTextView.isHidden = true
             blogTextView.isHidden = true

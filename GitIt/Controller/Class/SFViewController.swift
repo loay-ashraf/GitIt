@@ -58,11 +58,9 @@ class SFViewController: UIViewController {
     
     // MARK: - Load Handlers
     
-    func loadHandler(error: Error?, emptyContext: EmptyContext?) {
+    func loadHandler(error: Error?) {
         if let error = error {
             xView.transition(to: .failed(.initial(error)))
-        } else if let emptyContext = emptyContext{
-            xView.transition(to: .empty(emptyContext))
         } else {
             xView.transition(to: .presenting)
         }

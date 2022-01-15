@@ -44,22 +44,25 @@
 // Alert section
 "Sign In Error" = "Sign In Error";
 "Data Error" = "Data Error";
-"Continue As a Guest?" = "Continue As a Guest?";
+"Continue as a Guest?" = "Continue as a Guest?";
 "Clear search history?" = "Clear search history?";
-"Clear Data?" = "Clear Data?";
+"Clear bookmarks?" = "Clear bookmarks?";
+"Clear data?" = "Clear data?";
 "Sign Out?" = "Sign Out?";
-"We can't connect to server at time, would you like to rety or exit?" = "We can't connect to server at time, would you like to rety or exit?";
-"We couldn't load your saved bookmarks, we're working on a fix for the issue." = "We couldn't load your saved bookmarks, we're working on a fix for the issue.";
+"We can't connect to server at time, switching to offline mode." = "We can't connect to server at time, switching to offline mode.";
+"We couldn't load your data, we're working on a fix for the issue." = "We couldn't load your data, we're working on a fix for the issue.";
 "You're not conntected to the internet, Can't connect to authentication server." = "You're not conntected to the internet, Can't connect to authentication server.";
 "An error occured while signing you in, please try again later." = "An error occured while signing you in, please try again later.";
 "If you continue as a guest, features will be limted. Do you want to proceed?" = "If you continue as a guest, features will be limted. Do you want to proceed?";
 "This can't be undone and you'll remove your search history." = "This can't be undone and you'll remove your search history.";
+"This can't be undone and you'll remove your bookmarks." = "This can't be undone and you'll remove your bookmarks.";
 "You're about to erase your local data, proceed?" = "You're about to erase your local data, proceed?";
 "If you sign out all of your data will be erased, continue?" = "If you sign out all of your data will be erased, continue?";
 "Ok" = "Ok";
 "Continue" = "Continue";
 "Retry" = "Retry";
 "Clear History" = "Clear History";
+"Clear Bookmarks" = "Clear Bookmarks";
 "Clear Data" = "Clear Data";
 "Cancel" = "Cancel";
 "Sign Out" = "Sign Out";
@@ -74,10 +77,10 @@
 "We're working on it,\nWe will be back soon." = "We're working on it,\nWe will be back soon.";
 
 // Empty view section
-"Looks like there's no Users in here." = "Looks like there's no Users in here.";
-"Looks like there's no Repositories in here." = "Looks like there's no Repositories in here.";
-"Looks like this User is not a member of any Organization." = "Looks like this User is not a member of any Organization.";
-"Looks like there's no Commits yet for this repository." = "Looks like there's no Commits yet for this repository.";
+"There isn't any users." = "There isn't any users.";
+"There isn't any repositories." = "There isn't any repositories.";
+"There isn't any organizations." = "There isn't any organizations.";
+"There isn't any commits." = "There isn't any commits.";
 "No Search history found, try searching first." = "No Search history found, try searching first.";
 "No Search results found, try searching for a different term." = "No Search results found, try searching for a different term.";
 "No Bookmarks found." = "No Bookmarks found.";
@@ -91,3 +94,5 @@
 // Labels section
 "K" = "K";
 "M" = "M";
+"Signed in as a Guest" = "Signed in as a Guest";
+"Sign in with your Github account to enable extended features." = "Sign in with your Github account to enable extended features.";

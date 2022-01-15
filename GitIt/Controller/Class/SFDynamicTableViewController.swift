@@ -15,6 +15,7 @@ class SFDynamicTableViewController<Type>: UITableViewController {
     var detailViewControllerType: IBViewController.Type?
 
     private(set) var model: List<Type>!
+    private(set) var emptyModel: EmptyViewModel = Constants.View.Empty.general.viewModel
     
     // MARK: - Initialisation
     
@@ -72,7 +73,6 @@ class SFDynamicTableViewController<Type>: UITableViewController {
         // Setup table view header, footer and content insets
         if xTableView.tableHeaderView == nil { xTableView.tableHeaderView = UIView() }
         if xTableView.tableFooterView == nil { xTableView.tableFooterView = UIView() }
-        xTableView.contentInset.top = 20
         // Setup table view refresh control
         xTableView.refreshControl = UIRefreshControl()
         xTableView.refreshControl?.addTarget(self, action: #selector(refresh), for: .valueChanged)
@@ -152,12 +152,12 @@ class SFDynamicTableViewController<Type>: UITableViewController {
     
     // MARK: - Load, Refresh, Paginate and Reset Handlers
     
-    func loadHandler(error: Error?, emptyContext: EmptyContext?) {
+    func loadHandler(error: Error?) {
         if let error = error {
             xTableView.transition(to: .failed(.initial(error)))
             disableSearchBar()
-        } else if let emptyContext = emptyContext{
-            xTableView.transition(to: .empty(emptyContext))
+        } else if model.isEmpty {
+            xTableView.transition(to: .empty(emptyModel))
             disableSearchBar()
         } else {
             xTableView.transition(to: .presenting)
@@ -165,7 +165,7 @@ class SFDynamicTableViewController<Type>: UITableViewController {
         }
     }
     
-    func refreshHandler(error: Error?, emptyContext: EmptyContext?) {
+    func refreshHandler(error: Error?) {
         if let error = error {
             xTableView.transition(to: .failed(.refresh(error)))
             disableSearchBar()
@@ -175,7 +175,7 @@ class SFDynamicTableViewController<Type>: UITableViewController {
         }
     }
     
-    func paginateHandler(error: Error?, emptyContext: EmptyContext?) {
+    func paginateHandler(error: Error?) {
         if let error = error {
             xTableView.transition(to: .failed(.paginate(error)))
             disableSearchBar()

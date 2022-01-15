@@ -12,6 +12,7 @@ class UserViewController: SFDynamicTableViewController<UserModel>, IBViewControl
     static var storyboardIdentifier = "UserVC"
     
     override var model: List<UserModel>! { return logicController.model }
+    override var emptyModel: EmptyViewModel { return Constants.View.Empty.users.viewModel } 
     
     private let logicController: UserLogicController
     private var context: UserContext { return logicController.context }
@@ -79,9 +80,9 @@ class UserViewController: SFDynamicTableViewController<UserModel>, IBViewControl
     override func load(with loadingViewState: LoadingViewState) {
         super.load(with: loadingViewState)
         switch loadingViewState {
-        case .initial: logicController.load { [weak self] error, emptyContext in self?.loadHandler(error: error, emptyContext: emptyContext) }
-        case .refresh: logicController.refresh { [weak self] error, emptyContext in self?.refreshHandler(error: error, emptyContext: emptyContext) }
-        case .paginate: logicController.load { [weak self] error, emptyContext in self?.paginateHandler(error: error, emptyContext: emptyContext) }
+        case .initial: logicController.load { [weak self] error in self?.loadHandler(error: error) }
+        case .refresh: logicController.refresh { [weak self] error in self?.refreshHandler(error: error) }
+        case .paginate: logicController.load { [weak self] error in self?.paginateHandler(error: error) }
         }
     }
     

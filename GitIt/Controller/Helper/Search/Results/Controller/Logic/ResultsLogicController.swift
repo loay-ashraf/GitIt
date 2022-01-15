@@ -51,40 +51,28 @@ class ResultsLogicController<Type: Model> {
     
     private func processUserResult(result: Result<BatchResponse<UserModel>,NetworkError>) {
         switch result {
-        case .success(let response): self.model.append(contentsOf: response.items as! [Type])
-                                     self.updateModelParameters(count: response.count)
-                                     if self.model.isEmpty {
-                                         handler?(nil,.searchResults)
-                                     } else {
-                                         handler?(nil,nil)
-                                     }
-        case .failure(let networkError): handler?(networkError, nil)
+        case .success(let response): model.append(contentsOf: response.items as! [Type])
+                                     updateModelParameters(count: response.count)
+                                     handler?(nil)
+        case .failure(let networkError): handler?(networkError)
         }
     }
                                                          
     private func processRepositoryResult(result: Result<BatchResponse<RepositoryModel>,NetworkError>) {
         switch result {
-        case .success(let response): self.model.append(contentsOf: response.items as! [Type])
-                                     self.updateModelParameters(count: response.count)
-                                     if self.model.isEmpty {
-                                        handler?(nil,.searchResults)
-                                     } else {
-                                        handler?(nil,nil)
-                                    }
-        case .failure(let networkError): handler?(networkError, nil)
+        case .success(let response): model.append(contentsOf: response.items as! [Type])
+                                     updateModelParameters(count: response.count)
+                                     handler?(nil)
+        case .failure(let networkError): handler?(networkError)
         }
     }
     
     private func processOrganizationResult(result: Result<BatchResponse<OrganizationModel>,NetworkError>) {
         switch result {
-        case .success(let response): self.model.append(contentsOf: response.items as! [Type])
-                                     self.updateModelParameters(count: response.count)
-                                     if self.model.isEmpty {
-                                        handler?(nil,.searchResults)
-                                     } else {
-                                        handler?(nil,nil)
-                                    }
-        case .failure(let networkError): handler?(networkError, nil)
+        case .success(let response): model.append(contentsOf: response.items as! [Type])
+                                     updateModelParameters(count: response.count)
+                                     handler?(nil)
+        case .failure(let networkError): handler?(networkError)
         }
     }
                                                          

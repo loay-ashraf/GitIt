@@ -11,8 +11,14 @@ import UIKit
 class HistoryLogicController<Type: Model> {
     
     var history = SearchHistory<Type>()
+    var historyManager = SearchHistoryManager.standard
     
     private var handler: LoadingHandler?
+    
+    init() {
+        let searchContext = SearchContext(from: Type.self)
+        historyManager.activeSearchContext = searchContext
+    }
     
     // MARK: - Load Methods
     
@@ -27,37 +33,25 @@ class HistoryLogicController<Type: Model> {
     }
     
     private func loadUserSearchHistory() {
-        history = SearchHistoryManager.standard.userHistory as! SearchHistory<Type>
-        if history.models.isEmpty, history.keywords.isEmpty {
-            handler?(nil,.searchHistory)
-        } else {
-            handler?(nil,nil)
-        }
+        history = historyManager.userHistory as! SearchHistory<Type>
+        handler?(nil)
     }
     
     private func loadRepositorySearchHistory() {
-        history = SearchHistoryManager.standard.repositoryHistory as! SearchHistory<Type>
-        if history.models.isEmpty, history.keywords.isEmpty {
-            handler?(nil,.searchHistory)
-        } else {
-            handler?(nil,nil)
-        }
+        history = historyManager.repositoryHistory as! SearchHistory<Type>
+        handler?(nil)
     }
     
     private func loadOrganizationSearchHistory() {
-        history = SearchHistoryManager.standard.organizationHistory as! SearchHistory<Type>
-        if history.models.isEmpty, history.keywords.isEmpty {
-            handler?(nil,.searchHistory)
-        } else {
-            handler?(nil,nil)
-        }
+        history = historyManager.organizationHistory as! SearchHistory<Type>
+        handler?(nil)
     }
     
     private func synchronize() {
         switch Type.self {
-        case is UserModel.Type: history = SearchHistoryManager.standard.userHistory as! SearchHistory<Type>
-        case is RepositoryModel.Type: history = SearchHistoryManager.standard.repositoryHistory as! SearchHistory<Type>
-        case is OrganizationModel.Type: history = SearchHistoryManager.standard.organizationHistory as! SearchHistory<Type>
+        case is UserModel.Type: history = historyManager.userHistory as! SearchHistory<Type>
+        case is RepositoryModel.Type: history = historyManager.repositoryHistory as! SearchHistory<Type>
+        case is OrganizationModel.Type: history = historyManager.organizationHistory as! SearchHistory<Type>
         default: return
         }
     }
@@ -65,27 +59,27 @@ class HistoryLogicController<Type: Model> {
     // MARK: - History Manipulationn Methods
     
     func add(model: Type) {
-        SearchHistoryManager.standard.add(model: model)
+        historyManager.add(model: model)
         synchronize()
     }
     
     func add(keyword: String) {
-        SearchHistoryManager.standard.add(keyword: keyword, for: Type.self)
+        historyManager.add(keyword: keyword, for: Type.self)
         synchronize()
     }
     
     func delete(model: Type) {
-        SearchHistoryManager.standard.delete(model: model)
+        historyManager.delete(model: model)
         synchronize()
     }
     
     func delete(keyword: String) {
-        SearchHistoryManager.standard.delete(keyword: keyword, for: Type.self)
+        historyManager.delete(keyword: keyword, for: Type.self)
         synchronize()
     }
     
     func clear() {
-        SearchHistoryManager.standard.clear(for: Type.self)
+        historyManager.clear(for: Type.self)
         synchronize()
     }
     

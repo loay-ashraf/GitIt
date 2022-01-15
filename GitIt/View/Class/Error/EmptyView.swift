@@ -17,7 +17,7 @@ class EmptyView: UIView {
         return view
     }
     
-    func show(on superView: UIView, with emptyModel: EmptyModel?) {
+    func show(on superView: UIView, with emptyModel: EmptyViewModel?) {
         imageView.image = emptyModel?.image
         titleLabel.text = emptyModel?.title
         frame = superView.bounds

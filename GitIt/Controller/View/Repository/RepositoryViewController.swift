@@ -12,6 +12,7 @@ class RepositoryViewController: SFDynamicTableViewController<RepositoryModel>, I
     static var storyboardIdentifier = "RepositoryVC"
     
     override var model: List<RepositoryModel>! { return logicController.model }
+    override var emptyModel: EmptyViewModel { return Constants.View.Empty.repositories.viewModel }
     
     private let logicController: RepositoryLogicController
     private var context: RepositoryContext { return logicController.context }
@@ -79,9 +80,9 @@ class RepositoryViewController: SFDynamicTableViewController<RepositoryModel>, I
     override func load(with loadingViewState: LoadingViewState) {
         super.load(with: loadingViewState)
         switch loadingViewState {
-        case .initial: logicController.load { [weak self] error, emptyContext in self?.loadHandler(error: error, emptyContext: emptyContext) }
-        case .refresh: logicController.refresh { [weak self] error, emptyContext in self?.refreshHandler(error: error, emptyContext: emptyContext) }
-        case .paginate: logicController.load { [weak self] error, emptyContext in self?.paginateHandler(error: error, emptyContext: emptyContext) }
+        case .initial: logicController.load { [weak self] error in self?.loadHandler(error: error) }
+        case .refresh: logicController.refresh { [weak self] error in self?.refreshHandler(error: error) }
+        case .paginate: logicController.load { [weak self] error in self?.paginateHandler(error: error) }
         }
     }
 

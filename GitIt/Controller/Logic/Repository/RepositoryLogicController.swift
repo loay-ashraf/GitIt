@@ -68,14 +68,10 @@ class RepositoryLogicController {
     
     private func processResult(result: Result<[RepositoryModel],NetworkError>) {
         switch result {
-        case .success(let response): self.model.append(contentsOf: response)
-                                     self.updateModelParameters(newItemsCount: response.count)
-                                     if self.model.isEmpty {
-                                         handler?(nil,.repository)
-                                     } else {
-                                         handler?(nil,nil)
-                                     }
-        case .failure(let networkError): handler?(networkError, nil)
+        case .success(let response): model.append(contentsOf: response)
+                                     updateModelParameters(newItemsCount: response.count)
+                                     handler?(nil)
+        case .failure(let networkError): handler?(networkError)
         }
     }
 

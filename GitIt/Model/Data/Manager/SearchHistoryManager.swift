@@ -16,6 +16,8 @@ class SearchHistoryManager {
     var repositoryHistory = SearchHistory<RepositoryModel>()
     var organizationHistory = SearchHistory<OrganizationModel>()
     
+    var activeSearchContext: SearchContext!
+    
     // MARK: - Initialisation
     
     private init() {}
@@ -94,6 +96,15 @@ class SearchHistoryManager {
         case is UserModel.Type: userHistory.clear()
         case is RepositoryModel.Type: repositoryHistory.clear()
         case is OrganizationModel.Type: organizationHistory.clear()
+        default: break
+        }
+    }
+    
+    func clearActive() {
+        switch activeSearchContext {
+        case .users: userHistory.clear()
+        case .repositories: repositoryHistory.clear()
+        case .organizations: organizationHistory.clear()
         default: break
         }
     }
