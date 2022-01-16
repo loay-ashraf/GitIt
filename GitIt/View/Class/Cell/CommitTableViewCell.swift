@@ -21,17 +21,5 @@ class CommitTableViewCell: UITableViewCell, IBTableViewCell {
         authorTextView.text = nil
         messageLabel.text = nil
     }
-
-    func configure<Type>(with model: Type) {
-        let commit = model as! CommitModel
-        if let author = commit.author {
-            authorTextView.loadIcon(at: author.avatarURL)
-            authorTextView.text = author.login
-        } else {
-            authorTextView.text = nil
-        }
-        messageLabel.text = commit.message
-        setNeedsLayout()
-    }
     
 }

@@ -13,6 +13,5 @@ protocol IBCollectionViewCell: UICollectionViewCell {
     static var reuseIdentifier: String { get }
     static var nib: UINib { get }
     func prepareForReuse()
-    func configure<Type>(with item: Type)
     
 }

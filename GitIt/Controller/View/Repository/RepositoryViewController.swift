@@ -12,7 +12,7 @@ class RepositoryViewController: SFDynamicTableViewController<RepositoryModel>, I
     static var storyboardIdentifier = "RepositoryVC"
     
     override var model: List<RepositoryModel>! { return logicController.model }
-    override var emptyModel: EmptyViewModel { return Constants.View.Empty.repositories.viewModel }
+    override var emptyViewModel: EmptyViewModel { return Constants.View.Empty.repositories.viewModel }
     
     private let logicController: RepositoryLogicController
     private var context: RepositoryContext { return logicController.context }
@@ -23,7 +23,7 @@ class RepositoryViewController: SFDynamicTableViewController<RepositoryModel>, I
     
     required init?(coder: NSCoder, context: RepositoryContext, contextParameters: Any? = nil) {
         logicController = RepositoryLogicController(context: context, contextParameters: contextParameters)
-        super.init(coder: coder, cellType: RepositoryTableViewCell.self, detailViewControllerType: RepositoryDetailViewController.self)
+        super.init(coder: coder, tableViewDataSource: RepositoryTableViewDataSource(), tableViewDelegate: RepositoryTableViewDelegate())
     }
     
     required init?(coder: NSCoder) {

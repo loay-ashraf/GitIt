@@ -10,7 +10,8 @@ import UIKit
 class ResultsViewController<Type: Model>: SFDynamicTableViewController<Type> {
     
     override var model: List<Type>! { return logicController.model }
-    override var emptyModel: EmptyViewModel { return Constants.View.Empty.searchResults.viewModel }
+    override var emptyViewModel: EmptyViewModel { return Constants.View.Empty.searchResults.viewModel }
+    //override var cellConfigurator: TableViewCellConfigurator! { return UserTableViewCellConfigurator() }
     
     private weak var delegate: ResultsDelegate!
     private var logicController: ResultsLogicController<Type>!
@@ -20,7 +21,7 @@ class ResultsViewController<Type: Model>: SFDynamicTableViewController<Type> {
     required init?(coder: NSCoder, delegate: ResultsDelegate) {
         let cellType = Constants.Model.modelToCellType(type: Type.self)
         let detailViewControllerType = Constants.Model.modelToDetailViewControllerType(type: Type.self)
-        super.init(coder: coder, cellType: cellType!, detailViewControllerType: detailViewControllerType!)
+        super.init(coder: coder, tableViewDataSource: TableViewDataSource<Type>(), tableViewDelegate: TableViewDelegate<Type>())
         self.delegate = delegate
         logicController = ResultsLogicController()
     }

@@ -11,7 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="HistoryCollectionViewCell" id="gTV-IL-0wX" customClass="HistoryCollectionViewCell" customModule="GitIt" customModuleProvider="target">
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="RoundedImageCollectionViewCell" id="gTV-IL-0wX" customClass="RoundedImageCollectionViewCell" customModule="GitIt" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="74" height="100"/>
             <autoresizingMask key="autoresizingMask"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
@@ -50,8 +50,8 @@
             </constraints>
             <size key="customSize" width="103" height="101"/>
             <connections>
-                <outlet property="recentImageView" destination="jr7-cp-sPd" id="ceF-xY-h4F"/>
-                <outlet property="recentLabel" destination="QfU-Gs-seW" id="dXL-jq-AJR"/>
+                <outlet property="iconImageView" destination="jr7-cp-sPd" id="ceF-xY-h4F"/>
+                <outlet property="nameLabel" destination="QfU-Gs-seW" id="dXL-jq-AJR"/>
             </connections>
             <point key="canvasLocation" x="169.56521739130437" y="148.36956521739131"/>
         </collectionViewCell>

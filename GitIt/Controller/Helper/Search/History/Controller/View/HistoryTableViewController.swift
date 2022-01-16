@@ -10,6 +10,7 @@ import UIKit
 class HistoryTableViewController: SFDynamicTableViewController<String> {
     
     override var model: List<String>! { return delegate?.keywords }
+    //override var cellConfigurator: TableViewCellConfigurator! { return HistoryTableViewCellConfigurator() }
     
     weak var delegate: HistoryTableDelegate!
     

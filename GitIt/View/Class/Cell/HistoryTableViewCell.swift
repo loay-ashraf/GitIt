@@ -12,7 +12,7 @@ class HistoryTableViewCell: UITableViewCell, IBTableViewCell {
     static let reuseIdentifier = "HistoryTableViewCell"
     static var nib: UINib { return UINib(nibName: "HistoryTableViewCell", bundle: nil) }
     
-    @IBOutlet weak var recentsLabel: UILabel!
+    @IBOutlet weak var historyLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -24,14 +24,7 @@ class HistoryTableViewCell: UITableViewCell, IBTableViewCell {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        recentsLabel.text = nil
-    }
-    
-    func configure<Type>(with item: Type) {
-        if let text = item as? String {
-            recentsLabel.text = text
-            setNeedsLayout()
-        }
+        historyLabel.text = nil
     }
     
 }

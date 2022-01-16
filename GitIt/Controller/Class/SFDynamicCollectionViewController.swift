@@ -15,6 +15,8 @@ class SFDynamicCollectionViewController<Type>: UICollectionViewController {
     var detailViewControllerType: IBViewController.Type?
     
     private(set) var model: List<Type>!
+    private(set) var emptyModel: EmptyViewModel = Constants.View.Empty.general.viewModel
+    private(set) var cellConfigurator: CollectionViewCellConfigurator!
     
     // MARK: - Initialisation
     
@@ -75,10 +77,10 @@ class SFDynamicCollectionViewController<Type>: UICollectionViewController {
         xCollectionView.register(cellType.nib, forCellWithReuseIdentifier: cellType.reuseIdentifier)
     }
     
-    func configureContextMenu(indexPath: IndexPath) -> UIContextMenuConfiguration {
+    /*func configureContextMenu(indexPath: IndexPath) -> UIContextMenuConfiguration {
         let modelItem = model.items[indexPath.row]
-        return Constants.Model.modelToContextMenuConfiguration(type: Type.self, for: modelItem)!
-    }
+        return Constants.Model.contextMenuConfiguration(type: Type.self, for: modelItem)!
+    }*/
     
     func enableSearchBar() {
         navigationItem.searchController?.searchBar.isUserInteractionEnabled = true
@@ -175,7 +177,8 @@ class SFDynamicCollectionViewController<Type>: UICollectionViewController {
             let item = model.items[indexPath.row]
             
             // Configure the cell...
-            cell.configure(with: item)
+            //cell.configure(with: item)
+            cellConfigurator.configure(cell, forDisplaying: item)
             
             return cell
         }
@@ -197,8 +200,8 @@ class SFDynamicCollectionViewController<Type>: UICollectionViewController {
         }
     }
     
-    override func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+    /*override func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
         return configureContextMenu(indexPath: indexPath)
-    }
+    }*/
 
 }

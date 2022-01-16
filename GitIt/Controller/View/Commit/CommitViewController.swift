@@ -12,7 +12,7 @@ class CommitViewController: SFDynamicTableViewController<CommitModel>, IBViewCon
     static var storyboardIdentifier = "CommitVC"
     
     override var model: List<CommitModel>! { return logicController.model }
-    override var emptyModel: EmptyViewModel { return Constants.View.Empty.commits.viewModel }
+    override var emptyViewModel: EmptyViewModel { return Constants.View.Empty.commits.viewModel }
     
     let logicController: CommitLogicController
     
@@ -20,7 +20,7 @@ class CommitViewController: SFDynamicTableViewController<CommitModel>, IBViewCon
     
     required init?(coder: NSCoder, parameters: String) {
         logicController = CommitLogicController(parameters: parameters)
-        super.init(coder: coder, cellType: CommitTableViewCell.self, detailViewControllerType: CommitDetailViewController.self)
+        super.init(coder: coder, tableViewDataSource: CommitTableViewDataSource(), tableViewDelegate: CommitTableViewDelegate())
         hidesBottomBarWhenPushed = true
     }
     
@@ -50,7 +50,7 @@ class CommitViewController: SFDynamicTableViewController<CommitModel>, IBViewCon
         load(with: .initial)
     }
     
-    // MARK: - UI Helper Methods
+    // MARK: - View Helper Methods
     
     override func configureView() {
         super.configureView()

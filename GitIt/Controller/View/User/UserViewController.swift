@@ -12,7 +12,8 @@ class UserViewController: SFDynamicTableViewController<UserModel>, IBViewControl
     static var storyboardIdentifier = "UserVC"
     
     override var model: List<UserModel>! { return logicController.model }
-    override var emptyModel: EmptyViewModel { return Constants.View.Empty.users.viewModel } 
+    override var emptyViewModel: EmptyViewModel { return Constants.View.Empty.users.viewModel }
+    //override var tableViewDataSource: UITableViewDataSource! { return UserTableViewDataSource(model: self.model) }
     
     private let logicController: UserLogicController
     private var context: UserContext { return logicController.context }
@@ -23,7 +24,7 @@ class UserViewController: SFDynamicTableViewController<UserModel>, IBViewControl
     
     required init?(coder: NSCoder, context: UserContext, contextParameters: Any? = nil) {
         logicController = UserLogicController(context: context, contextParameters: contextParameters)
-        super.init(coder: coder, cellType: UserTableViewCell.self, detailViewControllerType: UserDetailViewController.self)
+        super.init(coder: coder, tableViewDataSource: UserTableViewDataSource(), tableViewDelegate: UserTableViewDelegate())
     }
     
     required init?(coder: NSCoder) {

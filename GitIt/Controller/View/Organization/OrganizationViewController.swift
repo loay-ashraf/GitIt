@@ -12,7 +12,8 @@ class OrganizationViewController: SFDynamicTableViewController<OrganizationModel
     static var storyboardIdentifier = "OrganizationVC"
     
     override var model: List<OrganizationModel>! { return logicController.model }
-    override var emptyModel: EmptyViewModel { return Constants.View.Empty.organizations.viewModel }
+    override var emptyViewModel: EmptyViewModel { return Constants.View.Empty.organizations.viewModel }
+    //override var cellConfigurator: TableViewCellConfigurator! { return OrganizationTableViewCellConfigurator() }
     
     private let logicController: OrganizationLogicController
     private var context: OrganizationContext { return logicController.context }
@@ -23,7 +24,7 @@ class OrganizationViewController: SFDynamicTableViewController<OrganizationModel
     
     required init?(coder: NSCoder, context: OrganizationContext, contextParameters: Any? = nil) {
         logicController = OrganizationLogicController(context: context, contextParameters: contextParameters)
-        super.init(coder: coder, cellType: OrganizationTableViewCell.self, detailViewControllerType: OrganizationDetailViewController.self)
+        super.init(coder: coder, tableViewDataSource: OrganizationTableViewDataSource(), tableViewDelegate: OrganizationTableViewDelegate())
     }
     
     required init?(coder: NSCoder) {

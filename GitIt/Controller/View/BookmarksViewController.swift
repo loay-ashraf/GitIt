@@ -10,7 +10,7 @@ import UIKit
 class BookmarksViewController: SFDynamicTableViewController<Any> {
     
     override var model: List<Any>! { return List<Any>(with: logicController.model) }
-    override var emptyModel: EmptyViewModel { return Constants.View.Empty.bookmarks.viewModel }
+    override var emptyViewModel: EmptyViewModel { return Constants.View.Empty.bookmarks.viewModel }
     
     private let logicController: BookmarksLogicController
     
@@ -35,26 +35,26 @@ class BookmarksViewController: SFDynamicTableViewController<Any> {
     override func configureView() {
         super.configureView()
     
-        cellType = UserTableViewCell.self
+        cellType = RoundedImageTableViewCell.self
         detailViewControllerType = UserDetailViewController.self
         logicController.setModelType(modelType: UserModel.self)
         
-        registerCell(cellType: UserTableViewCell.self)
+        registerCell(cellType: RoundedImageTableViewCell.self)
         registerCell(cellType: RepositoryTableViewCell.self)
-        registerCell(cellType: OrganizationTableViewCell.self)
+        registerCell(cellType: RoundedImageTableViewCell.self)
         disableRefreshControl()
         subViewsOffsetSize = .mainScreenWithSearch
     }
     
     @IBAction func selectorChanged(_ sender: Any) {
         switch selectorSegmentedControl.selectedSegmentIndex {
-        case 0: cellType = UserTableViewCell.self
+        case 0: cellType = RoundedImageTableViewCell.self
             detailViewControllerType = UserDetailViewController.self
             logicController.setModelType(modelType: UserModel.self)
         case 1: cellType = RepositoryTableViewCell.self
             detailViewControllerType = RepositoryDetailViewController.self
             logicController.setModelType(modelType: RepositoryModel.self)
-        case 2: cellType = OrganizationTableViewCell.self
+        case 2: cellType = RoundedImageTableViewCell.self
             detailViewControllerType = OrganizationDetailViewController.self
             logicController.setModelType(modelType: OrganizationModel.self)
         default: break

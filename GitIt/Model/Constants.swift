@@ -20,9 +20,9 @@ struct Constants {
        
         static func modelToCellType<Type: GitIt.Model>(type: Type.Type) -> IBTableViewCell.Type? {
             switch type {
-            case is UserModel.Type: return UserTableViewCell.self
+            case is UserModel.Type: return RoundedImageTableViewCell.self
             case is RepositoryModel.Type: return RepositoryTableViewCell.self
-            case is OrganizationModel.Type: return OrganizationTableViewCell.self
+            case is OrganizationModel.Type: return RoundedImageTableViewCell.self
             case is CommitModel.Type: return CommitTableViewCell.self
             default: return nil
             }
@@ -38,17 +38,17 @@ struct Constants {
             }
         }
         
-        static func modelToContextMenuConfiguration<Type>(type: Type.Type, for model: Type) -> UIContextMenuConfiguration? {
-            switch type {
-            case is UserModel.Type: return modelContextMenuConfiguration(for: model as! UserModel)
-            case is RepositoryModel.Type: return modelContextMenuConfiguration(for: model as! RepositoryModel)
-            case is OrganizationModel.Type: return modelContextMenuConfiguration(for: model as! OrganizationModel)
-            case is CommitModel.Type: return modelContextMenuConfiguration(for: model as! CommitModel)
+        static func contextMenuConfiguration<Type>(for model: Type) -> UIContextMenuConfiguration? {
+            switch model {
+            case let model as UserModel: return contextMenuConfiguration(forUserModel: model)
+            case let model as RepositoryModel: return contextMenuConfiguration(forRepositoryModel: model)
+            case let model as OrganizationModel: return contextMenuConfiguration(forOrganizationModel: model)
+            case let model as CommitModel: return contextMenuConfiguration(forCommitModel: model)
             default: return nil
             }
         }
         
-        static func modelContextMenuConfiguration(for model: UserModel) -> UIContextMenuConfiguration {
+        static func contextMenuConfiguration(forUserModel model: UserModel) -> UIContextMenuConfiguration {
             let actionProvider: UIContextMenuActionProvider = { actions -> UIMenu? in
                 var bookmark: UIAction! = nil
                 var share: UIAction! = nil
@@ -59,12 +59,12 @@ struct Constants {
                 default: break
                 }
                 share = ContextMenuActions.share(model).action
-                return UIMenu(title: "Quick Actions", children: [bookmark, share])
+                return UIMenu(title: "", children: [bookmark, share])
             }
             return UIContextMenuConfiguration(identifier: nil, previewProvider: nil, actionProvider: actionProvider)
         }
         
-        static func modelContextMenuConfiguration(for model: RepositoryModel) -> UIContextMenuConfiguration {
+        static func contextMenuConfiguration(forRepositoryModel model: RepositoryModel) -> UIContextMenuConfiguration {
             let actionProvider: UIContextMenuActionProvider = { actions -> UIMenu? in
                 var bookmark: UIAction! = nil
                 var share: UIAction! = nil
@@ -75,12 +75,12 @@ struct Constants {
                 default: break
                 }
                 share = ContextMenuActions.share(model).action
-                return UIMenu(title: "Quick Actions", children: [bookmark, share])
+                return UIMenu(title: "", children: [bookmark, share])
             }
             return UIContextMenuConfiguration(identifier: nil, previewProvider: nil, actionProvider: actionProvider)
         }
         
-        static func modelContextMenuConfiguration(for model: OrganizationModel) -> UIContextMenuConfiguration {
+        static func contextMenuConfiguration(forOrganizationModel model: OrganizationModel) -> UIContextMenuConfiguration {
             let actionProvider: UIContextMenuActionProvider = { actions -> UIMenu? in
                 var bookmark: UIAction! = nil
                 var share: UIAction! = nil
@@ -91,16 +91,16 @@ struct Constants {
                 default: break
                 }
                 share = ContextMenuActions.share(model).action
-                return UIMenu(title: "Quick Actions", children: [bookmark, share])
+                return UIMenu(title: "", children: [bookmark, share])
             }
             return UIContextMenuConfiguration(identifier: nil, previewProvider: nil, actionProvider: actionProvider)
         }
         
-        static func modelContextMenuConfiguration(for model: CommitModel) -> UIContextMenuConfiguration {
+        static func contextMenuConfiguration(forCommitModel model: CommitModel) -> UIContextMenuConfiguration {
             let actionProvider: UIContextMenuActionProvider = { actions -> UIMenu? in
                 var share: UIAction! = nil
                 share = ContextMenuActions.share(model).action
-                return UIMenu(title: "Quick Actions", children: [share])
+                return UIMenu(title: "", children: [share])
             }
             return UIContextMenuConfiguration(identifier: nil, previewProvider: nil, actionProvider: actionProvider)
         }

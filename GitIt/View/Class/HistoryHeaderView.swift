@@ -25,7 +25,7 @@ class HistoryHeaderView: UIView {
     }
     
     private func configureUI() {
-        collectionView.register(HistoryCollectionViewCell.nib, forCellWithReuseIdentifier: HistoryCollectionViewCell.reuseIdentifier)
+        collectionView.register(RoundedImageCollectionViewCell.nib, forCellWithReuseIdentifier: RoundedImageCollectionViewCell.reuseIdentifier)
         collectionView.cornerRadius = 10.0
         collectionView.cornerCurve  = .continuous
         collectionView.masksToBounds = true

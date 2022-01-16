@@ -40,28 +40,5 @@ class RepositoryTableViewCell: UITableViewCell, IBTableViewCell {
         starsNumericView.numbers = nil
         languageTextView.text = nil
     }
-
-    func configure<Type>(with model: Type) {
-        let repository = model as! RepositoryModel
-        ownerTextView.loadIcon(at: repository.owner.avatarURL)
-        ownerTextView.text = repository.owner.login
-        nameLabel.text = repository.name
-        if let description = repository.description, !description.isEmpty {
-            descriptionLabel.text = repository.description
-        } else {
-            descriptionLabel.isHidden = true
-        }
-        starsNumericView.numbers = [ Double(repository.stars) ]
-        languageTextView.text = repository.language
-        if let language = repository.language, let languageColors = languageColors {
-            if let colorString = languageColors[language] {
-                let color = UIColor(hex: colorString)
-                languageTextView.iconTintColor = color
-            } else {
-                languageTextView.text = nil
-            }
-        }
-        setNeedsLayout()
-    }
     
 }
