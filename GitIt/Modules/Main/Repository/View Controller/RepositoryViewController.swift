@@ -46,7 +46,7 @@ class RepositoryViewController: SFDynamicTableViewController<RepositoryModel>, I
     }
     
     deinit {
-        print("Controller deallocated")
+        debugPrint(String(describing: self) + " deallocated")
     }
 
     // MARK: - Lifecycle

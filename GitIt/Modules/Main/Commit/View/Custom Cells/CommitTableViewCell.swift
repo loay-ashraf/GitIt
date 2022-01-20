@@ -7,10 +7,10 @@
 
 import UIKit
 
-class CommitTableViewCell: UITableViewCell, IBTableViewCell {
+class CommitTableViewCell: TableViewCell, IBTableViewCell {
 
-    static let reuseIdentifier = "CommitTableViewCell"
-    static var nib: UINib { return UINib(nibName: "CommitTableViewCell", bundle: nil) }
+    override class var reuseIdentifier: String { return String(describing: CommitTableViewCell.self) }
+    override class var nib: UINib { return UINib(nibName: String(describing: CommitTableViewCell.self), bundle: nil) }
     
     @IBOutlet weak var authorTextView: IconicTextView!
     @IBOutlet weak var messageLabel: UILabel!

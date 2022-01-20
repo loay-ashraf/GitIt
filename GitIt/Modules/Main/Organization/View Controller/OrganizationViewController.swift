@@ -47,7 +47,7 @@ class OrganizationViewController: SFDynamicTableViewController<OrganizationModel
     }
     
     deinit {
-        print("Controller deallocated")
+        debugPrint(String(describing: self) + " deallocated")
     }
 
     // MARK: - Lifecycle

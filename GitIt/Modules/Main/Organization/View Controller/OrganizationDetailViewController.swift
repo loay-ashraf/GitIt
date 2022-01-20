@@ -50,7 +50,7 @@ class OrganizationDetailViewController: SFStaticTableViewController, IBViewContr
     }
     
     deinit {
-        print("Controller deallocated")
+        debugPrint(String(describing: self) + " deallocated")
     }
     
     // MARK: - Lifecycle

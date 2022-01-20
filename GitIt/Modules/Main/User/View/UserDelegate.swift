@@ -10,10 +10,19 @@ import UIKit
 class UserTableViewDelegate: TableViewDelegate<UserModel> {
     
     override init() {
-        super.init()
-        model = List<UserModel>()
-        detailViewControllerPresenter = UserTableViewDetailPresenter()
-        contextMenuConfigurator = UserTableViewContextMenuConfigurator()
+        let tapResponder = UserTableViewTapResponder()
+        let contextMenuConfigurator = UserTableViewContextMenuConfigurator()
+        super.init(tapResponder: tapResponder, contextMenuConfigurator: contextMenuConfigurator, scrollViewAction: nil)
+    }
+    
+}
+
+class UserCollectionViewDelegate: CollectionViewDelegate<UserModel> {
+    
+    override init() {
+        let tapResponder = UserCollectionViewTapResponder()
+        let contextMenuConfigurator = UserCollectionViewContextMenuConfigurator()
+        super.init(tapResponder: tapResponder, contextMenuConfigurator: contextMenuConfigurator, scrollViewAction: nil)
     }
     
 }

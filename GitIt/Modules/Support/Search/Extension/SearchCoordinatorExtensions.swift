@@ -50,7 +50,7 @@ extension SearchCoordinator {
 
 extension SearchCoordinator: HistoryDelegate {
     
-    // History Delegate Methods
+    // MARK: - History Delegate Methods
     
     func historySearch(with keyword: String) {
         self.keyword = keyword
@@ -62,7 +62,7 @@ extension SearchCoordinator: HistoryDelegate {
 
 extension SearchCoordinator: ResultsDelegate {
     
-    // Results Delegate Methods
+    // MARK: - Results Delegate Methods
     
     func addModel(with model: Any) {
         historyController.addModel(with: model)

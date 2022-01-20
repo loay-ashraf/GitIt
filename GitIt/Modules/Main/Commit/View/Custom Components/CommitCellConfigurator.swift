@@ -9,7 +9,7 @@ import UIKit
 
 class CommitTableViewCellConfigurator: TableViewCellConfigurator {
     
-    func configure<Type>(_ cell: UITableViewCell, forDisplaying item: Type) {
+    override func configure<Type>(_ cell: UITableViewCell, forDisplaying item: Type) {
         if let cell = cell as? CommitTableViewCell, let item = item as? CommitModel {
             if let author = item.author {
                 cell.authorTextView.loadIcon(at: author.avatarURL)

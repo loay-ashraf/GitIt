@@ -35,19 +35,19 @@ class BookmarksViewController: SFDynamicTableViewController<Any> {
     override func configureView() {
         super.configureView()
     
-        cellType = RoundedImageTableViewCell.self
-        detailViewControllerType = UserDetailViewController.self
+        //cellType = RoundedImageTableViewCell.self
+        //detailViewControllerType = UserDetailViewController.self
         logicController.setModelType(modelType: UserModel.self)
         
-        registerCell(cellType: RoundedImageTableViewCell.self)
+        /*registerCell(cellType: RoundedImageTableViewCell.self)
         registerCell(cellType: RepositoryTableViewCell.self)
-        registerCell(cellType: RoundedImageTableViewCell.self)
+        registerCell(cellType: RoundedImageTableViewCell.self)*/
         disableRefreshControl()
         subViewsOffsetSize = .mainScreenWithSearch
     }
     
     @IBAction func selectorChanged(_ sender: Any) {
-        switch selectorSegmentedControl.selectedSegmentIndex {
+        /*switch selectorSegmentedControl.selectedSegmentIndex {
         case 0: cellType = RoundedImageTableViewCell.self
             detailViewControllerType = UserDetailViewController.self
             logicController.setModelType(modelType: UserModel.self)
@@ -58,7 +58,7 @@ class BookmarksViewController: SFDynamicTableViewController<Any> {
             detailViewControllerType = OrganizationDetailViewController.self
             logicController.setModelType(modelType: OrganizationModel.self)
         default: break
-        }
+        }*/
         load(with: .initial)
     }
     

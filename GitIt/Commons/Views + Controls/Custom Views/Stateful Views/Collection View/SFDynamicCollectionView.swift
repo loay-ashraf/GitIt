@@ -7,11 +7,9 @@
 
 import UIKit
 
-class SFDynamicCollectionView: UICollectionView, StatefulView {
+class SFDynamicCollectionView: CollectionView, StatefulView {
 
     var state: ViewState = .presenting
-    
-    var registeredViews = [String:Any]()
     
     var errorAction: (() -> Void)?
     
@@ -37,14 +35,6 @@ class SFDynamicCollectionView: UICollectionView, StatefulView {
         errorView = ErrorView.instanceFromNib()
         errorView.configureAction { [ weak self ] in self?.errorAction!() }
     }
-    
-    // MARK: - View Registeration Methods
-
-    override func register(_ nib: UINib?, forCellWithReuseIdentifier identifier: String) {
-        super.register(nib, forCellWithReuseIdentifier: identifier)
-        if let nib = nib { registeredViews[identifier] = nib }
-    }
-    
     
     // MARK: - View State Methods
     

@@ -18,6 +18,11 @@ extension UIApplication {
                 return topViewController(controller: selected)
             }
         }
+        if let searchController = controller as? UISearchController {
+            if let resultsController = searchController.searchResultsController {
+                return topViewController(controller: resultsController)
+            }
+        }
         if let presented = controller?.presentedViewController {
             return topViewController(controller: presented)
         }
@@ -30,20 +35,6 @@ extension UIApplication {
         return controller
     }
 
-}
-
-extension UICollectionView {
-
-    var registeredNibs: [String: UINib] {
-        let dict = value(forKey: "_nibMap") as? [String: UINib]
-        return dict ?? [:]
-    }
-
-    var registeredCells: [String: Any] {
-        let dict = value(forKey: "_cellClassDict") as? [String: Any]
-        return dict ?? [:]
-    }
-    
 }
 
 extension UICollectionViewFlowLayout {

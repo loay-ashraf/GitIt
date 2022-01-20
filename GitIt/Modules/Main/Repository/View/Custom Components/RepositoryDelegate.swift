@@ -10,10 +10,19 @@ import UIKit
 class RepositoryTableViewDelegate: TableViewDelegate<RepositoryModel> {
     
     override init() {
-        super.init()
-        model = List<RepositoryModel>()
-        detailViewControllerPresenter = RepositoryTableViewDetailPresenter()
-        contextMenuConfigurator = TableViewContextMenuConfigurator()
+        let tapResponder = RepositoryTableViewTapResponder()
+        let contextMenuConfigurator = RepositoryTableViewContextMenuConfigurator()
+        super.init(tapResponder: tapResponder, contextMenuConfigurator: contextMenuConfigurator, scrollViewAction: nil)
+    }
+    
+}
+
+class RepositoryCollectionViewDelegate: CollectionViewDelegate<RepositoryModel> {
+    
+    override init() {
+        let tapResponder = RepositoryCollectionViewTapResponder()
+        let contextMenuConfigurator = RepositoryCollectionViewContextMenuConfigurator()
+        super.init(tapResponder: tapResponder, contextMenuConfigurator: contextMenuConfigurator, scrollViewAction: nil)
     }
     
 }

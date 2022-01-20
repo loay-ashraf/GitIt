@@ -10,15 +10,19 @@ import UIKit
 class UserTableViewDataSource: TableViewDataSource<UserModel> {
     
     override init() {
-        super.init()
-        model = List<UserModel>()
-        cellConfigurator = UserTableViewCellConfigurator()
+        let cellClass = RoundedImageTableViewCell.self
+        let cellConfigurator = UserTableViewCellConfigurator()
+        super.init(cellClass: cellClass, cellConfigurator: cellConfigurator, swipeResponder: nil)
     }
     
-    override func registerCell(tableView: SFDynamicTableView) {
-        let nib = RoundedImageTableViewCell.nib
-        let resuseIdentifier = RoundedImageTableViewCell.reuseIdentifier
-        tableView.register(nib, forCellReuseIdentifier: resuseIdentifier)
+}
+
+class UserCollectionViewDataSource: CollectionViewDataSource<UserModel> {
+    
+    override init() {
+        let cellClass = RoundedImageCollectionViewCell.self
+        let cellConfigurator = UserCollectionViewCellConfigurator()
+        super.init(cellClass: cellClass, cellConfigurator: cellConfigurator)
     }
     
 }

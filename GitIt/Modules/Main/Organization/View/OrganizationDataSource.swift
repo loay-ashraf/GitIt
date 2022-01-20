@@ -10,15 +10,19 @@ import UIKit
 class OrganizationTableViewDataSource: TableViewDataSource<OrganizationModel> {
     
     override init() {
-        super.init()
-        model = List<OrganizationModel>()
-        cellConfigurator = OrganizationTableViewCellConfigurator()
+        let cellClass = RoundedImageTableViewCell.self
+        let cellConfigurator = OrganizationTableViewCellConfigurator()
+        super.init(cellClass: cellClass, cellConfigurator: cellConfigurator, swipeResponder: nil)
     }
     
-    override func registerCell(tableView: SFDynamicTableView) {
-        let nib = RoundedImageTableViewCell.nib
-        let resuseIdentifier = RoundedImageTableViewCell.reuseIdentifier
-        tableView.register(nib, forCellReuseIdentifier: resuseIdentifier)
+}
+
+class OrganizationCollectionViewDataSource: CollectionViewDataSource<OrganizationModel> {
+    
+    override init() {
+        let cellClass = RoundedImageCollectionViewCell.self
+        let cellConfigurator = OrganizationCollectionViewCellConfigurator()
+        super.init(cellClass: cellClass, cellConfigurator: cellConfigurator)
     }
     
 }

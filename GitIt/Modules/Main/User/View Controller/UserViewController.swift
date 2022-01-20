@@ -13,7 +13,6 @@ class UserViewController: SFDynamicTableViewController<UserModel>, IBViewControl
     
     override var model: List<UserModel>! { return logicController.model }
     override var emptyViewModel: EmptyViewModel { return Constants.View.Empty.users.viewModel }
-    //override var tableViewDataSource: UITableViewDataSource! { return UserTableViewDataSource(model: self.model) }
     
     private let logicController: UserLogicController
     private var context: UserContext { return logicController.context }
@@ -47,7 +46,7 @@ class UserViewController: SFDynamicTableViewController<UserModel>, IBViewControl
     }
     
     deinit {
-        print("Controller deallocated")
+        debugPrint(String(describing: self) + " deallocated")
     }
 
     // MARK: - Lifecycle

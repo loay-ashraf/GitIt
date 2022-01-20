@@ -10,29 +10,28 @@ import UIKit
 class SFDynamicTableViewController<Type>: UITableViewController {
     
     var xTableView: SFDynamicTableView! { return tableView as? SFDynamicTableView }
-    
-    var cellType: IBTableViewCell.Type!
-    var detailViewControllerType: IBViewController.Type?
 
+    var tableViewDataSource: TableViewDataSource<Type>!
+    var tableViewDelegate: TableViewDelegate<Type>!
+    
     private(set) var model: List<Type>!
     private(set) var emptyViewModel: EmptyViewModel = Constants.View.Empty.general.viewModel
-    private(set) var tableViewDataSource: TableViewDataSource<Type>!
-    private(set) var tableViewDelegate: TableViewDelegate<Type>!
     
     // MARK: - Initialisation
     
     init(tableViewDataSource: TableViewDataSource<Type>, tableViewDelegate: TableViewDelegate<Type>) {
         super.init(nibName: nil, bundle: nil)
+        self.model = List<Type>()
         self.tableViewDataSource = tableViewDataSource
         self.tableViewDelegate = tableViewDelegate
-        self.model = List<Type>()
+        
     }
     
     init?(coder: NSCoder, tableViewDataSource: TableViewDataSource<Type>, tableViewDelegate: TableViewDelegate<Type>) {
         super.init(coder: coder)
+        self.model = List<Type>()
         self.tableViewDataSource = tableViewDataSource
         self.tableViewDelegate = tableViewDelegate
-        self.model = List<Type>()
     }
     
     required init?(coder: NSCoder) {
@@ -66,13 +65,10 @@ class SFDynamicTableViewController<Type>: UITableViewController {
     // MARK: - View Helper Methods
     
     func configureView() {
-        // Setup table view cell, data source and delegates
-        if let cellType = cellType, xTableView.registeredNibs.isEmpty, xTableView.registeredCellIdentifiers.isEmpty {
-            xTableView.register(cellType.nib, forCellReuseIdentifier: cellType.reuseIdentifier)
-        }
-        xTableView.dataSource = tableViewDataSource
-        xTableView.delegate = tableViewDelegate
-        tableViewDelegate.scrollViewDidScrollAction = { [weak self] in if (self?.model.count) ?? 0 > 0 { self?.paginate() } }
+        // Setup table view data source and delegates
+        xTableView.setDataSource(tableViewDataSource)
+        xTableView.setDelegate(tableViewDelegate)
+        tableViewDelegate.scrollViewAction = { [weak self] in if (self?.model.count) ?? 0 > 0 { self?.paginate() } }
         // Setup table view header, footer and content insets
         if xTableView.tableHeaderView == nil { xTableView.tableHeaderView = UIView() }
         if xTableView.tableFooterView == nil { xTableView.tableFooterView = UIView() }
@@ -85,11 +81,8 @@ class SFDynamicTableViewController<Type>: UITableViewController {
     }
     
     func updateView() {
+        synchronizeTableView()
         xTableView.reloadData()
-    }
-    
-    func registerCell(cellType: IBTableViewCell.Type) {
-        xTableView.register(cellType.nib, forCellReuseIdentifier: cellType.reuseIdentifier)
     }
     
     func enableSearchBar() {
@@ -155,7 +148,7 @@ class SFDynamicTableViewController<Type>: UITableViewController {
             xTableView.transition(to: .empty(emptyViewModel))
             disableSearchBar()
         } else {
-            synchronizeModel()
+            synchronizeTableView()
             xTableView.transition(to: .presenting)
             enableSearchBar()
         }
@@ -166,7 +159,7 @@ class SFDynamicTableViewController<Type>: UITableViewController {
             xTableView.transition(to: .failed(.refresh(error)))
             disableSearchBar()
         } else {
-            synchronizeModel()
+            synchronizeTableView()
             xTableView.transition(to: .presenting)
             enableSearchBar()
         }
@@ -177,7 +170,7 @@ class SFDynamicTableViewController<Type>: UITableViewController {
             xTableView.transition(to: .failed(.paginate(error)))
             disableSearchBar()
         } else {
-            synchronizeModel()
+            synchronizeTableView()
             xTableView.transition(to: .presenting)
             enableSearchBar()
         }
@@ -188,7 +181,7 @@ class SFDynamicTableViewController<Type>: UITableViewController {
         enableSearchBar()
     }
     
-    func synchronizeModel() {
+    func synchronizeTableView() {
         tableViewDataSource.model = model
         tableViewDelegate.model = model
     }

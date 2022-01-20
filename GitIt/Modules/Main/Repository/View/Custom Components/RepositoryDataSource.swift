@@ -10,15 +10,19 @@ import UIKit
 class RepositoryTableViewDataSource: TableViewDataSource<RepositoryModel> {
     
     override init() {
-        super.init()
-        model = List<RepositoryModel>()
-        cellConfigurator = RepositoryTableViewCellConfigurator()
+        let cellClass = RepositoryTableViewCell.self
+        let cellConfigurator = RepositoryTableViewCellConfigurator()
+        super.init(cellClass: cellClass, cellConfigurator: cellConfigurator, swipeResponder: nil)
     }
     
-    override func registerCell(tableView: SFDynamicTableView) {
-        let nib = RepositoryTableViewCell.nib
-        let resuseIdentifier = RepositoryTableViewCell.reuseIdentifier
-        tableView.register(nib, forCellReuseIdentifier: resuseIdentifier)
+}
+
+class RepositoryCollectionViewDataSource: CollectionViewDataSource<RepositoryModel> {
+    
+    override init() {
+        let cellClass = RoundedImageCollectionViewCell.self
+        let cellConfigurator = RepositoryCollectionViewCellConfigurator()
+        super.init(cellClass: cellClass, cellConfigurator: cellConfigurator)
     }
     
 }

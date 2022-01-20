@@ -10,10 +10,7 @@ import UIKit
 class CommitTableViewContextMenuConfigurator: TableViewContextMenuConfigurator {
     
     override func configure<Type>(with item: Type) -> UIContextMenuConfiguration {
-        if let configuration = Constants.Model.contextMenuConfiguration(for: item) {
-            return configuration
-        }
-        return UIContextMenuConfiguration()
+        return ContextMenuConfigurationConstants.bookmarkAndShareConfiguration(for: item as! CommitModel)
     }
     
 }

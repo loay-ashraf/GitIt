@@ -54,7 +54,7 @@ class RepositoryDetailViewController: SFStaticTableViewController, IBViewControl
     }
     
     deinit {
-        print("Controller deallocated")
+        debugPrint(String(describing: self) + " deallocated")
     }
     
     // MARK: - Lifecycle

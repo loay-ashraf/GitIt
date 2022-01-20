@@ -56,50 +56,49 @@
 		C65EA1BF2795D77D001C5174 /* CollectionViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C65EA1BE2795D77D001C5174 /* CollectionViewDelegate.swift */; };
 		C65EA1C22795D794001C5174 /* CollectionViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C65EA1C12795D794001C5174 /* CollectionViewDataSource.swift */; };
 		C65EA1C42795D7B0001C5174 /* CollectionViewContextMenuConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C65EA1C32795D7B0001C5174 /* CollectionViewContextMenuConfigurator.swift */; };
-		C65EA1C72795D7D5001C5174 /* CollectionViewDetailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C65EA1C62795D7D5001C5174 /* CollectionViewDetailPresenter.swift */; };
+		C65EA1C72795D7D5001C5174 /* CollectionViewTapResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C65EA1C62795D7D5001C5174 /* CollectionViewTapResponder.swift */; };
 		C65EA1CA2795D82A001C5174 /* UIKitExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C65EA1C92795D82A001C5174 /* UIKitExtensions.swift */; };
 		C65EA1CC2795D931001C5174 /* UserDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C65EA1CB2795D931001C5174 /* UserDelegate.swift */; };
 		C65EA1CE2795D965001C5174 /* UserDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C65EA1CD2795D965001C5174 /* UserDataSource.swift */; };
 		C65EA1D02795D99E001C5174 /* UserCellConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C65EA1CF2795D99E001C5174 /* UserCellConfigurator.swift */; };
 		C65EA1D22795DA1E001C5174 /* UserContextMenuConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C65EA1D12795DA1E001C5174 /* UserContextMenuConfigurator.swift */; };
-		C65EA1D42795DA67001C5174 /* UserDetailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C65EA1D32795DA67001C5174 /* UserDetailPresenter.swift */; };
+		C65EA1D42795DA67001C5174 /* UserTapResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C65EA1D32795DA67001C5174 /* UserTapResponder.swift */; };
 		C65EA1DA2795E414001C5174 /* RepositoryCellConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C65EA1D92795E414001C5174 /* RepositoryCellConfigurator.swift */; };
 		C65EA1DC2795E42C001C5174 /* RepositoryContextMenuConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C65EA1DB2795E42C001C5174 /* RepositoryContextMenuConfigurator.swift */; };
 		C65EA1DE2795E443001C5174 /* RepositoryDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C65EA1DD2795E443001C5174 /* RepositoryDataSource.swift */; };
 		C65EA1E02795E458001C5174 /* RepositoryDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C65EA1DF2795E458001C5174 /* RepositoryDelegate.swift */; };
-		C65EA1E22795E46B001C5174 /* RepositoryDetailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C65EA1E12795E46B001C5174 /* RepositoryDetailPresenter.swift */; };
+		C65EA1E22795E46B001C5174 /* RepositoryTapResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C65EA1E12795E46B001C5174 /* RepositoryTapResponder.swift */; };
 		C65EA1E42795E549001C5174 /* OrganizationCellConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C65EA1E32795E549001C5174 /* OrganizationCellConfigurator.swift */; };
 		C65EA1E62795E55F001C5174 /* OrganizationContextMenuConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C65EA1E52795E55F001C5174 /* OrganizationContextMenuConfigurator.swift */; };
 		C65EA1E82795E571001C5174 /* OrganizationDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C65EA1E72795E571001C5174 /* OrganizationDataSource.swift */; };
 		C65EA1EA2795E57D001C5174 /* OrganizationDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C65EA1E92795E57D001C5174 /* OrganizationDelegate.swift */; };
-		C65EA1EC2795E592001C5174 /* OrganizationDetailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C65EA1EB2795E591001C5174 /* OrganizationDetailPresenter.swift */; };
+		C65EA1EC2795E592001C5174 /* OrganizationTapResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C65EA1EB2795E591001C5174 /* OrganizationTapResponder.swift */; };
 		C65EA1F02795E680001C5174 /* CommitCellConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C65EA1EF2795E680001C5174 /* CommitCellConfigurator.swift */; };
 		C65EA1F22795E696001C5174 /* CommitContextMenuConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C65EA1F12795E696001C5174 /* CommitContextMenuConfigurator.swift */; };
 		C65EA1F42795E6A4001C5174 /* CommitDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C65EA1F32795E6A4001C5174 /* CommitDataSource.swift */; };
 		C65EA1F62795E6AF001C5174 /* CommitDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C65EA1F52795E6AF001C5174 /* CommitDelegate.swift */; };
-		C65EA1F82795E6C0001C5174 /* CommitDetailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C65EA1F72795E6C0001C5174 /* CommitDetailPresenter.swift */; };
+		C65EA1F82795E6C0001C5174 /* CommitTapResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C65EA1F72795E6C0001C5174 /* CommitTapResponder.swift */; };
 		C65EA1FD2795E7D3001C5174 /* SeachHistoryCellConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C65EA1FC2795E7D3001C5174 /* SeachHistoryCellConfigurator.swift */; };
 		C65EA1FF2795E803001C5174 /* SearchHistoryDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C65EA1FE2795E803001C5174 /* SearchHistoryDataSource.swift */; };
 		C65EA2012795E833001C5174 /* SearchHistoryDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C65EA2002795E833001C5174 /* SearchHistoryDelegate.swift */; };
-		C65EA2032795E9A1001C5174 /* TableViewEditingStyleConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C65EA2022795E9A1001C5174 /* TableViewEditingStyleConfigurator.swift */; };
-		C65EA2052795EA87001C5174 /* SearchHistoryEditingStyleConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C65EA2042795EA87001C5174 /* SearchHistoryEditingStyleConfigurator.swift */; };
+		C65EA2032795E9A1001C5174 /* TableViewSwipeResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C65EA2022795E9A1001C5174 /* TableViewSwipeResponder.swift */; };
+		C65EA2072795EE49001C5174 /* SearchHistoryTapResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C65EA2062795EE49001C5174 /* SearchHistoryTapResponder.swift */; };
 		C66005792794856900770045 /* TableViewCellConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66005782794856900770045 /* TableViewCellConfigurator.swift */; };
 		C660057D27948C7100770045 /* CollectionViewCellConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C660057C27948C7100770045 /* CollectionViewCellConfigurator.swift */; };
 		C66005812794967500770045 /* TableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66005802794967500770045 /* TableViewDataSource.swift */; };
 		C66005832794AB3B00770045 /* TableViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66005822794AB3B00770045 /* TableViewDelegate.swift */; };
-		C66005872794AD2700770045 /* TableViewDetailPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66005862794AD2700770045 /* TableViewDetailPresenter.swift */; };
+		C66005872794AD2700770045 /* TableViewTapResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66005862794AD2700770045 /* TableViewTapResponder.swift */; };
 		C66005892794BC9600770045 /* TableViewContextMenuConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66005882794BC9600770045 /* TableViewContextMenuConfigurator.swift */; };
-		C66033FE277CDF0400907494 /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66033FD277CDF0400907494 /* HistoryViewController.swift */; };
-		C6603400277CE53A00907494 /* HistoryCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66033FF277CE53A00907494 /* HistoryCollectionViewController.swift */; };
+		C66033FE277CDF0400907494 /* SearchHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66033FD277CDF0400907494 /* SearchHistoryViewController.swift */; };
 		C6603402277CE69400907494 /* IBCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6603401277CE69400907494 /* IBCollectionViewCell.swift */; };
 		C6603404277CE86700907494 /* SFDynamicCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6603403277CE86700907494 /* SFDynamicCollectionView.swift */; };
 		C6603406277CEA9B00907494 /* SFDynamicCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6603405277CEA9B00907494 /* SFDynamicCollectionViewController.swift */; };
 		C662BE23279361690018845C /* AdaptableSizeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C662BE22279361690018845C /* AdaptableSizeButton.swift */; };
 		C662EE95278F071F005545DB /* ErrorView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C662EE97278F071F005545DB /* ErrorView.xib */; };
-		C66412312780789500D605BF /* HistoryLogicController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66412302780789500D605BF /* HistoryLogicController.swift */; };
+		C66412312780789500D605BF /* SearchHistoryLogicController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66412302780789500D605BF /* SearchHistoryLogicController.swift */; };
 		C66412352780790E00D605BF /* HistoryProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66412342780790E00D605BF /* HistoryProtocols.swift */; };
-		C66412382780796E00D605BF /* HistoryExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66412372780796E00D605BF /* HistoryExtensions.swift */; };
-		C664123D27807CEA00D605BF /* ResultsLogicController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C664123C27807CEA00D605BF /* ResultsLogicController.swift */; };
+		C66412382780796E00D605BF /* SearchHistoryExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66412372780796E00D605BF /* SearchHistoryExtensions.swift */; };
+		C664123D27807CEA00D605BF /* SearchResultsLogicController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C664123C27807CEA00D605BF /* SearchResultsLogicController.swift */; };
 		C6641241278083D700D605BF /* ResultsProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6641240278083D700D605BF /* ResultsProtocols.swift */; };
 		C66412452780845900D605BF /* SearchCoordinatorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66412442780845900D605BF /* SearchCoordinatorExtensions.swift */; };
 		C66412472780859A00D605BF /* EmptyView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C66412462780859A00D605BF /* EmptyView.xib */; };
@@ -132,13 +131,23 @@
 		C68B650A271E148B00A26D05 /* UserDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C68B6509271E148B00A26D05 /* UserDetailViewController.swift */; };
 		C68B650C271E152E00A26D05 /* RepositoryDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C68B650B271E152E00A26D05 /* RepositoryDetailViewController.swift */; };
 		C68B650F271E1A1400A26D05 /* NetworkClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = C68B650E271E1A1400A26D05 /* NetworkClient.swift */; };
+		C68C3B3C2799B4710048F35B /* TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C68C3B3B2799B4710048F35B /* TableView.swift */; };
+		C68C3B3F2799B4A30048F35B /* CollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C68C3B3E2799B4A30048F35B /* CollectionView.swift */; };
+		C68C3B412799B4F70048F35B /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C68C3B402799B4F70048F35B /* CollectionViewCell.swift */; };
+		C68C3B432799B5160048F35B /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C68C3B422799B5160048F35B /* TableViewCell.swift */; };
 		C68FCBC8273838A50019C932 /* ExploreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C68FCBC7273838A50019C932 /* ExploreViewController.swift */; };
 		C693C4A92729BE1D0061ED73 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C693C4A82729BE1D0061ED73 /* SignInViewController.swift */; };
 		C694B49D273F7DF400C6F5A6 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C694B49C273F7DF400C6F5A6 /* SettingsViewController.swift */; };
 		C696BFE92725E49E0078FBF4 /* RoundedImageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C696BFE82725E49E0078FBF4 /* RoundedImageTableViewCell.swift */; };
-		C69A5E4927428B5F007054EA /* HistoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C69A5E4727428B5F007054EA /* HistoryTableViewCell.swift */; };
-		C69A5E4A27428B5F007054EA /* HistoryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C69A5E4827428B5F007054EA /* HistoryTableViewCell.xib */; };
+		C69A5E4927428B5F007054EA /* SearchHistoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C69A5E4727428B5F007054EA /* SearchHistoryTableViewCell.swift */; };
+		C69A5E4A27428B5F007054EA /* SearchHistoryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C69A5E4827428B5F007054EA /* SearchHistoryTableViewCell.xib */; };
 		C69BEE4627422414005B6AA2 /* RoundedImageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C69BEE4427422414005B6AA2 /* RoundedImageTableViewCell.xib */; };
+		C69C32E4279857EE00AEB64B /* SearchHistorySwipeResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C69C32E3279857EE00AEB64B /* SearchHistorySwipeResponder.swift */; };
+		C69C32E82798920500AEB64B /* SearchHistoryContextMenuConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C69C32E72798920500AEB64B /* SearchHistoryContextMenuConfigurator.swift */; };
+		C69C32EC2798C23A00AEB64B /* SearchResultsDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C69C32EB2798C23A00AEB64B /* SearchResultsDelegate.swift */; };
+		C69C32EE2798C25200AEB64B /* SearchResultsTapResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C69C32ED2798C25200AEB64B /* SearchResultsTapResponder.swift */; };
+		C69C32F02798C26F00AEB64B /* SearchResultsContextMenuConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C69C32EF2798C26F00AEB64B /* SearchResultsContextMenuConfigurator.swift */; };
+		C69C32F62798D56D00AEB64B /* SearchResultsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C69C32F52798D56D00AEB64B /* SearchResultsDataSource.swift */; };
 		C69ECCD927323D5A00E158A3 /* TokenHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C69ECCD827323D5A00E158A3 /* TokenHelper.swift */; };
 		C69ECCDB2732441F00E158A3 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C69ECCDA2732441F00E158A3 /* DataManager.swift */; };
 		C69ECCE32732566800E158A3 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C69ECCE22732566800E158A3 /* NetworkManager.swift */; };
@@ -167,8 +176,7 @@
 		C6DFF6162791A9DF00A617CB /* FileManagerHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6DFF6152791A9DF00A617CB /* FileManagerHelper.swift */; };
 		C6E6799D279064620060AFD3 /* SearchHistoryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6E6799C279064620060AFD3 /* SearchHistoryManager.swift */; };
 		C6F46E7827541B2700498614 /* SearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6F46E7727541B2700498614 /* SearchController.swift */; };
-		C6F46E7A27541C9300498614 /* ResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6F46E7927541C9300498614 /* ResultsViewController.swift */; };
-		C6F46E7C27541D0E00498614 /* HistoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6F46E7B27541D0E00498614 /* HistoryTableViewController.swift */; };
+		C6F46E7A27541C9300498614 /* SearchResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6F46E7927541C9300498614 /* SearchResultsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -226,51 +234,50 @@
 		C65EA1BE2795D77D001C5174 /* CollectionViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewDelegate.swift; sourceTree = "<group>"; };
 		C65EA1C12795D794001C5174 /* CollectionViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewDataSource.swift; sourceTree = "<group>"; };
 		C65EA1C32795D7B0001C5174 /* CollectionViewContextMenuConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewContextMenuConfigurator.swift; sourceTree = "<group>"; };
-		C65EA1C62795D7D5001C5174 /* CollectionViewDetailPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewDetailPresenter.swift; sourceTree = "<group>"; };
+		C65EA1C62795D7D5001C5174 /* CollectionViewTapResponder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewTapResponder.swift; sourceTree = "<group>"; };
 		C65EA1C92795D82A001C5174 /* UIKitExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIKitExtensions.swift; sourceTree = "<group>"; };
 		C65EA1CB2795D931001C5174 /* UserDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDelegate.swift; sourceTree = "<group>"; };
 		C65EA1CD2795D965001C5174 /* UserDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDataSource.swift; sourceTree = "<group>"; };
 		C65EA1CF2795D99E001C5174 /* UserCellConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCellConfigurator.swift; sourceTree = "<group>"; };
 		C65EA1D12795DA1E001C5174 /* UserContextMenuConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserContextMenuConfigurator.swift; sourceTree = "<group>"; };
-		C65EA1D32795DA67001C5174 /* UserDetailPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailPresenter.swift; sourceTree = "<group>"; };
+		C65EA1D32795DA67001C5174 /* UserTapResponder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTapResponder.swift; sourceTree = "<group>"; };
 		C65EA1D92795E414001C5174 /* RepositoryCellConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryCellConfigurator.swift; sourceTree = "<group>"; };
 		C65EA1DB2795E42C001C5174 /* RepositoryContextMenuConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryContextMenuConfigurator.swift; sourceTree = "<group>"; };
 		C65EA1DD2795E443001C5174 /* RepositoryDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryDataSource.swift; sourceTree = "<group>"; };
 		C65EA1DF2795E458001C5174 /* RepositoryDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryDelegate.swift; sourceTree = "<group>"; };
-		C65EA1E12795E46B001C5174 /* RepositoryDetailPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryDetailPresenter.swift; sourceTree = "<group>"; };
+		C65EA1E12795E46B001C5174 /* RepositoryTapResponder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryTapResponder.swift; sourceTree = "<group>"; };
 		C65EA1E32795E549001C5174 /* OrganizationCellConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrganizationCellConfigurator.swift; sourceTree = "<group>"; };
 		C65EA1E52795E55F001C5174 /* OrganizationContextMenuConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrganizationContextMenuConfigurator.swift; sourceTree = "<group>"; };
 		C65EA1E72795E571001C5174 /* OrganizationDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrganizationDataSource.swift; sourceTree = "<group>"; };
 		C65EA1E92795E57D001C5174 /* OrganizationDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrganizationDelegate.swift; sourceTree = "<group>"; };
-		C65EA1EB2795E591001C5174 /* OrganizationDetailPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrganizationDetailPresenter.swift; sourceTree = "<group>"; };
+		C65EA1EB2795E591001C5174 /* OrganizationTapResponder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrganizationTapResponder.swift; sourceTree = "<group>"; };
 		C65EA1EF2795E680001C5174 /* CommitCellConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommitCellConfigurator.swift; sourceTree = "<group>"; };
 		C65EA1F12795E696001C5174 /* CommitContextMenuConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommitContextMenuConfigurator.swift; sourceTree = "<group>"; };
 		C65EA1F32795E6A4001C5174 /* CommitDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommitDataSource.swift; sourceTree = "<group>"; };
 		C65EA1F52795E6AF001C5174 /* CommitDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommitDelegate.swift; sourceTree = "<group>"; };
-		C65EA1F72795E6C0001C5174 /* CommitDetailPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommitDetailPresenter.swift; sourceTree = "<group>"; };
+		C65EA1F72795E6C0001C5174 /* CommitTapResponder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommitTapResponder.swift; sourceTree = "<group>"; };
 		C65EA1FC2795E7D3001C5174 /* SeachHistoryCellConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeachHistoryCellConfigurator.swift; sourceTree = "<group>"; };
 		C65EA1FE2795E803001C5174 /* SearchHistoryDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistoryDataSource.swift; sourceTree = "<group>"; };
 		C65EA2002795E833001C5174 /* SearchHistoryDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistoryDelegate.swift; sourceTree = "<group>"; };
-		C65EA2022795E9A1001C5174 /* TableViewEditingStyleConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewEditingStyleConfigurator.swift; sourceTree = "<group>"; };
-		C65EA2042795EA87001C5174 /* SearchHistoryEditingStyleConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistoryEditingStyleConfigurator.swift; sourceTree = "<group>"; };
+		C65EA2022795E9A1001C5174 /* TableViewSwipeResponder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewSwipeResponder.swift; sourceTree = "<group>"; };
+		C65EA2062795EE49001C5174 /* SearchHistoryTapResponder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistoryTapResponder.swift; sourceTree = "<group>"; };
 		C66005782794856900770045 /* TableViewCellConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCellConfigurator.swift; sourceTree = "<group>"; };
 		C660057C27948C7100770045 /* CollectionViewCellConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCellConfigurator.swift; sourceTree = "<group>"; };
 		C66005802794967500770045 /* TableViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewDataSource.swift; sourceTree = "<group>"; };
 		C66005822794AB3B00770045 /* TableViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewDelegate.swift; sourceTree = "<group>"; };
-		C66005862794AD2700770045 /* TableViewDetailPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewDetailPresenter.swift; sourceTree = "<group>"; };
+		C66005862794AD2700770045 /* TableViewTapResponder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewTapResponder.swift; sourceTree = "<group>"; };
 		C66005882794BC9600770045 /* TableViewContextMenuConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewContextMenuConfigurator.swift; sourceTree = "<group>"; };
-		C66033FD277CDF0400907494 /* HistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
-		C66033FF277CE53A00907494 /* HistoryCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryCollectionViewController.swift; sourceTree = "<group>"; };
+		C66033FD277CDF0400907494 /* SearchHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistoryViewController.swift; sourceTree = "<group>"; };
 		C6603401277CE69400907494 /* IBCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IBCollectionViewCell.swift; sourceTree = "<group>"; };
 		C6603403277CE86700907494 /* SFDynamicCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFDynamicCollectionView.swift; sourceTree = "<group>"; };
 		C6603405277CEA9B00907494 /* SFDynamicCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFDynamicCollectionViewController.swift; sourceTree = "<group>"; };
 		C662BE22279361690018845C /* AdaptableSizeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdaptableSizeButton.swift; sourceTree = "<group>"; };
 		C662EE96278F071F005545DB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/ErrorView.xib; sourceTree = "<group>"; };
 		C662EE9B278F0725005545DB /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/ErrorView.strings; sourceTree = "<group>"; };
-		C66412302780789500D605BF /* HistoryLogicController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryLogicController.swift; sourceTree = "<group>"; };
+		C66412302780789500D605BF /* SearchHistoryLogicController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistoryLogicController.swift; sourceTree = "<group>"; };
 		C66412342780790E00D605BF /* HistoryProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryProtocols.swift; sourceTree = "<group>"; };
-		C66412372780796E00D605BF /* HistoryExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryExtensions.swift; sourceTree = "<group>"; };
-		C664123C27807CEA00D605BF /* ResultsLogicController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsLogicController.swift; sourceTree = "<group>"; };
+		C66412372780796E00D605BF /* SearchHistoryExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistoryExtensions.swift; sourceTree = "<group>"; };
+		C664123C27807CEA00D605BF /* SearchResultsLogicController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsLogicController.swift; sourceTree = "<group>"; };
 		C6641240278083D700D605BF /* ResultsProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsProtocols.swift; sourceTree = "<group>"; };
 		C66412442780845900D605BF /* SearchCoordinatorExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCoordinatorExtensions.swift; sourceTree = "<group>"; };
 		C66412462780859A00D605BF /* EmptyView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EmptyView.xib; sourceTree = "<group>"; };
@@ -305,13 +312,23 @@
 		C68B6509271E148B00A26D05 /* UserDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailViewController.swift; sourceTree = "<group>"; };
 		C68B650B271E152E00A26D05 /* RepositoryDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryDetailViewController.swift; sourceTree = "<group>"; };
 		C68B650E271E1A1400A26D05 /* NetworkClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkClient.swift; sourceTree = "<group>"; };
+		C68C3B3B2799B4710048F35B /* TableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableView.swift; sourceTree = "<group>"; };
+		C68C3B3E2799B4A30048F35B /* CollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionView.swift; sourceTree = "<group>"; };
+		C68C3B402799B4F70048F35B /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
+		C68C3B422799B5160048F35B /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		C68FCBC7273838A50019C932 /* ExploreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreViewController.swift; sourceTree = "<group>"; };
 		C693C4A82729BE1D0061ED73 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		C694B49C273F7DF400C6F5A6 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		C696BFE82725E49E0078FBF4 /* RoundedImageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedImageTableViewCell.swift; sourceTree = "<group>"; };
-		C69A5E4727428B5F007054EA /* HistoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTableViewCell.swift; sourceTree = "<group>"; };
-		C69A5E4827428B5F007054EA /* HistoryTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HistoryTableViewCell.xib; sourceTree = "<group>"; };
+		C69A5E4727428B5F007054EA /* SearchHistoryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistoryTableViewCell.swift; sourceTree = "<group>"; };
+		C69A5E4827428B5F007054EA /* SearchHistoryTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchHistoryTableViewCell.xib; sourceTree = "<group>"; };
 		C69BEE4427422414005B6AA2 /* RoundedImageTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RoundedImageTableViewCell.xib; sourceTree = "<group>"; };
+		C69C32E3279857EE00AEB64B /* SearchHistorySwipeResponder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistorySwipeResponder.swift; sourceTree = "<group>"; };
+		C69C32E72798920500AEB64B /* SearchHistoryContextMenuConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistoryContextMenuConfigurator.swift; sourceTree = "<group>"; };
+		C69C32EB2798C23A00AEB64B /* SearchResultsDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsDelegate.swift; sourceTree = "<group>"; };
+		C69C32ED2798C25200AEB64B /* SearchResultsTapResponder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsTapResponder.swift; sourceTree = "<group>"; };
+		C69C32EF2798C26F00AEB64B /* SearchResultsContextMenuConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsContextMenuConfigurator.swift; sourceTree = "<group>"; };
+		C69C32F52798D56D00AEB64B /* SearchResultsDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsDataSource.swift; sourceTree = "<group>"; };
 		C69ECCD827323D5A00E158A3 /* TokenHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenHelper.swift; sourceTree = "<group>"; };
 		C69ECCDA2732441F00E158A3 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		C69ECCE22732566800E158A3 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
@@ -340,8 +357,7 @@
 		C6DFF6152791A9DF00A617CB /* FileManagerHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManagerHelper.swift; sourceTree = "<group>"; };
 		C6E6799C279064620060AFD3 /* SearchHistoryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistoryManager.swift; sourceTree = "<group>"; };
 		C6F46E7727541B2700498614 /* SearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchController.swift; sourceTree = "<group>"; };
-		C6F46E7927541C9300498614 /* ResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsViewController.swift; sourceTree = "<group>"; };
-		C6F46E7B27541D0E00498614 /* HistoryTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTableViewController.swift; sourceTree = "<group>"; };
+		C6F46E7927541C9300498614 /* SearchResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -462,8 +478,8 @@
 		C6102C2D2794D2C1003A2E26 /* Logic */ = {
 			isa = PBXGroup;
 			children = (
-				C66412302780789500D605BF /* HistoryLogicController.swift */,
-				C664123C27807CEA00D605BF /* ResultsLogicController.swift */,
+				C66412302780789500D605BF /* SearchHistoryLogicController.swift */,
+				C664123C27807CEA00D605BF /* SearchResultsLogicController.swift */,
 				C6F46E7727541B2700498614 /* SearchController.swift */,
 				C6C605FC273EC89000BA27C2 /* SearchCoordinator.swift */,
 				C6C60600273ECA8300BA27C2 /* SearchTimer.swift */,
@@ -492,10 +508,8 @@
 		C6102C302794D2C1003A2E26 /* View Controller */ = {
 			isa = PBXGroup;
 			children = (
-				C66033FF277CE53A00907494 /* HistoryCollectionViewController.swift */,
-				C6F46E7B27541D0E00498614 /* HistoryTableViewController.swift */,
-				C66033FD277CDF0400907494 /* HistoryViewController.swift */,
-				C6F46E7927541C9300498614 /* ResultsViewController.swift */,
+				C66033FD277CDF0400907494 /* SearchHistoryViewController.swift */,
+				C6F46E7927541C9300498614 /* SearchResultsViewController.swift */,
 			);
 			path = "View Controller";
 			sourceTree = "<group>";
@@ -632,7 +646,7 @@
 				C65EA1E52795E55F001C5174 /* OrganizationContextMenuConfigurator.swift */,
 				C65EA1E72795E571001C5174 /* OrganizationDataSource.swift */,
 				C65EA1E92795E57D001C5174 /* OrganizationDelegate.swift */,
-				C65EA1EB2795E591001C5174 /* OrganizationDetailPresenter.swift */,
+				C65EA1EB2795E591001C5174 /* OrganizationTapResponder.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -775,7 +789,7 @@
 				C65EA1D12795DA1E001C5174 /* UserContextMenuConfigurator.swift */,
 				C65EA1CD2795D965001C5174 /* UserDataSource.swift */,
 				C65EA1CB2795D931001C5174 /* UserDelegate.swift */,
-				C65EA1D32795DA67001C5174 /* UserDetailPresenter.swift */,
+				C65EA1D32795DA67001C5174 /* UserTapResponder.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -851,8 +865,8 @@
 		C65EA1752795C699001C5174 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
-				C66412372780796E00D605BF /* HistoryExtensions.swift */,
 				C66412442780845900D605BF /* SearchCoordinatorExtensions.swift */,
+				C66412372780796E00D605BF /* SearchHistoryExtensions.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -991,6 +1005,7 @@
 			isa = PBXGroup;
 			children = (
 				C65EA1922795CC74001C5174 /* Custom Cells */,
+				C68C3B3A2799B4560048F35B /* Custom Classes */,
 				C65EA1BA2795D6C8001C5174 /* Custom Components */,
 				C65EA1A32795D06D001C5174 /* Protocols */,
 			);
@@ -1079,10 +1094,9 @@
 		C65EA19D2795CECB001C5174 /* Views + Controls */ = {
 			isa = PBXGroup;
 			children = (
-				C65EA1A42795D07B001C5174 /* Collection View */,
+				C68C3B392799B43E0048F35B /* Basic Views */,
 				C65EA1A82795D14B001C5174 /* Custom Controls */,
 				C65EA19C2795CE73001C5174 /* Custom Views */,
-				C65EA1912795CC5D001C5174 /* Table View */,
 				C65EA19F2795CF3C001C5174 /* View Helpers */,
 			);
 			path = "Views + Controls";
@@ -1116,6 +1130,7 @@
 			isa = PBXGroup;
 			children = (
 				C65EA1BC2795D714001C5174 /* Custom Cells */,
+				C68C3B3D2799B4870048F35B /* Custom Classes */,
 				C65EA1BB2795D707001C5174 /* Custom Components */,
 				C65EA1A52795D085001C5174 /* Protocols */,
 			);
@@ -1250,8 +1265,8 @@
 				C66005882794BC9600770045 /* TableViewContextMenuConfigurator.swift */,
 				C66005802794967500770045 /* TableViewDataSource.swift */,
 				C66005822794AB3B00770045 /* TableViewDelegate.swift */,
-				C66005862794AD2700770045 /* TableViewDetailPresenter.swift */,
-				C65EA2022795E9A1001C5174 /* TableViewEditingStyleConfigurator.swift */,
+				C65EA2022795E9A1001C5174 /* TableViewSwipeResponder.swift */,
+				C66005862794AD2700770045 /* TableViewTapResponder.swift */,
 			);
 			path = "Custom Components";
 			sourceTree = "<group>";
@@ -1260,10 +1275,10 @@
 			isa = PBXGroup;
 			children = (
 				C660057C27948C7100770045 /* CollectionViewCellConfigurator.swift */,
-				C65EA1BE2795D77D001C5174 /* CollectionViewDelegate.swift */,
-				C65EA1C12795D794001C5174 /* CollectionViewDataSource.swift */,
 				C65EA1C32795D7B0001C5174 /* CollectionViewContextMenuConfigurator.swift */,
-				C65EA1C62795D7D5001C5174 /* CollectionViewDetailPresenter.swift */,
+				C65EA1C12795D794001C5174 /* CollectionViewDataSource.swift */,
+				C65EA1BE2795D77D001C5174 /* CollectionViewDelegate.swift */,
+				C65EA1C62795D7D5001C5174 /* CollectionViewTapResponder.swift */,
 			);
 			path = "Custom Components";
 			sourceTree = "<group>";
@@ -1293,7 +1308,7 @@
 				C65EA1DB2795E42C001C5174 /* RepositoryContextMenuConfigurator.swift */,
 				C65EA1DD2795E443001C5174 /* RepositoryDataSource.swift */,
 				C65EA1DF2795E458001C5174 /* RepositoryDelegate.swift */,
-				C65EA1E12795E46B001C5174 /* RepositoryDetailPresenter.swift */,
+				C65EA1E12795E46B001C5174 /* RepositoryTapResponder.swift */,
 			);
 			path = "Custom Components";
 			sourceTree = "<group>";
@@ -1332,7 +1347,7 @@
 				C65EA1F12795E696001C5174 /* CommitContextMenuConfigurator.swift */,
 				C65EA1F32795E6A4001C5174 /* CommitDataSource.swift */,
 				C65EA1F52795E6AF001C5174 /* CommitDelegate.swift */,
-				C65EA1F72795E6C0001C5174 /* CommitDetailPresenter.swift */,
+				C65EA1F72795E6C0001C5174 /* CommitTapResponder.swift */,
 			);
 			path = "Custom Components";
 			sourceTree = "<group>";
@@ -1340,8 +1355,8 @@
 		C65EA1F92795E779001C5174 /* Custom Cells */ = {
 			isa = PBXGroup;
 			children = (
-				C69A5E4727428B5F007054EA /* HistoryTableViewCell.swift */,
-				C69A5E4827428B5F007054EA /* HistoryTableViewCell.xib */,
+				C69A5E4727428B5F007054EA /* SearchHistoryTableViewCell.swift */,
+				C69A5E4827428B5F007054EA /* SearchHistoryTableViewCell.xib */,
 			);
 			path = "Custom Cells";
 			sourceTree = "<group>";
@@ -1357,10 +1372,8 @@
 		C65EA1FB2795E79F001C5174 /* Custom Components */ = {
 			isa = PBXGroup;
 			children = (
-				C65EA1FC2795E7D3001C5174 /* SeachHistoryCellConfigurator.swift */,
-				C65EA1FE2795E803001C5174 /* SearchHistoryDataSource.swift */,
-				C65EA2002795E833001C5174 /* SearchHistoryDelegate.swift */,
-				C65EA2042795EA87001C5174 /* SearchHistoryEditingStyleConfigurator.swift */,
+				C69C32F12798C28200AEB64B /* Search History */,
+				C69C32F22798C29C00AEB64B /* Search Results */,
 			);
 			path = "Custom Components";
 			sourceTree = "<group>";
@@ -1412,6 +1425,57 @@
 				C6DD54A92771187400DA0223 /* Theme */,
 			);
 			path = Services;
+			sourceTree = "<group>";
+		};
+		C68C3B392799B43E0048F35B /* Basic Views */ = {
+			isa = PBXGroup;
+			children = (
+				C65EA1A42795D07B001C5174 /* Collection View */,
+				C65EA1912795CC5D001C5174 /* Table View */,
+			);
+			path = "Basic Views";
+			sourceTree = "<group>";
+		};
+		C68C3B3A2799B4560048F35B /* Custom Classes */ = {
+			isa = PBXGroup;
+			children = (
+				C68C3B3B2799B4710048F35B /* TableView.swift */,
+				C68C3B422799B5160048F35B /* TableViewCell.swift */,
+			);
+			path = "Custom Classes";
+			sourceTree = "<group>";
+		};
+		C68C3B3D2799B4870048F35B /* Custom Classes */ = {
+			isa = PBXGroup;
+			children = (
+				C68C3B3E2799B4A30048F35B /* CollectionView.swift */,
+				C68C3B402799B4F70048F35B /* CollectionViewCell.swift */,
+			);
+			path = "Custom Classes";
+			sourceTree = "<group>";
+		};
+		C69C32F12798C28200AEB64B /* Search History */ = {
+			isa = PBXGroup;
+			children = (
+				C65EA1FC2795E7D3001C5174 /* SeachHistoryCellConfigurator.swift */,
+				C69C32E72798920500AEB64B /* SearchHistoryContextMenuConfigurator.swift */,
+				C65EA1FE2795E803001C5174 /* SearchHistoryDataSource.swift */,
+				C65EA2002795E833001C5174 /* SearchHistoryDelegate.swift */,
+				C69C32E3279857EE00AEB64B /* SearchHistorySwipeResponder.swift */,
+				C65EA2062795EE49001C5174 /* SearchHistoryTapResponder.swift */,
+			);
+			path = "Search History";
+			sourceTree = "<group>";
+		};
+		C69C32F22798C29C00AEB64B /* Search Results */ = {
+			isa = PBXGroup;
+			children = (
+				C69C32EF2798C26F00AEB64B /* SearchResultsContextMenuConfigurator.swift */,
+				C69C32F52798D56D00AEB64B /* SearchResultsDataSource.swift */,
+				C69C32EB2798C23A00AEB64B /* SearchResultsDelegate.swift */,
+				C69C32ED2798C25200AEB64B /* SearchResultsTapResponder.swift */,
+			);
+			path = "Search Results";
 			sourceTree = "<group>";
 		};
 		C6DD54A5277117B800DA0223 /* Network */ = {
@@ -1552,7 +1616,7 @@
 				C685667F274BF7EB00833D6E /* RoundedImageCollectionViewCell.xib in Resources */,
 				C69BEE4627422414005B6AA2 /* RoundedImageTableViewCell.xib in Resources */,
 				C659EE662776087D001C1E5D /* ActivityIndicatorView.xib in Resources */,
-				C69A5E4A27428B5F007054EA /* HistoryTableViewCell.xib in Resources */,
+				C69A5E4A27428B5F007054EA /* SearchHistoryTableViewCell.xib in Resources */,
 				C6B3EB40278AD9B100CBEA48 /* IconicTextView.xib in Resources */,
 				C6B26AF42768C76600ED41F8 /* CommitTableViewCell.xib in Resources */,
 				C6110AED275522F70078D7E8 /* LanguageColors.json in Resources */,
@@ -1629,6 +1693,8 @@
 				C66412492780888D00D605BF /* EmptyView.swift in Sources */,
 				C6B26AEC2768B51400ED41F8 /* CommitLogicController.swift in Sources */,
 				C68B6508271DEC4A00A26D05 /* BookmarksViewController.swift in Sources */,
+				C69C32E82798920500AEB64B /* SearchHistoryContextMenuConfigurator.swift in Sources */,
+				C69C32E4279857EE00AEB64B /* SearchHistorySwipeResponder.swift in Sources */,
 				C68AC80B2783404700FE0C08 /* User+CoreDataClass.swift in Sources */,
 				C6856677274BBB7400833D6E /* SplashViewController.swift in Sources */,
 				C65EA1FF2795E803001C5174 /* SearchHistoryDataSource.swift in Sources */,
@@ -1643,11 +1709,12 @@
 				C68B6506271DEB8E00A26D05 /* RepositoryViewController.swift in Sources */,
 				C6C605FD273EC89000BA27C2 /* SearchCoordinator.swift in Sources */,
 				C656EB9C277A269300E39EFC /* Constants.swift in Sources */,
-				C65EA2032795E9A1001C5174 /* TableViewEditingStyleConfigurator.swift in Sources */,
+				C65EA2032795E9A1001C5174 /* TableViewSwipeResponder.swift in Sources */,
 				C656EB9F277A3F3D00E39EFC /* IBViewController.swift in Sources */,
 				C66005792794856900770045 /* TableViewCellConfigurator.swift in Sources */,
 				C659EE6827761F20001C1E5D /* FooterActivityIndicatorView.swift in Sources */,
 				C6216FAC2791AED100C9ABC2 /* BundleHelper.swift in Sources */,
+				C65EA2072795EE49001C5174 /* SearchHistoryTapResponder.swift in Sources */,
 				C65EA1CA2795D82A001C5174 /* UIKitExtensions.swift in Sources */,
 				C6E6799D279064620060AFD3 /* SearchHistoryManager.swift in Sources */,
 				C678EAE6278C3BF800A6985D /* ThemeManager.swift in Sources */,
@@ -1670,17 +1737,21 @@
 				C60FAE872744CD7F00A6CE77 /* URLHelper.swift in Sources */,
 				C65EA1F42795E6A4001C5174 /* CommitDataSource.swift in Sources */,
 				C6B26AE92768B4D600ED41F8 /* CommitDetailViewController.swift in Sources */,
-				C6F46E7A27541C9300498614 /* ResultsViewController.swift in Sources */,
+				C6F46E7A27541C9300498614 /* SearchResultsViewController.swift in Sources */,
 				C69ECCE32732566800E158A3 /* NetworkManager.swift in Sources */,
 				C65C0E06276A36F200ED17CB /* OrganizationDetailViewController.swift in Sources */,
 				C68FCBC8273838A50019C932 /* ExploreViewController.swift in Sources */,
-				C664123D27807CEA00D605BF /* ResultsLogicController.swift in Sources */,
+				C664123D27807CEA00D605BF /* SearchResultsLogicController.swift in Sources */,
+				C69C32F62798D56D00AEB64B /* SearchResultsDataSource.swift in Sources */,
 				C6F46E7827541B2700498614 /* SearchController.swift in Sources */,
+				C68C3B412799B4F70048F35B /* CollectionViewCell.swift in Sources */,
 				C68AC8132783414400FE0C08 /* Organization+CoreDataClass.swift in Sources */,
 				C6B26AEE2768B53100ED41F8 /* CommitDetailLogicController.swift in Sources */,
 				C656EBA3277A47FA00E39EFC /* FooterErrorView.swift in Sources */,
 				C62899E7278400EE007155E8 /* BookmarksLogicController.swift in Sources */,
-				C6F46E7C27541D0E00498614 /* HistoryTableViewController.swift in Sources */,
+				C68C3B3C2799B4710048F35B /* TableView.swift in Sources */,
+				C68C3B3F2799B4A30048F35B /* CollectionView.swift in Sources */,
+				C69C32EE2798C25200AEB64B /* SearchResultsTapResponder.swift in Sources */,
 				C65EA2012795E833001C5174 /* SearchHistoryDelegate.swift in Sources */,
 				C65EA1FD2795E7D3001C5174 /* SeachHistoryCellConfigurator.swift in Sources */,
 				C6CCED86275D36A00052CC8E /* LicenseLogicController.swift in Sources */,
@@ -1688,31 +1759,32 @@
 				C65EA16E2795C3D5001C5174 /* CommitModel.swift in Sources */,
 				C65C0E0A276A374700ED17CB /* OrganizationDetailLogicController.swift in Sources */,
 				C69ECCE62732819000E158A3 /* SessionManager.swift in Sources */,
-				C66005872794AD2700770045 /* TableViewDetailPresenter.swift in Sources */,
+				C66005872794AD2700770045 /* TableViewTapResponder.swift in Sources */,
 				C68B650F271E1A1400A26D05 /* NetworkClient.swift in Sources */,
 				C68B650C271E152E00A26D05 /* RepositoryDetailViewController.swift in Sources */,
 				C65EA1D02795D99E001C5174 /* UserCellConfigurator.swift in Sources */,
 				C63EEC9A278D44AD009C842A /* FoundationExtensions.swift in Sources */,
 				C6564235277F3BFF00FBCE2F /* SFViewController.swift in Sources */,
-				C66412382780796E00D605BF /* HistoryExtensions.swift in Sources */,
+				C66412382780796E00D605BF /* SearchHistoryExtensions.swift in Sources */,
 				C659EE6427760600001C1E5D /* ActivityIndicatorView.swift in Sources */,
+				C69C32F02798C26F00AEB64B /* SearchResultsContextMenuConfigurator.swift in Sources */,
 				C656EB9A277A216B00E39EFC /* StatefulView.swift in Sources */,
 				C66005812794967500770045 /* TableViewDataSource.swift in Sources */,
 				C694B49D273F7DF400C6F5A6 /* SettingsViewController.swift in Sources */,
 				C65EA1B12795D2C0001C5174 /* OwnerModel.swift in Sources */,
+				C69C32EC2798C23A00AEB64B /* SearchResultsDelegate.swift in Sources */,
 				C65EA1742795C568001C5174 /* UserModel.swift in Sources */,
-				C65EA1EC2795E592001C5174 /* OrganizationDetailPresenter.swift in Sources */,
+				C65EA1EC2795E592001C5174 /* OrganizationTapResponder.swift in Sources */,
 				C68B64ED271DD34B00A26D05 /* SceneDelegate.swift in Sources */,
 				C6110AE22754FFF10078D7E8 /* RepositoryTableViewCell.swift in Sources */,
 				C68B64F5271DD34B00A26D05 /* GitIt.xcdatamodeld in Sources */,
 				C6B3EB3E278AD96200CBEA48 /* IconicTextView.swift in Sources */,
-				C69A5E4927428B5F007054EA /* HistoryTableViewCell.swift in Sources */,
+				C69A5E4927428B5F007054EA /* SearchHistoryTableViewCell.swift in Sources */,
 				C656EB96277A20B000E39EFC /* SFDynamicTableViewController.swift in Sources */,
-				C66412312780789500D605BF /* HistoryLogicController.swift in Sources */,
-				C6603400277CE53A00907494 /* HistoryCollectionViewController.swift in Sources */,
+				C66412312780789500D605BF /* SearchHistoryLogicController.swift in Sources */,
 				C65EA1D22795DA1E001C5174 /* UserContextMenuConfigurator.swift in Sources */,
-				C65EA1D42795DA67001C5174 /* UserDetailPresenter.swift in Sources */,
-				C65EA1F82795E6C0001C5174 /* CommitDetailPresenter.swift in Sources */,
+				C65EA1D42795DA67001C5174 /* UserTapResponder.swift in Sources */,
+				C65EA1F82795E6C0001C5174 /* CommitTapResponder.swift in Sources */,
 				C68AC8142783414400FE0C08 /* Organization+CoreDataProperties.swift in Sources */,
 				C6CCED84275D30B30052CC8E /* LicenseViewController.swift in Sources */,
 				C65EA1E82795E571001C5174 /* OrganizationDataSource.swift in Sources */,
@@ -1731,7 +1803,7 @@
 				C656EBA1277A3F6B00E39EFC /* IBTableViewCell.swift in Sources */,
 				C69ECCD927323D5A00E158A3 /* TokenHelper.swift in Sources */,
 				C62899E12783EA8D007155E8 /* Owner+CoreDataClass.swift in Sources */,
-				C66033FE277CDF0400907494 /* HistoryViewController.swift in Sources */,
+				C66033FE277CDF0400907494 /* SearchHistoryViewController.swift in Sources */,
 				C68AC80C2783404700FE0C08 /* User+CoreDataProperties.swift in Sources */,
 				C6DFF6162791A9DF00A617CB /* FileManagerHelper.swift in Sources */,
 				C65EA1702795C45C001C5174 /* OrganizationModel.swift in Sources */,
@@ -1746,18 +1818,18 @@
 				C68AC810278340F500FE0C08 /* Repository+CoreDataProperties.swift in Sources */,
 				C64FE5A8277B4670002E5FC0 /* SFStaticTableView.swift in Sources */,
 				C66412452780845900D605BF /* SearchCoordinatorExtensions.swift in Sources */,
+				C68C3B432799B5160048F35B /* TableViewCell.swift in Sources */,
 				C65EA1C22795D794001C5174 /* CollectionViewDataSource.swift in Sources */,
 				C65EA1E62795E55F001C5174 /* OrganizationContextMenuConfigurator.swift in Sources */,
 				C65EA1DC2795E42C001C5174 /* RepositoryContextMenuConfigurator.swift in Sources */,
 				C6110AE8275509AC0078D7E8 /* RepositoryLogicController.swift in Sources */,
 				C6C605FA273EC7B700BA27C2 /* CommonTypes.swift in Sources */,
-				C65EA2052795EA87001C5174 /* SearchHistoryEditingStyleConfigurator.swift in Sources */,
-				C65EA1C72795D7D5001C5174 /* CollectionViewDetailPresenter.swift in Sources */,
+				C65EA1C72795D7D5001C5174 /* CollectionViewTapResponder.swift in Sources */,
 				C65EA1E42795E549001C5174 /* OrganizationCellConfigurator.swift in Sources */,
 				C65EA1BF2795D77D001C5174 /* CollectionViewDelegate.swift in Sources */,
 				C6A1482C2739819000BE7DE9 /* UserViewController.swift in Sources */,
 				C65EA1F62795E6AF001C5174 /* CommitDelegate.swift in Sources */,
-				C65EA1E22795E46B001C5174 /* RepositoryDetailPresenter.swift in Sources */,
+				C65EA1E22795E46B001C5174 /* RepositoryTapResponder.swift in Sources */,
 				C65EA1722795C4DC001C5174 /* RepositoryModel.swift in Sources */,
 				C6C60601273ECA8300BA27C2 /* SearchTimer.swift in Sources */,
 				C66005892794BC9600770045 /* TableViewContextMenuConfigurator.swift in Sources */,

@@ -66,12 +66,12 @@ enum UserContext {
     
     var titleValue: String {
         switch self {
-        case .main: return Constants.View.Titles.users.main
-        case .followers: return Constants.View.Titles.users.followers
-        case .following: return Constants.View.Titles.users.following
-        case .stars: return Constants.View.Titles.users.stargazers
-        case .contributors: return Constants.View.Titles.users.contributors
-        case .members: return Constants.View.Titles.users.members
+        case .main: return Constants.View.Title.users.main
+        case .followers: return Constants.View.Title.users.followers
+        case .following: return Constants.View.Title.users.following
+        case .stars: return Constants.View.Title.users.stargazers
+        case .contributors: return Constants.View.Title.users.contributors
+        case .members: return Constants.View.Title.users.members
         }
     }
     
@@ -93,9 +93,9 @@ enum RepositoryContext {
     
     var titleValue: String {
         switch self {
-        case .forks: return Constants.View.Titles.repositories.forks
-        case .starred: return Constants.View.Titles.repositories.starred
-        default: return Constants.View.Titles.repositories.main
+        case .forks: return Constants.View.Title.repositories.forks
+        case .starred: return Constants.View.Title.repositories.starred
+        default: return Constants.View.Title.repositories.main
         }
     }
     
@@ -113,7 +113,7 @@ enum OrganizationContext {
     
     var titleValue: String {
         switch self {
-        default: return Constants.View.Titles.organizations.main
+        default: return Constants.View.Title.organizations.main
         }
     }
     
@@ -216,38 +216,6 @@ struct SearchHistory<Type: Model>: Codable {
     init() {
         models = []
         keywords = []
-    }
-    
-}
-
-enum ContextMenuActions<Type: Model> {
-    
-    case bookmark(Type)
-    case unbookmark(Type)
-    case share(Type)
-    
-    var action: UIAction {
-        let title: String
-        let image: UIImage?
-        let handler: UIAction
-        switch self {
-        case .bookmark(let model): title = Constants.View.ContextMenu.bookmark.title
-                                   image = Constants.View.ContextMenu.bookmark.image
-                                    handler = UIAction(title: title, image: image, identifier: nil) { action in
-                                    try? BookmarksManager.standard.add(model: model)
-                                    }
-        case .unbookmark(let model): title = Constants.View.ContextMenu.unBookmark.title
-                                     image = Constants.View.ContextMenu.unBookmark.image
-                                     handler = UIAction(title: title, image: image, identifier: nil) { action in
-                                     try? BookmarksManager.standard.delete(model: model)
-                                     }
-        case .share(let model): title = Constants.View.ContextMenu.share.title
-                                image = Constants.View.ContextMenu.share.image
-                                handler = UIAction(title: title, image: image, identifier: nil) { action in
-                                    URLHelper.shareURL(model.htmlURL)
-                                }
-        }
-        return handler
     }
     
 }

@@ -19,6 +19,7 @@ protocol HistoryCollectionDelegate: AnyObject {
     
     func add(model: Any)
     func delete(model: Any)
+    func updateCollection()
     func didUpdateCollection()
     
 }
@@ -29,6 +30,7 @@ protocol HistoryTableDelegate: AnyObject {
     
     func add(keyWord: String)
     func delete(keyWord: String)
+    func updateTable()
     func didUpdateTable()
     
 }

@@ -10,15 +10,7 @@ import UIKit
 class CommitTableViewDataSource: TableViewDataSource<CommitModel> {
     
     override init() {
-        super.init()
-        model = List<CommitModel>()
-        cellConfigurator = CommitTableViewCellConfigurator()
-    }
-    
-    override func registerCell(tableView: SFDynamicTableView) {
-        let nib = CommitTableViewCell.nib
-        let resuseIdentifier = CommitTableViewCell.reuseIdentifier
-        tableView.register(nib, forCellReuseIdentifier: resuseIdentifier)
+        super.init(cellClass: CommitTableViewCell.self, cellConfigurator: CommitTableViewCellConfigurator(), swipeResponder: nil)
     }
     
 }

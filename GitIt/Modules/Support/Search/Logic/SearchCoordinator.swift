@@ -16,21 +16,25 @@ class SearchCoordinator<Type: Model> {
     }
     
     var searchController: SearchController<Type>!
-    var resultsController: ResultsViewController<Type>!
-    var historyController: HistoryViewController<Type>!
+    var resultsController: SearchResultsViewController<Type>!
+    var historyController: SearchHistoryViewController<Type>!
     
     var navigationController: UINavigationController!
     
     // MARK: - Initialisation
     
     init(_ parentTableViewController: SFDynamicTableViewController<Type>) {
-        resultsController = ResultsViewController.instatiateFromStoryboard(with:self)
-        historyController = HistoryViewController.instatiateFromStoryboard(with: self)
+        historyController = SearchHistoryViewController.instatiateFromStoryboard(with: self)
+        resultsController = SearchResultsViewController.instatiateFromStoryboard(with:self)
         navigationController = UINavigationController(rootViewController: historyController)
         searchController = SearchController(self, searchResultsController: navigationController)
         parentTableViewController.navigationItem.searchController = searchController
         parentTableViewController.navigationItem.hidesSearchBarWhenScrolling = false
         parentTableViewController.definesPresentationContext = true
+    }
+    
+    deinit {
+        debugPrint(String(describing: self) + " deallocated")
     }
     
     // MARK: - Search Controller Outlet Methods
@@ -55,6 +59,7 @@ class SearchCoordinator<Type: Model> {
     
     func didSearch() {
         render(.idle)
+        resetControllers()
     }
     
 }

@@ -12,97 +12,66 @@ import Network
 
 var subViewsOffsetSize: SubviewsOffsetSize!
 
+// MARK: - Constants Shortcuts
+
+// Model Shortcuts
+typealias ModelConstants = Constants.Model
+typealias UserConstants = ModelConstants.User
+typealias RepositoryConstants = ModelConstants.Repository
+typealias OrganizationConstants = ModelConstants.Organization
+typealias CommitConstants = ModelConstants.Commit
+typealias SearchHistoryConstants = ModelConstants.SearchHistory
+// View Shortcuts
+typealias ViewConstants = Constants.View
+typealias TitleConstants = ViewConstants.Title
+typealias SearchBarConstants = ViewConstants.SearchBar
+typealias ContextMenuConstants = ViewConstants.ContextMenu
+typealias ContextMenuActionConstants = ContextMenuConstants.Actions
+typealias ContextMenuConfigurationConstants = ContextMenuConstants.Configurations
+typealias AlertConstants = ViewConstants.Alert
+typealias ErrorConstants = ViewConstants.Error
+typealias EmptyConstants = ViewConstants.Empty
+typealias LabelConstants = ViewConstants.Label
+typealias ButtonConstants = ViewConstants.Button
+typealias ImageConstants = ViewConstants.Image
+typealias TableViewConstants = ViewConstants.TableView
+typealias TableViewDataSourceConstants = TableViewConstants.CustomComponents.DataSource
+typealias TableViewDelegateConstants = TableViewConstants.CustomComponents.Delegate
+typealias TableViewCellConfiguratorConstants = TableViewConstants.CustomComponents.CellConfigurator
+typealias TableViewContextMenuConfiguratorConstants = TableViewConstants.CustomComponents.ContextMenuConfigurator
+typealias TableViewTapResponderConstants = TableViewConstants.CustomComponents.TapResponder
+typealias TableViewSwipeResponderConstants = TableViewConstants.CustomComponents.SwipeResponder
+typealias CollectionViewConstants = ViewConstants.CollectionView
+typealias CollectionViewDataSourceConstants = CollectionViewConstants.CustomComponents.DataSource
+typealias CollectionViewDelegateConstants = CollectionViewConstants.CustomComponents.Delegate
+typealias CollectionViewCellConfiguratorConstants = CollectionViewConstants.CustomComponents.CellConfigurator
+typealias CollectionViewContextMenuConfiguratorConstants = CollectionViewConstants.CustomComponents.ContextMenuConfigurator
+typealias CollectionViewTapResponderConstants = CollectionViewConstants.CustomComponents.TapResponder
+
 struct Constants {
     
     // MARK: - Model Constants
     
     struct Model {
        
-        static func modelToCellType<Type: GitIt.Model>(type: Type.Type) -> IBTableViewCell.Type? {
-            switch type {
-            case is UserModel.Type: return RoundedImageTableViewCell.self
-            case is RepositoryModel.Type: return RepositoryTableViewCell.self
-            case is OrganizationModel.Type: return RoundedImageTableViewCell.self
-            case is CommitModel.Type: return CommitTableViewCell.self
-            default: return nil
-            }
+        struct User {
+            
+            
         }
         
-        static func modelToDetailViewControllerType<Type: GitIt.Model>(type: Type.Type) -> IBViewController.Type? {
-            switch type {
-            case is UserModel.Type: return UserDetailViewController.self
-            case is RepositoryModel.Type: return RepositoryDetailViewController.self
-            case is OrganizationModel.Type: return OrganizationDetailViewController.self
-            case is CommitModel.Type: return CommitDetailViewController.self
-            default: return nil
-            }
+        struct Repository {
+            
+            
         }
         
-        static func contextMenuConfiguration<Type>(for model: Type) -> UIContextMenuConfiguration? {
-            switch model {
-            case let model as UserModel: return contextMenuConfiguration(forUserModel: model)
-            case let model as RepositoryModel: return contextMenuConfiguration(forRepositoryModel: model)
-            case let model as OrganizationModel: return contextMenuConfiguration(forOrganizationModel: model)
-            case let model as CommitModel: return contextMenuConfiguration(forCommitModel: model)
-            default: return nil
-            }
+        struct Organization {
+            
+            
         }
         
-        static func contextMenuConfiguration(forUserModel model: UserModel) -> UIContextMenuConfiguration {
-            let actionProvider: UIContextMenuActionProvider = { actions -> UIMenu? in
-                var bookmark: UIAction! = nil
-                var share: UIAction! = nil
-                let fetchResult = BookmarksManager.standard.check(model: model)
-                switch fetchResult {
-                case true: bookmark = ContextMenuActions.unbookmark(model).action
-                case false: bookmark = ContextMenuActions.bookmark(model).action
-                default: break
-                }
-                share = ContextMenuActions.share(model).action
-                return UIMenu(title: "", children: [bookmark, share])
-            }
-            return UIContextMenuConfiguration(identifier: nil, previewProvider: nil, actionProvider: actionProvider)
-        }
-        
-        static func contextMenuConfiguration(forRepositoryModel model: RepositoryModel) -> UIContextMenuConfiguration {
-            let actionProvider: UIContextMenuActionProvider = { actions -> UIMenu? in
-                var bookmark: UIAction! = nil
-                var share: UIAction! = nil
-                let fetchResult = BookmarksManager.standard.check(model: model)
-                switch fetchResult {
-                case true: bookmark = ContextMenuActions.unbookmark(model).action
-                case false: bookmark = ContextMenuActions.bookmark(model).action
-                default: break
-                }
-                share = ContextMenuActions.share(model).action
-                return UIMenu(title: "", children: [bookmark, share])
-            }
-            return UIContextMenuConfiguration(identifier: nil, previewProvider: nil, actionProvider: actionProvider)
-        }
-        
-        static func contextMenuConfiguration(forOrganizationModel model: OrganizationModel) -> UIContextMenuConfiguration {
-            let actionProvider: UIContextMenuActionProvider = { actions -> UIMenu? in
-                var bookmark: UIAction! = nil
-                var share: UIAction! = nil
-                let fetchResult = BookmarksManager.standard.check(model: model)
-                switch fetchResult {
-                case true: bookmark = ContextMenuActions.unbookmark(model).action
-                case false: bookmark = ContextMenuActions.bookmark(model).action
-                default: break
-                }
-                share = ContextMenuActions.share(model).action
-                return UIMenu(title: "", children: [bookmark, share])
-            }
-            return UIContextMenuConfiguration(identifier: nil, previewProvider: nil, actionProvider: actionProvider)
-        }
-        
-        static func contextMenuConfiguration(forCommitModel model: CommitModel) -> UIContextMenuConfiguration {
-            let actionProvider: UIContextMenuActionProvider = { actions -> UIMenu? in
-                var share: UIAction! = nil
-                share = ContextMenuActions.share(model).action
-                return UIMenu(title: "", children: [share])
-            }
-            return UIContextMenuConfiguration(identifier: nil, previewProvider: nil, actionProvider: actionProvider)
+        struct Commit {
+            
+            
         }
         
         struct SearchHistory {
@@ -131,7 +100,9 @@ struct Constants {
     
     struct View {
         
-        struct Titles {
+        // MARK: - Title Constants
+        
+        struct Title {
             
             struct users {
                 
@@ -172,6 +143,8 @@ struct Constants {
             
         }
         
+        // MARK: - Search Bar Constants
+        
         struct SearchBar {
             
             // Search bar placeholder strings
@@ -182,33 +155,113 @@ struct Constants {
             
         }
         
+        // MARK: - Context Menu Constants
+        
         struct ContextMenu {
             
-            // Bookmark action image and title
-            struct bookmark {
+            // MARK: - Context Menu Actions Constants
+            
+            struct Actions {
                 
-                static let image = UIImage(systemName: "bookmark")
-                static let title = "Bookmark".localized()
+                // Delete action image and title
+                struct delete {
+        
+                    static let image = UIImage(systemName: "trash")
+                    static let title = "Delete".localized()
+                    static func action(deleteAction: @escaping () -> Void) -> UIAction {
+                        return UIAction(title: title, image: image, attributes: [.destructive]) { action in
+                            deleteAction()
+                        }
+                    }
+                    
+                }
+                
+                // Bookmark action image and title
+                struct bookmark {
+                    
+                    static let image = UIImage(systemName: "bookmark")
+                    static let title = "Bookmark".localized()
+                    static func action<Type: GitIt.Model>(item: Type) -> UIAction {
+                        return UIAction(title: title, image: image, attributes: []) { action in
+                            try? BookmarksManager.standard.add(model: item)
+                        }
+                    }
+                    
+                }
+                
+                // Unbookmark action image and title
+                struct unBookmark {
+                    
+                    static let image = UIImage(systemName: "bookmark.fill")
+                    static let title = "Unbookmark".localized()
+                    static func action<Type: GitIt.Model>(item: Type) -> UIAction {
+                        return UIAction(title: title, image: image, attributes: []) { action in
+                            try? BookmarksManager.standard.delete(model: item)
+                        }
+                    }
+                    
+                }
+                
+                // Share action image and title
+                struct share {
+                    
+                    static let image = UIImage(systemName: "square.and.arrow.up")
+                    static let title = "Share".localized()
+                    static func action<Type: GitIt.Model>(item: Type) -> UIAction {
+                        return UIAction(title: title, image: image, attributes: []) { action in
+                            URLHelper.shareURL(item.htmlURL)
+                        }
+                    }
+                    
+                }
                 
             }
             
-            // Unbookmark action image and title
-            struct unBookmark {
-                
-                static let image = UIImage(systemName: "bookmark.fill")
-                static let title = "Unbookmark".localized()
-                
-            }
+            // MARK: - Context Menu Configurations Constants
             
-            // Share action image and title
-            struct share {
+            struct Configurations {
                 
-                static let image = UIImage(systemName: "square.and.arrow.up")
-                static let title = "Share".localized()
+                static func deleteConfiguration(deleteAction: @escaping () -> Void) -> UIContextMenuConfiguration {
+                    typealias contextMenuActionConstants = Constants.View.ContextMenu.Actions
+                    let actionProvider: UIContextMenuActionProvider = { actions -> UIMenu? in
+                        let delete = contextMenuActionConstants.delete.action(deleteAction: deleteAction)
+                        return UIMenu(title: "", children: [delete])
+                    }
+                    return UIContextMenuConfiguration(identifier: nil, previewProvider: nil, actionProvider: actionProvider)
+                }
+                
+                static func shareConfiguration<Type: GitIt.Model>(for item: Type) -> UIContextMenuConfiguration {
+                    typealias contextMenuActionConstants = Constants.View.ContextMenu.Actions
+                    let actionProvider: UIContextMenuActionProvider = { actions -> UIMenu? in
+                        let share = contextMenuActionConstants.share.action(item: item)
+                        return UIMenu(title: "", children: [share])
+                    }
+                    return UIContextMenuConfiguration(identifier: nil, previewProvider: nil, actionProvider: actionProvider)
+                }
+                
+                static func bookmarkAndShareConfiguration<Type: GitIt.Model>(for item: Type) -> UIContextMenuConfiguration {
+                    typealias contextMenuActionConstants = Constants.View.ContextMenu.Actions
+                    let actionProvider: UIContextMenuActionProvider = { actions -> UIMenu? in
+                        var menuChildren: [UIAction] = []
+                        if let exists = BookmarksManager.standard.check(model: item), exists == true {
+                            let bookmark = contextMenuActionConstants.unBookmark.action(item: item)
+                            menuChildren.append(bookmark)
+                        } else {
+                            let bookmark = contextMenuActionConstants.bookmark.action(item: item)
+                            menuChildren.append(bookmark)
+                        }
+                        let share = contextMenuActionConstants.share.action(item: item)
+                        menuChildren.append(share)
+                        return UIMenu(title: "", children: menuChildren)
+                    }
+                    return UIContextMenuConfiguration(identifier: nil, previewProvider: nil, actionProvider: actionProvider)
+                }
                 
             }
             
         }
+        
+        // MARK: - Alert Constants
         
         struct Alert {
             
@@ -356,6 +409,8 @@ struct Constants {
             
         }
         
+        // MARK: - Error Constants
+        
         struct Error {
             
             // Internet error image, title and message
@@ -389,6 +444,8 @@ struct Constants {
             }
             
         }
+        
+        // MARK: - Empty Constants
         
         struct Empty {
             
@@ -466,12 +523,16 @@ struct Constants {
             
         }
         
+        // MARK: - Label Constants
+        
         struct Label {
             
             static let guest = "Signed in as a Guest".localized()
             static let signIn = "Sign in with your Github account to enable extended features.".localized()
             
         }
+        
+        // MARK: - Button Constants
         
         struct Button {
             
@@ -502,9 +563,124 @@ struct Constants {
             
         }
         
+        // MARK: - Image Constants
+        
         struct Image {
             
             static let guest = UIImage(systemName: "person")
+            
+        }
+        
+        // MARK: - Table View Constants
+        
+        struct TableView {
+            
+            // MARK: - Table View Custom Components Constants
+            
+            struct CustomComponents {
+                
+                struct DataSource {
+                    
+                    static let userDataSource = UserTableViewDataSource()
+                    static let repositoryDataSource = RepositoryTableViewDataSource()
+                    static let organizationDataSource = OrganizationTableViewDataSource()
+                    static let commitDataSource = CommitTableViewDataSource()
+                    
+                }
+                
+                struct Delegate {
+                    
+                    static let userDelegate = UserTableViewDelegate()
+                    static let repositoryDelegate = RepositoryTableViewDelegate()
+                    static let organizationDelegate = OrganizationTableViewDelegate()
+                    static let commitDelegate = CommitTableViewDelegate()
+                    
+                }
+                
+                struct CellConfigurator {
+                    
+                    static let userCellConfigurator = UserTableViewCellConfigurator()
+                    static let repositoryCellConfigurator = RepositoryTableViewCellConfigurator()
+                    static let organizationCellConfigurator = OrganizationTableViewCellConfigurator()
+                    static let commitCellConfigurator = CommitTableViewCellConfigurator()
+                    
+                }
+                
+                struct ContextMenuConfigurator {
+                    
+                    static let userContextMenuConfigurator = UserTableViewContextMenuConfigurator()
+                    static let repositoryDelegate = RepositoryTableViewContextMenuConfigurator()
+                    static let organizationDelegate = OrganizationTableViewContextMenuConfigurator()
+                    static let commitDelegate = CommitTableViewContextMenuConfigurator()
+                    
+                }
+                
+                struct TapResponder {
+                    
+                    static let userTapResponder = UserTableViewTapResponder()
+                    static let repositoryTapResponder = RepositoryTableViewTapResponder()
+                    static let organizationTapResponder = OrganizationTableViewTapResponder()
+                    static let commitTapResponder = CommitTableViewTapResponder()
+                    
+                }
+                
+                struct SwipeResponder {
+                    
+                }
+                
+            }
+            
+        }
+        
+        // MARK: - Collection View Constants
+        
+        struct CollectionView {
+            
+            // MARK: - Table View Custom Components Constants
+            
+            struct CustomComponents {
+                
+                struct DataSource {
+                    
+                    static let userDataSource = UserCollectionViewDataSource()
+                    static let repositoryDataSource = RepositoryCollectionViewDataSource()
+                    static let organizationDataSource = OrganizationCollectionViewDataSource()
+                    
+                }
+                
+                struct Delegate {
+                    
+                    static let userDelegate = UserCollectionViewDelegate()
+                    static let repositoryDelegate = RepositoryCollectionViewDelegate()
+                    static let organizationDelegate = OrganizationCollectionViewDelegate()
+                    
+                }
+                
+                struct CellConfigurator {
+                    
+                    static let userCellConfigurator = UserCollectionViewCellConfigurator()
+                    static let repositoryCellConfigurator = RepositoryCollectionViewCellConfigurator()
+                    static let organizationCellConfigurator = OrganizationCollectionViewCellConfigurator()
+                    
+                }
+                
+                struct ContextMenuConfigurator {
+                    
+                    static let userContextMenuConfigurator = UserCollectionViewContextMenuConfigurator()
+                    static let repositoryDelegate = RepositoryCollectionViewContextMenuConfigurator()
+                    static let organizationDelegate = OrganizationCollectionViewContextMenuConfigurator()
+                    
+                }
+                
+                struct TapResponder {
+                    
+                    static let userTapResponder = UserCollectionViewTapResponder()
+                    static let repositoryTapResponder = RepositoryCollectionViewTapResponder()
+                    static let organizationTapResponder = OrganizationCollectionViewTapResponder()
+                    
+                }
+                
+            }
             
         }
         

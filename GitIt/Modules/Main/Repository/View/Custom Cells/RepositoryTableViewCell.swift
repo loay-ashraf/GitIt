@@ -7,20 +7,10 @@
 
 import UIKit
 
-class RepositoryTableViewCell: UITableViewCell, IBTableViewCell {
+class RepositoryTableViewCell: TableViewCell, IBTableViewCell {
 
-    static let reuseIdentifier = "RepositoryTableViewCell"
-    static var nib: UINib { return UINib(nibName: "RepositoryTableViewCell", bundle: nil) }
-    let bundleHelper = DataManager.standard.bundleHelper
-    var languageColors: [String:String]? {
-        get {
-            if let languageColors = try? bundleHelper.loadResource(title: "LanguageColors", withExtension: "json").get() {
-                let dict = try? JSONSerialization.jsonObject(with: languageColors, options: [])
-                return dict as? [String:String]
-            }
-           return nil
-        }
-    }
+    override class var reuseIdentifier: String { return String(describing: RepositoryTableViewCell.self) }
+    override class var nib: UINib { return UINib(nibName: String(describing: RepositoryTableViewCell.self), bundle: nil) }
     
     @IBOutlet weak var ownerTextView: IconicTextView!
     @IBOutlet weak var nameLabel: UILabel!

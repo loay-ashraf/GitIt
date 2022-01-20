@@ -40,7 +40,7 @@ class CommitViewController: SFDynamicTableViewController<CommitModel>, IBViewCon
     }
     
     deinit {
-        print("Controller deallocated")
+        debugPrint(String(describing: self) + " deallocated")
     }
 
     // MARK: - Lifecycle

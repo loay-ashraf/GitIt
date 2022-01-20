@@ -7,13 +7,10 @@
 
 import UIKit
 
-class SFDynamicTableView: UITableView, StatefulView {
+class SFDynamicTableView: TableView, StatefulView {
     
     var state: ViewState = .presenting
-    
-    lazy var registeredNibs = [UINib]()
-    lazy var registeredCellIdentifiers = [String]()
-    
+
     var errorAction: (() -> Void)?
     var footerErrorAction: (() -> Void)?
     
@@ -45,14 +42,6 @@ class SFDynamicTableView: UITableView, StatefulView {
         footerErrorView = FooterErrorView.instanceFromNib()
         footerErrorView.add(to: self)
         footerErrorView.configureAction { [ weak self ] in self?.footerErrorAction!() }
-    }
-    
-    // MARK: - Cell Registeration Methods
-
-    override func register(_ nib: UINib?, forCellReuseIdentifier identifier: String) {
-        super.register(nib, forCellReuseIdentifier: identifier)
-        if let nib = nib { registeredNibs.append(nib) }
-        registeredCellIdentifiers.append(identifier)
     }
     
     // MARK: - View State Methods

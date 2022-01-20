@@ -12,10 +12,7 @@ import UIKit
 class URLHelper {
     
     class func openURL(_ url: URL) {
-        var rootViewController = UIApplication.shared.windows.first!.rootViewController
-        while let presentedViewController = rootViewController?.presentedViewController {
-            rootViewController = presentedViewController
-        }
+        let topViewController = UIApplication.topViewController()
         
         var urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: false)
         if urlComponents?.scheme == nil { urlComponents?.scheme = "https" }
@@ -26,14 +23,11 @@ class URLHelper {
         safariConfiguration.entersReaderIfAvailable = false
         let safariVC = SFSafariViewController(url: webURL!, configuration: safariConfiguration)
         safariVC.dismissButtonStyle = .close
-        rootViewController?.present(safariVC, animated: true, completion: nil)
+        topViewController?.present(safariVC, animated: true, completion: nil)
     }
 
     class func shareURL(_ url: URL) {
-        var rootViewController = UIApplication.shared.windows.first!.rootViewController
-        while let presentedViewController = rootViewController?.presentedViewController {
-            rootViewController = presentedViewController
-        }
+        let topViewController = UIApplication.topViewController()
         
         var urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: false)
         if urlComponents?.scheme == nil { urlComponents?.scheme = "https" }
@@ -42,7 +36,7 @@ class URLHelper {
         let items = [webURL]
         let shareView = UIActivityViewController(activityItems: items as [Any], applicationActivities: nil)
         shareView.excludedActivityTypes = [.assignToContact, .print, .saveToCameraRoll, .addToReadingList]
-        rootViewController?.present(shareView, animated: true, completion: nil)
+        topViewController?.present(shareView, animated: true, completion: nil)
     }
     
 }

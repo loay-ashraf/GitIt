@@ -15,7 +15,7 @@ class SettingsViewController: IASKAppSettingsViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         delegate = self
-        navigationItem.title = Constants.View.Titles.settings
+        navigationItem.title = Constants.View.Title.settings
     }
     
     // MARK: - View Actions

@@ -7,14 +7,20 @@
 
 import UIKit
 
+
+
 class UserTableViewContextMenuConfigurator: TableViewContextMenuConfigurator {
     
     override func configure<Type>(with item: Type) -> UIContextMenuConfiguration {
-        if let configuration = Constants.Model.contextMenuConfiguration(for: item) {
-            return configuration
-        }
-        return UIContextMenuConfiguration()
+        return ContextMenuConfigurationConstants.bookmarkAndShareConfiguration(for: item as! UserModel)
     }
     
 }
 
+class UserCollectionViewContextMenuConfigurator: CollectionViewContextMenuConfigurator {
+    
+    override func configure<Type>(collectionView: UICollectionView, indexPath: IndexPath, with item: Type) -> UIContextMenuConfiguration {
+        return ContextMenuConfigurationConstants.bookmarkAndShareConfiguration(for: item as! UserModel)
+    }
+    
+}

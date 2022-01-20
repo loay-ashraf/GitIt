@@ -11,8 +11,7 @@ class CommitTableViewDelegate: TableViewDelegate<CommitModel> {
     
     override init() {
         super.init()
-        model = List<CommitModel>()
-        detailViewControllerPresenter = CommitTableViewDetailPresenter()
+        tapResponder = CommitTableViewTapResponder()
         contextMenuConfigurator = TableViewContextMenuConfigurator()
     }
     

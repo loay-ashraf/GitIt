@@ -53,7 +53,7 @@ class UserDetailViewController: SFStaticTableViewController, IBViewController {
     }
     
     deinit {
-        print("Controller deallocated")
+        debugPrint(String(describing: self) + " deallocated")
     }
     
     // MARK: - Lifecycle

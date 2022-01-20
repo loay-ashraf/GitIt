@@ -11,19 +11,25 @@ class SFDynamicCollectionViewController<Type>: UICollectionViewController {
     
     var xCollectionView: SFDynamicCollectionView! { return collectionView as? SFDynamicCollectionView }
     
-    var cellType: IBCollectionViewCell.Type!
-    var detailViewControllerType: IBViewController.Type?
+    var collectionViewDataSource: CollectionViewDataSource<Type>!
+    var collectionViewDelegate: CollectionViewDelegate<Type>!
     
     private(set) var model: List<Type>!
     private(set) var emptyModel: EmptyViewModel = Constants.View.Empty.general.viewModel
-    private(set) var cellConfigurator: CollectionViewCellConfigurator!
     
     // MARK: - Initialisation
     
-    init(cellType: IBCollectionViewCell.Type, detailViewControllerType: IBViewController.Type? = nil) {
+    init(collectionViewDataSource: CollectionViewDataSource<Type>, collectionViewDelegate: CollectionViewDelegate<Type>) {
         super.init(nibName: nil, bundle: nil)
-        self.cellType = cellType
-        self.detailViewControllerType = detailViewControllerType
+        self.model = List<Type>()
+        self.collectionViewDataSource = collectionViewDataSource
+        self.collectionViewDelegate = collectionViewDelegate
+    }
+    
+    init?(coder: NSCoder, collectionViewDataSource: CollectionViewDataSource<Type>, collectionViewDelegate: CollectionViewDelegate<Type>) {
+        super.init(coder: coder)
+        self.collectionViewDataSource = collectionViewDataSource
+        self.collectionViewDelegate = collectionViewDelegate
         self.model = List<Type>()
     }
     
@@ -54,34 +60,20 @@ class SFDynamicCollectionViewController<Type>: UICollectionViewController {
     // MARK: - View Helper Methods
     
     func configureView() {
-        // Setup collection view cell, data source and delegates
-        if let cellType = cellType, xCollectionView.registeredViews.isEmpty {
-            xCollectionView.register(cellType.nib, forCellWithReuseIdentifier: cellType.reuseIdentifier)
-        }
-        xCollectionView.dataSource = self
-        xCollectionView.delegate = self
+        // Setup collection data source and delegates
+        xCollectionView.setDataSource(collectionViewDataSource)
+        xCollectionView.setDelegate(collectionViewDelegate)
+        // Setup collection view refresh control
         xCollectionView.refreshControl = UIRefreshControl()
         xCollectionView.refreshControl?.addTarget(self, action: #selector(refresh), for: .valueChanged)
         // Setup error actions
         xCollectionView.errorAction = { [weak self] in self?.load(with: .initial) }
-        // View bounds compensation for right positioning of loading indicators
-        if let navigationController = navigationController { view.bounds.size.height -= navigationController.navigationBar.frame.height }
-        if let tabBarController = tabBarController { view.bounds.size.height -= tabBarController.tabBar.frame.height }
     }
     
     func updateView() {
         xCollectionView.reloadData()
     }
-    
-    func registerCell(cellType: IBCollectionViewCell.Type) {
-        xCollectionView.register(cellType.nib, forCellWithReuseIdentifier: cellType.reuseIdentifier)
-    }
-    
-    /*func configureContextMenu(indexPath: IndexPath) -> UIContextMenuConfiguration {
-        let modelItem = model.items[indexPath.row]
-        return Constants.Model.contextMenuConfiguration(type: Type.self, for: modelItem)!
-    }*/
-    
+
     func enableSearchBar() {
         navigationItem.searchController?.searchBar.isUserInteractionEnabled = true
         navigationItem.searchController?.searchBar.alpha = 1.0
@@ -162,7 +154,7 @@ class SFDynamicCollectionViewController<Type>: UICollectionViewController {
     
     // MARK: - Collection View Data Source
     
-    override func numberOfSections(in collectionView: UICollectionView) -> Int {
+    /*override func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
 
@@ -203,5 +195,5 @@ class SFDynamicCollectionViewController<Type>: UICollectionViewController {
     /*override func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
         return configureContextMenu(indexPath: indexPath)
     }*/
-
+     */
 }

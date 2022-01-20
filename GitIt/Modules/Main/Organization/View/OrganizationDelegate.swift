@@ -11,9 +11,18 @@ class OrganizationTableViewDelegate: TableViewDelegate<OrganizationModel> {
     
     override init() {
         super.init()
-        model = List<OrganizationModel>()
-        detailViewControllerPresenter = OrganizationTableViewDetailPresenter()
+        tapResponder = OrganizationTableViewTapResponder()
         contextMenuConfigurator = OrganizationTableViewContextMenuConfigurator()
+    }
+    
+}
+
+class OrganizationCollectionViewDelegate: CollectionViewDelegate<OrganizationModel> {
+    
+    override init() {
+        let tapResponder = OrganizationCollectionViewTapResponder()
+        let contextMenuConfigurator = OrganizationCollectionViewContextMenuConfigurator()
+        super.init(tapResponder: tapResponder, contextMenuConfigurator: contextMenuConfigurator, scrollViewAction: nil)
     }
     
 }

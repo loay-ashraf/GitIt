@@ -28,6 +28,10 @@ class SearchController<Type: Model>: UISearchController, UISearchControllerDeleg
         fatalError("init(coder:) has not been implemented")
     }
     
+    deinit {
+        debugPrint(String(describing: self) + " deallocated")
+    }
+    
     // MARK: - Search Controller Helper Methods
     
     private func configure() {
