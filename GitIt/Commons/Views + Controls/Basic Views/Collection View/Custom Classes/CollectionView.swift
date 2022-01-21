@@ -22,13 +22,17 @@ class CollectionView: UICollectionView {
     }
     
     func registerClass<T: CollectionViewCell>(cellClass: T.Type) {
-        register(cellClass, forCellWithReuseIdentifier: cellClass.reuseIdentifier)
-        registeredCells.append(cellClass)
+        if !registeredCells.contains(where: { $0 == cellClass }) {
+            register(cellClass, forCellWithReuseIdentifier: cellClass.reuseIdentifier)
+            registeredCells.append(cellClass)
+        }
     }
     
     func registerNib<T: CollectionViewCell>(cellClass: T.Type) {
-        register(cellClass.nib, forCellWithReuseIdentifier: cellClass.reuseIdentifier)
-        registeredCells.append(cellClass)
+        if !registeredCells.contains(where: { $0 == cellClass }) {
+            register(cellClass.nib, forCellWithReuseIdentifier: cellClass.reuseIdentifier)
+            registeredCells.append(cellClass)
+        }
     }
     
     func dequeue<T: CollectionViewCell>(cellClass: T.Type, for indexPath: IndexPath) -> T {

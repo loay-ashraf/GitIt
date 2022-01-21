@@ -22,13 +22,17 @@ class TableView: UITableView {
     }
     
     func registerClass<T: TableViewCell>(cellClass: T.Type) {
-        register(cellClass, forCellReuseIdentifier: cellClass.reuseIdentifier)
-        registeredCells.append(cellClass)
+        if !registeredCells.contains(where: { $0 == cellClass }) {
+            register(cellClass, forCellReuseIdentifier: cellClass.reuseIdentifier)
+            registeredCells.append(cellClass)
+        }
     }
     
     func registerNib<T: TableViewCell>(cellClass: T.Type) {
-        register(cellClass.nib, forCellReuseIdentifier: cellClass.reuseIdentifier)
-        registeredCells.append(cellClass)
+        if !registeredCells.contains(where: { $0 == cellClass }) {
+            register(cellClass.nib, forCellReuseIdentifier: cellClass.reuseIdentifier)
+            registeredCells.append(cellClass)
+        }
     }
     
     func dequeue<T: TableViewCell>(cellClass: T.Type) -> T? {

@@ -9,12 +9,12 @@ import UIKit
 
 class SearchHistoryViewController<Type: Model>: SFViewController {
     
+    override var emptyViewModel: EmptyViewModel { return EmptyConstants.searchHistory.viewModel }
+    
     weak var delegate: HistoryDelegate!
     var logicController: SearchHistoryLogicController<Type>!
     
-    var emptyModel: EmptyViewModel { return Constants.View.Empty.searchHistory.viewModel }
-    
-    var collectionViewDataSource: SearchHistoryCollectionViewDataSource<Type>!
+    var collectionViewDataSource: CollectionViewDataSource<Type>!
     var collectionViewDelegate: SearchHistoryCollectionViewDelegate<Type>!
     var tableViewDataSource: SearchHistoryTableViewDataSource!
     var tableViewDelegate: SearchHistoryTableViewDelegate!
@@ -71,9 +71,10 @@ class SearchHistoryViewController<Type: Model>: SFViewController {
     
     override func configureView() {
         super.configureView()
+        
         collectionView.cornerRadius = 10.0
         collectionView.cornerCurve = .continuous
-        collectionViewDataSource = SearchHistoryCollectionViewDataSource()
+        collectionViewDataSource = SearchHistoryCollectionViewDataSource<Type>.raw()
         collectionViewDelegate = SearchHistoryCollectionViewDelegate(collectionDelegate: self)
         collectionView.setDataSource(collectionViewDataSource)
         collectionView.setDelegate(collectionViewDelegate)
@@ -90,7 +91,7 @@ class SearchHistoryViewController<Type: Model>: SFViewController {
         let headerShouldBeHidden = logicController.history.models.isEmpty && logicController.history.keywords.isEmpty
         switch headerShouldBeHidden {
         case true: headerTitleStackView.isHidden = true
-                   xView.transition(to: .empty(emptyModel))
+                   xView.transition(to: .empty(emptyViewModel))
         case false: headerTitleStackView.isHidden = false
                     xView.transition(to: .presenting)
         }

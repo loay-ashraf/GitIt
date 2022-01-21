@@ -7,83 +7,142 @@
 
 import UIKit
 
-class BookmarksViewController: SFDynamicTableViewController<Any> {
+class BookmarksViewController: UIViewController {
     
-    override var model: List<Any>! { return List<Any>(with: logicController.model) }
-    override var emptyViewModel: EmptyViewModel { return Constants.View.Empty.bookmarks.viewModel }
+    var userModel: List<UserModel> { return List<UserModel>(with: logicController.userModel) }
+    var repositoryModel: List<RepositoryModel> { return List<RepositoryModel>(with: logicController.repositoryModel) }
+    var organizationModel: List<OrganizationModel> { return List<OrganizationModel>(with: logicController.organizationModel) }
     
-    private let logicController: BookmarksLogicController
+    var logicController: BookmarksLogicController!
+    var context: BookmarksContext! {
+        get { return logicController.bookmarksContext }
+        set { logicController.bookmarksContext = newValue }
+    }
     
-    @IBOutlet weak var selectorSegmentedControl: UISegmentedControl!
-    @IBOutlet weak var clearBookmarksButton: UIBarButtonItem!
+    // MARK: - Table View Data Sources
+    
+    var userDataSource: TableViewDataSource<UserModel> = TableViewDataSourceConstants.userDataSource
+    var repositoryDataSource: TableViewDataSource<RepositoryModel> = TableViewDataSourceConstants.repositoryDataSource
+    var organizationDataSource: TableViewDataSource<OrganizationModel> = TableViewDataSourceConstants.organizationDataSource
+    
+    // MARK: - Table View Delegates
+    
+    var userDelegate: TableViewDelegate<UserModel> = TableViewDelegateConstants.userDelegate
+    var repositoryDelegate: TableViewDelegate<RepositoryModel> = TableViewDelegateConstants.repositoryDelegate
+    var organizationDelegate: TableViewDelegate<OrganizationModel> = TableViewDelegateConstants.organizationDelegate
+    
+    // MARK: - View Outlets
+    
+    @IBOutlet weak var clearButton: UIBarButtonItem!
+    @IBOutlet weak var segmentedControl: UISegmentedControl!
+    @IBOutlet weak var tableView: SFDynamicTableView!
+    
+    // MARK: - Initialisation
     
     required init?(coder: NSCoder) {
-        logicController = BookmarksLogicController()
         super.init(coder: coder)
+        logicController = BookmarksLogicController()
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        load(with: .initial)
-    }
+    // MARK: - Lifecycle
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        load(with: .initial)
+        configureView()
+        load()
     }
     
-    override func configureView() {
-        super.configureView()
+    // MARK: - View Helper Methods
     
-        //cellType = RoundedImageTableViewCell.self
-        //detailViewControllerType = UserDetailViewController.self
-        logicController.setModelType(modelType: UserModel.self)
-        
-        /*registerCell(cellType: RoundedImageTableViewCell.self)
-        registerCell(cellType: RepositoryTableViewCell.self)
-        registerCell(cellType: RoundedImageTableViewCell.self)*/
-        disableRefreshControl()
-        subViewsOffsetSize = .mainScreenWithSearch
+    func configureView() {
+        subViewsOffsetSize = nil
+        configureCurrentContext()
     }
+    
+    func updateView() {
+        tableView.reloadData()
+    }
+    
+    // MARK: - View Synchronization Methods
+    
+    func synchronizeTableView() {
+        switch context {
+        case .users: userDataSource.model = userModel
+                     userDelegate.model = userModel
+        case .repositories: repositoryDataSource.model = repositoryModel
+                            repositoryDelegate.model = repositoryModel
+        case .organizations: organizationDataSource.model = organizationModel
+                             organizationDelegate.model = organizationModel
+        default: break
+        }
+    }
+    
+    // MARK: - View Actions
     
     @IBAction func selectorChanged(_ sender: Any) {
-        /*switch selectorSegmentedControl.selectedSegmentIndex {
-        case 0: cellType = RoundedImageTableViewCell.self
-            detailViewControllerType = UserDetailViewController.self
-            logicController.setModelType(modelType: UserModel.self)
-        case 1: cellType = RepositoryTableViewCell.self
-            detailViewControllerType = RepositoryDetailViewController.self
-            logicController.setModelType(modelType: RepositoryModel.self)
-        case 2: cellType = RoundedImageTableViewCell.self
-            detailViewControllerType = OrganizationDetailViewController.self
-            logicController.setModelType(modelType: OrganizationModel.self)
-        default: break
-        }*/
-        load(with: .initial)
+        configureView()
+        load()
     }
     
     @IBAction func clearBookmarks(_ sender: UIBarButtonItem) {
         AlertHelper.showAlert(alert: .clearBookmarks({ [weak self] in
             self?.logicController.clear()
-            self?.updateView()
+            self?.loadHandler(error: nil)
         }))
     }
     
-    override func load(with loadingViewState: LoadingViewState) {
-        super.load(with: loadingViewState)
-        switch loadingViewState {
-        case .initial: logicController.load { [weak self] error in self?.loadHandler(error: error) }
-        case .paginate: logicController.load { [weak self] error in self?.paginateHandler(error: error) }
+    // MARK: - Load Methods
+    
+    func load() {
+        tableView.transition(to: .loading(.initial))
+        logicController.load { [weak self] error in self?.loadHandler(error: error) }
+    }
+    
+    // MARK: - Load Handler Methods
+    
+    func loadHandler(error: Error?) {
+        if let error = error {
+            tableView.transition(to: .failed(.initial(error)))
+        } else if checkIfEmpty() {
+            tableView.transition(to: .empty(EmptyConstants.bookmarks.viewModel))
+            clearButton.isEnabled = false
+        } else {
+            synchronizeTableView()
+            tableView.transition(to: .presenting)
+            clearButton.isEnabled = true
+        }
+    }
+    
+    func checkIfEmpty() -> Bool {
+        switch context {
+        case .users: return userModel.isEmpty
+        case .repositories: return repositoryModel.isEmpty
+        case .organizations: return organizationModel.isEmpty
+        default: return true
+        }
+    }
+    
+    // MARK: - Bookmarks Context Methods
+    
+    func configureCurrentContext() {
+        switch segmentedControl.selectedSegmentIndex {
+        case 0: switchContext(to: .users)
+        case 1: switchContext(to: .repositories)
+        case 2: switchContext(to: .organizations)
         default: break
         }
     }
     
-    override func loadHandler(error: Error?) {
-        super.loadHandler(error: error)
-        if model.isEmpty {
-            clearBookmarksButton.isEnabled = false
-        } else {
-            clearBookmarksButton.isEnabled = true
+    func switchContext(to context: BookmarksContext) {
+        logicController.bookmarksContext = context
+        switch context {
+        case .users: tableView.setDataSource(userDataSource)
+                     tableView.setDelegate(userDelegate)
+        case .repositories: tableView.setDataSource(repositoryDataSource)
+                            tableView.setDelegate(repositoryDelegate)
+        case .organizations: tableView.setDataSource(organizationDataSource)
+                             tableView.setDelegate(organizationDelegate)
+        default: break
         }
     }
 

@@ -20,10 +20,13 @@ class SearchHistoryTableViewDataSource: TableViewDataSource<String> {
 
 class SearchHistoryCollectionViewDataSource<Type>: CollectionViewDataSource<Type> {
     
-    override init() {
-        let cellClass = RoundedImageCollectionViewCell.self
-        let cellConfigurator = SearchHistoryCollectionViewCellConfigurator<Type>()
-        super.init(cellClass: cellClass, cellConfigurator: cellConfigurator)
+    class func raw() -> CollectionViewDataSource<Type> {
+        switch Type.self {
+        case is UserModel.Type: return CollectionViewDataSourceConstants.userDataSource as! CollectionViewDataSource<Type>
+        case is RepositoryModel.Type: return CollectionViewDataSourceConstants.repositoryDataSource as! CollectionViewDataSource<Type>
+        case is OrganizationModel.Type: return CollectionViewDataSourceConstants.organizationDataSource as! CollectionViewDataSource<Type>
+        default: return CollectionViewDataSource<Type>()
+        }
     }
     
 }

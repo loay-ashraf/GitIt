@@ -56,7 +56,7 @@
                                             </stackView>
                                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceHorizontal="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="uvA-N2-hoU" customClass="CollectionView" customModule="GitIt" customModuleProvider="target">
                                                 <rect key="frame" x="15" y="60" width="384" height="110"/>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <color key="backgroundColor" name="Foreground Color"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="110" id="SPz-CC-cXk"/>
                                                 </constraints>
@@ -79,7 +79,7 @@
                                             </collectionView>
                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" bouncesZoom="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" sectionHeaderHeight="-1" sectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="FEz-LP-fMC" customClass="TableView" customModule="GitIt" customModuleProvider="target">
                                                 <rect key="frame" x="15" y="185" width="384" height="536"/>
-                                                <color key="backgroundColor" name="Background Color"/>
+                                                <color key="backgroundColor" name="Foreground Color"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="536" id="ZMy-5L-ti8"/>
                                                 </constraints>

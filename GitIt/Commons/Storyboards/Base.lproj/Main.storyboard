@@ -69,7 +69,7 @@
         <!--Repository Detail View Controller-->
         <scene sceneID="JBj-bv-7Mo">
             <objects>
-                <tableViewController storyboardIdentifier="RepositoryDetailVC" id="mXo-Ji-rNn" customClass="RepositoryDetailViewController" customModule="GitIt" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="RepositoryDetailVC" hidesBottomBarWhenPushed="YES" id="mXo-Ji-rNn" customClass="RepositoryDetailViewController" customModule="GitIt" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="static" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="1" sectionFooterHeight="1" id="IRs-2D-YdW" customClass="SFStaticTableView" customModule="GitIt" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -200,7 +200,7 @@
                             </constraints>
                         </view>
                         <view key="tableFooterView" contentMode="scaleToFill" id="KSv-gy-qoj" userLabel="Footer">
-                            <rect key="frame" x="0.0" y="502.00000000000011" width="414" height="212"/>
+                            <rect key="frame" x="0.0" y="502" width="414" height="212"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YHQ-yV-hqU" userLabel="Separator">
@@ -385,7 +385,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GEj-1v-OIn" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5792.753623188406" y="429.61956521739131"/>
+            <point key="canvasLocation" x="5038" y="430"/>
         </scene>
         <!--License View Controller-->
         <scene sceneID="h8p-lq-ZcU">
@@ -518,10 +518,10 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="yqW-GE-zC5">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" name="Foreground Color"/>
+                        <color key="backgroundColor" name="Background Color"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="QVR-wu-qrk" kind="relationship" relationship="rootViewController" id="3Gu-kD-ZWA"/>
+                        <segue destination="o9K-IH-Fbn" kind="relationship" relationship="rootViewController" id="ANu-x5-lwJ"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="z4l-UQ-5kD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -969,7 +969,7 @@
         <!--Organization Detail View Controller-->
         <scene sceneID="riL-j3-AkV">
             <objects>
-                <tableViewController storyboardIdentifier="OrganizationDetailVC" id="XOx-6P-JXo" customClass="OrganizationDetailViewController" customModule="GitIt" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="OrganizationDetailVC" hidesBottomBarWhenPushed="YES" id="XOx-6P-JXo" customClass="OrganizationDetailViewController" customModule="GitIt" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" bouncesZoom="NO" dataMode="static" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="1" sectionFooterHeight="1" id="rjE-Gw-Z3G" customClass="SFStaticTableView" customModule="GitIt" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1195,7 +1195,7 @@
                     </connections>
                 </pongPressGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="5039" y="430"/>
+            <point key="canvasLocation" x="5793" y="430"/>
         </scene>
         <!--User View Controller-->
         <scene sceneID="36V-L1-m5f">
@@ -1205,16 +1205,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" name="Background Color"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="i0i-at-aws">
-                                <rect key="frame" x="0.0" y="44.666666030883789" width="414" height="43.666667938232422"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="i0i-at-aws" id="q33-xo-7Ba">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.666667938232422"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
                         <connections>
                             <outlet property="dataSource" destination="DLM-eG-u9V" id="Mck-MH-6cR"/>
                             <outlet property="delegate" destination="DLM-eG-u9V" id="YSm-0c-p2q"/>
@@ -1233,16 +1223,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" name="Background Color"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="Fv7-HN-t4k">
-                                <rect key="frame" x="0.0" y="44.666666030883789" width="414" height="43.666667938232422"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Fv7-HN-t4k" id="DgI-pA-ImM">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.666667938232422"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
                         <connections>
                             <outlet property="dataSource" destination="u0o-r0-FBU" id="3El-ND-t6i"/>
                             <outlet property="delegate" destination="u0o-r0-FBU" id="0qM-Rq-m75"/>
@@ -1261,16 +1241,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" name="Background Color"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="v2Z-yz-RCD">
-                                <rect key="frame" x="0.0" y="44.666666030883789" width="414" height="43.666667938232422"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="v2Z-yz-RCD" id="lTW-av-e8e">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.666667938232422"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
                         <connections>
                             <outlet property="dataSource" destination="kZa-P7-owq" id="rfM-06-iEZ"/>
                             <outlet property="delegate" destination="kZa-P7-owq" id="A9Z-xT-oXB"/>
@@ -1289,16 +1259,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" name="Background Color"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="FSo-sd-cml">
-                                <rect key="frame" x="0.0" y="44.666666030883789" width="414" height="43.666667938232422"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="FSo-sd-cml" id="jTo-jx-Uqb">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.666667938232422"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
                         <connections>
                             <outlet property="dataSource" destination="kJp-Ap-301" id="hfD-fd-2xQ"/>
                             <outlet property="delegate" destination="kJp-Ap-301" id="J3q-Km-MHK"/>
@@ -1320,7 +1280,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="L4k-5B-zeO">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" name="Foreground Color"/>
+                        <color key="backgroundColor" name="Background Color"/>
                     </navigationBar>
                     <connections>
                         <segue destination="q6w-vH-VeW" kind="relationship" relationship="rootViewController" id="BBg-dq-3Qx"/>
@@ -1703,71 +1663,72 @@
             <point key="canvasLocation" x="3441" y="430"/>
         </scene>
         <!--Bookmarks-->
-        <scene sceneID="tYo-38-0yc">
+        <scene sceneID="ZVd-aH-9p5">
             <objects>
-                <tableViewController id="QVR-wu-qrk" customClass="BookmarksViewController" customModule="GitIt" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="UVe-zW-CTZ" customClass="SFDynamicTableView" customModule="GitIt" customModuleProvider="target">
+                <viewController id="o9K-IH-Fbn" customClass="BookmarksViewController" customModule="GitIt" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="NBl-4s-Zpl">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" name="Background Color"/>
-                        <view key="tableHeaderView" contentMode="scaleToFill" id="Tpn-JV-unJ" userLabel="Header">
-                            <rect key="frame" x="0.0" y="0.0" width="414" height="20"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" name="Background Color"/>
-                        </view>
-                        <view key="tableFooterView" contentMode="scaleToFill" id="3ol-GL-EXU" userLabel="Footer">
-                            <rect key="frame" x="0.0" y="131" width="414" height="20"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" name="Background Color"/>
-                        </view>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="x8J-sR-WoN">
-                                <rect key="frame" x="0.0" y="64.666666030883789" width="414" height="43.666667938232422"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="x8J-sR-WoN" id="hS5-5o-zZq">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.666667938232422"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
+                        <subviews>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="WQV-MN-gB4">
+                                <rect key="frame" x="60" y="111" width="294" height="32"/>
                                 <color key="backgroundColor" name="Foreground Color"/>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="QVR-wu-qrk" id="dCN-YQ-wO6"/>
-                            <outlet property="delegate" destination="QVR-wu-qrk" id="Fpn-VA-OJV"/>
-                        </connections>
-                    </tableView>
+                                <segments>
+                                    <segment title="">
+                                        <imageReference key="image" image="person.2" catalog="system" symbolScale="large"/>
+                                    </segment>
+                                    <segment title="">
+                                        <imageReference key="image" image="book.closed" catalog="system" symbolScale="large"/>
+                                    </segment>
+                                    <segment title="">
+                                        <imageReference key="image" image="building" catalog="system" symbolScale="large"/>
+                                    </segment>
+                                </segments>
+                                <connections>
+                                    <action selector="selectorChanged:" destination="o9K-IH-Fbn" eventType="valueChanged" id="TVn-Pu-BSd"/>
+                                </connections>
+                            </segmentedControl>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="4OO-3x-Uxn" customClass="SFDynamicTableView" customModule="GitIt" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="157" width="414" height="530"/>
+                                <color key="backgroundColor" name="Background Color"/>
+                                <view key="tableHeaderView" contentMode="scaleToFill" id="QNJ-AS-nkp" userLabel="Header">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="5"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <color key="backgroundColor" name="Background Color"/>
+                                </view>
+                                <view key="tableFooterView" contentMode="scaleToFill" id="xA8-Fx-ysJ" userLabel="Footer">
+                                    <rect key="frame" x="0.0" y="5" width="414" height="5"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <color key="backgroundColor" name="Background Color"/>
+                                </view>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="G5u-T0-IS4"/>
+                        <color key="backgroundColor" name="Background Color"/>
+                        <constraints>
+                            <constraint firstItem="WQV-MN-gB4" firstAttribute="top" secondItem="G5u-T0-IS4" secondAttribute="top" constant="15" id="177-U2-IYv"/>
+                            <constraint firstItem="G5u-T0-IS4" firstAttribute="trailing" secondItem="4OO-3x-Uxn" secondAttribute="trailing" id="2Yi-Gd-wxf"/>
+                            <constraint firstItem="G5u-T0-IS4" firstAttribute="trailing" secondItem="WQV-MN-gB4" secondAttribute="trailing" constant="60" id="D0u-Bs-7WA"/>
+                            <constraint firstItem="4OO-3x-Uxn" firstAttribute="top" secondItem="WQV-MN-gB4" secondAttribute="bottom" constant="15" id="QKS-QP-pCt"/>
+                            <constraint firstItem="WQV-MN-gB4" firstAttribute="leading" secondItem="G5u-T0-IS4" secondAttribute="leading" constant="60" id="RDf-Qc-aqy"/>
+                            <constraint firstItem="G5u-T0-IS4" firstAttribute="bottom" secondItem="4OO-3x-Uxn" secondAttribute="bottom" id="V57-HB-6jZ"/>
+                            <constraint firstItem="4OO-3x-Uxn" firstAttribute="leading" secondItem="G5u-T0-IS4" secondAttribute="leading" id="xD0-yI-KMk"/>
+                        </constraints>
+                    </view>
                     <navigationItem key="navigationItem" title="Bookmarks" largeTitleDisplayMode="always" id="VLR-xD-p64">
-                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="vb3-9y-G9o">
-                            <rect key="frame" x="126" y="6" width="162" height="32"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" name="Background Color"/>
-                            <segments>
-                                <segment title="">
-                                    <imageReference key="image" image="person.2" catalog="system" symbolScale="large"/>
-                                </segment>
-                                <segment title="">
-                                    <imageReference key="image" image="book.closed" catalog="system" symbolScale="large"/>
-                                </segment>
-                                <segment title="">
-                                    <imageReference key="image" image="building" catalog="system" symbolScale="large"/>
-                                </segment>
-                            </segments>
+                        <barButtonItem key="rightBarButtonItem" image="trash" catalog="system" id="Npv-lO-aaI">
                             <connections>
-                                <action selector="selectorChanged:" destination="QVR-wu-qrk" eventType="valueChanged" id="loP-Nd-QFH"/>
-                            </connections>
-                        </segmentedControl>
-                        <barButtonItem key="rightBarButtonItem" title="Item" image="trash" catalog="system" id="pUC-py-xax">
-                            <connections>
-                                <action selector="clearBookmarks:" destination="QVR-wu-qrk" id="u4n-3K-v4Z"/>
+                                <action selector="clearBookmarks:" destination="o9K-IH-Fbn" id="55b-dE-BEs"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="clearBookmarksButton" destination="pUC-py-xax" id="pes-Pq-exd"/>
-                        <outlet property="selectorSegmentedControl" destination="vb3-9y-G9o" id="zWU-cn-dMt"/>
+                        <outlet property="clearButton" destination="Npv-lO-aaI" id="i11-uY-0PX"/>
+                        <outlet property="segmentedControl" destination="WQV-MN-gB4" id="3lX-bZ-zJ9"/>
+                        <outlet property="tableView" destination="4OO-3x-Uxn" id="Jdm-JD-Lb9"/>
                     </connections>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="qih-4A-pay" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="IR4-cx-FuM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2674" y="-356"/>
         </scene>
@@ -1836,19 +1797,18 @@
             </objects>
             <point key="canvasLocation" x="911.59420289855075" y="-1105.4347826086957"/>
         </scene>
-        <!--Users-->
+        <!--Explore-->
         <scene sceneID="aGo-82-1Hc">
             <objects>
-                <navigationController storyboardIdentifier="ExploreNavigationController" id="CbJ-dZ-oDJ" userLabel="Users" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="ExploreNavigationController" id="CbJ-dZ-oDJ" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Explore" id="B0L-IM-RKV">
                         <imageReference key="image" image="safari" catalog="system" symbolScale="large"/>
                         <imageReference key="selectedImage" image="safari.fill" catalog="system" symbolScale="large"/>
                     </tabBarItem>
-                    <navigationItem key="navigationItem" largeTitleDisplayMode="always" id="ZOh-la-8I1"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="VMp-Hm-HDv">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" name="Foreground Color"/>
+                        <color key="backgroundColor" name="Background Color"/>
                     </navigationBar>
                     <connections>
                         <segue destination="aKn-b7-1Sw" kind="relationship" relationship="rootViewController" id="6ah-Zv-aXn"/>

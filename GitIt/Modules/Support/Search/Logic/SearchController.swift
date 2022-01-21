@@ -37,9 +37,9 @@ class SearchController<Type: Model>: UISearchController, UISearchControllerDeleg
     private func configure() {
         delegate = self
         searchBar.delegate = self
-        obscuresBackgroundDuringPresentation = true
         searchBar.placeholder = SearchContext(from: Type.self)?.barPlaceholder
         searchBar.autocapitalizationType = .none
+        searchBar.searchTextField.backgroundColor = UIColor(named: "Foreground Color")
         obscuresBackgroundDuringPresentation = false
         showsSearchResultsController = true
     }

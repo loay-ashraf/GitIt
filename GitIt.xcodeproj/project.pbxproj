@@ -427,7 +427,6 @@
 			children = (
 				C6102C282794D2C1003A2E26 /* Logic Controller */,
 				C6102C292794D2C1003A2E26 /* Model */,
-				C6102C2A2794D2C1003A2E26 /* View */,
 				C6102C2B2794D2C1003A2E26 /* View Controller */,
 			);
 			path = Explore;
@@ -445,13 +444,6 @@
 			children = (
 			);
 			path = Model;
-			sourceTree = "<group>";
-		};
-		C6102C2A2794D2C1003A2E26 /* View */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = View;
 			sourceTree = "<group>";
 		};
 		C6102C2B2794D2C1003A2E26 /* View Controller */ = {
@@ -478,10 +470,10 @@
 		C6102C2D2794D2C1003A2E26 /* Logic */ = {
 			isa = PBXGroup;
 			children = (
-				C66412302780789500D605BF /* SearchHistoryLogicController.swift */,
-				C664123C27807CEA00D605BF /* SearchResultsLogicController.swift */,
 				C6F46E7727541B2700498614 /* SearchController.swift */,
 				C6C605FC273EC89000BA27C2 /* SearchCoordinator.swift */,
+				C66412302780789500D605BF /* SearchHistoryLogicController.swift */,
+				C664123C27807CEA00D605BF /* SearchResultsLogicController.swift */,
 				C6C60600273ECA8300BA27C2 /* SearchTimer.swift */,
 			);
 			path = Logic;
@@ -519,7 +511,6 @@
 			children = (
 				C6102C322794D2C1003A2E26 /* Logic Controller */,
 				C6102C332794D2C1003A2E26 /* Model */,
-				C6102C342794D2C1003A2E26 /* View */,
 				C6102C352794D2C1003A2E26 /* View Controller */,
 			);
 			path = Bookmarks;
@@ -539,13 +530,6 @@
 				C68AC7FF27831E4000FE0C08 /* BookmarksManager.swift */,
 			);
 			path = Model;
-			sourceTree = "<group>";
-		};
-		C6102C342794D2C1003A2E26 /* View */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = View;
 			sourceTree = "<group>";
 		};
 		C6102C352794D2C1003A2E26 /* View Controller */ = {

@@ -17,23 +17,3 @@ class SearchHistoryTableViewCellConfigurator: TableViewCellConfigurator {
     }
     
 }
-
-class SearchHistoryCollectionViewCellConfigurator<Type>: CollectionViewCellConfigurator {
-    
-    var rawConfigurator: CollectionViewCellConfigurator!
-    
-    override init() {
-        super.init()
-        switch Type.self {
-        case is UserModel.Type: rawConfigurator = UserCollectionViewCellConfigurator()
-        case is RepositoryModel.Type: rawConfigurator = RepositoryCollectionViewCellConfigurator()
-        case is OrganizationModel.Type: rawConfigurator = OrganizationCollectionViewCellConfigurator()
-        default: break
-        }
-    }
-    
-    override func configure<Type>(_ cell: UICollectionViewCell, forDisplaying item: Type) {
-        rawConfigurator.configure(cell, forDisplaying: item)
-    }
-    
-}

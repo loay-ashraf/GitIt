@@ -11,6 +11,8 @@ class SFViewController: UIViewController {
 
     var xView: SFView! { return view as? SFView }
     
+    private(set) var emptyViewModel: EmptyViewModel = EmptyConstants.general.viewModel
+    
     // MARK: - Initialisation
     
     override init(nibName: String?, bundle: Bundle?) {
@@ -43,9 +45,6 @@ class SFViewController: UIViewController {
         // Setup actions
         xView.errorAction = { [weak self] in self?.load() }
         xView.updateView = { [weak self] in self?.updateView() }
-        // View bounds compensation for right positioning of loading indicators
-        if let navigationController = navigationController { view.bounds.size.height -= navigationController.navigationBar.frame.height }
-        if let tabBarController = tabBarController { view.bounds.size.height -= tabBarController.tabBar.frame.height }
     }
     
     func updateView() { /* Override this method in subclass to provide view updater method */ }
@@ -61,9 +60,15 @@ class SFViewController: UIViewController {
     func loadHandler(error: Error?) {
         if let error = error {
             xView.transition(to: .failed(.initial(error)))
+        } else if checkIfEmpty() {
+            xView.transition(to: .empty(emptyViewModel))
         } else {
             xView.transition(to: .presenting)
         }
+    }
+    
+    func checkIfEmpty() -> Bool { /* Override this method in subclass to provide empty checking method */
+        return false
     }
 
 }

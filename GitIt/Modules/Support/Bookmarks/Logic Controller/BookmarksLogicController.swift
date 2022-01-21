@@ -9,55 +9,60 @@ import Foundation
 
 class BookmarksLogicController {
     
-    var model = [Any]()
-    var bookmarksManager = BookmarksManager.standard
+    var userModel = [UserModel]()
+    var repositoryModel = [RepositoryModel]()
+    var organizationModel = [OrganizationModel]()
     
-    private var modelType: Any.Type?
+    var bookmarksManager = BookmarksManager.standard
+    var bookmarksContext: BookmarksContext! {
+        get { return bookmarksManager.activeBookmarksContext }
+        set { bookmarksManager.activeBookmarksContext = newValue }
+    }
     
     func load(then handler: LoadingHandler) {
-        switch modelType {
-        case is UserModel.Type: loadUser(then: handler)
-        case is RepositoryModel.Type: loadRepository(then: handler)
-        case is OrganizationModel.Type: loadOrganization(then: handler)
+        switch bookmarksContext {
+        case .users: loadUser(then: handler)
+        case .repositories: loadRepository(then: handler)
+        case .organizations: loadOrganization(then: handler)
         default: break
         }
     }
     
-    func setModelType<Type: Model>(modelType: Type.Type) {
-        self.modelType = modelType
-        let bookmarksContext = BookmarksContext(from: modelType)
-        bookmarksManager.activeBookmarksContext = bookmarksContext
-    }
-    
     private func loadUser(then handler: LoadingHandler) {
-        let userBookmarks = BookmarksManager.standard.getUsers()!
-        model.removeAll()
+        let userBookmarks = bookmarksManager.getUsers()!
+        userModel.removeAll()
         for bookmark in userBookmarks {
-            model.append(UserModel(from: bookmark))
+            userModel.append(UserModel(from: bookmark))
         }
         handler(nil)
     }
     
     private func loadRepository(then handler: LoadingHandler) {
-        let repositoryBookmarks = BookmarksManager.standard.getRepositories()!
-        model.removeAll()
+        let repositoryBookmarks = bookmarksManager.getRepositories()!
+        repositoryModel.removeAll()
         for bookmark in repositoryBookmarks {
-            model.append(RepositoryModel(from: bookmark))
+            repositoryModel.append(RepositoryModel(from: bookmark))
         }
         handler(nil)
     }
     
     private func loadOrganization(then handler: LoadingHandler) {
-        let organizationBookmarks = BookmarksManager.standard.getOrganizations()!
-        model.removeAll()
+        let organizationBookmarks = bookmarksManager.getOrganizations()!
+        organizationModel.removeAll()
         for bookmark in organizationBookmarks {
-            model.append(OrganizationModel(from: bookmark))
+            organizationModel.append(OrganizationModel(from: bookmark))
         }
         handler(nil)
     }
     
     func clear() {
-        model.removeAll()
+        try? bookmarksManager.clearActive()
+        switch bookmarksContext {
+        case .users: userModel.removeAll()
+        case .repositories: repositoryModel.removeAll()
+        case .organizations: organizationModel.removeAll()
+        default: break
+        }
     }
     
 }
