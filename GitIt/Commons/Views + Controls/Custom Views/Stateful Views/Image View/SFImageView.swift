@@ -5,47 +5,44 @@
 //  Created by Loay Ashraf on 05/12/2021.
 //
 
-import Foundation
 import UIKit
+import Kingfisher
 
 class SFImageView: UIImageView, StatefulView {
     
     var state: ViewState = .presenting
-    
-    var activityIndicatorView: UIActivityIndicatorView!
-    var runningRequestUUID: UUID!
+    var processor: ImageProcessor!
     
     // MARK: - Initialisation
     
     required init?(coder: NSCoder) {
-        activityIndicatorView = UIActivityIndicatorView(style: .medium)
-        activityIndicatorView.hidesWhenStopped = true
-        activityIndicatorView.isUserInteractionEnabled = false
         super.init(coder: coder)
-        activityIndicatorView!.frame = bounds
-        addSubview(activityIndicatorView!)
+        kf.indicatorType = .activity
+        processor = DownsamplingImageProcessor(size: bounds.size)
+                    |> RoundCornerImageProcessor(cornerRadius: 20)
     }
     
     // MARK: - Loading Methods
     
     func load(at url: URL) {
-        if runningRequestUUID != nil { cancel() }
+        kf.cancelDownloadTask()
         transition(to: .loading(.initial))
-        runningRequestUUID = ImageLoader.standard.loadImage(url) { [weak self] result in
+        kf.setImage(with: url, placeholder: nil, options: [
+            .processor(processor),
+            .scaleFactor(UIScreen.main.scale),
+            .transition(.fade(1)),
+            .cacheOriginalImage
+        ], completionHandler: { [weak self] result in
             switch result {
-            case .success(let image): self?.image = image; self?.transition(to: .presenting)
-            case .failure(NetworkError.client(let clientError)): if (clientError as NSError).code == NSURLErrorCancelled { return }
-            case .failure(let networkError): self?.transition(to: .failed(.initial(networkError)))
+            case .success: self?.transition(to: .presenting)
+            case .failure(KingfisherError.imageSettingError(.notCurrentSourceTask)): break
+            case .failure(let error): self?.transition(to: .failed(.initial(error)))
             }
-        }
+        })
     }
 
     func cancel() {
-        if runningRequestUUID != nil {
-            ImageLoader.standard.cancelLoad(runningRequestUUID)
-            runningRequestUUID = nil
-            transition(to: .presenting)
-        }
+        kf.cancelDownloadTask()
     }
     
     // MARK: - View State Methods
@@ -70,14 +67,14 @@ class SFImageView: UIImageView, StatefulView {
     
     func showActivityIndicator(for loadingViewState: LoadingViewState) {
         switch loadingViewState {
-        case .initial: activityIndicatorView.startAnimating()
+        case .initial: kf.indicator?.startAnimatingView()
         default: return
         }
     }
     
     func hideActivityIndicator(for loadingViewState: LoadingViewState) {
         switch loadingViewState {
-        case .initial: activityIndicatorView.stopAnimating()
+        case .initial: kf.indicator?.stopAnimatingView()
         default: return
         }
     }

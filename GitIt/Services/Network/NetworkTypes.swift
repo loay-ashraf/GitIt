@@ -51,35 +51,46 @@ enum NetworkError: Error {
 
 extension NetworkError {
     init?(data: Data?, response: URLResponse?, error: Error?) {
+        // Check for client-side error
         if let error = error {
             self = .client(error)
             return
         }
-
+        // Check for server-side error
         if let response = response as? HTTPURLResponse,
             !(200...299).contains(response.statusCode) {
             self = .server(HTTPError.withCode(response.statusCode))
             return
-        } else { self = .noResponse }
-        
+        // Check for no Response error
+        } else if response == nil {
+            self = .noResponse
+            return
+        }
+        // Check for no Data error
         if data == nil {
             self = .noData
+            return
         }
         
         return nil
     }
     
     init?(response: URLResponse?, error: Error?) {
+        // Check for client-side error
         if let error = error {
             self = .client(error)
             return
         }
-
+        // Check for server-side error
         if let response = response as? HTTPURLResponse,
             !(200...299).contains(response.statusCode) {
             self = .server(HTTPError.withCode(response.statusCode))
             return
-        } else { self = .noResponse }
+        // Check for no Response error
+        } else if response == nil {
+            self = .noResponse
+            return
+        }
         
         return nil
     }

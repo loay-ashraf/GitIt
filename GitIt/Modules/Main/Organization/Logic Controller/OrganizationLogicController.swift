@@ -52,10 +52,14 @@ class OrganizationLogicController {
     }
     
     private func updateModelParameters(newItemsCount: Int = 0) {
-        model.currentPage += 1
         switch context {
         case .main: model.isPaginable = true
         case .user: model.isPaginable = newItemsCount == 0 ? false : true
+        }
+        if model.currentPage == 100 {
+            model.isPaginable = false
+        } else {
+            model.currentPage += 1
         }
     }
     

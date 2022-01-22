@@ -280,19 +280,20 @@ struct ErrorViewModel {
     }
     
     init?(from error: Error) {
-        typealias errorConstants = Constants.View.Error
         if let networkError = error as? NetworkError {
             switch networkError {
-            case .noResponse,.noData: self = errorConstants.internet.viewModel
+            case .noResponse,.noData: self = ErrorConstants.internet.viewModel
             case .client(let clientError): if (clientError as NSError).code == NSURLErrorNotConnectedToInternet {
-                self = errorConstants.internet.viewModel
+                self = ErrorConstants.internet.viewModel
             } else {
-                self = errorConstants.network.viewModel
+                self = ErrorConstants.network.viewModel
             }
-            case .server,.api,.decoding,.encoding: self = errorConstants.network.viewModel
+            case .server,.api,.decoding,.encoding: self = ErrorConstants.network.viewModel
             }
-        } else if error.self is DataError || error.self is CoreDataError {
-            self = errorConstants.data.viewModel
+            return
+        } else if error.self is DataError {
+            self = ErrorConstants.data.viewModel
+            return
         }
         return nil
     }

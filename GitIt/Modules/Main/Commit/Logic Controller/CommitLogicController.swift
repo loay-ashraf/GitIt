@@ -37,8 +37,12 @@ class CommitLogicController {
     }
 
     private func updateModelParameters(newItemsCount: Int = 0) {
-        model.currentPage += 1
         model.isPaginable = newItemsCount == 0 ? false : true
+        if model.currentPage == 100 {
+            model.isPaginable = false
+        } else {
+            model.currentPage += 1
+        }
     }
 
 }

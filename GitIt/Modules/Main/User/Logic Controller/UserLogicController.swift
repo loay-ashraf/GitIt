@@ -83,7 +83,6 @@ class UserLogicController {
     }
     
     private func updateModelParameters(newItemsCount: Int = 0) {
-        model.currentPage += 1
         switch context {
         case .main: model.isPaginable = true
         case .followers: model.isPaginable = model.items.count == (contextParameters as! UserContext.FollowersParameters).1 ? false : true
@@ -91,6 +90,11 @@ class UserLogicController {
         case .stars: model.isPaginable = model.items.count == (contextParameters as! UserContext.StarsParameters).1 ? false : true
         case .contributors: model.isPaginable = newItemsCount == 0 ? false : true
         case .members: model.isPaginable = newItemsCount == 0 ? false : true
+        }
+        if model.currentPage == 100 {
+            model.isPaginable = false
+        } else {
+            model.currentPage += 1
         }
     }
     

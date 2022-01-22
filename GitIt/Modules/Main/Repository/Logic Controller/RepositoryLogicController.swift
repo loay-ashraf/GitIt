@@ -71,18 +71,22 @@ class RepositoryLogicController {
         case .success(let response): model.append(contentsOf: response)
                                      updateModelParameters(newItemsCount: response.count)
                                      handler?(nil)
-        case .failure(let networkError): handler?(networkError)
+        case .failure(let networkError): print(networkError); print(model.currentPage); handler?(networkError)
         }
     }
 
     private func updateModelParameters(newItemsCount: Int = 0) {
-        model.currentPage += 1
         switch context {
         case .main: model.isPaginable = true
         case .user: model.isPaginable = model.items.count == (contextParameters as! RepositoryContext.UserParameters).1 ? false : true
         case .organization: model.isPaginable = model.items.count == (contextParameters as! RepositoryContext.OrganizationParameters).1 ? false : true
         case .forks: model.isPaginable = model.items.count == (contextParameters as! RepositoryContext.ForksParameters).1 ? false : true
         case .starred: model.isPaginable = newItemsCount == 0 ? false : true
+        }
+        if model.currentPage == 100 {
+            model.isPaginable = false
+        } else {
+            model.currentPage += 1
         }
     }
 

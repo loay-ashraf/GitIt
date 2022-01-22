@@ -9,6 +9,7 @@ target 'GitIt' do
   inhibit_all_warnings!
   
   # Pods for GitIt
+  pod 'Kingfisher', '~> 7.0'
   pod 'InAppSettingsKit'
   pod 'MarkdownView'
 
