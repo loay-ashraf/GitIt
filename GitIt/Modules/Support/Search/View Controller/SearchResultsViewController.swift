@@ -10,7 +10,7 @@ import UIKit
 class SearchResultsViewController<Type: Model>: SFDynamicTableViewController<Type> {
     
     override var model: List<Type>! { return logicController.model }
-    override var emptyViewModel: EmptyViewModel { return EmptyConstants.searchResults.viewModel }
+    override var emptyViewModel: EmptyViewModel { return EmptyConstants.SearchResults.viewModel }
     
     private weak var delegate: ResultsDelegate!
     private var logicController: SearchResultsLogicController<Type>!

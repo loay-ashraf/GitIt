@@ -12,7 +12,7 @@ class CommitViewController: SFDynamicTableViewController<CommitModel>, IBViewCon
     static var storyboardIdentifier = "CommitVC"
     
     override var model: List<CommitModel>! { return logicController.model }
-    override var emptyViewModel: EmptyViewModel { return Constants.View.Empty.commits.viewModel }
+    override var emptyViewModel: EmptyViewModel { return Constants.View.Empty.Commits.viewModel }
     
     let logicController: CommitLogicController
     

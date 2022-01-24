@@ -73,20 +73,31 @@ class UserDetailLogicController {
     }
     
     func checkIfFollowedOrBookmarked(then handler: @escaping LoadingHandler, then followHandler: @escaping FollowActionHandler, then bookmarkHandler: @escaping BookmarkActionHandler) {
-        GitHubClient.checkIfFollowingUser(userLogin: model.login) { error in
-            defer { handler(nil) }
+        if NetworkManager.standard.isReachable {
+            GitHubClient.checkIfFollowingUser(userLogin: model.login) { error in
+                defer { handler(nil) }
+                let fetchResult = BookmarksManager.standard.check(model: self.model)
+                switch fetchResult {
+                case true: self.isBookmarked = true
+                            bookmarkHandler(self.isBookmarked)
+                case false: self.isBookmarked = false
+                default: break
+                }
+                guard error != nil else {
+                    self.isFollowed = true
+                    followHandler(self.isFollowed)
+                    return
+                }
+            }
+        } else {
             let fetchResult = BookmarksManager.standard.check(model: self.model)
             switch fetchResult {
             case true: self.isBookmarked = true
-                                       bookmarkHandler(self.isBookmarked)
+                        bookmarkHandler(self.isBookmarked)
             case false: self.isBookmarked = false
             default: break
             }
-            guard error != nil else {
-                self.isFollowed = true
-                followHandler(self.isFollowed)
-                return
-            }
+            handler(nil)
         }
     }
     

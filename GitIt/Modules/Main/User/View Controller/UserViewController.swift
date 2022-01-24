@@ -12,7 +12,7 @@ class UserViewController: SFDynamicTableViewController<UserModel>, IBViewControl
     static var storyboardIdentifier = "UserVC"
     
     override var model: List<UserModel>! { return logicController.model }
-    override var emptyViewModel: EmptyViewModel { return Constants.View.Empty.users.viewModel }
+    override var emptyViewModel: EmptyViewModel { return Constants.View.Empty.Users.viewModel }
     
     private let logicController: UserLogicController
     private var context: UserContext { return logicController.context }

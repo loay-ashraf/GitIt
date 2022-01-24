@@ -7,12 +7,10 @@
 
 import UIKit
 
-
-
 class UserTableViewContextMenuConfigurator: TableViewContextMenuConfigurator {
     
     override func configure<Type>(with item: Type) -> UIContextMenuConfiguration {
-        return ContextMenuConfigurationConstants.bookmarkAndShareConfiguration(for: item as! UserModel)
+        return ContextMenuConfigurationConstants.RoundedImageCellConfiguration(for: item as! UserModel)
     }
     
 }
@@ -20,7 +18,7 @@ class UserTableViewContextMenuConfigurator: TableViewContextMenuConfigurator {
 class UserCollectionViewContextMenuConfigurator: CollectionViewContextMenuConfigurator {
     
     override func configure<Type>(collectionView: UICollectionView, indexPath: IndexPath, with item: Type) -> UIContextMenuConfiguration {
-        return ContextMenuConfigurationConstants.bookmarkAndShareConfiguration(for: item as! UserModel)
+        return ContextMenuConfigurationConstants.RoundedImageCellConfiguration(for: item as! UserModel)
     }
     
 }

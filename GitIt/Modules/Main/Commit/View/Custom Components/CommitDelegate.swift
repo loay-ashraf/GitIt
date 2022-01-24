@@ -12,7 +12,7 @@ class CommitTableViewDelegate: TableViewDelegate<CommitModel> {
     override init() {
         super.init()
         tapResponder = CommitTableViewTapResponder()
-        contextMenuConfigurator = TableViewContextMenuConfigurator()
+        contextMenuConfigurator = CommitTableViewContextMenuConfigurator()
     }
     
 }

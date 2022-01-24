@@ -7,6 +7,8 @@
 
 import Foundation
 import UIKit
+import NotificationBannerSwift
+import Kingfisher
 import CoreData
 import Network
 
@@ -225,7 +227,7 @@ struct Constants {
             struct Actions {
                 
                 // Delete action image and title
-                struct delete {
+                struct Delete {
         
                     static let image = UIImage(systemName: "trash")
                     static let title = "Delete".localized()
@@ -237,8 +239,10 @@ struct Constants {
                     
                 }
                 
+                
+                
                 // Bookmark action image and title
-                struct bookmark {
+                struct Bookmark {
                     
                     static let image = UIImage(systemName: "bookmark")
                     static let title = "Bookmark".localized()
@@ -251,7 +255,7 @@ struct Constants {
                 }
                 
                 // Unbookmark action image and title
-                struct unBookmark {
+                struct UnBookmark {
                     
                     static let image = UIImage(systemName: "bookmark.fill")
                     static let title = "Unbookmark".localized()
@@ -263,8 +267,55 @@ struct Constants {
                     
                 }
                 
+                // Save Image action image and title
+                struct SaveImage {
+        
+                    static let image = UIImage(systemName: "square.and.arrow.down")
+                    static let title = "Save Image".localized()
+                    static func action<Type: GitIt.Model>(item: Type) -> UIAction {
+                        return UIAction(title: title, image: image, attributes: []) { action in
+                            if let item = item as? UserModel {
+                                KingfisherManager.shared.retrieveImage(with: item.avatarURL) { result in
+                                    if let retreiveResult = try? result.get() {
+                                        UIImageWriteToSavedPhotosAlbum(retreiveResult.image, self, nil, nil)
+                                        HapticsManager.standard.sendNotificationFeedback(type: .success)
+                                    }
+                                }
+                            } else if let item = item as? OrganizationModel {
+                                KingfisherManager.shared.retrieveImage(with: item.avatarURL) { result in
+                                    if let retreiveResult = try? result.get() {
+                                        UIImageWriteToSavedPhotosAlbum(retreiveResult.image, self, nil, nil)
+                                        HapticsManager.standard.sendNotificationFeedback(type: .success)
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    
+                    static func action(image: UIImage) -> UIAction {
+                        return UIAction(title: title, image: self.image, attributes: []) { action in
+                            UIImageWriteToSavedPhotosAlbum(image, self, nil, nil)
+                            HapticsManager.standard.sendNotificationFeedback(type: .success)
+                        }
+                    }
+                    
+                }
+                
+                // Open In Safari action image and title
+                struct OpenInSafari {
+        
+                    static let image = UIImage(systemName: "safari")
+                    static let title = "Open In Safari".localized()
+                    static func action<Type: GitIt.Model>(item: Type) -> UIAction {
+                        return UIAction(title: title, image: image, attributes: []) { action in
+                            URLHelper.openURL(item.htmlURL)
+                        }
+                    }
+                    
+                }
+                
                 // Share action image and title
-                struct share {
+                struct Share {
                     
                     static let image = UIImage(systemName: "square.and.arrow.up")
                     static let title = "Share".localized()
@@ -282,36 +333,68 @@ struct Constants {
             
             struct Configurations {
                 
-                static func deleteConfiguration(deleteAction: @escaping () -> Void) -> UIContextMenuConfiguration {
-                    typealias contextMenuActionConstants = Constants.View.ContextMenu.Actions
+                static func DeleteConfiguration(deleteAction: @escaping () -> Void) -> UIContextMenuConfiguration {
                     let actionProvider: UIContextMenuActionProvider = { actions -> UIMenu? in
-                        let delete = contextMenuActionConstants.delete.action(deleteAction: deleteAction)
+                        let delete = ContextMenuActionConstants.Delete.action(deleteAction: deleteAction)
                         return UIMenu(title: "", children: [delete])
                     }
                     return UIContextMenuConfiguration(identifier: nil, previewProvider: nil, actionProvider: actionProvider)
                 }
                 
-                static func shareConfiguration<Type: GitIt.Model>(for item: Type) -> UIContextMenuConfiguration {
-                    typealias contextMenuActionConstants = Constants.View.ContextMenu.Actions
+                static func SaveImageConfiguration(for image: UIImage) -> UIContextMenuConfiguration {
                     let actionProvider: UIContextMenuActionProvider = { actions -> UIMenu? in
-                        let share = contextMenuActionConstants.share.action(item: item)
-                        return UIMenu(title: "", children: [share])
+                        let saveImage = ContextMenuActionConstants.SaveImage.action(image: image)
+                        return UIMenu(title: "", children: [saveImage])
                     }
                     return UIContextMenuConfiguration(identifier: nil, previewProvider: nil, actionProvider: actionProvider)
                 }
                 
-                static func bookmarkAndShareConfiguration<Type: GitIt.Model>(for item: Type) -> UIContextMenuConfiguration {
-                    typealias contextMenuActionConstants = Constants.View.ContextMenu.Actions
+                static func CommitCellConfiguration<Type: GitIt.Model>(for item: Type) -> UIContextMenuConfiguration {
+                    let actionProvider: UIContextMenuActionProvider = { actions -> UIMenu? in
+                        var menuChildren: [UIAction] = []
+                        let openInSafari = ContextMenuActionConstants.OpenInSafari.action(item: item)
+                        let share = ContextMenuActionConstants.Share.action(item: item)
+                        menuChildren.append(openInSafari)
+                        menuChildren.append(share)
+                        return UIMenu(title: "", children: menuChildren)
+                    }
+                    return UIContextMenuConfiguration(identifier: nil, previewProvider: nil, actionProvider: actionProvider)
+                }
+                
+                static func RepositoryCellConfiguration<Type: GitIt.Model>(for item: Type) -> UIContextMenuConfiguration {
                     let actionProvider: UIContextMenuActionProvider = { actions -> UIMenu? in
                         var menuChildren: [UIAction] = []
                         if let exists = BookmarksManager.standard.check(model: item), exists == true {
-                            let bookmark = contextMenuActionConstants.unBookmark.action(item: item)
+                            let bookmark = ContextMenuActionConstants.UnBookmark.action(item: item)
                             menuChildren.append(bookmark)
                         } else {
-                            let bookmark = contextMenuActionConstants.bookmark.action(item: item)
+                            let bookmark = ContextMenuActionConstants.Bookmark.action(item: item)
                             menuChildren.append(bookmark)
                         }
-                        let share = contextMenuActionConstants.share.action(item: item)
+                        let openInSafari = ContextMenuActionConstants.OpenInSafari.action(item: item)
+                        let share = ContextMenuActionConstants.Share.action(item: item)
+                        menuChildren.append(openInSafari)
+                        menuChildren.append(share)
+                        return UIMenu(title: "", children: menuChildren)
+                    }
+                    return UIContextMenuConfiguration(identifier: nil, previewProvider: nil, actionProvider: actionProvider)
+                }
+                
+                static func RoundedImageCellConfiguration<Type: GitIt.Model>(for item: Type) -> UIContextMenuConfiguration {
+                    let actionProvider: UIContextMenuActionProvider = { actions -> UIMenu? in
+                        var menuChildren: [UIAction] = []
+                        if let exists = BookmarksManager.standard.check(model: item), exists == true {
+                            let bookmark = ContextMenuActionConstants.UnBookmark.action(item: item)
+                            menuChildren.append(bookmark)
+                        } else {
+                            let bookmark = ContextMenuActionConstants.Bookmark.action(item: item)
+                            menuChildren.append(bookmark)
+                        }
+                        let saveImage = ContextMenuActionConstants.SaveImage.action(item: item)
+                        let openInSafari = ContextMenuActionConstants.OpenInSafari.action(item: item)
+                        let share = ContextMenuActionConstants.Share.action(item: item)
+                        menuChildren.append(saveImage)
+                        menuChildren.append(openInSafari)
                         menuChildren.append(share)
                         return UIMenu(title: "", children: menuChildren)
                     }
@@ -326,6 +409,18 @@ struct Constants {
         
         struct Alert {
             
+            struct NoInternet {
+                
+                static let title = "No Internet".localized()
+                
+                static func notificationBanner() -> StatusBarNotificationBanner {
+                    let banner = StatusBarNotificationBanner(title: title, style: .danger)
+                    banner.autoDismiss = false
+                    return banner
+                }
+                
+            }
+            
             struct InternetError {
                 
                 static let title = "No Internet".localized()
@@ -333,6 +428,7 @@ struct Constants {
                 
                 static func alertController() -> UIAlertController {
                     let controller = UIAlertController(title: title, message: message, preferredStyle: .alert)
+                    controller.addAction(AlertConstants.okAction)
                     return controller
                 }
                 
@@ -474,7 +570,7 @@ struct Constants {
         struct Error {
             
             // Internet error image, title and message
-            struct internet {
+            struct Internet {
                 
                 static private let image = UIImage(systemName: "wifi.exclamationmark")
                 static private let title = "No Internet".localized()
@@ -484,7 +580,7 @@ struct Constants {
             }
             
             // Network error image, title and message
-            struct network {
+            struct Network {
                 
                 static private let image = UIImage(systemName: "exclamationmark.icloud")
                 static private let title = "Network Error".localized()
@@ -494,7 +590,7 @@ struct Constants {
             }
             
             // Data error image, title and message
-            struct data {
+            struct Data {
                 
                 static private let image = UIImage(systemName: "externaldrive.badge.xmark")
                 static private let title = "Couldn't Retrieve Data".localized()
@@ -510,7 +606,7 @@ struct Constants {
         struct Empty {
             
             // General empty image and title
-            struct general {
+            struct General {
                 
                 static private let image = UIImage(systemName: "exclamationmark")
                 static private let title = "WoW, such empty".localized()
@@ -519,7 +615,7 @@ struct Constants {
             }
             
             // Users empty image and title
-            struct users {
+            struct Users {
                 
                 static private let image = UIImage(systemName: "exclamationmark")
                 static private let title = "There isn't any users.".localized()
@@ -528,7 +624,7 @@ struct Constants {
             }
             
             // Repositories empty image and title
-            struct repositories {
+            struct Repositories {
                 
                 static private let image = UIImage(systemName: "exclamationmark")
                 static private let title = "There isn't any repositories.".localized()
@@ -537,7 +633,7 @@ struct Constants {
             }
             
             // Organizations empty image and title
-            struct organizations {
+            struct Organizations {
                 
                 static private let image = UIImage(systemName: "exclamationmark")
                 static private let title = "There isn't any organizations.".localized()
@@ -546,7 +642,7 @@ struct Constants {
             }
             
             // Commits empty image and title
-            struct commits {
+            struct Commits {
                 
                 static private let image = UIImage(systemName: "exclamationmark")
                 static private let title = "There isn't any commits.".localized()
@@ -555,7 +651,7 @@ struct Constants {
             }
             
             // Search history empty image and title
-            struct searchHistory {
+            struct SearchHistory {
                 
                 static private let image = UIImage(systemName: "magnifyingglass")
                 static private let title = "No Search history found, try searching first.".localized()
@@ -564,7 +660,7 @@ struct Constants {
             }
             
             // Search results image and title
-            struct searchResults {
+            struct SearchResults {
                 
                 static private let image = UIImage(systemName: "magnifyingglass")
                 static private let title = "No Search results found, try searching for a different term.".localized()
@@ -573,7 +669,7 @@ struct Constants {
             }
             
             // Bookmarks image and title
-            struct bookmarks {
+            struct Bookmarks {
                 
                 static private let image = UIImage(systemName: "bookmark.slash")
                 static private let title = "No Bookmarks found.".localized()

@@ -9,7 +9,7 @@ import UIKit
 
 class SearchHistoryViewController<Type: Model>: SFViewController {
     
-    override var emptyViewModel: EmptyViewModel { return EmptyConstants.searchHistory.viewModel }
+    override var emptyViewModel: EmptyViewModel { return EmptyConstants.SearchHistory.viewModel }
     
     weak var delegate: HistoryDelegate!
     var logicController: SearchHistoryLogicController<Type>!

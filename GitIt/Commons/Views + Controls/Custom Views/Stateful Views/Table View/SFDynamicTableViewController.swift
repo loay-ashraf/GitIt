@@ -15,7 +15,7 @@ class SFDynamicTableViewController<Type>: UITableViewController {
     var tableViewDelegate: TableViewDelegate<Type>!
     
     private(set) var model: List<Type>!
-    private(set) var emptyViewModel: EmptyViewModel = EmptyConstants.general.viewModel
+    private(set) var emptyViewModel: EmptyViewModel = EmptyConstants.General.viewModel
     
     // MARK: - Initialisation
     

@@ -10,7 +10,7 @@ import UIKit
 class OrganizationTableViewContextMenuConfigurator: TableViewContextMenuConfigurator {
     
     override func configure<Type>(with item: Type) -> UIContextMenuConfiguration {
-        return ContextMenuConfigurationConstants.bookmarkAndShareConfiguration(for: item as! OrganizationModel)
+        return ContextMenuConfigurationConstants.RoundedImageCellConfiguration(for: item as! OrganizationModel)
     }
     
 }
@@ -18,7 +18,7 @@ class OrganizationTableViewContextMenuConfigurator: TableViewContextMenuConfigur
 class OrganizationCollectionViewContextMenuConfigurator: CollectionViewContextMenuConfigurator {
     
     override func configure<Type>(collectionView: UICollectionView, indexPath: IndexPath, with item: Type) -> UIContextMenuConfiguration {
-        return ContextMenuConfigurationConstants.bookmarkAndShareConfiguration(for: item as! OrganizationModel)
+        return ContextMenuConfigurationConstants.RoundedImageCellConfiguration(for: item as! OrganizationModel)
     }
     
 }

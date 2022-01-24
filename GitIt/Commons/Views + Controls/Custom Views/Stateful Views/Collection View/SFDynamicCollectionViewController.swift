@@ -15,7 +15,7 @@ class SFDynamicCollectionViewController<Type>: UICollectionViewController {
     var collectionViewDelegate: CollectionViewDelegate<Type>!
     
     private(set) var model: List<Type>!
-    private(set) var emptyModel: EmptyViewModel = Constants.View.Empty.general.viewModel
+    private(set) var emptyModel: EmptyViewModel = Constants.View.Empty.General.viewModel
     
     // MARK: - Initialisation
     

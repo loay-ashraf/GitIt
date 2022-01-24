@@ -79,20 +79,31 @@ class RepositoryDetailLogicController {
     }
     
     func checkIfStarredOrBookmarked(then handler: @escaping LoadingHandler, then starHandler: @escaping StarActionHandler, then bookmarkHandler: @escaping BookmarkActionHandler) {
-        GitHubClient.checkIfStarredRepository(fullName: model.fullName) { error in
-            defer { handler(nil) }
+        if NetworkManager.standard.isReachable {
+            GitHubClient.checkIfStarredRepository(fullName: model.fullName) { error in
+                defer { handler(nil) }
+                let fetchResult = BookmarksManager.standard.check(model: self.model)
+                switch fetchResult {
+                case true: self.isBookmarked = true
+                           bookmarkHandler(self.isBookmarked)
+                case false: self.isBookmarked = false
+                default: break
+                }
+                guard error != nil else {
+                    self.isStarred = true
+                    starHandler(self.isStarred)
+                    return
+                }
+            }
+        } else {
             let fetchResult = BookmarksManager.standard.check(model: self.model)
             switch fetchResult {
             case true: self.isBookmarked = true
-                       bookmarkHandler(self.isBookmarked)
+                        bookmarkHandler(self.isBookmarked)
             case false: self.isBookmarked = false
             default: break
             }
-            guard error != nil else {
-                self.isStarred = true
-                starHandler(self.isStarred)
-                return
-            }
+            handler(nil)
         }
     }
     

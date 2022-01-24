@@ -89,9 +89,7 @@ class UserDetailViewController: SFStaticTableViewController, IBViewController {
         avatarImageView.cornerCurve = .continuous
         avatarImageView.masksToBounds = true
         
-        let avatarLongPressesGesture = UILongPressGestureRecognizer(target: self, action: #selector(saveAvatar))
-        avatarImageView.addGestureRecognizer(avatarLongPressesGesture)
-        avatarImageView.isUserInteractionEnabled = true
+        avatarImageView.addInteraction(UIContextMenuInteraction(delegate: self))
         
         blogTextView.action = { [weak self] in self?.goToBlog() }
         emailTextView.action = { [weak self] in self?.composeMail() }
@@ -125,11 +123,20 @@ class UserDetailViewController: SFStaticTableViewController, IBViewController {
         emailTextView.text = model.email
         twitterTextView.text = model.twitter != nil ? "@".appending(model.twitter!) : nil
         socialStatusNumericView.numbers = [Double(model.followers!),Double(model.following!)]
-        if model.login == SessionManager.standard.sessionUser?.login {
+        
+        if NetworkManager.standard.isReachable {
+            followButton.isEnabled = true
+        } else {
+            followButton.isEnabled = false
+        }
+        
+        if SessionManager.standard.sessionType == .guest || model.login == SessionManager.standard.sessionUser?.login  {
             followButton.isHidden = true
         } else {
-            bookmarkButton.isEnabled = true
+            followButton.isHidden = false
         }
+        
+        bookmarkButton.isEnabled = true
         shareButton.isEnabled = true
     }
     
@@ -146,12 +153,6 @@ class UserDetailViewController: SFStaticTableViewController, IBViewController {
     @IBAction func share(_ sender: Any) {
         let htmlURL = model.htmlURL
         URLHelper.shareURL(htmlURL)
-    }
-    
-    @IBAction func saveAvatar(_ sender: UILongPressGestureRecognizer) {
-        if sender.state == .ended {
-            UIImageWriteToSavedPhotosAlbum(avatarImageView.image!, self, nil, nil)
-        }
     }
     
     @objc func goToBlog() {
@@ -223,7 +224,7 @@ class UserDetailViewController: SFStaticTableViewController, IBViewController {
 
 extension UserDetailViewController {
     
-    // View Helper Methods (Private)
+    // MARK: - View Helper Methods (Private)
     
     private func updateFollowButton(isFollowed: Bool) {
         if isFollowed {
@@ -240,6 +241,20 @@ extension UserDetailViewController {
             bookmarkButton.image = Constants.View.Button.bookmark.bookmarkedImage
         } else {
             bookmarkButton.image = Constants.View.Button.bookmark.defaultImage
+        }
+    }
+    
+}
+
+extension UserDetailViewController: UIContextMenuInteractionDelegate {
+    
+    // MARK: - Context Menu Delegate
+    
+    func contextMenuInteraction(_ interaction: UIContextMenuInteraction, configurationForMenuAtLocation location: CGPoint) -> UIContextMenuConfiguration? {
+        if let image = avatarImageView.image {
+            return ContextMenuConfigurationConstants.SaveImageConfiguration(for: image)
+        } else {
+            return UIContextMenuConfiguration()
         }
     }
     

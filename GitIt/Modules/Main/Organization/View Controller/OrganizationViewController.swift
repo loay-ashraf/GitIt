@@ -12,7 +12,7 @@ class OrganizationViewController: SFDynamicTableViewController<OrganizationModel
     static var storyboardIdentifier = "OrganizationVC"
     
     override var model: List<OrganizationModel>! { return logicController.model }
-    override var emptyViewModel: EmptyViewModel { return Constants.View.Empty.organizations.viewModel }
+    override var emptyViewModel: EmptyViewModel { return Constants.View.Empty.Organizations.viewModel }
     //override var cellConfigurator: TableViewCellConfigurator! { return OrganizationTableViewCellConfigurator() }
     
     private let logicController: OrganizationLogicController

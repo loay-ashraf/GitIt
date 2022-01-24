@@ -86,6 +86,8 @@ class OrganizationDetailViewController: SFStaticTableViewController, IBViewContr
         avatarImageView.cornerCurve = .continuous
         avatarImageView.masksToBounds = true
         
+        avatarImageView.addInteraction(UIContextMenuInteraction(delegate: self))
+        
         blogTextView.action = { [weak self] in self?.goToBlog() }
         emailTextView.action = { [weak self] in self?.composeMail() }
         twitterTextView.action = { [weak self] in self?.goToTwitter() }
@@ -188,6 +190,20 @@ extension OrganizationDetailViewController {
             bookmarkButton.image = UIImage(systemName: "bookmark.fill")
         } else {
             bookmarkButton.image = UIImage(systemName: "bookmark")
+        }
+    }
+    
+}
+
+extension OrganizationDetailViewController: UIContextMenuInteractionDelegate {
+    
+    // MARK: - Context Menu Delegate
+    
+    func contextMenuInteraction(_ interaction: UIContextMenuInteraction, configurationForMenuAtLocation location: CGPoint) -> UIContextMenuConfiguration? {
+        if let image = avatarImageView.image {
+            return ContextMenuConfigurationConstants.SaveImageConfiguration(for: image)
+        } else {
+            return UIContextMenuConfiguration()
         }
     }
     

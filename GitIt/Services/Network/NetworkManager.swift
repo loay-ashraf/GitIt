@@ -12,6 +12,13 @@ class NetworkManager {
     
     static let standard = NetworkManager()
     
+    var isReachable: Bool {
+        if let isReachable = reachabilityHelper.isReachable {
+            return isReachable
+        }
+        return false
+    }
+    
     private let urlSession: Session!
     private let reachabilityHelper: NetworkReachabilityHelper!
     

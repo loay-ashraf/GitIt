@@ -11,6 +11,13 @@ import UIKit
 
 class URLHelper {
     
+    static var safariConfiguration: SFSafariViewController.Configuration = {
+        let safariConfiguration  = SFSafariViewController.Configuration()
+        safariConfiguration.barCollapsingEnabled = false
+        safariConfiguration.entersReaderIfAvailable = false
+        return safariConfiguration
+    }()
+    
     class func openURL(_ url: URL) {
         let topViewController = UIApplication.topViewController()
         
@@ -18,9 +25,6 @@ class URLHelper {
         if urlComponents?.scheme == nil { urlComponents?.scheme = "https" }
         let webURL = urlComponents?.url
         
-        let safariConfiguration  = SFSafariViewController.Configuration()
-        safariConfiguration.barCollapsingEnabled = false
-        safariConfiguration.entersReaderIfAvailable = false
         let safariVC = SFSafariViewController(url: webURL!, configuration: safariConfiguration)
         safariVC.dismissButtonStyle = .close
         topViewController?.present(safariVC, animated: true, completion: nil)

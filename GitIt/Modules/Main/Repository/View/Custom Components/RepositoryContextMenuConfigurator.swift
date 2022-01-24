@@ -10,7 +10,7 @@ import UIKit
 class RepositoryTableViewContextMenuConfigurator: TableViewContextMenuConfigurator {
     
     override func configure<Type>(with item: Type) -> UIContextMenuConfiguration {
-        return ContextMenuConfigurationConstants.bookmarkAndShareConfiguration(for: item as! RepositoryModel)
+        return ContextMenuConfigurationConstants.RepositoryCellConfiguration(for: item as! RepositoryModel)
     }
     
 }
@@ -18,7 +18,7 @@ class RepositoryTableViewContextMenuConfigurator: TableViewContextMenuConfigurat
 class RepositoryCollectionViewContextMenuConfigurator: CollectionViewContextMenuConfigurator {
     
     override func configure<Type>(collectionView: UICollectionView, indexPath: IndexPath, with item: Type) -> UIContextMenuConfiguration {
-        return ContextMenuConfigurationConstants.bookmarkAndShareConfiguration(for: item as! RepositoryModel)
+        return ContextMenuConfigurationConstants.RepositoryCellConfiguration(for: item as! RepositoryModel)
     }
     
 }

@@ -12,7 +12,7 @@ class RepositoryViewController: SFDynamicTableViewController<RepositoryModel>, I
     static var storyboardIdentifier = "RepositoryVC"
     
     override var model: List<RepositoryModel>! { return logicController.model }
-    override var emptyViewModel: EmptyViewModel { return Constants.View.Empty.repositories.viewModel }
+    override var emptyViewModel: EmptyViewModel { return Constants.View.Empty.Repositories.viewModel }
     
     private let logicController: RepositoryLogicController
     private var context: RepositoryContext { return logicController.context }

@@ -240,9 +240,15 @@ extension GitHubRouter: URLRequestConvertible {
         } else if method == .post {
             urlRequest = try JSONEncoding.default.encode(urlRequest, with: parameters)
         }
-        
-        if method == .put || method == .delete {
-            urlRequest.cachePolicy = .reloadIgnoringLocalCacheData
+
+        switch self {
+        case .checkIfFollowingUser,
+            .checkIfStarredRepository,
+            .followUser,
+            .unFollowUser,
+            .starRepository,
+            .unStarRepository: urlRequest.cachePolicy = .reloadIgnoringLocalCacheData
+        default: break
         }
         
         return urlRequest

@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import NotificationBannerSwift
 
 struct List<Type> {
     
@@ -240,6 +241,7 @@ enum BookmarksContext {
 
 enum Alert {
     
+    case noInternet
     case internetError
     case networkError
     case dataError
@@ -251,17 +253,24 @@ enum Alert {
     case signOut(() -> Void)
     
     var controller: UIAlertController {
-        typealias alertConstants = Constants.View.Alert
         switch self {
-        case .internetError: return alertConstants.InternetError.alertController()
-        case .networkError: return alertConstants.NetworkError.alertController()
-        case .dataError: return alertConstants.DataError.alertController()
-        case .signInError: return alertConstants.SignInError.alertController()
-        case .guestSignIn(let handler): return alertConstants.GuestSignIn.alertController(with: handler)
-        case .clearSearchHistory(let handler): return alertConstants.ClearSearchHistory.alertController(with: handler)
-        case .clearBookmarks(let handler): return alertConstants.ClearBookmarks.alertController(with: handler)
-        case .clearData: return alertConstants.ClearData.alertController()
-        case .signOut(let handler): return alertConstants.SignOut.alertController(with: handler)
+        case .internetError: return AlertConstants.InternetError.alertController()
+        case .networkError: return AlertConstants.NetworkError.alertController()
+        case .dataError: return AlertConstants.DataError.alertController()
+        case .signInError: return AlertConstants.SignInError.alertController()
+        case .guestSignIn(let handler): return AlertConstants.GuestSignIn.alertController(with: handler)
+        case .clearSearchHistory(let handler): return AlertConstants.ClearSearchHistory.alertController(with: handler)
+        case .clearBookmarks(let handler): return AlertConstants.ClearBookmarks.alertController(with: handler)
+        case .clearData: return AlertConstants.ClearData.alertController()
+        case .signOut(let handler): return AlertConstants.SignOut.alertController(with: handler)
+        default: return UIAlertController()
+        }
+    }
+    
+    var statusBarBanner: StatusBarNotificationBanner {
+        switch self {
+        case .noInternet: return AlertConstants.NoInternet.notificationBanner()
+        default: return StatusBarNotificationBanner(title: "")
         }
     }
     
@@ -282,17 +291,17 @@ struct ErrorViewModel {
     init?(from error: Error) {
         if let networkError = error as? NetworkError {
             switch networkError {
-            case .noResponse,.noData: self = ErrorConstants.internet.viewModel
+            case .noResponse,.noData: self = ErrorConstants.Internet.viewModel
             case .client(SessionError.sessionTaskFailed(let sessionTaskError)): if (sessionTaskError as NSError).code == NSURLErrorNotConnectedToInternet {
-                self = ErrorConstants.internet.viewModel
+                self = ErrorConstants.Internet.viewModel
             } else {
-                self = ErrorConstants.network.viewModel
+                self = ErrorConstants.Network.viewModel
             }
-            case .client,.server,.api,.decoding,.encoding: self = ErrorConstants.network.viewModel
+            case .client,.server,.api,.decoding,.encoding: self = ErrorConstants.Network.viewModel
             }
             return
         } else if error.self is DataError {
-            self = ErrorConstants.data.viewModel
+            self = ErrorConstants.Data.viewModel
             return
         }
         return nil

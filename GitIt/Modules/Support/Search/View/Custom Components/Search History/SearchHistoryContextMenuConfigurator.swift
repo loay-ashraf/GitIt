@@ -16,7 +16,7 @@ class SearchHistoryCollectionViewContextMenuConfigurator: CollectionViewContextM
     }
     
     override func configure<Type>(collectionView: UICollectionView, indexPath: IndexPath, with item: Type) -> UIContextMenuConfiguration {
-        return ContextMenuConfigurationConstants.deleteConfiguration { [weak self] in
+        return ContextMenuConfigurationConstants.DeleteConfiguration { [weak self] in
             self?.historyCollectionDelegate?.delete(model: item)
             collectionView.deleteItems(at: [indexPath])
             self?.historyCollectionDelegate?.didUpdateCollection()

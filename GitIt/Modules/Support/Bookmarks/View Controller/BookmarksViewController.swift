@@ -104,7 +104,7 @@ class BookmarksViewController: UIViewController {
         if let error = error {
             tableView.transition(to: .failed(.initial(error)))
         } else if checkIfEmpty() {
-            tableView.transition(to: .empty(EmptyConstants.bookmarks.viewModel))
+            tableView.transition(to: .empty(EmptyConstants.Bookmarks.viewModel))
             clearButton.isEnabled = false
         } else {
             synchronizeTableView()

@@ -120,6 +120,19 @@ class RepositoryDetailViewController: SFStaticTableViewController, IBViewControl
         homepageTextView.text = model.homepageURL?.absoluteString
         starsNumericView.numbers = [Double(model.stars)]
         forksNumericView.numbers = [Double(model.forks)]
+        
+        if NetworkManager.standard.isReachable {
+            starButton.isEnabled = true
+        } else {
+            starButton.isEnabled = false
+        }
+        
+        if SessionManager.standard.sessionType == .guest  {
+            starButton.isHidden = true
+        } else {
+            starButton.isHidden = false
+        }
+        
         bookmarkButton.isEnabled = true
         shareButton.isEnabled = true
     }
