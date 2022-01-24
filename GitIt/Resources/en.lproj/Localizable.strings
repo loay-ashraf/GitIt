@@ -51,7 +51,7 @@
 "Sign Out?" = "Sign Out?";
 "We can't connect to server at time, switching to offline mode." = "We can't connect to server at time, switching to offline mode.";
 "We couldn't load your data, we're working on a fix for the issue." = "We couldn't load your data, we're working on a fix for the issue.";
-"You're not conntected to the internet, Can't connect to authentication server." = "You're not conntected to the internet, Can't connect to authentication server.";
+"You're not conntected to the internet, Please connect to Internet and try again later." = "You're not conntected to the internet, Please connect to Internet and try again later.";
 "An error occured while signing you in, please try again later." = "An error occured while signing you in, please try again later.";
 "If you continue as a guest, features will be limted. Do you want to proceed?" = "If you continue as a guest, features will be limted. Do you want to proceed?";
 "This can't be undone and you'll remove your search history." = "This can't be undone and you'll remove your search history.";

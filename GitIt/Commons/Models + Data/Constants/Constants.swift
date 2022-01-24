@@ -21,6 +21,8 @@ typealias RepositoryConstants = ModelConstants.Repository
 typealias OrganizationConstants = ModelConstants.Organization
 typealias CommitConstants = ModelConstants.Commit
 typealias SearchHistoryConstants = ModelConstants.SearchHistory
+typealias NetworkingConstants = ModelConstants.Networking
+typealias AuthenticationConstants = NetworkingConstants.Authentication
 // View Shortcuts
 typealias ViewConstants = Constants.View
 typealias TitleConstants = ViewConstants.Title
@@ -84,6 +86,65 @@ struct Constants {
         }
         
         struct Bookmarks {
+            
+        }
+        
+        struct Networking {
+            
+            struct Authentication {
+                
+                static let clientID = "d0e933705d9181aa3400"
+                static let clientSecret = "0d87c2f0570a1135768b14f48ad95a0318ed21ad"
+                static let authorizationURL: URL = {
+                    var urlComponents = URLComponents(string: "https://github.com/login/oauth/authorize")
+                    urlComponents?.queryItems = [URLQueryItem(name: "client_id", value: clientID)]
+                    return (urlComponents?.url)!
+                }()
+                static let tokenExchangeURL: URL = URL(string: "https://github.com/login/oauth/access_token")!
+                static let callbackURLScheme = "gitit"
+                
+            }
+            
+            static let apiBaseUrl = "https://api.github.com/"
+            static let rawContentBaseURL = "https://raw.githubusercontent.com"
+            
+            static let authenticatedUser = "user"
+            static let authenticatedUserFollowing = "user/following"
+            static let authenticatedUserStarred = "user/starred"
+            
+            static let users = "users"
+            static let followers = "followers"
+            static let following = "following"
+            static let contributors = "contributors"
+            static let members = "members"
+            
+            static let repositories = "repos"
+            static let starred = "starred"
+            static let stars = "stars"
+            static let forks = "forks"
+            static let commits = "commits"
+            static let license = "LICENSE"
+            static let readme = "README.md"
+            
+            static let organizations = "orgs"
+            static let organization = "org"
+            
+            static let search = "search"
+            static let searchUsers = "search/users"
+            static let searchRepositories = "search/repositories"
+            static let searchOrganizations = "search/users"
+            static let type = "type"
+            
+            static let page = "page"
+            static let perPage = "per_page"
+            static let total_pages = "total_pages"
+            
+            static let query = "q"
+            static let contentType = "Content-Type"
+            static let contentLength = "Content-Length"
+            
+            static let maxPageCount = 1000
+            static let maxPageCapacity = 10
             
         }
         
@@ -268,11 +329,10 @@ struct Constants {
             struct InternetError {
                 
                 static let title = "No Internet".localized()
-                static let message = "You're not conntected to the internet, Can't connect to authentication server.".localized()
+                static let message = "You're not conntected to the internet, Please connect to Internet and try again later.".localized()
                 
                 static func alertController() -> UIAlertController {
                     let controller = UIAlertController(title: title, message: message, preferredStyle: .alert)
-                    controller.addAction(Constants.View.Alert.okAction)
                     return controller
                 }
                 

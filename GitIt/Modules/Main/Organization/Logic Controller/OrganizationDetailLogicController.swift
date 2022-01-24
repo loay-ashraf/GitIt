@@ -24,7 +24,7 @@ class OrganizationDetailLogicController {
     
     func load(then handler: @escaping LoadingHandler, then bookmarkHandler: @escaping BookmarkActionHandler) {
         if !model.isComplete {
-            NetworkClient.standard.getOrganization(organizationLogin: model.login) { result in
+            GitHubClient.fetchOrganization(organizationLogin: model.login) { result in
                 switch result {
                 case .success(let response): self.model = response
                                              self.model.isComplete = true

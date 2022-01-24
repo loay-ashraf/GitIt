@@ -154,7 +154,7 @@ class BookmarksManager {
     // MARK: - Completing Models Methods
     
     func getCompleteUser(with userModel: UserModel, then handler: @escaping (UserModel?) -> Void) {
-        NetworkClient.standard.getUser(userLogin: userModel.login) { result in
+        GitHubClient.fetchUser(userLogin: userModel.login) { result in
             switch result {
             case .success(var response): response.isComplete = true
                                          handler(response)
@@ -164,9 +164,9 @@ class BookmarksManager {
     }
     
     func getCompleteRepository(with repositoryModel: RepositoryModel, then handler: @escaping (RepositoryModel?) -> Void) {
-        NetworkClient.standard.getRepository(fullName: repositoryModel.fullName) { result in
+        GitHubClient.fetchRepository(fullName: repositoryModel.fullName) { result in
             switch result {
-            case .success(var response): NetworkClient.standard.getRepositoryReadme(fullName: response.fullName, branch: response.defaultBranch) { result in
+            case .success(var response): GitHubClient.downloadRepositoryREADME(fullName: response.fullName, branch: response.defaultBranch) { result in
                 switch result {
                 case .success(let readMeString): response.READMEString = String(data: readMeString, encoding: .utf8)
                                                  response.isComplete = true
@@ -180,7 +180,7 @@ class BookmarksManager {
     }
     
     func getCompleteOrganization(with organizationModel: OrganizationModel, then handler: @escaping (OrganizationModel?) -> Void) {
-        NetworkClient.standard.getOrganization(organizationLogin: organizationModel.login) { result in
+        GitHubClient.fetchOrganization(organizationLogin: organizationModel.login) { result in
             switch result {
             case .success(var response): response.isComplete = true
                                          handler(response)

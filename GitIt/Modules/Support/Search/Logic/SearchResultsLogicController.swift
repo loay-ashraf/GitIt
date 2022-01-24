@@ -38,15 +38,15 @@ class SearchResultsLogicController<Type: Model> {
     // MARK: - Load Helper Methods
     
     private func searchUsers(then handler: @escaping LoadingHandler) {
-        NetworkClient.standard.getUserSearchPage(keyword: keyword, page: model.currentPage, perPage: 10, completionHandler: processUserResult(result:))
+        GitHubClient.searchUsers(keyword: keyword, page: model.currentPage, completionHandler: processUserResult(result:))
     }
 
     private func searchRepositories(then handler: @escaping LoadingHandler) {
-        NetworkClient.standard.getRepositorySearchPage(keyword: keyword, page: model.currentPage, perPage: 10, completionHandler: processRepositoryResult(result:))
+        GitHubClient.searchRepositories(keyword: keyword, page: model.currentPage, completionHandler: processRepositoryResult(result:))
     }
     
     private func searchOrganizations(then handler: @escaping LoadingHandler) {
-        NetworkClient.standard.getOrganizationSearchPage(keyword: keyword, page: model.currentPage, perPage: 10, completionHandler: processOrganizationResult(result:))
+        GitHubClient.searchOrganizations(keyword: keyword, page: model.currentPage, completionHandler: processOrganizationResult(result:))
     }
     
     private func processUserResult(result: Result<BatchResponse<UserModel>,NetworkError>) {

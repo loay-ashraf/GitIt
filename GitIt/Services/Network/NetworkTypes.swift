@@ -6,22 +6,12 @@
 //
 
 import Foundation
+import Alamofire
 
 // MARK: - Common Types
 
 typealias DataResult = Result<Data,NetworkError>
-
-enum HTTPMethod: String {
-    case GET
-    case HEAD
-    case POST
-    case PUT
-    case DELETE
-    case CONNECT
-    case OPTIONS
-    case TRACE
-    case PATCH
-}
+typealias ResponseResult<T> = Result<T,NetworkError> where T: Decodable
 
 // MARK: - Generic Response Types
 
@@ -42,7 +32,7 @@ struct BatchResponse<Response: Decodable>: Decodable {
 enum NetworkError: Error {
     case noResponse
     case noData
-    case client(Error)
+    case client(SessionError)
     case server(HTTPError)
     case api(APIError)
     case decoding(Error)
@@ -50,10 +40,30 @@ enum NetworkError: Error {
 }
 
 extension NetworkError {
+    init?(response: URLResponse?, error: Error?) {
+        // Check for client-side error
+        if let error = error {
+            self = .client(.other(error))
+            return
+        }
+        // Check for server-side error
+        if let response = response as? HTTPURLResponse,
+            !(200...299).contains(response.statusCode) {
+            self = .server(HTTPError.withCode(response.statusCode))
+            return
+        // Check for no Response error
+        } else if response == nil {
+            self = .noResponse
+            return
+        }
+        
+        return nil
+    }
+    
     init?(data: Data?, response: URLResponse?, error: Error?) {
         // Check for client-side error
         if let error = error {
-            self = .client(error)
+            self = .client(.other(error))
             return
         }
         // Check for server-side error
@@ -75,25 +85,33 @@ extension NetworkError {
         return nil
     }
     
-    init?(response: URLResponse?, error: Error?) {
-        // Check for client-side error
-        if let error = error {
-            self = .client(error)
-            return
+    init?(with afError: AFError?) {
+        switch afError {
+        case .explicitlyCancelled: self = .client(.requestCancelled)
+        case .invalidURL(let url): self = .client(.invalidURL(url as! URL))
+        case .responseValidationFailed(AFError.ResponseValidationFailureReason.dataFileNil): self = .noResponse
+        case .responseValidationFailed(AFError.ResponseValidationFailureReason.unacceptableStatusCode(let code)): self = .server(HTTPError.withCode(code))
+        case .responseSerializationFailed(AFError.ResponseSerializationFailureReason.inputFileNil): self = .noData
+        case .responseSerializationFailed(AFError.ResponseSerializationFailureReason.decodingFailed(let error)): self = .decoding(error)
+        case .sessionDeinitialized: self = .client(.sessionDeinitialized)
+        case .sessionInvalidated(let error): self = .client(.sessionInvalidated(error))
+        case .sessionTaskFailed(let error): self = .client(.sessionTaskFailed(error))
+        case .urlRequestValidationFailed: self = .client(.urlRequestValidationFailed)
+        case nil: return nil
+        default: self = .client(.other(afError!))
         }
-        // Check for server-side error
-        if let response = response as? HTTPURLResponse,
-            !(200...299).contains(response.statusCode) {
-            self = .server(HTTPError.withCode(response.statusCode))
-            return
-        // Check for no Response error
-        } else if response == nil {
-            self = .noResponse
-            return
-        }
-        
-        return nil
+        return
     }
+}
+
+enum SessionError: Error {
+    case invalidURL(URL)
+    case requestCancelled
+    case sessionDeinitialized
+    case sessionInvalidated(Error?)
+    case sessionTaskFailed(Error)
+    case urlRequestValidationFailed
+    case other(Error)
 }
 
 enum HTTPError: Error {
@@ -132,5 +150,19 @@ struct APIError: Decodable {
 
 extension APIError: LocalizedError {
     var localizedDescription: String? { return message }
+}
+
+struct AccessToken: Decodable {
+    
+    let accessToken: String
+    let scope: String
+    let tokenType: String
+    
+    enum CodingKeys: String, CodingKey {
+        case accessToken = "access_token"
+        case scope
+        case tokenType = "token_type"
+    }
+    
 }
 

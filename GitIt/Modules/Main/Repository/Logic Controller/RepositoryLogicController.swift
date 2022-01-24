@@ -43,27 +43,27 @@ class RepositoryLogicController {
     }
 
     private func loadMain() {
-        NetworkClient.standard.getRepositoryPage(page: model.currentPage, perPage: 10, completionHandler: processResult(result:))
+        GitHubClient.fetchRepositories(page: model.currentPage, perPage: 10, completionHandler: processResult(result:))
     }
 
     private func loadUser() {
         let parameters = contextParameters as! RepositoryContext.UserParameters
-        NetworkClient.standard.getUserRepositories(userLogin: parameters.0, page: model.currentPage, perPage: 10, completion: processResult(result:))
+        GitHubClient.fetchUserRepositories(userLogin: parameters.0, page: model.currentPage, completion: processResult(result:))
     }
 
     private func loadOrganization() {
         let parameters = contextParameters as! RepositoryContext.OrganizationParameters
-        NetworkClient.standard.getOrganizationRepositories(organizationLogin: parameters.0, page: model.currentPage, perPage: 10, completionHandler: processResult(result:))
+        GitHubClient.fetchOrganizationRepositories(organizationLogin: parameters.0, page: model.currentPage, completionHandler: processResult(result:))
     }
     
     private func loadForks() {
         let parameters = contextParameters as! RepositoryContext.OrganizationParameters
-        NetworkClient.standard.getRepositoryForks(fullName: parameters.0, page: model.currentPage, perPage: 10, completionHandler: processResult(result:))
+        GitHubClient.fetchRepositoryForks(fullName: parameters.0, page: model.currentPage, completionHandler: processResult(result:))
     }
     
     private func loadStarred() {
         let parameters = contextParameters as! RepositoryContext.StarredParameters
-        NetworkClient.standard.getUserStarred(userLogin: parameters, page: model.currentPage, perPage: 10, completion: processResult(result:))
+        GitHubClient.fetchUserStarred(userLogin: parameters, page: model.currentPage, completion: processResult(result:))
     }
     
     private func processResult(result: Result<[RepositoryModel],NetworkError>) {
@@ -71,7 +71,7 @@ class RepositoryLogicController {
         case .success(let response): model.append(contentsOf: response)
                                      updateModelParameters(newItemsCount: response.count)
                                      handler?(nil)
-        case .failure(let networkError): print(networkError); print(model.currentPage); handler?(networkError)
+        case .failure(let networkError): handler?(networkError)
         }
     }
 

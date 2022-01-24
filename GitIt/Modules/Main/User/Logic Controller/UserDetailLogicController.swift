@@ -26,7 +26,7 @@ class UserDetailLogicController {
     
     func load(then handler: @escaping LoadingHandler, then followHandler: @escaping FollowActionHandler, then bookmarkHandler: @escaping BookmarkActionHandler) {
         if !model.isComplete {
-            NetworkClient.standard.getUser(userLogin: model.login) { result in
+            GitHubClient.fetchUser(userLogin: model.login) { result in
                 switch result {
                 case .success(let response): self.model = response
                                              self.model.isComplete = true
@@ -41,7 +41,7 @@ class UserDetailLogicController {
     
     func follow(then handler: @escaping FollowActionHandler) {
         if !isFollowed {
-            NetworkClient.standard.authenticatedUserFollow(userLogin: model.login) { error in
+            GitHubClient.followUser(userLogin: model.login) { error in
                 guard error != nil else {
                     self.isFollowed = true
                     handler(self.isFollowed)
@@ -49,7 +49,7 @@ class UserDetailLogicController {
                 }
             }
         } else {
-            NetworkClient.standard.authenticatedUserUnfollow(userLogin: model.login) { error in
+            GitHubClient.unFollowUser(userLogin: model.login) { error in
                 guard error != nil else {
                     self.isFollowed = false
                     handler(self.isFollowed)
@@ -73,7 +73,7 @@ class UserDetailLogicController {
     }
     
     func checkIfFollowedOrBookmarked(then handler: @escaping LoadingHandler, then followHandler: @escaping FollowActionHandler, then bookmarkHandler: @escaping BookmarkActionHandler) {
-        NetworkClient.standard.checkAuthenticatedUserIsFollowing(userLogin: model.login) { error in
+        GitHubClient.checkIfFollowingUser(userLogin: model.login) { error in
             defer { handler(nil) }
             let fetchResult = BookmarksManager.standard.check(model: self.model)
             switch fetchResult {

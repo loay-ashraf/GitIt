@@ -36,7 +36,7 @@ class RepositoryDetailLogicController {
     }
     
     func loadREADME(then readmeHandler: @escaping READMEHandler) {
-        NetworkClient.standard.getRepositoryReadme(fullName: model.fullName, branch: model.defaultBranch) { result in
+        GitHubClient.downloadRepositoryREADME(fullName: model.fullName, branch: model.defaultBranch) { result in
             switch result {
             case .success(let response): self.model.READMEString = String(data: response, encoding: .utf8); readmeHandler(nil)
                                          self.model.isComplete = true
@@ -47,7 +47,7 @@ class RepositoryDetailLogicController {
     
     func star(then handler: @escaping StarActionHandler) {
         if !isStarred {
-            NetworkClient.standard.authenticatedUserStar(fullName: model.fullName) { error in
+            GitHubClient.starRepository(fullName: model.fullName) { error in
                 guard error != nil else {
                     self.isStarred = true
                     handler(self.isStarred)
@@ -55,7 +55,7 @@ class RepositoryDetailLogicController {
                 }
             }
         } else {
-            NetworkClient.standard.authenticatedUserUnstar(fullName: model.fullName) { error in
+            GitHubClient.unStarRepository(fullName: model.fullName) { error in
                 guard error != nil else {
                     self.isStarred = false
                     handler(self.isStarred)
@@ -79,7 +79,7 @@ class RepositoryDetailLogicController {
     }
     
     func checkIfStarredOrBookmarked(then handler: @escaping LoadingHandler, then starHandler: @escaping StarActionHandler, then bookmarkHandler: @escaping BookmarkActionHandler) {
-        NetworkClient.standard.checkAuthenticatedUserDidStar(fullName: model.fullName) { error in
+        GitHubClient.checkIfStarredRepository(fullName: model.fullName) { error in
             defer { handler(nil) }
             let fetchResult = BookmarksManager.standard.check(model: self.model)
             switch fetchResult {

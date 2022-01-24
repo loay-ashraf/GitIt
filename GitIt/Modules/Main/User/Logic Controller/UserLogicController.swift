@@ -45,32 +45,32 @@ class UserLogicController {
     }
     
     private func loadMain() {
-        NetworkClient.standard.getUserPage(page: model.currentPage, perPage: 10, completionHandler: processResult(result:))
+        GitHubClient.fetchUsers(page: model.currentPage, completionHandler: processResult(result:))
     }
     
     private func loadFollowers() {
         let parameters = contextParameters as! UserContext.FollowersParameters
-        NetworkClient.standard.getUserFollowers(userLogin: parameters.0, page: model.currentPage, perPage: 10, completion: processResult(result:))
+        GitHubClient.fetchUserFollowers(userLogin: parameters.0, page: model.currentPage, completion: processResult(result:))
     }
     
     private func loadFollowing() {
         let parameters = contextParameters as! UserContext.FollowingParameters
-        NetworkClient.standard.getUserFollowing(userLogin: parameters.0, page: model.currentPage, perPage: 10, completion: processResult(result:))
+        GitHubClient.fetchUserFollowing(userLogin: parameters.0, page: model.currentPage, completion: processResult(result:))
     }
     
     private func loadStars() {
         let parameters = contextParameters as! UserContext.StarsParameters
-        NetworkClient.standard.getRepositoryStars(fullName: parameters.0, page: model.currentPage, perPage: 10, completionHandler: processResult(result:))
+        GitHubClient.fetchRepositoryStars(fullName: parameters.0, page: model.currentPage, completionHandler: processResult(result:))
     }
     
     private func loadContributers() {
         let parameters = contextParameters as! UserContext.ContributorsParameters
-        NetworkClient.standard.getRepositoryContributors(fullName: parameters, page: model.currentPage, perPage: 10, completionHandler: processResult(result:))
+        GitHubClient.fetchRepositoryContributors(fullName: parameters, page: model.currentPage, completionHandler: processResult(result:))
     }
     
     private func loadMembers() {
         let parameters = contextParameters as! UserContext.MembersParameters
-        NetworkClient.standard.getOrganizationMemebers(organizationLogin: parameters, page: model.currentPage, perPage: 10, completionHandler: processResult(result:))
+        GitHubClient.fetchOrganizationMemebers(organizationLogin: parameters, page: model.currentPage, completionHandler: processResult(result:))
     }
     
     private func processResult(result: Result<[UserModel],NetworkError>) {

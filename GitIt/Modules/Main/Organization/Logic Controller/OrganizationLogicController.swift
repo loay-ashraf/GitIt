@@ -34,12 +34,12 @@ class OrganizationLogicController {
     }
     
     private func loadMain() {
-        NetworkClient.standard.getOrganizationPage(page: model.currentPage, perPage: 10, completionHandler: processResult(result:))
+        GitHubClient.fetchOrganizations(page: model.currentPage, completionHandler: processResult(result:))
     }
     
     private func loadUser() {
         let parameters = contextParameters as! OrganizationContext.UserParameters
-        NetworkClient.standard.getUserOrganizations(userLogin: parameters, page: model.currentPage, perPage: 10, completion: processResult(result:))
+        GitHubClient.fetchUserOrganizations(userLogin: parameters, page: model.currentPage, completion: processResult(result:))
     }
     
     private func processResult(result: Result<[OrganizationModel],NetworkError>) {

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Alamofire
 
 class SessionManager {
     
@@ -39,11 +40,18 @@ class SessionManager {
         }
     }
     
-    func signIn(url: URL?) {
+    func signIn(url: URL? = nil, completionHandler: @escaping (Bool) -> Void) {
         if let url = url {
-            let queryItems = URLComponents(string: url.absoluteString)?.queryItems
-            let accessToken = queryItems?.filter({$0.name == "access-token"}).first?.value
-            setSessionAttributes(sessionType: .authenticated, accessToken: accessToken)
+            if let temporaryCode = extractTemporaryCode(with: url) {
+                fetchAccessToken(with: temporaryCode) { accessToken in
+                    if let accessToken = accessToken {
+                        self.setSessionAttributes(sessionType: .authenticated, accessToken: accessToken)
+                        completionHandler(true)
+                    } else {
+                        completionHandler(false)
+                    }
+                }
+            }
         } else {
             setSessionAttributes(sessionType: .guest, accessToken: nil)
         }
@@ -73,7 +81,7 @@ class SessionManager {
     
     private func setSessionType(sessionType: SessionType) {
         self.sessionType = sessionType
-        userDefaultsHelper.sessionTypeKey = sessionType //userDefaultsHelper.setValue(value: sessionType.rawValue, for: "session-type")
+        userDefaultsHelper.sessionTypeKey = sessionType 
     }
     
     private func getSessionType() {
@@ -107,7 +115,7 @@ class SessionManager {
     // MARK: - Authenticated Session Methods
 
     private func fetchAuthenticatedUser(completion: @escaping (NetworkError?) -> Void) {
-        NetworkClient.standard.getAuthenticatedUser() { result in
+        GitHubClient.fetchAuthenticatedUser() { result in
             switch result {
             case .success(let response): self.sessionUser = response
                                          completion(nil)
@@ -117,13 +125,41 @@ class SessionManager {
     }
     
     private func validateAuthenticatedSession(completion: @escaping (NetworkError?) -> Void) {
-        NetworkClient.standard.authenticatedUserStar(fullName: "loay-ashraf/GitIt") { networkError in
+        GitHubClient.starRepository(fullName: "loay-ashraf/GitIt") { networkError in
             if networkError == nil {
-                NetworkClient.standard.authenticatedUserUnstar(fullName: "loay-ashraf/GitIt", completionHandler: completion)
+                GitHubClient.unStarRepository(fullName: "loay-ashraf/GitIt", completionHandler: completion)
             } else {
                 completion(networkError)
             }
         }
+    }
+    
+    // MARK: - Authentication Methods
+    
+    private func extractTemporaryCode(with callbackURL: URL) -> String? {
+        let queryItems = URLComponents(string: callbackURL.absoluteString)?.queryItems
+        if let temporaryCode = queryItems?.filter({$0.name == "code"}).first?.value {
+            return temporaryCode
+        }
+        return nil
+    }
+    
+    private func fetchAccessToken(with temporaryCode: String, completionHandler: @escaping (String?) -> Void) {
+        let headers: HTTPHeaders = ["Accept": "application/json"]
+        let parameters = ["client_id": AuthenticationConstants.clientID,
+                          "client_secret": AuthenticationConstants.clientSecret,
+                          "code": temporaryCode]
+        AF.request(AuthenticationConstants.tokenExchangeURL,
+                   method: .post,
+                   parameters: parameters,
+                   headers: headers)
+                    .responseDecodable(of: AccessToken.self) { response in
+                        guard let cred = response.value else {
+                            return completionHandler(nil)
+                        }
+                        completionHandler(cred.accessToken)
+                    }
+        
     }
     
 }

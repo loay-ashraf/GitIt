@@ -19,7 +19,7 @@ class CommitLogicController {
 
     func load(then handler: @escaping LoadingHandler) {
         self.handler = handler
-        NetworkClient.standard.getRepositoryCommits(fullName: parameters, page: model.currentPage, perPage: 10, completionHandler: processResult(result:))
+        GitHubClient.fetchRepositoryCommits(fullName: parameters, page: model.currentPage, completionHandler: processResult(result:))
     }
     
     func refresh(then handler: @escaping LoadingHandler) {

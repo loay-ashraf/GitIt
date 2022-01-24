@@ -283,12 +283,12 @@ struct ErrorViewModel {
         if let networkError = error as? NetworkError {
             switch networkError {
             case .noResponse,.noData: self = ErrorConstants.internet.viewModel
-            case .client(let clientError): if (clientError as NSError).code == NSURLErrorNotConnectedToInternet {
+            case .client(SessionError.sessionTaskFailed(let sessionTaskError)): if (sessionTaskError as NSError).code == NSURLErrorNotConnectedToInternet {
                 self = ErrorConstants.internet.viewModel
             } else {
                 self = ErrorConstants.network.viewModel
             }
-            case .server,.api,.decoding,.encoding: self = ErrorConstants.network.viewModel
+            case .client,.server,.api,.decoding,.encoding: self = ErrorConstants.network.viewModel
             }
             return
         } else if error.self is DataError {

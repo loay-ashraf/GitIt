@@ -51,7 +51,7 @@
 "Sign Out?" = "تسجيل خروج؟";
 "We can't connect to server at time, switching to offline mode." = "لا يمكننا الاتصال بالخادم في الوقت الحالي ، التبديل إلى الوضع غير المتصل.";
 "We couldn't load your data, we're working on a fix for the issue." = "لم نتمكن من تحميل بياناتك ، نحن نعمل على إصلاح المشكلة.";
-"You're not conntected to the internet, Can't connect to authentication server." = "أنت غير متصل بالإنترنت ، لا يمكننا الاتصال بخادم المصادقة.";
+"You're not conntected to the internet, Please connect to Internet and try again later." = "أنت غير متصل بالإنترنت ، يُرجى الاتصال بالإنترنت وإعادة المحاولة لاحقًا.";
 "An error occured while signing you in, please try again later." = "حدث خطأ أثناء تسجيل دخولك ، يرجى المحاولة مرة أخرى لاحقًا.";
 "If you continue as a guest, features will be limted. Do you want to proceed?" = "إذا واصلت كضيف ، فسيتم تقييد الميزات. هل تريد المتابعة؟";
 "This can't be undone and you'll remove your search history." = "لا يمكن التراجع عن هذا وستزيل سجل البحث الخاص بك.";

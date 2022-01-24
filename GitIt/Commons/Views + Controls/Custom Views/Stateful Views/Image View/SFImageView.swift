@@ -43,6 +43,7 @@ class SFImageView: UIImageView, StatefulView {
 
     func cancel() {
         kf.cancelDownloadTask()
+        transition(to: .presenting)
     }
     
     // MARK: - View State Methods

@@ -19,15 +19,11 @@ class SignInViewController: UIViewController {
         super.viewDidLoad()
         appLogo.cornerRadius = 40
         signInWithGithubButton.cornerRadius = 10
-        setupAuthentication()
+        setupAuthenticationSession()
     }
     
     @IBAction func signInWithGithub(_ sender: Any) {
-        if NetworkManager.standard.isInternetConnected {
-            authenticate()
-        } else {
-            AlertHelper.showAlert(alert: .internetError)
-        }
+        authenticate()
     }
     
     @IBAction func continueAsAGuest(_ sender: Any) {
@@ -42,22 +38,24 @@ extension SignInViewController: ASWebAuthenticationPresentationContextProviding 
         return view.window!
     }
     
-    private func setupAuthentication() {
-        guard let authURL = URL(string: "https://ad8j39mya0.execute-api.us-east-2.amazonaws.com/Prod/gitit/login") else { return }
-        let scheme = "gitit"
-        session = ASWebAuthenticationSession(url: authURL, callbackURLScheme: scheme) { [weak self] callbackURL, error in
+    private func setupAuthenticationSession() {
+        session = ASWebAuthenticationSession(url: AuthenticationConstants.authorizationURL, callbackURLScheme: AuthenticationConstants.callbackURLScheme) { [weak self] callbackURL, error in
             if let error = error {
                 let authenticationError = ASWebAuthenticationSessionError(_nsError: error as NSError)
                 if authenticationError.code == ASWebAuthenticationSessionError.canceledLogin {
                     // re-setup authentication session
-                    self?.setupAuthentication()
+                    self?.setupAuthenticationSession()
                 } else {
                     AlertHelper.showAlert(alert: .signInError)
                 }
-            } else {
-                guard callbackURL != nil else { return }
-                SessionManager.standard.signIn(url: callbackURL)
-                self?.performSegue(withIdentifier: "unwindToSplash", sender: self)
+            } else if let callbackURL = callbackURL {
+                SessionManager.standard.signIn(url: callbackURL) { [weak self] success in
+                    if success {
+                        self?.performSegue(withIdentifier: "unwindToSplash", sender: self)
+                    } else {
+                        AlertHelper.showAlert(alert: .signInError)
+                    }
+                }
             }
         }
         session.presentationContextProvider = self
@@ -74,8 +72,11 @@ extension SignInViewController: ASWebAuthenticationPresentationContextProviding 
     }
     
     private func setupGuest() {
-        SessionManager.standard.signIn(url: nil)
-        performSegue(withIdentifier: "unwindToSplash", sender: self)
+        SessionManager.standard.signIn { [weak self] success in
+            if success {
+                self?.performSegue(withIdentifier: "unwindToSplash", sender: self)
+            }
+        }
     }
     
 }
