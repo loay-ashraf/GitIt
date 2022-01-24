@@ -19,22 +19,22 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pencil.slash" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="POE-iT-gay">
-                                <rect key="frame" x="79" y="243" width="256" height="251"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="github-logo" translatesAutoresizingMaskIntoConstraints="NO" id="POE-iT-gay">
+                                <rect key="frame" x="79" y="240" width="256" height="256"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="256" id="a1i-JX-b5W"/>
                                     <constraint firstAttribute="width" constant="256" id="r3h-E5-CNq"/>
                                 </constraints>
                             </imageView>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="X7u-Hj-in2">
-                                <rect key="frame" x="188.66666666666666" y="536" width="37" height="37"/>
+                                <rect key="frame" x="188.66666666666666" y="556" width="37" height="37"/>
                                 <color key="color" systemColor="labelColor"/>
                             </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="QHF-8q-gxw"/>
                         <color key="backgroundColor" name="Background Color"/>
                         <constraints>
-                            <constraint firstItem="X7u-Hj-in2" firstAttribute="top" secondItem="POE-iT-gay" secondAttribute="bottom" constant="40" id="1CU-iY-TOe"/>
+                            <constraint firstItem="X7u-Hj-in2" firstAttribute="top" secondItem="POE-iT-gay" secondAttribute="bottom" constant="60" id="1CU-iY-TOe"/>
                             <constraint firstItem="X7u-Hj-in2" firstAttribute="centerX" secondItem="NKC-kx-1bl" secondAttribute="centerX" id="BM3-ml-K9U"/>
                             <constraint firstItem="POE-iT-gay" firstAttribute="centerX" secondItem="NKC-kx-1bl" secondAttribute="centerX" id="c9U-SD-T7y"/>
                             <constraint firstItem="POE-iT-gay" firstAttribute="centerY" secondItem="NKC-kx-1bl" secondAttribute="centerY" id="x34-dr-R0e"/>
@@ -153,7 +153,7 @@
                                                         <userDefinedRuntimeAttribute type="number" keyPath="numberOfSections">
                                                             <integer key="value" value="1"/>
                                                         </userDefinedRuntimeAttribute>
-                                                        <userDefinedRuntimeAttribute type="image" keyPath="icon" value="tuningfork" catalog="system"/>
+                                                        <userDefinedRuntimeAttribute type="image" keyPath="icon" value="fork"/>
                                                         <userDefinedRuntimeAttribute type="string" keyPath="firstText" value="forks"/>
                                                         <userDefinedRuntimeAttribute type="boolean" keyPath="isLink" value="YES"/>
                                                     </userDefinedRuntimeAttributes>
@@ -200,7 +200,7 @@
                             </constraints>
                         </view>
                         <view key="tableFooterView" contentMode="scaleToFill" id="KSv-gy-qoj" userLabel="Footer">
-                            <rect key="frame" x="0.0" y="502" width="414" height="212"/>
+                            <rect key="frame" x="0.0" y="502.00000000000011" width="414" height="212"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YHQ-yV-hqU" userLabel="Separator">
@@ -229,13 +229,13 @@
                                                     <rect key="frame" x="267" y="0.0" width="127" height="20"/>
                                                     <subviews>
                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="8Qc-YR-j0F">
-                                                            <rect key="frame" x="0.0" y="2.3333333333333321" width="20" height="16.666666666666668"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="20" height="20"/>
                                                             <color key="tintColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="20" id="PUH-9Y-WLZ"/>
                                                                 <constraint firstAttribute="height" constant="20" id="vVz-Th-r76"/>
                                                             </constraints>
-                                                            <imageReference key="image" image="arrow.branch" catalog="system" symbolScale="medium"/>
+                                                            <imageReference key="image" image="branch" symbolScale="medium"/>
                                                         </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Default Branch" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pWz-ms-VKo">
                                                             <rect key="frame" x="25" y="0.0" width="102" height="20"/>
@@ -308,16 +308,16 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Commits" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Qya-SK-mZS">
-                                                    <rect key="frame" x="59.833333333333343" y="0.0" width="317.5" height="60"/>
+                                                    <rect key="frame" x="60" y="0.0" width="317.33333333333331" height="60"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="3vl-mp-IC7">
-                                                    <rect key="frame" x="15.833333333333336" y="17.666666666666668" width="29" height="26"/>
+                                                    <rect key="frame" x="20" y="17.333333333333332" width="25" height="25"/>
                                                     <autoresizingMask key="autoresizingMask"/>
-                                                    <imageReference key="image" image="plus.bubble" catalog="system" symbolScale="large"/>
+                                                    <imageReference key="image" image="commit" symbolScale="large"/>
                                                 </imageView>
                                             </subviews>
                                         </tableViewCellContentView>
@@ -331,16 +331,16 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="License" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="F1b-wT-ijQ">
-                                                    <rect key="frame" x="59.833333333333343" y="0.0" width="317.5" height="60"/>
+                                                    <rect key="frame" x="60" y="0.0" width="317.33333333333331" height="60"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="y2y-Ru-cZE">
-                                                    <rect key="frame" x="15.833333333333336" y="21.333333333333336" width="29" height="20.333333333333332"/>
+                                                    <rect key="frame" x="20" y="17.333333333333332" width="25" height="25"/>
                                                     <autoresizingMask key="autoresizingMask"/>
-                                                    <imageReference key="image" image="signature" catalog="system" symbolScale="medium"/>
+                                                    <imageReference key="image" image="license" symbolScale="medium"/>
                                                 </imageView>
                                             </subviews>
                                         </tableViewCellContentView>
@@ -528,7 +528,7 @@
             </objects>
             <point key="canvasLocation" x="1948" y="-356"/>
         </scene>
-        <!--Explore-->
+        <!--Home-->
         <scene sceneID="UST-xA-czQ">
             <objects>
                 <tableViewController storyboardIdentifier="exploreVC" id="aKn-b7-1Sw" customClass="ExploreViewController" customModule="GitIt" customModuleProvider="target" sceneMemberID="viewController">
@@ -653,7 +653,7 @@
                             <outlet property="delegate" destination="aKn-b7-1Sw" id="llE-kP-AQ7"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Explore" largeTitleDisplayMode="always" id="PXC-Fy-I01"/>
+                    <navigationItem key="navigationItem" title="Home" largeTitleDisplayMode="always" id="PXC-Fy-I01"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oeQ-ha-dav" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -783,7 +783,7 @@
                                                 <constraint firstAttribute="height" constant="20" id="p7O-TO-U9e"/>
                                             </constraints>
                                             <userDefinedRuntimeAttributes>
-                                                <userDefinedRuntimeAttribute type="image" keyPath="icon" value="twitter-50"/>
+                                                <userDefinedRuntimeAttribute type="image" keyPath="icon" value="twitter"/>
                                                 <userDefinedRuntimeAttribute type="string" keyPath="text" value="Twitter"/>
                                                 <userDefinedRuntimeAttribute type="boolean" keyPath="isLink" value="YES"/>
                                             </userDefinedRuntimeAttributes>
@@ -1498,6 +1498,7 @@
                                                     <rect key="frame" x="18.666666666666671" y="16.666666666666668" width="23.333333333333332" height="27"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <imageReference key="image" image="book.closed" catalog="system" symbolScale="large"/>
+                                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="default"/>
                                                 </imageView>
                                             </subviews>
                                         </tableViewCellContentView>
@@ -1521,6 +1522,7 @@
                                                     <rect key="frame" x="19.333333333333336" y="16.666666666666664" width="22" height="26.666666666666668"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <imageReference key="image" image="building" catalog="system" symbolScale="large"/>
+                                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="default"/>
                                                 </imageView>
                                             </subviews>
                                         </tableViewCellContentView>
@@ -1740,8 +1742,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pencil.slash" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="54f-zc-hyf">
-                                <rect key="frame" x="79" y="243" width="256" height="251"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="github-logo" translatesAutoresizingMaskIntoConstraints="NO" id="54f-zc-hyf">
+                                <rect key="frame" x="79" y="240" width="256" height="256"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="256" id="eAw-PP-Ubx"/>
                                     <constraint firstAttribute="width" constant="256" id="fUL-mk-8Mt"/>
@@ -1797,13 +1799,13 @@
             </objects>
             <point key="canvasLocation" x="911.59420289855075" y="-1105.4347826086957"/>
         </scene>
-        <!--Explore-->
+        <!--Home-->
         <scene sceneID="aGo-82-1Hc">
             <objects>
                 <navigationController storyboardIdentifier="ExploreNavigationController" id="CbJ-dZ-oDJ" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Explore" id="B0L-IM-RKV">
-                        <imageReference key="image" image="safari" catalog="system" symbolScale="large"/>
-                        <imageReference key="selectedImage" image="safari.fill" catalog="system" symbolScale="large"/>
+                    <tabBarItem key="tabBarItem" title="Home" id="B0L-IM-RKV">
+                        <imageReference key="image" image="house" catalog="system" symbolScale="large"/>
+                        <imageReference key="selectedImage" image="house.fill" catalog="system" symbolScale="large"/>
                     </tabBarItem>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="VMp-Hm-HDv">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="96"/>
@@ -1820,29 +1822,30 @@
         </scene>
     </scenes>
     <resources>
-        <image name="arrow.branch" catalog="system" width="128" height="108"/>
         <image name="book.closed" catalog="system" width="115" height="128"/>
         <image name="bookmark" catalog="system" width="112" height="128"/>
         <image name="bookmark.fill" catalog="system" width="112" height="128"/>
+        <image name="branch" width="25" height="25"/>
         <image name="building" catalog="system" width="112" height="128"/>
+        <image name="commit" width="25" height="25"/>
         <image name="envelope" catalog="system" width="128" height="93"/>
+        <image name="fork" width="25" height="25"/>
         <image name="gearshape" catalog="system" width="128" height="121"/>
+        <image name="github-logo" width="170.66667175292969" height="170.66667175292969"/>
+        <image name="house" catalog="system" width="128" height="106"/>
+        <image name="house.fill" catalog="system" width="128" height="106"/>
         <image name="info.circle" catalog="system" width="128" height="121"/>
+        <image name="license" width="25" height="25"/>
         <image name="link" catalog="system" width="128" height="122"/>
         <image name="location" catalog="system" width="128" height="118"/>
-        <image name="pencil.slash" catalog="system" width="128" height="113"/>
         <image name="person" catalog="system" width="128" height="117"/>
         <image name="person.2" catalog="system" width="128" height="81"/>
         <image name="person.fill" catalog="system" width="128" height="120"/>
         <image name="plus" catalog="system" width="128" height="113"/>
-        <image name="plus.bubble" catalog="system" width="128" height="110"/>
-        <image name="safari" catalog="system" width="128" height="121"/>
-        <image name="safari.fill" catalog="system" width="128" height="121"/>
-        <image name="signature" catalog="system" width="128" height="90"/>
         <image name="square.and.arrow.up" catalog="system" width="115" height="128"/>
         <image name="star" catalog="system" width="128" height="116"/>
         <image name="trash" catalog="system" width="121" height="128"/>
-        <image name="tuningfork" catalog="system" width="128" height="116"/>
+        <image name="twitter" width="50" height="50"/>
         <image name="twitter-50" width="50" height="50"/>
         <namedColor name="Background Color">
             <color red="0.94900000095367432" green="0.94900000095367432" blue="0.96899998188018799" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

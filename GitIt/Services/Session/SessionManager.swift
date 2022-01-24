@@ -54,6 +54,7 @@ class SessionManager {
             }
         } else {
             setSessionAttributes(sessionType: .guest, accessToken: nil)
+            completionHandler(true)
         }
     }
     

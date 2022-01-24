@@ -39,7 +39,7 @@
 "A8u-iK-6dA.text" = "followers";
 
 /* Class = "UITabBarItem"; title = "استكشف"; ObjectID = "B0L-IM-RKV"; */
-"B0L-IM-RKV.title" = "استكشف";
+"B0L-IM-RKV.title" = "الصفحة الرئيسية";
 
 /* Class = "UIButton"; normalTitle = "ميز بنجمة"; ObjectID = "BA8-Tv-fzF"; */
 "BA8-Tv-fzF.normalTitle" = "ميز بنجمة";
@@ -93,7 +93,7 @@
 "NDD-h1-xj2.text" = "GitIt";
 
 /* Class = "UINavigationItem"; title = "استكشف"; ObjectID = "PXC-Fy-I01"; */
-"PXC-Fy-I01.title" = "استكشف";
+"PXC-Fy-I01.title" = "الصفحة الرئيسية";
 
 /* Class = "UILabel"; text = "Repository Descrtption"; ObjectID = "Pfz-GV-gZd"; */
 "Pfz-GV-gZd.text" = "Repository Descrtption";

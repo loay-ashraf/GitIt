@@ -99,7 +99,7 @@ class RepositoryDetailViewController: SFStaticTableViewController, IBViewControl
         starButton.cornerRadius = 10
         
         READMEView.isScrollEnabled = false
-        READMEView.onTouchLink = { [weak self] request in
+        READMEView.onTouchLink = { request in
             guard let url = request.url else { return false }
             if url.scheme == "https" || url.scheme == "http"  {
                 URLHelper.openURL(url)

@@ -82,7 +82,7 @@ extension GitHubRouter {
         case .fetchUserStarred(let login, _): return NetworkingConstants.users.appendPathComponent(login).appendPathComponent(NetworkingConstants.starred)
             
         case .fetchRepository(let fullName): return NetworkingConstants.repositories.appendPathComponent(fullName)
-        case .fetchRepositoryStars(let fullName, _): return NetworkingConstants.repositories.appendPathComponent(fullName).appendPathComponent(NetworkingConstants.stars)
+        case .fetchRepositoryStars(let fullName, _): return NetworkingConstants.repositories.appendPathComponent(fullName).appendPathComponent(NetworkingConstants.stargazers)
         case .fetchRepositoryForks(let fullName, _): return NetworkingConstants.repositories.appendPathComponent(fullName).appendPathComponent(NetworkingConstants.forks)
         case .fetchRepositoryContributors(let fullName, _): return NetworkingConstants.repositories.appendPathComponent(fullName).appendPathComponent(NetworkingConstants.contributors)
         case .fetchRepositoryCommits(let fullName, _): return NetworkingConstants.repositories.appendPathComponent(fullName).appendPathComponent(NetworkingConstants.commits)

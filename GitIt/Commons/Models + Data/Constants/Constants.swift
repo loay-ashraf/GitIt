@@ -123,6 +123,7 @@ struct Constants {
             static let repositories = "repos"
             static let starred = "starred"
             static let stars = "stars"
+            static let stargazers = "stargazers"
             static let forks = "forks"
             static let commits = "commits"
             static let license = "LICENSE"
@@ -238,8 +239,6 @@ struct Constants {
                     }
                     
                 }
-                
-                
                 
                 // Bookmark action image and title
                 struct Bookmark {
