@@ -28,11 +28,11 @@
                             </imageView>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="X7u-Hj-in2">
                                 <rect key="frame" x="188.66666666666666" y="556" width="37" height="37"/>
-                                <color key="color" systemColor="labelColor"/>
+                                <color key="color" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="QHF-8q-gxw"/>
-                        <color key="backgroundColor" name="Background Color"/>
+                        <color key="backgroundColor" name="AccentColor"/>
                         <constraints>
                             <constraint firstItem="X7u-Hj-in2" firstAttribute="top" secondItem="POE-iT-gay" secondAttribute="bottom" constant="60" id="1CU-iY-TOe"/>
                             <constraint firstItem="X7u-Hj-in2" firstAttribute="centerX" secondItem="NKC-kx-1bl" secondAttribute="centerX" id="BM3-ml-K9U"/>
@@ -200,7 +200,7 @@
                             </constraints>
                         </view>
                         <view key="tableFooterView" contentMode="scaleToFill" id="KSv-gy-qoj" userLabel="Footer">
-                            <rect key="frame" x="0.0" y="502.00000000000011" width="414" height="212"/>
+                            <rect key="frame" x="0.0" y="502" width="414" height="212"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YHQ-yV-hqU" userLabel="Separator">
@@ -361,6 +361,11 @@
                                     <action selector="share:" destination="mXo-Ji-rNn" id="kZF-Av-BC3"/>
                                 </connections>
                             </barButtonItem>
+                            <barButtonItem enabled="NO" image="safari" catalog="system" id="m0H-iw-e9H">
+                                <connections>
+                                    <action selector="openInSafari:" destination="mXo-Ji-rNn" id="3uY-QY-3Yq"/>
+                                </connections>
+                            </barButtonItem>
                             <barButtonItem enabled="NO" image="bookmark" catalog="system" id="0AP-I5-xhK">
                                 <connections>
                                     <action selector="bookmark:" destination="mXo-Ji-rNn" id="Vj3-n4-fh5"/>
@@ -377,6 +382,7 @@
                         <outlet property="forksNumericView" destination="Hls-Ca-fgn" id="n15-0Z-rdj"/>
                         <outlet property="homepageTextView" destination="zLL-Xc-G9e" id="twV-yz-Be5"/>
                         <outlet property="nameLabel" destination="QTv-vf-vh3" id="fcm-Ec-ALY"/>
+                        <outlet property="openInSafariButton" destination="m0H-iw-e9H" id="DGw-OZ-V6t"/>
                         <outlet property="ownerTextView" destination="r3A-yQ-1JJ" id="uMO-gc-KSf"/>
                         <outlet property="shareButton" destination="uoh-Vw-N65" id="lXW-pN-3ss"/>
                         <outlet property="starButton" destination="BA8-Tv-fzF" id="LGD-FT-ks7"/>
@@ -391,7 +397,7 @@
         <scene sceneID="h8p-lq-ZcU">
             <objects>
                 <viewController storyboardIdentifier="LicenseVC" id="Zmt-ox-2jq" userLabel="License View Controller" customClass="LicenseViewController" customModule="GitIt" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="JXj-oq-XYW">
+                    <view key="view" contentMode="scaleToFill" id="JXj-oq-XYW" customClass="SFView" customModule="GitIt" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -491,15 +497,23 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="2jk-zV-TZh">
-                        <barButtonItem key="rightBarButtonItem" enabled="NO" image="square.and.arrow.up" catalog="system" id="EvM-ni-HVr">
-                            <connections>
-                                <action selector="share:" destination="nd6-67-8Af" id="EgT-is-TyT"/>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem enabled="NO" image="square.and.arrow.up" catalog="system" id="EvM-ni-HVr">
+                                <connections>
+                                    <action selector="share:" destination="nd6-67-8Af" id="EgT-is-TyT"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem enabled="NO" image="safari" catalog="system" id="qto-Jg-L1Z">
+                                <connections>
+                                    <action selector="openInSafari:" destination="nd6-67-8Af" id="4DE-jN-wBg"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <connections>
                         <outlet property="authorTextView" destination="gPO-CX-9Ss" id="N0Z-g3-w0X"/>
                         <outlet property="messageLabel" destination="G6u-hw-Ht4" id="rAf-Ji-E4a"/>
+                        <outlet property="openInSafariButton" destination="qto-Jg-L1Z" id="yEX-b2-kad"/>
                         <outlet property="shareButton" destination="EvM-ni-HVr" id="e3L-nf-bKO"/>
                     </connections>
                 </tableViewController>
@@ -513,12 +527,19 @@
                 <navigationController id="m9T-Ti-22c" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Bookmarks" id="vKr-yv-E8J">
                         <imageReference key="image" image="bookmark" catalog="system" symbolScale="large"/>
+                        <color key="badgeColor" name="AccentColor"/>
                         <imageReference key="selectedImage" image="bookmark.fill" catalog="system" symbolScale="large"/>
                     </tabBarItem>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="yqW-GE-zC5">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" name="Background Color"/>
+                        <color key="backgroundColor" name="AccentColor"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </textAttributes>
+                        <textAttributes key="largeTitleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </textAttributes>
                     </navigationBar>
                     <connections>
                         <segue destination="o9K-IH-Fbn" kind="relationship" relationship="rootViewController" id="ANu-x5-lwJ"/>
@@ -531,7 +552,7 @@
         <!--Home-->
         <scene sceneID="UST-xA-czQ">
             <objects>
-                <tableViewController storyboardIdentifier="exploreVC" id="aKn-b7-1Sw" customClass="ExploreViewController" customModule="GitIt" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="exploreVC" id="aKn-b7-1Sw" customClass="HomeViewController" customModule="GitIt" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="static" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="20" sectionFooterHeight="20" id="igY-TJ-LTT">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -934,6 +955,11 @@
                                     <action selector="share:" destination="lW3-KA-tFE" id="YzZ-Mq-yej"/>
                                 </connections>
                             </barButtonItem>
+                            <barButtonItem enabled="NO" image="safari" catalog="system" id="xEl-io-8tQ">
+                                <connections>
+                                    <action selector="openInSafari:" destination="lW3-KA-tFE" id="bDw-TB-6hY"/>
+                                </connections>
+                            </barButtonItem>
                             <barButtonItem enabled="NO" image="bookmark" catalog="system" id="9hr-k5-Yv2">
                                 <connections>
                                     <action selector="bookmark:" destination="lW3-KA-tFE" id="VdB-Bt-jEz"/>
@@ -952,6 +978,7 @@
                         <outlet property="fullNameLabel" destination="diD-K5-hyb" id="SN1-Bc-cty"/>
                         <outlet property="locationTextView" destination="U0H-ob-Nhq" id="kpq-le-D1h"/>
                         <outlet property="loginLabel" destination="6Oc-pZ-cci" id="0Mg-7M-Ui9"/>
+                        <outlet property="openInSafariButton" destination="xEl-io-8tQ" id="EnZ-Zv-LlZ"/>
                         <outlet property="shareButton" destination="JGC-BM-Puj" id="eV4-Bo-x2j"/>
                         <outlet property="socialStatusNumericView" destination="MWZ-HY-bQg" id="hT2-hD-Bou"/>
                         <outlet property="twitterTextView" destination="F7I-dN-BuY" id="elc-fB-JeK"/>
@@ -1071,7 +1098,7 @@
                                                 <constraint firstAttribute="height" constant="20" id="UMT-8F-gtB"/>
                                             </constraints>
                                             <userDefinedRuntimeAttributes>
-                                                <userDefinedRuntimeAttribute type="image" keyPath="icon" value="twitter-50"/>
+                                                <userDefinedRuntimeAttribute type="image" keyPath="icon" value="twitter"/>
                                                 <userDefinedRuntimeAttribute type="string" keyPath="text" value="Twitter"/>
                                                 <userDefinedRuntimeAttribute type="boolean" keyPath="isLink" value="YES"/>
                                             </userDefinedRuntimeAttributes>
@@ -1168,6 +1195,11 @@
                                     <action selector="share:" destination="XOx-6P-JXo" id="K2h-ia-vTE"/>
                                 </connections>
                             </barButtonItem>
+                            <barButtonItem enabled="NO" image="safari" catalog="system" id="xnf-Yj-KTr">
+                                <connections>
+                                    <action selector="openInSafari:" destination="XOx-6P-JXo" id="hJZ-FF-R6g"/>
+                                </connections>
+                            </barButtonItem>
                             <barButtonItem enabled="NO" image="bookmark" catalog="system" id="z1o-Ug-g8z">
                                 <connections>
                                     <action selector="bookmark:" destination="XOx-6P-JXo" id="gce-Cz-98Q"/>
@@ -1184,6 +1216,7 @@
                         <outlet property="fullNameLabel" destination="GJI-bD-9xy" id="zYA-gV-Gs0"/>
                         <outlet property="locationTextView" destination="ccv-UN-jFL" id="40a-ab-5Fy"/>
                         <outlet property="loginLabel" destination="9Qr-mN-82b" id="t5e-cX-B89"/>
+                        <outlet property="openInSafariButton" destination="xnf-Yj-KTr" id="yUL-zn-YNl"/>
                         <outlet property="shareButton" destination="x2g-l4-Scp" id="Jqh-ce-s6W"/>
                         <outlet property="twitterTextView" destination="51L-71-FYV" id="X5v-k4-Nsi"/>
                     </connections>
@@ -1275,12 +1308,19 @@
                 <navigationController id="GKS-wh-4AC" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Profile" id="1pI-2l-nhe">
                         <imageReference key="image" image="person" catalog="system" symbolScale="large"/>
+                        <color key="badgeColor" name="AccentColor"/>
                         <imageReference key="selectedImage" image="person.fill" catalog="system" symbolScale="large"/>
                     </tabBarItem>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="L4k-5B-zeO">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" name="Background Color"/>
+                        <color key="backgroundColor" name="AccentColor"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </textAttributes>
+                        <textAttributes key="largeTitleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </textAttributes>
                     </navigationBar>
                     <connections>
                         <segue destination="q6w-vH-VeW" kind="relationship" relationship="rootViewController" id="BBg-dq-3Qx"/>
@@ -1316,9 +1356,6 @@
                                                         <constraint firstAttribute="height" constant="128" id="Juq-cf-IOQ"/>
                                                         <constraint firstAttribute="width" constant="128" id="YCQ-fw-WuR"/>
                                                     </constraints>
-                                                    <connections>
-                                                        <outletCollection property="gestureRecognizers" destination="h30-xq-MsK" appends="YES" id="idu-59-WWJ"/>
-                                                    </connections>
                                                 </imageView>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="gyN-ZE-yQ7">
                                                     <rect key="frame" x="143" y="34" width="115" height="60"/>
@@ -1415,7 +1452,7 @@
                                                 <constraint firstAttribute="height" constant="20" id="DkJ-C6-1IP"/>
                                             </constraints>
                                             <userDefinedRuntimeAttributes>
-                                                <userDefinedRuntimeAttribute type="image" keyPath="icon" value="twitter-50"/>
+                                                <userDefinedRuntimeAttribute type="image" keyPath="icon" value="twitter"/>
                                                 <userDefinedRuntimeAttribute type="string" keyPath="text" value="Twitter"/>
                                                 <userDefinedRuntimeAttribute type="boolean" keyPath="isLink" value="YES"/>
                                             </userDefinedRuntimeAttributes>
@@ -1594,11 +1631,6 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zoY-3l-Sth" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="P2L-qI-YlI" userLabel="Exit" sceneMemberID="exit"/>
-                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="h30-xq-MsK">
-                    <connections>
-                        <action selector="avatarLongPressed:" destination="q6w-vH-VeW" id="Dam-Su-NIm"/>
-                    </connections>
-                </pongPressGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="2673.913043478261" y="429.61956521739131"/>
         </scene>
@@ -1749,19 +1781,22 @@
                                     <constraint firstAttribute="width" constant="256" id="fUL-mk-8Mt"/>
                                 </constraints>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DdT-J5-wOV">
-                                <rect key="frame" x="134.66666666666666" y="656" width="144.99999999999997" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DdT-J5-wOV" customClass="AdaptableSizeButton" customModule="GitIt" customModuleProvider="target">
+                                <rect key="frame" x="139" y="656" width="136" height="30"/>
+                                <color key="backgroundColor" name="Background Color"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="1gy-vp-Ih3"/>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="145" id="ToV-lK-I1M"/>
                                 </constraints>
-                                <state key="normal" title="Continue as a guest"/>
+                                <inset key="titleEdgeInsets" minX="15" minY="0.0" maxX="15" maxY="0.0"/>
+                                <state key="normal" title="Continue as a guest">
+                                    <color key="titleColor" systemColor="labelColor"/>
+                                </state>
                                 <connections>
                                     <action selector="continueAsAGuest:" destination="pi7-9G-cOU" eventType="touchUpInside" id="uzm-WQ-MM2"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VGO-nu-Rrj" customClass="AdaptableSizeButton" customModule="GitIt" customModuleProvider="target">
-                                <rect key="frame" x="106" y="591" width="203" height="45"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VGO-nu-Rrj" customClass="AdaptableSizeButton" customModule="GitIt" customModuleProvider="target">
+                                <rect key="frame" x="122.66666666666669" y="591" width="169" height="45"/>
                                 <color key="backgroundColor" systemColor="labelColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="45" id="Fq2-3f-KsA"/>
@@ -1778,7 +1813,7 @@
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="y4N-80-62A"/>
-                        <color key="backgroundColor" name="Background Color"/>
+                        <color key="backgroundColor" name="AccentColor"/>
                         <constraints>
                             <constraint firstItem="54f-zc-hyf" firstAttribute="centerY" secondItem="8IK-Vr-i7o" secondAttribute="centerY" id="77w-hp-tEn"/>
                             <constraint firstItem="DdT-J5-wOV" firstAttribute="centerX" secondItem="8IK-Vr-i7o" secondAttribute="centerX" id="I8x-5x-Epz"/>
@@ -1790,6 +1825,7 @@
                     </view>
                     <connections>
                         <outlet property="appLogo" destination="54f-zc-hyf" id="uwC-zk-VIY"/>
+                        <outlet property="continueAsAGuestButton" destination="DdT-J5-wOV" id="NhO-2h-Qye"/>
                         <outlet property="signInWithGithubButton" destination="VGO-nu-Rrj" id="IOO-pk-Vlb"/>
                         <segue destination="QEU-Xw-pkr" kind="unwind" identifier="unwindToSplash" animates="NO" unwindAction="unwindToSplashWithUnwindSegue:" id="oVw-Mp-hmK"/>
                     </connections>
@@ -1805,12 +1841,19 @@
                 <navigationController storyboardIdentifier="ExploreNavigationController" id="CbJ-dZ-oDJ" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Home" id="B0L-IM-RKV">
                         <imageReference key="image" image="house" catalog="system" symbolScale="large"/>
+                        <color key="badgeColor" name="AccentColor"/>
                         <imageReference key="selectedImage" image="house.fill" catalog="system" symbolScale="large"/>
                     </tabBarItem>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="VMp-Hm-HDv">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" name="Background Color"/>
+                        <color key="backgroundColor" name="AccentColor"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </textAttributes>
+                        <textAttributes key="largeTitleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </textAttributes>
                     </navigationBar>
                     <connections>
                         <segue destination="aKn-b7-1Sw" kind="relationship" relationship="rootViewController" id="6ah-Zv-aXn"/>
@@ -1842,11 +1885,14 @@
         <image name="person.2" catalog="system" width="128" height="81"/>
         <image name="person.fill" catalog="system" width="128" height="120"/>
         <image name="plus" catalog="system" width="128" height="113"/>
+        <image name="safari" catalog="system" width="128" height="121"/>
         <image name="square.and.arrow.up" catalog="system" width="115" height="128"/>
         <image name="star" catalog="system" width="128" height="116"/>
         <image name="trash" catalog="system" width="121" height="128"/>
         <image name="twitter" width="50" height="50"/>
-        <image name="twitter-50" width="50" height="50"/>
+        <namedColor name="AccentColor">
+            <color red="0.20000000000000001" green="0.59999999999999998" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
         <namedColor name="Background Color">
             <color red="0.94900000095367432" green="0.94900000095367432" blue="0.96899998188018799" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

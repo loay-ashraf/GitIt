@@ -40,12 +40,10 @@ class SearchCoordinator<Type: Model> {
     // MARK: - Search Controller Outlet Methods
     
     func didBeginSearchingSession() {
-        subViewsOffsetSize = .searchScreen
         render(.idle)
     }
     
     func didEndSearchingSession() {
-        subViewsOffsetSize = .mainScreenWithSearch
         keyword = ""
         render(.idle)
         resetControllers()

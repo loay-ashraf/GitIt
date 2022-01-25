@@ -57,8 +57,7 @@ class CommitViewController: SFDynamicTableViewController<CommitModel>, IBViewCon
         
         title = "Commits".localized()
         navigationItem.largeTitleDisplayMode = .never
-        
-        subViewsOffsetSize = .subScreen
+        tableView.contentInset = UIEdgeInsets(top: 20, left: 0, bottom: 0, right: 0)
         
     }
     

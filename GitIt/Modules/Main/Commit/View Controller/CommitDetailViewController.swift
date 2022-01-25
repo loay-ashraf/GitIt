@@ -18,6 +18,7 @@ class CommitDetailViewController: SFStaticTableViewController, IBViewController 
     
     @IBOutlet weak var authorTextView: IconicTextView!
     @IBOutlet weak var messageLabel: UILabel!
+    @IBOutlet weak var openInSafariButton: UIBarButtonItem!
     @IBOutlet weak var shareButton: UIBarButtonItem!
     
     // MARK: - Initialisation
@@ -71,12 +72,19 @@ class CommitDetailViewController: SFStaticTableViewController, IBViewController 
             authorTextView.text = nil
         }
         messageLabel.text = model.message
+        
+        openInSafariButton.isEnabled = true
         shareButton.isEnabled = true
     }
     
     // MARK: - View Actions
     
-    @IBAction func share(_ sender: Any) {
+    @IBAction func openInSafari(_ sender: UIBarButtonItem) {
+        let htmlURL = model.htmlURL
+        URLHelper.openURL(htmlURL)
+    }
+    
+    @IBAction func share(_ sender: UIBarButtonItem) {
         let htmlURL = model.htmlURL
         URLHelper.shareURL(htmlURL)
     }

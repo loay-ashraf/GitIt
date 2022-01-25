@@ -38,10 +38,17 @@ class SFViewController: UIViewController {
         super.viewDidLoad()
         configureView()
     }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        xView.transition(to: .presenting)
+    }
 
     // MARK: - View Helper Methods
     
     func configureView() {
+        // Setup  view as super view
+        xView.isSuperView = true
         // Setup actions
         xView.errorAction = { [weak self] in self?.load() }
         xView.updateView = { [weak self] in self?.updateView() }

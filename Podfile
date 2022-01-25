@@ -12,6 +12,7 @@ target 'GitIt' do
   pod 'Alamofire', '~> 5.5'
   pod 'Kingfisher', '~> 7.0'
   pod 'NotificationBannerSwift', '~> 3.0.0'
+  pod 'SVProgressHUD'
   pod 'InAppSettingsKit'
   pod 'MarkdownView'
 

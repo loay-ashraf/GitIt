@@ -39,18 +39,15 @@ class ProfileViewController: SFStaticTableViewController {
     override func configureView() {
         super.configureView()
         
+        NavigayionBarConstants.configureAppearance(for: navigationController?.navigationBar)
         navigationItem.largeTitleDisplayMode = .never
-        
-        if subViewsOffsetSize != .searchScreen {
-            subViewsOffsetSize = .subScreen
-        } else {
-            subViewsOffsetSize = .searchScreenWithNavBar
-        }
         
         if SessionManager.standard.sessionType == .authenticated, SessionManager.standard.sessionUser != nil {
             avatarImageView.cornerRadius = 64.0
             avatarImageView.cornerCurve = .continuous
             avatarImageView.masksToBounds = true
+            
+            avatarImageView.addInteraction(UIContextMenuInteraction(delegate: self))
             
             blogTextView.action = { [weak self] in self?.goToBlog() }
             emailTextView.action = { [weak self] in self?.composeMail() }
@@ -112,12 +109,6 @@ class ProfileViewController: SFStaticTableViewController {
         if let model = SessionManager.standard.sessionUser {
             let htmlURL = model.htmlURL
             URLHelper.shareURL(htmlURL)
-        }
-    }
-    
-    @IBAction func saveAvatar(_ sender: UILongPressGestureRecognizer) {
-        if sender.state == .ended {
-            UIImageWriteToSavedPhotosAlbum(avatarImageView.image!, self, nil, nil)
         }
     }
     
@@ -208,11 +199,25 @@ class ProfileViewController: SFStaticTableViewController {
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if SessionManager.standard.sessionUser == nil {
+        if SessionManager.standard.sessionType == .guest || SessionManager.standard.sessionUser == nil {
             return 0.0
         } else {
             return 60.0
         }
     }
 
+}
+
+extension ProfileViewController: UIContextMenuInteractionDelegate {
+    
+    // MARK: - Context Menu Delegate
+    
+    func contextMenuInteraction(_ interaction: UIContextMenuInteraction, configurationForMenuAtLocation location: CGPoint) -> UIContextMenuConfiguration? {
+        if let image = avatarImageView.image {
+            return ContextMenuConfigurationConstants.SaveImageConfiguration(for: image)
+        } else {
+            return UIContextMenuConfiguration()
+        }
+    }
+    
 }

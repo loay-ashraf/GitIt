@@ -6,10 +6,13 @@
 //
 
 import UIKit
+import SVProgressHUD
 
 class SFView: UIView {
 
     var state: ViewState = .presenting
+    
+    var isSuperView: Bool = false
     
     var scrollView: UIScrollView?
     var isScrollEnabled: Bool? {
@@ -21,6 +24,7 @@ class SFView: UIView {
     
     var errorAction: (() -> Void)?
     
+    private var curtainView: UIView!
     private var emptyView: EmptyView!
     private var activityIndicatorView: ActivityIndicatorView!
     private var errorView: ErrorView!
@@ -42,6 +46,11 @@ class SFView: UIView {
         for subview in subviews {
             if subview.self is UIScrollView { scrollView = subview as? UIScrollView; break}
         }
+        curtainView = {
+            let view = UIView(frame: frame)
+            view.backgroundColor = .systemBackground
+            return view
+        }()
         emptyView = EmptyView.instanceFromNib()
         activityIndicatorView = ActivityIndicatorView.instanceFromNib()
         errorView = ErrorView.instanceFromNib()
@@ -83,14 +92,26 @@ class SFView: UIView {
     
     func showActivityIndicator(for loadingViewState: LoadingViewState) {
         switch loadingViewState {
-        case .initial: activityIndicatorView.show(on: self); isScrollEnabled = false
+        case .initial: if isSuperView == false, !SVProgressHUD.isVisible() {
+                            activityIndicatorView.show(on: self)
+                        } else if isSuperView {
+                            addSubview(curtainView)
+                            SVProgressHUD.show()
+                        }
+                        isScrollEnabled = false
         default: return
         }
     }
     
     func hideActivityIndicator(for loadingViewState: LoadingViewState) {
         switch loadingViewState {
-        case .initial: activityIndicatorView.hide(); isScrollEnabled = true
+        case .initial: if isSuperView == false, !SVProgressHUD.isVisible() {
+                            activityIndicatorView.hide()
+                        } else if isSuperView {
+                            curtainView.removeFromSuperview()
+                            SVProgressHUD.dismiss(withDelay: 0.5)
+                        }
+                        isScrollEnabled = true
         default: return
         }
     }

@@ -46,6 +46,11 @@ class BookmarksViewController: UIViewController {
     
     // MARK: - Lifecycle
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        NavigayionBarConstants.configureAppearance(for: navigationController?.navigationBar)
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         configureView()
@@ -55,7 +60,6 @@ class BookmarksViewController: UIViewController {
     // MARK: - View Helper Methods
     
     func configureView() {
-        subViewsOffsetSize = nil
         configureCurrentContext()
     }
     

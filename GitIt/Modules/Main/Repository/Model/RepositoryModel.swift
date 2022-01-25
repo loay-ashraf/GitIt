@@ -20,6 +20,7 @@ struct RepositoryModel: Model {
     let stars: Int
     let forks: Int
     let defaultBranch: String
+    let license: LicenseModel?
     var READMEString: String?
     var isComplete: Bool
     
@@ -36,6 +37,7 @@ struct RepositoryModel: Model {
         case stars = "stargazers_count"
         case forks = "forks_count"
         case defaultBranch = "default_branch"
+        case license
         
     }
     
@@ -52,6 +54,7 @@ struct RepositoryModel: Model {
         stars = try values.decode(Int.self, forKey: .stars)
         forks = try values.decode(Int.self, forKey: .forks)
         defaultBranch = try values.decode(String.self, forKey: .defaultBranch)
+        license = try? values.decode(LicenseModel.self, forKey: .license)
         READMEString = nil
         isComplete = false
     }
@@ -68,6 +71,7 @@ struct RepositoryModel: Model {
         self.stars = repository.stars
         self.forks = repository.forks
         self.defaultBranch = repository.defaultBranch
+        self.license = LicenseModel(from: repository.license)
         self.READMEString = repository.readmeString
         isComplete = true
     }

@@ -33,10 +33,17 @@ class SFStaticTableViewController: UITableViewController {
         fitTableHeaderView()
         fitTableFooterView()
     }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        xTableView.transition(to: .presenting)
+    }
 
     // MARK: - View Helper Methods
     
     func configureView() {
+        // Setup table view as super view
+        xTableView.isSuperView = true
         // Setup actions
         xTableView.updateView = { [weak self] in self?.updateView() }
         xTableView.errorAction = { [weak self] in self?.load() }

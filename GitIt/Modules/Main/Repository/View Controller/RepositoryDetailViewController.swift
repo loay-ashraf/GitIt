@@ -13,7 +13,7 @@ class RepositoryDetailViewController: SFStaticTableViewController, IBViewControl
     static let storyboardIdentifier = "RepositoryDetailVC"
     
     private var logicController: RepositoryDetailLogicController
-    private var model: RepositoryModel { return logicController.model }
+    private var model: RepositoryModel! { return logicController.model }
     
     // MARK: - View Outlets
     
@@ -28,6 +28,7 @@ class RepositoryDetailViewController: SFStaticTableViewController, IBViewControl
     @IBOutlet weak var READMEView: MarkdownView!
     @IBOutlet weak var starButton: UIButton!
     @IBOutlet weak var bookmarkButton: UIBarButtonItem!
+    @IBOutlet weak var openInSafariButton: UIBarButtonItem!
     @IBOutlet weak var shareButton: UIBarButtonItem!
     
     
@@ -38,12 +39,20 @@ class RepositoryDetailViewController: SFStaticTableViewController, IBViewControl
         super.init(coder: coder)
     }
     
+    required init?(coder: NSCoder, fullName: String) {
+        logicController = RepositoryDetailLogicController(fullName)
+        super.init(coder: coder)
+    }
+    
     required init?(coder: NSCoder) {
         fatalError("Fatal Error, this view controller shouldn't be instantiated via storyboard segue.")
     }
     
     static func instatiateWithParameters(with parameters: Any) -> UIViewController {
-        fatalError("This View controller is instaniated only using a model")
+        let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+        return storyBoard.instantiateViewController(identifier: self.storyboardIdentifier, creator: {coder -> RepositoryDetailViewController in
+                        self.init(coder: coder, fullName: parameters as! String)!
+                })
     }
     
     static func instatiateWithModel(with model: Any) -> UIViewController {
@@ -64,27 +73,12 @@ class RepositoryDetailViewController: SFStaticTableViewController, IBViewControl
         load()
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        if subViewsOffsetSize != .searchScreenWithNavBar {
-            subViewsOffsetSize = .mainScreenWithSearch
-        } else {
-            subViewsOffsetSize = .searchScreen
-        }
-    }
-    
     // MARK: - View Helper Methods
     
     override func configureView() {
         super.configureView()
         
         navigationItem.largeTitleDisplayMode = .never
-        
-        if subViewsOffsetSize != .searchScreen {
-            subViewsOffsetSize = .subScreen
-        } else {
-            subViewsOffsetSize = .searchScreenWithNavBar
-        }
         
         ownerTextView.action = { [weak self] in self?.showOwner() }
         homepageTextView.action = { [weak self] in self?.goToHomepage() }
@@ -133,7 +127,11 @@ class RepositoryDetailViewController: SFStaticTableViewController, IBViewControl
             starButton.isHidden = false
         }
         
+        xTableView.beginUpdates()
+        xTableView.endUpdates()
+        
         bookmarkButton.isEnabled = true
+        openInSafariButton.isEnabled = true
         shareButton.isEnabled = true
     }
     
@@ -143,11 +141,16 @@ class RepositoryDetailViewController: SFStaticTableViewController, IBViewControl
         logicController.star(then: updateStarButton(isStarred:))
     }
     
-    @IBAction func bookmark(_ sender: Any) {
+    @IBAction func bookmark(_ sender: UIBarButtonItem) {
         logicController.bookmark(then: updateBookmarkButton(isBookmarked:))
     }
     
-    @IBAction func share(_ sender: Any) {
+    @IBAction func openInSafari(_ sender: UIBarButtonItem) {
+        let htmlURL = model.htmlURL
+        URLHelper.openURL(htmlURL)
+    }
+    
+    @IBAction func share(_ sender: UIBarButtonItem) {
         let htmlURL = model.htmlURL
         URLHelper.shareURL(htmlURL)
     }
@@ -246,6 +249,17 @@ extension RepositoryDetailViewController {
             READMEView.load(markdown: model.READMEString)
         }
         fitTableFooterView()
+    }
+    
+}
+
+extension RepositoryDetailViewController {
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if model?.license == nil && indexPath.row == 2 {
+            return 0.0
+        }
+        return 60.0
     }
     
 }

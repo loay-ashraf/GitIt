@@ -25,6 +25,7 @@ public class Repository: NSManagedObject {
         self.stars = repositoryModel.stars
         self.forks = repositoryModel.forks
         self.defaultBranch = repositoryModel.defaultBranch
+        self.license = License(from: repositoryModel.license, in: context)
         self.readmeString = repositoryModel.READMEString
     }
     

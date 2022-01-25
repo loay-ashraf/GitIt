@@ -6,14 +6,18 @@
 //
 
 import UIKit
+import SVProgressHUD
 
 class SFDynamicTableView: TableView, StatefulView {
     
     var state: ViewState = .presenting
 
+    var isSuperView: Bool = false
+    
     var errorAction: (() -> Void)?
     var footerErrorAction: (() -> Void)?
     
+    private var curtainView: UIView!
     private var emptyView: EmptyView!
     private var activityIndicatorView: ActivityIndicatorView!
     private var footerActivityIndicatorView: FooterActivityIndicatorView!
@@ -33,6 +37,11 @@ class SFDynamicTableView: TableView, StatefulView {
     }
     
     private func initializeSubviews() {
+        curtainView = {
+            let view = UIView(frame: frame)
+            view.backgroundColor = .systemBackground
+            return view
+        }()
         emptyView = EmptyView.instanceFromNib()
         activityIndicatorView = ActivityIndicatorView.instanceFromNib()
         footerActivityIndicatorView = FooterActivityIndicatorView.instanceFromNib()
@@ -79,7 +88,13 @@ class SFDynamicTableView: TableView, StatefulView {
     
     func showActivityIndicator(for loadingViewState: LoadingViewState) {
         switch loadingViewState {
-        case .initial: activityIndicatorView.show(on: self); isScrollEnabled = false
+        case .initial: if isSuperView == false, !SVProgressHUD.isVisible() {
+                            activityIndicatorView.show(on: self)
+                        } else if isSuperView {
+                            addSubview(curtainView)
+                            SVProgressHUD.show()
+                        }
+                        isScrollEnabled = false
         case .refresh: return
         case .paginate: footerActivityIndicatorView.show()
         }
@@ -87,7 +102,13 @@ class SFDynamicTableView: TableView, StatefulView {
     
     func hideActivityIndicator(for loadingViewState: LoadingViewState) {
         switch loadingViewState {
-        case .initial: activityIndicatorView.hide(); isScrollEnabled = true
+        case .initial: if isSuperView == false, !SVProgressHUD.isVisible() {
+                            activityIndicatorView.hide()
+                        } else if isSuperView {
+                            curtainView.removeFromSuperview()
+                            SVProgressHUD.dismiss(withDelay: 0.5)
+                        }
+                        isScrollEnabled = true
         case .refresh: refreshControl?.endRefreshing()
         case .paginate: footerActivityIndicatorView.hide()
         }

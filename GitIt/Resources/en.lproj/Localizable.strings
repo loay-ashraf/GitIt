@@ -37,9 +37,15 @@
 "Search All Organizations" = "Search All Organizations";
 
 // Context menu section
+"Delete" = "Delete";
 "Bookmark" = "Bookmark";
 "Unbookmark" = "Unbookmark";
+"Save Image" = "Save Image";
+"Open In Safari" = "Open In Safari";
 "Share" = "Share";
+
+// HUD Section
+"Image Saved" = "Image Saved";
 
 // Alert section
 "Sign In Error" = "Sign In Error";

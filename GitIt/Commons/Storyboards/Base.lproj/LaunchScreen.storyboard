@@ -26,7 +26,7 @@
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Kjb-vv-ckV"/>
-                        <color key="backgroundColor" name="Background Color"/>
+                        <color key="backgroundColor" name="AccentColor"/>
                         <constraints>
                             <constraint firstItem="bR0-no-4oW" firstAttribute="centerY" secondItem="QL5-dX-LrD" secondAttribute="centerY" id="4dl-bS-8Yi"/>
                             <constraint firstItem="bR0-no-4oW" firstAttribute="centerX" secondItem="QL5-dX-LrD" secondAttribute="centerX" id="bgK-ZQ-Ftk"/>
@@ -40,8 +40,8 @@
     </scenes>
     <resources>
         <image name="github-logo" width="170.66667175292969" height="170.66667175292969"/>
-        <namedColor name="Background Color">
-            <color red="0.94900000095367432" green="0.94900000095367432" blue="0.96899998188018799" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <namedColor name="AccentColor">
+            <color red="0.0" green="0.20000000000000001" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
     </resources>
 </document>

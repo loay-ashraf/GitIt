@@ -37,9 +37,15 @@
 "Search All Organizations" = "ابحث في جميع المنظمات";
 
 // Context menu section
+"Delete" = "حذف";
 "Bookmark" = "اضف الى الإشارات المرجعية";
 "Unbookmark" = "احذف من الإشارات المرجعية";
+"Save Image" = "احفظ الصورة";
+"Open In Safari" = "افتح في Safari";
 "Share" = "شارك";
+
+// HUD Section
+"Image Saved" = "تم حفظ الصورة";
 
 // Alert section
 "Sign In Error" = "خطأ في تسجيل الدخول";

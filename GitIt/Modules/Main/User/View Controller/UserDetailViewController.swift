@@ -28,6 +28,7 @@ class UserDetailViewController: SFStaticTableViewController, IBViewController {
     @IBOutlet weak var socialStatusNumericView: IconicNumericView!
     @IBOutlet weak var followButton: UIButton!
     @IBOutlet weak var bookmarkButton: UIBarButtonItem!
+    @IBOutlet weak var openInSafariButton: UIBarButtonItem!
     @IBOutlet weak var shareButton: UIBarButtonItem!
     
     // MARK: - Initialisation
@@ -63,27 +64,12 @@ class UserDetailViewController: SFStaticTableViewController, IBViewController {
         load()
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        if subViewsOffsetSize != .searchScreenWithNavBar {
-            subViewsOffsetSize = .mainScreenWithSearch
-        } else {
-            subViewsOffsetSize = .searchScreen
-        }
-    }
-    
     // MARK: - View Helper Methods
     
     override func configureView() {
         super.configureView()
         
         navigationItem.largeTitleDisplayMode = .never
-        
-        if subViewsOffsetSize != .searchScreen {
-            subViewsOffsetSize = .subScreen
-        } else {
-            subViewsOffsetSize = .searchScreenWithNavBar
-        }
         
         avatarImageView.cornerRadius = 64.0
         avatarImageView.cornerCurve = .continuous
@@ -137,6 +123,7 @@ class UserDetailViewController: SFStaticTableViewController, IBViewController {
         }
         
         bookmarkButton.isEnabled = true
+        openInSafariButton.isEnabled = true
         shareButton.isEnabled = true
     }
     
@@ -146,11 +133,16 @@ class UserDetailViewController: SFStaticTableViewController, IBViewController {
         logicController.follow(then: updateFollowButton(isFollowed:))
     }
     
-    @IBAction func bookmark(_ sender: Any) {
+    @IBAction func bookmark(_ sender: UIBarButtonItem) {
         logicController.bookmark(then: updateBookmarkButton(isBookmarked:))
     }
     
-    @IBAction func share(_ sender: Any) {
+    @IBAction func openInSafari(_ sender: UIBarButtonItem) {
+        let htmlURL = model.htmlURL
+        URLHelper.openURL(htmlURL)
+    }
+    
+    @IBAction func share(_ sender: UIBarButtonItem) {
         let htmlURL = model.htmlURL
         URLHelper.shareURL(htmlURL)
     }

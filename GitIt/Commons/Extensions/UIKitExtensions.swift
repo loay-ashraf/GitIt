@@ -9,6 +9,10 @@ import UIKit
 
 extension UIApplication {
 
+    class func keyWindow() -> UIWindow? {
+        return UIApplication.shared.windows.first(where: { $0.isKeyWindow })
+    }
+    
     class func topViewController(controller: UIViewController? = UIApplication.shared.windows.first(where: { $0.isKeyWindow })?.rootViewController) -> UIViewController? {
         if let navigationController = controller as? UINavigationController {
             return topViewController(controller: navigationController.visibleViewController)

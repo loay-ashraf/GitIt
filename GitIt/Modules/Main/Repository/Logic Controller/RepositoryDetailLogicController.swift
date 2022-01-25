@@ -9,7 +9,8 @@ import Foundation
 
 class RepositoryDetailLogicController {
     
-    var model: RepositoryModel
+    var model: RepositoryModel!
+    var fullNameParameter: String!
     var isBookmarked: Bool = false
     var isStarred: Bool = false
     
@@ -23,10 +24,23 @@ class RepositoryDetailLogicController {
         self.model = model
     }
     
+    init(_ fullName: String) {
+        self.fullNameParameter = fullName
+    }
+    
     // MARK: - Business Logic Methods
     
     func load(then handler: @escaping LoadingHandler, then starHandler: @escaping StarActionHandler, then bookmarkHandler: @escaping BookmarkActionHandler, then readmeHandler: @escaping READMEHandler) {
-        if !model.isComplete {
+        if model == nil {
+            GitHubClient.fetchRepository(fullName: fullNameParameter!) { result in
+                switch result {
+                case .success(let response): self.model = response
+                                             self.loadREADME(then: readmeHandler)
+                                             self.checkIfStarredOrBookmarked(then: handler, then: starHandler, then: bookmarkHandler)
+                case .failure(let networkError): handler(networkError)
+                }
+            }
+        } else if !model.isComplete {
             checkIfStarredOrBookmarked(then: handler, then: starHandler, then: bookmarkHandler)
             loadREADME(then: readmeHandler)
         } else {
@@ -79,7 +93,7 @@ class RepositoryDetailLogicController {
     }
     
     func checkIfStarredOrBookmarked(then handler: @escaping LoadingHandler, then starHandler: @escaping StarActionHandler, then bookmarkHandler: @escaping BookmarkActionHandler) {
-        if NetworkManager.standard.isReachable {
+        if NetworkManager.standard.isReachable && SessionManager.standard.sessionType == .authenticated {
             GitHubClient.checkIfStarredRepository(fullName: model.fullName) { error in
                 defer { handler(nil) }
                 let fetchResult = BookmarksManager.standard.check(model: self.model)

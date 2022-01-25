@@ -63,14 +63,7 @@ class RepositoryViewController: SFDynamicTableViewController<RepositoryModel>, I
         
         title = context.titleValue
         navigationItem.largeTitleDisplayMode = context == .main ? .always : .never
-        
-        if subViewsOffsetSize != .searchScreen {
-            if context != .main {
-                subViewsOffsetSize = .subScreen
-            } else {
-                subViewsOffsetSize = .mainScreenWithSearch
-            }
-        }
+        tableView.contentInset = UIEdgeInsets(top: 20, left: 0, bottom: 0, right: 0)
         
         searchCoordinator = context == .main ? SearchCoordinator(self) : nil
     }

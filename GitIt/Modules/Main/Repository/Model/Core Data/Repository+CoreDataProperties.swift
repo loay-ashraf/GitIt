@@ -9,7 +9,6 @@
 import Foundation
 import CoreData
 
-
 extension Repository {
 
     @nonobjc public class func fetchRequest() -> NSFetchRequest<Repository> {
@@ -28,5 +27,6 @@ extension Repository {
     @NSManaged public var stars: Int
     @NSManaged public var readmeString: String?
     @NSManaged public var owner: Owner
+    @NSManaged public var license: License?
 
 }

@@ -8,11 +8,10 @@
 import Foundation
 import UIKit
 import NotificationBannerSwift
+import SVProgressHUD
 import Kingfisher
 import CoreData
 import Network
-
-var subViewsOffsetSize: SubviewsOffsetSize!
 
 // MARK: - Constants Shortcuts
 
@@ -28,6 +27,7 @@ typealias AuthenticationConstants = NetworkingConstants.Authentication
 // View Shortcuts
 typealias ViewConstants = Constants.View
 typealias TitleConstants = ViewConstants.Title
+typealias NavigayionBarConstants = ViewConstants.NavigationBar
 typealias SearchBarConstants = ViewConstants.SearchBar
 typealias ContextMenuConstants = ViewConstants.ContextMenu
 typealias ContextMenuActionConstants = ContextMenuConstants.Actions
@@ -96,7 +96,7 @@ struct Constants {
             struct Authentication {
                 
                 static let clientID = "d0e933705d9181aa3400"
-                static let clientSecret = "0d87c2f0570a1135768b14f48ad95a0318ed21ad"
+                static let clientSecret = "a8e22937858d61215f7d54d6dd1d102d004d8390"
                 static let authorizationURL: URL = {
                     var urlComponents = URLComponents(string: "https://github.com/login/oauth/authorize")
                     urlComponents?.queryItems = [URLQueryItem(name: "client_id", value: clientID)]
@@ -207,6 +207,23 @@ struct Constants {
             
         }
         
+        // MARK: - Navigation Bar Constants
+        
+        struct NavigationBar {
+            
+            static func configureAppearance(for navigationBar: UINavigationBar?) {
+                let appearance = UINavigationBarAppearance()
+                appearance.configureWithOpaqueBackground()
+                appearance.titleTextAttributes[.foregroundColor] = UIColor.white
+                appearance.largeTitleTextAttributes[.foregroundColor] = UIColor.white
+                appearance.backgroundColor = UIColor(named: "AccentColor")
+                navigationBar?.standardAppearance = appearance
+                navigationBar?.scrollEdgeAppearance = appearance
+                navigationBar?.tintColor = .white
+            }
+            
+        }
+        
         // MARK: - Search Bar Constants
         
         struct SearchBar {
@@ -277,14 +294,14 @@ struct Constants {
                                 KingfisherManager.shared.retrieveImage(with: item.avatarURL) { result in
                                     if let retreiveResult = try? result.get() {
                                         UIImageWriteToSavedPhotosAlbum(retreiveResult.image, self, nil, nil)
-                                        HapticsManager.standard.sendNotificationFeedback(type: .success)
+                                        SVProgressHUD.showSuccess(withStatus: "Image Saved".localized())
                                     }
                                 }
                             } else if let item = item as? OrganizationModel {
                                 KingfisherManager.shared.retrieveImage(with: item.avatarURL) { result in
                                     if let retreiveResult = try? result.get() {
                                         UIImageWriteToSavedPhotosAlbum(retreiveResult.image, self, nil, nil)
-                                        HapticsManager.standard.sendNotificationFeedback(type: .success)
+                                        SVProgressHUD.showSuccess(withStatus: "Image Saved".localized())
                                     }
                                 }
                             }
@@ -294,7 +311,7 @@ struct Constants {
                     static func action(image: UIImage) -> UIAction {
                         return UIAction(title: title, image: self.image, attributes: []) { action in
                             UIImageWriteToSavedPhotosAlbum(image, self, nil, nil)
-                            HapticsManager.standard.sendNotificationFeedback(type: .success)
+                            SVProgressHUD.showSuccess(withStatus: "Image Saved".localized())
                         }
                     }
                     

@@ -27,6 +27,8 @@ class URLHelper {
         
         let safariVC = SFSafariViewController(url: webURL!, configuration: safariConfiguration)
         safariVC.dismissButtonStyle = .close
+        safariVC.preferredBarTintColor = UIColor(named: "AccentColor")
+        safariVC.preferredControlTintColor = .white
         topViewController?.present(safariVC, animated: true, completion: nil)
     }
 

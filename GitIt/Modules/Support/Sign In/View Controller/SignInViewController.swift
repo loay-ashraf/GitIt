@@ -13,12 +13,14 @@ class SignInViewController: UIViewController {
     private var session: ASWebAuthenticationSession!
     
     @IBOutlet weak var appLogo: UIImageView!
-    @IBOutlet weak var signInWithGithubButton: UIButton!
+    @IBOutlet weak var signInWithGithubButton: AdaptableSizeButton!
+    @IBOutlet weak var continueAsAGuestButton: AdaptableSizeButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         appLogo.cornerRadius = 40
         signInWithGithubButton.cornerRadius = 10
+        continueAsAGuestButton.cornerRadius = 10
         setupAuthenticationSession()
     }
     

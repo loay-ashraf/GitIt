@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SVProgressHUD
 
 class SplashViewController: UIViewController {
 
@@ -20,15 +21,8 @@ class SplashViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         ThemeManager.standard.applyPreferedTheme()
-        do {
-            try DataManager.standard.loadData()
-        } catch {
-            AlertHelper.showAlert(alert: .dataError)
-        }
+        try? DataManager.standard.loadData()
         SessionManager.standard.setup { networkError in
-            if networkError != nil {
-                AlertHelper.showAlert(alert: .networkError)
-            }
             if SessionManager.standard.isSignedIn() {
                 self.presentTabBarViewController()
             } else {

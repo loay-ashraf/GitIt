@@ -73,7 +73,7 @@ class UserDetailLogicController {
     }
     
     func checkIfFollowedOrBookmarked(then handler: @escaping LoadingHandler, then followHandler: @escaping FollowActionHandler, then bookmarkHandler: @escaping BookmarkActionHandler) {
-        if NetworkManager.standard.isReachable {
+        if NetworkManager.standard.isReachable && SessionManager.standard.sessionType == .authenticated {
             GitHubClient.checkIfFollowingUser(userLogin: model.login) { error in
                 defer { handler(nil) }
                 let fetchResult = BookmarksManager.standard.check(model: self.model)
