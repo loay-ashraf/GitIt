@@ -50,6 +50,12 @@ extension SettingsViewController: IASKSettingsDelegate {
             if UIApplication.shared.canOpenURL(appURL) {
                 UIApplication.shared.open(appURL)
             }
+        } else if specifier.key == "tosButton" {
+            print("hi")
+            URLHelper.openURL(URL(string: "https://docs.github.com/en/github/site-policy/github-terms-of-service")!)
+        } else if specifier.key == "ppButton" {
+            print("hix")
+            URLHelper.openURL(URL(string: "https://docs.github.com/en/github/site-policy/github-privacy-statement")!)
         } else if specifier.key == "clearButton" {
             AlertHelper.showAlert(alert: .clearData)
         }

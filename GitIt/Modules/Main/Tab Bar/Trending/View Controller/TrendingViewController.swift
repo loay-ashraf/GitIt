@@ -32,6 +32,7 @@ class TrendingViewController: SFDynamicTableViewController<RepositoryModel> {
     
     override func configureView() {
         super.configureView()
+        xTableView.contentInset = UIEdgeInsets(top: 20, left: 0, bottom: 0, right: 0)
         NavigayionBarConstants.configureAppearance(for: navigationController?.navigationBar)
     }
     

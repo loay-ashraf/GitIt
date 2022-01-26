@@ -62,25 +62,21 @@
 		</dict>
 		<dict>
 			<key>Type</key>
-			<string>IASKOpenURLSpecifier</string>
+			<string>IASKButtonSpecifier</string>
 			<key>Title</key>
 			<string>Terms Of Service</string>
-			<key>Identifier</key>
+			<key>Key</key>
 			<string>tosButton</string>
-			<key>File</key>
-			<string>https://docs.github.com/en/github/site-policy/github-terms-of-service</string>
 			<key>IASKTextAlignment</key>
 			<string>IASKUITextAlignmentLeft</string>
 		</dict>
 		<dict>
 			<key>Type</key>
-			<string>IASKOpenURLSpecifier</string>
+			<string>IASKButtonSpecifier</string>
 			<key>Title</key>
 			<string>Privacy Policy</string>
-			<key>Identifier</key>
+			<key>Key</key>
 			<string>ppButton</string>
-			<key>File</key>
-			<string>https://docs.github.com/en/github/site-policy/github-privacy-statement</string>
 			<key>IASKTextAlignment</key>
 			<string>IASKUITextAlignmentLeft</string>
 		</dict>
