@@ -10,5 +10,6 @@ import Foundation
 protocol ResultsDelegate: AnyObject {
     
     func addModel(with model: Any)
+    func dismissResultsKeyboard()
     
 }

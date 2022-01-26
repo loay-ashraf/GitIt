@@ -39,6 +39,7 @@ class SearchHistoryCollectionViewTapResponder<Type>: CollectionViewTapResponder 
     }
     
     override func respondToTap<Type>(with item: Type) {
+        historyCollectionDelegate?.dismissHistoryKeyboard()
         historyCollectionDelegate?.add(model: item)
         historyCollectionDelegate?.updateCollection()
         historyCollectionDelegate?.didUpdateCollection()

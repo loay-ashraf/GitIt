@@ -31,7 +31,7 @@ class SearchController<Type: Model>: UISearchController, UISearchControllerDeleg
     deinit {
         debugPrint(String(describing: self) + " deallocated")
     }
-    
+
     // MARK: - Search Controller Helper Methods
     
     private func configure() {
@@ -39,6 +39,8 @@ class SearchController<Type: Model>: UISearchController, UISearchControllerDeleg
         searchBar.delegate = self
         searchBar.placeholder = SearchContext(from: Type.self)?.barPlaceholder
         searchBar.autocapitalizationType = .none
+        searchBar.returnKeyType = .done
+        searchBar.enablesReturnKeyAutomatically = false
         searchBar.searchTextField.backgroundColor = UIColor(named: "Foreground Color")
         obscuresBackgroundDuringPresentation = false
         showsSearchResultsController = true

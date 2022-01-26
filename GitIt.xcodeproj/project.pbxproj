@@ -465,7 +465,6 @@
 		C6102C2D2794D2C1003A2E26 /* Logic */ = {
 			isa = PBXGroup;
 			children = (
-				C6F46E7727541B2700498614 /* SearchController.swift */,
 				C6C605FC273EC89000BA27C2 /* SearchCoordinator.swift */,
 				C66412302780789500D605BF /* SearchHistoryLogicController.swift */,
 				C664123C27807CEA00D605BF /* SearchResultsLogicController.swift */,
@@ -495,6 +494,7 @@
 		C6102C302794D2C1003A2E26 /* View Controller */ = {
 			isa = PBXGroup;
 			children = (
+				C6F46E7727541B2700498614 /* SearchController.swift */,
 				C66033FD277CDF0400907494 /* SearchHistoryViewController.swift */,
 				C6F46E7927541C9300498614 /* SearchResultsViewController.swift */,
 			);

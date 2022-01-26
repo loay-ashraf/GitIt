@@ -146,6 +146,7 @@
                         <outlet property="collectionContainerHeightConstraint" destination="SPz-CC-cXk" id="uNR-Zt-o3z"/>
                         <outlet property="collectionView" destination="uvA-N2-hoU" id="Ul0-ks-Lcg"/>
                         <outlet property="headerTitleStackView" destination="vqa-Cg-pFO" id="ILr-Wg-7v2"/>
+                        <outlet property="scrollView" destination="Ko6-8Y-iIT" id="m9z-zC-td9"/>
                         <outlet property="tableContainerHeightConstraint" destination="ZMy-5L-ti8" id="aAP-py-qMU"/>
                         <outlet property="tableView" destination="FEz-LP-fMC" id="dTD-Yz-mdY"/>
                     </connections>

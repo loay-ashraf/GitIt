@@ -23,6 +23,7 @@ class SearchResultsTapResponder<Type>: TableViewTapResponder {
     }
     
     override func respondToTap<Type>(with item: Type) {
+        resultsDelegate?.dismissResultsKeyboard()
         resultsDelegate?.addModel(with: item)
         rawTapResponder?.respondToTap(with: item)
     }

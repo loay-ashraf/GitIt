@@ -48,6 +48,10 @@ extension SearchHistoryViewController: HistoryCollectionDelegate {
         layoutView()
     }
     
+    func dismissHistoryKeyboard() {
+        delegate.dismissHistoryKeyboard()
+    }
+    
 }
 
 extension SearchHistoryViewController: HistoryTableDelegate {

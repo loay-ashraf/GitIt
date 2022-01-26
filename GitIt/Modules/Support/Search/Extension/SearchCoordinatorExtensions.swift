@@ -1,5 +1,5 @@
 //
-//  CoordinatorExtensions.swift
+//  SearchCoordinatorExtensions.swift
 //  GitIt
 //
 //  Created by Loay Ashraf on 01/01/2022.
@@ -58,6 +58,10 @@ extension SearchCoordinator: HistoryDelegate {
         resultsController.loadResults(with: keyword)
     }
     
+    func dismissHistoryKeyboard() {
+        searchController.searchBar.searchTextField.resignFirstResponder()
+    }
+    
 }
 
 extension SearchCoordinator: ResultsDelegate {
@@ -66,6 +70,10 @@ extension SearchCoordinator: ResultsDelegate {
     
     func addModel(with model: Any) {
         historyController.addModel(with: model)
+    }
+    
+    func dismissResultsKeyboard() {
+        searchController.searchBar.searchTextField.resignFirstResponder()
     }
     
 }

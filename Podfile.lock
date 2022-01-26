@@ -1,6 +1,7 @@
 PODS:
   - Alamofire (5.5.0)
   - InAppSettingsKit (3.3.5)
+  - IQKeyboardManager (6.5.9)
   - Kingfisher (7.1.2)
   - MarkdownView (1.8.3)
   - MarqueeLabel (4.0.5)
@@ -13,6 +14,7 @@ PODS:
 DEPENDENCIES:
   - Alamofire (~> 5.5)
   - InAppSettingsKit
+  - IQKeyboardManager
   - Kingfisher (~> 7.0)
   - MarkdownView
   - NotificationBannerSwift (~> 3.0.0)
@@ -22,6 +24,7 @@ SPEC REPOS:
   trunk:
     - Alamofire
     - InAppSettingsKit
+    - IQKeyboardManager
     - Kingfisher
     - MarkdownView
     - MarqueeLabel
@@ -32,6 +35,7 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   Alamofire: 1c4fb5369c3fe93d2857c780d8bbe09f06f97e7c
   InAppSettingsKit: e6123b1241711bac01fe7d837fd71f864bb473c0
+  IQKeyboardManager: 241cc94ccabc9deb8f8bd7d12f00d73288d13ecc
   Kingfisher: 44ed6a8504763f27bab46163adfac83f5deb240c
   MarkdownView: 44a260beec01538e6cdbbce9c2f631b1f3634907
   MarqueeLabel: 00cc0bcd087111dca575878b3531af980559707d
@@ -39,6 +43,6 @@ SPEC CHECKSUMS:
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
 
-PODFILE CHECKSUM: 4ed6c45e5a442e240d44c08457a1b14a0ee57fe4
+PODFILE CHECKSUM: c9ca0b85df8b89e5b3a93cae5d3466969a8fc1dc
 
 COCOAPODS: 1.11.2

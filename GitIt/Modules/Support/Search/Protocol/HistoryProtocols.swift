@@ -10,6 +10,7 @@ import Foundation
 protocol HistoryDelegate: AnyObject {
     
     func historySearch(with keyword: String)
+    func dismissHistoryKeyboard()
     
 }
 
@@ -21,6 +22,7 @@ protocol HistoryCollectionDelegate: AnyObject {
     func delete(model: Any)
     func updateCollection()
     func didUpdateCollection()
+    func dismissHistoryKeyboard()
     
 }
 

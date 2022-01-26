@@ -38,7 +38,7 @@ class TableViewDelegate<Type>: NSObject, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
         let item = model.items[indexPath.row]
-        return contextMenuConfigurator.configure(with: item)
+        return contextMenuConfigurator?.configure(with: item)
     }
     
     // MARK: - Scroll View Delegate

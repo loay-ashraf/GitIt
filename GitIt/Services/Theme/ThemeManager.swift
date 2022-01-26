@@ -42,37 +42,51 @@ class ThemeManager: NSObject {
     // MARK: - Theme Application Methods
     
     func applyTheme(theme: Theme) {
-        if let window = UIApplication.keyWindow() {
-            let currentSystemTheme = UIScreen.main.traitCollection.userInterfaceStyle
-            switch theme {
-            case .followSystem: window.overrideUserInterfaceStyle = .unspecified
-                if currentSystemTheme == .light {
-                    SVProgressHUD.setDefaultStyle(.dark)
-                } else if currentSystemTheme == .dark {
-                    SVProgressHUD.setDefaultStyle(.light)
-                }
-            case .light: window.overrideUserInterfaceStyle = .light; SVProgressHUD.setDefaultStyle(.dark)
-            case .dark: window.overrideUserInterfaceStyle = .dark; SVProgressHUD.setDefaultStyle(.light)
-            }
+        switch theme {
+        case .followSystem: applySystemTheme()
+        case .light: applyLightTheme()
+        case .dark: applyDarkTheme()
         }
     }
     
     func applyPreferedTheme() {
-        if let window = UIApplication.keyWindow() {
-            let currentSystemTheme = UIScreen.main.traitCollection.userInterfaceStyle
-            if let value = try? userDefaultsHelper.getValue(for: "theme").get() as? String, let theme = Theme(rawValue: value) {
-                switch theme {
-                case .followSystem: window.overrideUserInterfaceStyle = .unspecified
-                    if currentSystemTheme == .light {
-                        SVProgressHUD.setDefaultStyle(.dark)
-                    } else if currentSystemTheme == .dark {
-                        SVProgressHUD.setDefaultStyle(.light)
-                    }
-                case .light: window.overrideUserInterfaceStyle = .light; SVProgressHUD.setDefaultStyle(.dark)
-                case .dark: window.overrideUserInterfaceStyle = .dark; SVProgressHUD.setDefaultStyle(.light)
-                }
+        if let value = try? userDefaultsHelper.getValue(for: "theme").get() as? String, let theme = Theme(rawValue: value) {
+            switch theme {
+            case .followSystem: applySystemTheme()
+            case .light: applyLightTheme()
+            case .dark: applyDarkTheme()
             }
         }
+    }
+    
+    private func applySystemTheme() {
+        if let window = UIApplication.keyWindow() {
+            window.overrideUserInterfaceStyle = .unspecified
+        }
+        let currentSystemTheme = UIScreen.main.traitCollection.userInterfaceStyle
+        if currentSystemTheme == .light {
+            UITextField.appearance().tintColor = .black
+            SVProgressHUD.setDefaultStyle(.dark)
+        } else if currentSystemTheme == .dark {
+            UITextField.appearance().tintColor = .white
+            SVProgressHUD.setDefaultStyle(.light)
+        }
+    }
+    
+    private func applyLightTheme() {
+        if let window = UIApplication.keyWindow() {
+            window.overrideUserInterfaceStyle = .light
+        }
+        UITextField.appearance().tintColor = .black
+        SVProgressHUD.setDefaultStyle(.dark)
+    }
+    
+    private func applyDarkTheme() {
+        if let window = UIApplication.keyWindow() {
+            window.overrideUserInterfaceStyle = .light
+        }
+        UITextField.appearance().tintColor = .white
+        SVProgressHUD.setDefaultStyle(.light)
     }
     
     // MARK: - Progress HUD Methods

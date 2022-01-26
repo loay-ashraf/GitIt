@@ -21,6 +21,7 @@ class SearchHistoryViewController<Type: Model>: SFViewController {
     
     // MARK: - View Outlets
     
+    @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var headerTitleStackView: UIStackView!
     @IBOutlet weak var collectionView: CollectionView!
     @IBOutlet weak var tableView: TableView!
@@ -33,6 +34,7 @@ class SearchHistoryViewController<Type: Model>: SFViewController {
         super.init(coder: coder)
         self.delegate = delegate
         logicController = SearchHistoryLogicController()
+        subscribeToKeyboardNotifications()
     }
     
     required init?(coder: NSCoder) {
@@ -48,6 +50,7 @@ class SearchHistoryViewController<Type: Model>: SFViewController {
     
     deinit {
         debugPrint(String(describing: self) + " deallocated")
+        unSubscribeFromKeyboardNotifications()
     }
     
     // MARK: - Lifecycle
@@ -177,6 +180,40 @@ class SearchHistoryViewController<Type: Model>: SFViewController {
         } else {
             layoutView()
         }
+    }
+    
+    // MARK: - Keyboard Adjustment Methods
+    
+    func subscribeToKeyboardNotifications() {
+        let notificationCenter = NotificationCenter.default
+        notificationCenter.addObserver(self, selector: #selector(adjustForKeyboard), name: UIResponder.keyboardWillHideNotification, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(adjustForKeyboard), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
+    }
+    
+    func unSubscribeFromKeyboardNotifications() {
+        let notificationCenter = NotificationCenter.default
+        notificationCenter.removeObserver(self, name: UIResponder.keyboardDidShowNotification, object: nil)
+        notificationCenter.removeObserver(self, name: UIResponder.keyboardDidHideNotification, object: nil)
+    }
+
+    @objc func adjustForKeyboard(notification: Notification) {
+        guard let keyboardValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
+
+        let keyboardScreenEndFrame = keyboardValue.cgRectValue
+        let keyboardViewEndFrame = view.convert(keyboardScreenEndFrame, from: view.window)
+
+        if notification.name == UIResponder.keyboardWillHideNotification {
+            scrollView.contentInset = .zero
+        } else {
+            scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardViewEndFrame.height - view.safeAreaInsets.bottom, right: 0)
+        }
+
+        scrollView.scrollIndicatorInsets = scrollView.contentInset
+    }
+
+    @objc func onKeyboardDisappear(_ notification: NSNotification) {
+        scrollView.contentInset = UIEdgeInsets.zero
+        scrollView.scrollIndicatorInsets = UIEdgeInsets.zero
     }
 
 }
