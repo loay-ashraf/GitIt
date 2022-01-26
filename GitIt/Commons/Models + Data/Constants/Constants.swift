@@ -95,8 +95,8 @@ struct Constants {
             
             struct Authentication {
                 
-                static let clientID = "d0e933705d9181aa3400"
-                static let clientSecret = "a8e22937858d61215f7d54d6dd1d102d004d8390"
+                static let clientID = "xxxxxxxxxxxxxxxxxxxxxxxxx"
+                static let clientSecret = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
                 static let authorizationURL: URL = {
                     var urlComponents = URLComponents(string: "https://github.com/login/oauth/authorize")
                     urlComponents?.queryItems = [URLQueryItem(name: "client_id", value: clientID)]
