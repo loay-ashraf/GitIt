@@ -50,6 +50,7 @@ extension Date {
         let dateFormatter = DateFormatter()
         dateFormatter.timeStyle = .none
         dateFormatter.dateFormat = "yyyy-MM-dd"
+        dateFormatter.locale = Locale(identifier: "en_us")
         let previousDate = Calendar.current.date(byAdding: .day, value: -numberOfDays, to: Self())!
         return dateFormatter.string(from: previousDate)
     }

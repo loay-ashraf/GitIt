@@ -16,8 +16,8 @@ extension License {
         return NSFetchRequest<License>(entityName: "License")
     }
 
-    @NSManaged public var key: String
-    @NSManaged public var name: String
-    @NSManaged public var url: URL
+    @NSManaged public var key: String?
+    @NSManaged public var name: String?
+    @NSManaged public var url: URL?
 
 }

@@ -249,7 +249,8 @@ extension GitHubRouter: URLRequestConvertible {
         }
 
         switch self {
-        case .checkIfFollowingUser,
+        case .fetchAuthenticatedUser,
+            .checkIfFollowingUser,
             .checkIfStarredRepository,
             .followUser,
             .unFollowUser,

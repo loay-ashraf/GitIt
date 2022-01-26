@@ -83,7 +83,7 @@ class ThemeManager: NSObject {
     
     private func applyDarkTheme() {
         if let window = UIApplication.keyWindow() {
-            window.overrideUserInterfaceStyle = .light
+            window.overrideUserInterfaceStyle = .dark
         }
         UITextField.appearance().tintColor = .white
         SVProgressHUD.setDefaultStyle(.light)
