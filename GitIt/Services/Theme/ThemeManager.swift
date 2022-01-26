@@ -6,10 +6,12 @@
 //
 
 import UIKit
+import SVProgressHUD
 
 class ThemeManager: NSObject {
     
     static let standard = ThemeManager()
+    let userDefaultsHelper = DataManager.standard.userDefaultsHelper
     
     // MARK: - Initialisation
     
@@ -18,13 +20,14 @@ class ThemeManager: NSObject {
     }
     
     deinit {
-        UserDefaults.standard.removeObserver(self, forKeyPath: "theme", context: nil)
+        userDefaultsHelper.removeValueObserver(observer: self, for: "theme")
     }
     
     // MARK: - Setup Methods
     
     func setup() {
-        UserDefaults.standard.addObserver(self, forKeyPath: "theme", options: [.new], context: nil)
+        userDefaultsHelper.addValueObserver(observer: self, for: "theme", options: [.new])
+        setupProgressHUD()
     }
     
     // MARK: - Observer Methods
@@ -39,28 +42,60 @@ class ThemeManager: NSObject {
     // MARK: - Theme Application Methods
     
     func applyTheme(theme: Theme) {
-        if let window = UIApplication.shared.windows.filter({$0.isKeyWindow}).first {
-            switch theme {
-            case .followSystem: window.overrideUserInterfaceStyle = .unspecified
-            case .light: window.overrideUserInterfaceStyle = .light
-            case .dark: window.overrideUserInterfaceStyle = .dark
-            }
+        switch theme {
+        case .followSystem: applySystemTheme()
+        case .light: applyLightTheme()
+        case .dark: applyDarkTheme()
         }
     }
     
     func applyPreferedTheme() {
-        if let window = UIApplication.shared.windows.filter({$0.isKeyWindow}).first {
-            do {
-                let theme = try LibraryManager.standard.getTheme().get()
-                switch theme {
-                case .followSystem: window.overrideUserInterfaceStyle = .unspecified
-                case .light: window.overrideUserInterfaceStyle = .light
-                case .dark: window.overrideUserInterfaceStyle = .dark
-                }
-            } catch {
-                
+        if let value = try? userDefaultsHelper.getValue(for: "theme").get() as? String, let theme = Theme(rawValue: value) {
+            switch theme {
+            case .followSystem: applySystemTheme()
+            case .light: applyLightTheme()
+            case .dark: applyDarkTheme()
             }
         }
+    }
+    
+    private func applySystemTheme() {
+        if let window = UIApplication.keyWindow() {
+            window.overrideUserInterfaceStyle = .unspecified
+        }
+        let currentSystemTheme = UIScreen.main.traitCollection.userInterfaceStyle
+        if currentSystemTheme == .light {
+            UITextField.appearance().tintColor = .black
+            SVProgressHUD.setDefaultStyle(.dark)
+        } else if currentSystemTheme == .dark {
+            UITextField.appearance().tintColor = .white
+            SVProgressHUD.setDefaultStyle(.light)
+        }
+    }
+    
+    private func applyLightTheme() {
+        if let window = UIApplication.keyWindow() {
+            window.overrideUserInterfaceStyle = .light
+        }
+        UITextField.appearance().tintColor = .black
+        SVProgressHUD.setDefaultStyle(.dark)
+    }
+    
+    private func applyDarkTheme() {
+        if let window = UIApplication.keyWindow() {
+            window.overrideUserInterfaceStyle = .light
+        }
+        UITextField.appearance().tintColor = .white
+        SVProgressHUD.setDefaultStyle(.light)
+    }
+    
+    // MARK: - Progress HUD Methods
+    
+    private func setupProgressHUD() {
+        SVProgressHUD.setOffsetFromCenter(UIOffset(horizontal: 0, vertical: 50))
+        SVProgressHUD.setMaximumDismissTimeInterval(1.0)
+        SVProgressHUD.setMinimumDismissTimeInterval(0.5)
+        SVProgressHUD.setHapticsEnabled(true)
     }
     
 }

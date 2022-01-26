@@ -6,188 +6,107 @@
 //
 
 import Foundation
+import Alamofire
 
 class NetworkManager {
     
     static let standard = NetworkManager()
-    var isInternetConnected: Bool { return reachabilityHelper.isInternetConnected }
     
-    private let urlSession: URLSession!
-    private let reachabilityHelper: ReachabilityHelper!
+    var isReachable: Bool {
+        if let isReachable = reachabilityHelper.isReachable {
+            return isReachable
+        }
+        return false
+    }
+    
+    private let urlSession: Session!
+    private let reachabilityHelper: NetworkReachabilityHelper!
     
     // MARK: - Initialisation
     
     private init() {
-        let urlSessionConfiguration = URLSessionConfiguration.default
-        urlSessionConfiguration.requestCachePolicy = .returnCacheDataElseLoad
-        urlSession = URLSession(configuration: urlSessionConfiguration)
-        reachabilityHelper = ReachabilityHelper()
+        urlSession = {
+            let configuration = URLSessionConfiguration.af.default
+            configuration.requestCachePolicy = .returnCacheDataElseLoad
+            let responseCacher = ResponseCacher(behavior: .modify { _, response in
+              let userInfo = ["date": Date()]
+              return CachedURLResponse(
+                response: response.response,
+                data: response.data,
+                userInfo: userInfo,
+                storagePolicy: .allowed)
+            })
+            let interceptor = NetworkRequestInterceptor()
+            let networkLogger = NetworkLogger()
+            return Session(configuration: configuration, interceptor: interceptor, cachedResponseHandler: responseCacher, eventMonitors: [networkLogger])
+        }()
+        reachabilityHelper = NetworkReachabilityHelper()
+    }
+    
+    // MARK: - Data Request Methods
+    
+    func dataRequest(request: URLRequestConvertible, completionHandler: @escaping (NetworkError?) -> Void) -> DataRequest {
+        urlSession.request(request, completionHandler: completionHandler)
+    }
+    
+    func dataRequest(request: URLRequestConvertible, completionHandler: @escaping (DataResult) -> Void) -> DataRequest {
+        urlSession.request(request, completionHandler: completionHandler)
+    }
+    
+    func dataRequest<Response: Decodable>(request: URLRequestConvertible, completionHandler: @escaping (ResponseResult<Response>) -> Void) -> DataRequest {
+        urlSession.request(request, completionHandler: completionHandler)
     }
     
     // MARK: - GET Request Methods
     
-    func GETRequest(url: URL, completionHandler: @escaping (NetworkError?) -> Void) {
-        let request = composeRequest(url: url, method: .GET)
-        URLSession.shared.dataTask(with: request, completionHandler: completionHandler).resume()
+    func GETRequest(url: URL, completionHandler: @escaping (NetworkError?) -> Void) -> DataRequest {
+        urlSession.request(url, method: .get, completionHandler: completionHandler)
     }
     
-    func GETRequest<Response: Decodable>(url: URL, completionHandler: @escaping (Result<Response,NetworkError>) -> Void) {
-        let request = composeRequest(url: url, method: .GET)
-        urlSession.dataTask(with: request) { dataResult in
-            completionHandler(self.decodeDataResult(dataResult))
-        }.resume()
+    func GETRequest<Response: Decodable>(url: URL, completionHandler: @escaping (ResponseResult<Response>) -> Void) -> DataRequest {
+        urlSession.request(url, method: .get, completionHandler: completionHandler)
     }
     
     // MARK: - POST Request Methods
     
-    func POSTRequest(url: URL, completionHandler: @escaping (NetworkError?) -> Void) {
-        let request = composeRequest(url: url, method: .POST)
-        URLSession.shared.dataTask(with: request, completionHandler: completionHandler).resume()
+    func POSTRequest(url: URL, completionHandler: @escaping (NetworkError?) -> Void) -> DataRequest {
+        urlSession.request(url, method: .post, completionHandler: completionHandler)
     }
     
-    func POSTRequest<Response: Decodable>(url: URL, completionHandler: @escaping (Result<Response,NetworkError>) -> Void) {
-        let request = composeRequest(url: url, method: .POST)
-        urlSession.dataTask(with: request) { dataResult in
-            completionHandler(self.decodeDataResult(dataResult))
-        }.resume()
+    func POSTRequest<Response: Decodable>(url: URL, completionHandler: @escaping (ResponseResult<Response>) -> Void) -> DataRequest {
+        urlSession.request(url, method: .post, completionHandler: completionHandler)
     }
     
-    func POSTRequest<Response: Decodable, Request: Encodable>(url: URL, body: Request, completionHandler: @escaping (Result<Response,NetworkError>) -> Void) {
-        if let request = composeRequest(url: url, method: .POST, body: body, completionHandler: completionHandler) {
-            urlSession.dataTask(with: request) { dataResult in
-                completionHandler(self.decodeDataResult(dataResult))
-            }.resume()
-        }
+    func POSTRequest<Response: Decodable, Request: Encodable>(url: URL, body: Request, completionHandler: @escaping (ResponseResult<Response>) -> Void) -> DataRequest {
+        urlSession.request(url, method: .post, parameters: body as? Parameters, completionHandler: completionHandler)
     }
     
     // MARK: - PUT Request Methods
     
-    func PUTRequest(url: URL, completionHandler: @escaping (NetworkError?) -> Void) {
-        let request = composeRequest(url: url, method: .PUT)
-        URLSession.shared.dataTask(with: request, completionHandler: completionHandler).resume()
+    func PUTRequest(url: URL, completionHandler: @escaping (NetworkError?) -> Void) -> DataRequest {
+        urlSession.request(url, method: .put, completionHandler: completionHandler)
     }
     
-    func PUTRequest<Response: Decodable>(url: URL, completionHandler: @escaping (Result<Response,NetworkError>) -> Void) {
-        let request = composeRequest(url: url, method: .PUT)
-        urlSession.dataTask(with: request) { dataResult in
-            completionHandler(self.decodeDataResult(dataResult))
-        }.resume()
+    func PUTRequest<Response: Decodable>(url: URL, completionHandler: @escaping (ResponseResult<Response>) -> Void) -> DataRequest {
+        urlSession.request(url, method: .put, completionHandler: completionHandler)
     }
     
-    func PUTRequest<Response: Decodable, Request: Encodable>(url: URL, body: Request, completionHandler: @escaping (Result<Response,NetworkError>) -> Void) {
-        if let request = composeRequest(url: url, method: .PUT, body: body, completionHandler: completionHandler) {
-            urlSession.dataTask(with: request) { dataResult in
-                completionHandler(self.decodeDataResult(dataResult))
-            }.resume()
-        }
+    func PUTRequest<Response: Decodable, Request: Encodable>(url: URL, body: Request, completionHandler: @escaping (ResponseResult<Response>) -> Void) -> DataRequest {
+        urlSession.request(url, method: .put, parameters: body as? Parameters, completionHandler: completionHandler)
     }
     
     // MARK: - DELETE Request Methods
     
-    func DELETERequest(url: URL, completionHandler: @escaping (NetworkError?) -> Void) {
-        let request = composeRequest(url: url, method: .DELETE)
-        URLSession.shared.dataTask(with: request, completionHandler: completionHandler).resume()
+    func DELETERequest(url: URL, completionHandler: @escaping (NetworkError?) -> Void) -> DataRequest {
+        urlSession.request(url, method: .delete, completionHandler: completionHandler)
     }
     
-    func DELETERequest<Response: Decodable>(url: URL, completionHandler: @escaping (Result<Response,NetworkError>) -> Void) {
-        let request = composeRequest(url: url, method: .DELETE)
-        urlSession.dataTask(with: request) { dataResult in
-            completionHandler(self.decodeDataResult(dataResult))
-        }.resume()
+    func DELETERequest<Response: Decodable>(url: URL, completionHandler: @escaping (ResponseResult<Response>) -> Void) -> DataRequest {
+        urlSession.request(url, method: .delete, completionHandler: completionHandler)
     }
     
-    func DELETERequest<Response: Decodable, Request: Encodable>(url: URL, body: Request, completionHandler: @escaping (Result<Response,NetworkError>) -> Void) {
-        if let request = composeRequest(url: url, method: .DELETE, body: body, completionHandler: completionHandler) {
-            urlSession.dataTask(with: request) { dataResult in
-                completionHandler(self.decodeDataResult(dataResult))
-            }.resume()
-        }
-    }
-    
-    // MARK: - Download Methods
-    
-    func downloadData(url: URL, completionHandler: @escaping (DataResult) -> Void) -> URLSessionDataTask {
-        let request = composeRequest(url: url, method: .GET)
-        let task = urlSession.dataTask(with: request, completionHandler: completionHandler)
-        task.resume()
-        return task
-    }
-
-}
-
-extension NetworkManager {
-    
-    // MARK: - Helper Methods
-    
-    private func composeRequest(url: URL, method: HTTPMethod) -> URLRequest {
-        var request = URLRequest(url: url)
-        
-        request.httpMethod = method.rawValue
-        if let accessToken = SessionManager.standard.sessionToken {
-            if accessToken != "" {
-                request.addValue("Token \(accessToken)", forHTTPHeaderField: "Authorization")
-            }
-        }
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        method == .PUT ? request.addValue("zero", forHTTPHeaderField: "Content-Length") : nil
-        
-        return request
-    }
-    
-    private func composeRequest<Request: Encodable>(url: URL, method: HTTPMethod, body: Request, completionHandler: @escaping (NetworkError?) -> Void) -> URLRequest? {
-        var request = URLRequest(url: url)
-        
-        request.httpMethod = method.rawValue
-        if let accessToken = SessionManager.standard.sessionToken {
-            if accessToken != "" {
-                request.addValue("Token \(accessToken)", forHTTPHeaderField: "Authorization")
-            }
-        }
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        
-        do {
-            request.httpBody = try JSONEncoder().encode(body)
-        } catch {
-            completionHandler(.encoding(error))
-            return nil
-        }
-        
-        return request
-    }
-    
-    private func composeRequest<Response: Decodable, Request: Encodable>(url: URL, method: HTTPMethod, body: Request, completionHandler: @escaping (Result<Response,NetworkError>) -> Void) -> URLRequest? {
-        var request = URLRequest(url: url)
-        
-        request.httpMethod = method.rawValue
-        if let accessToken = SessionManager.standard.sessionToken {
-            if accessToken != "" {
-                request.addValue("Token \(accessToken)", forHTTPHeaderField: "Authorization")
-            }
-        }
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        
-        do {
-            request.httpBody = try JSONEncoder().encode(body)
-        } catch {
-            completionHandler(.failure(.encoding(error)))
-            return nil
-        }
-        
-        return request
-    }
-    
-    private func decodeDataResult<Response: Decodable>(_ dataResult: DataResult) -> Result<Response,NetworkError> {
-        return dataResult.flatMap { (data) -> Result<Response,NetworkError> in
-            do {
-                let responseObject = try JSONDecoder().decode(Response.self, from: data)
-                return .success(responseObject)
-            } catch {
-                do {
-                    let errorObject = try JSONDecoder().decode(APIError.self, from: data)
-                    return .failure(.api(errorObject))
-                } catch { return .failure(.decoding(error)) }
-            }
-        }
+    func DELETERequest<Response: Decodable, Request: Encodable>(url: URL, body: Request, completionHandler: @escaping (ResponseResult<Response>) -> Void) -> DataRequest {
+        urlSession.request(url, method: .delete, parameters: body as? Parameters, completionHandler: completionHandler)
     }
     
 }
