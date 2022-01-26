@@ -58,6 +58,7 @@
                     </tabBar>
                     <connections>
                         <segue destination="CbJ-dZ-oDJ" kind="relationship" relationship="viewControllers" id="ibv-Ks-HMW"/>
+                        <segue destination="DSY-MX-iWK" kind="relationship" relationship="viewControllers" id="WDw-j0-VqR"/>
                         <segue destination="m9T-Ti-22c" kind="relationship" relationship="viewControllers" id="sHK-H5-1C9"/>
                         <segue destination="GKS-wh-4AC" kind="relationship" relationship="viewControllers" id="S0o-PW-D5a"/>
                     </connections>
@@ -391,7 +392,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GEj-1v-OIn" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5038" y="430"/>
+            <point key="canvasLocation" x="5041" y="753"/>
         </scene>
         <!--License View Controller-->
         <scene sceneID="h8p-lq-ZcU">
@@ -427,7 +428,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hwv-Qf-cLH" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3441" y="-356"/>
+            <point key="canvasLocation" x="3442" y="-51"/>
         </scene>
         <!--Commit Detail View Controller-->
         <scene sceneID="VKW-mo-Bqf">
@@ -519,7 +520,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HCe-Qa-GlQ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6571.0144927536239" y="429.61956521739131"/>
+            <point key="canvasLocation" x="6571" y="753"/>
         </scene>
         <!--Bookmarks-->
         <scene sceneID="OFS-8t-jkB">
@@ -547,7 +548,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="z4l-UQ-5kD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1948" y="-356"/>
+            <point key="canvasLocation" x="1951" y="-51"/>
         </scene>
         <!--Home-->
         <scene sceneID="UST-xA-czQ">
@@ -678,7 +679,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oeQ-ha-dav" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2673.913043478261" y="-1105.4347826086957"/>
+            <point key="canvasLocation" x="2674" y="-1431"/>
         </scene>
         <!--User Detail View Controller-->
         <scene sceneID="rNT-5Q-hnw">
@@ -991,7 +992,7 @@
                     </connections>
                 </pongPressGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="4288" y="430"/>
+            <point key="canvasLocation" x="4290" y="753"/>
         </scene>
         <!--Organization Detail View Controller-->
         <scene sceneID="riL-j3-AkV">
@@ -1228,7 +1229,7 @@
                     </connections>
                 </pongPressGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="5793" y="430"/>
+            <point key="canvasLocation" x="5796" y="753"/>
         </scene>
         <!--User View Controller-->
         <scene sceneID="36V-L1-m5f">
@@ -1246,7 +1247,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hOo-D6-8G6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4288" y="-356"/>
+            <point key="canvasLocation" x="4290" y="-51"/>
         </scene>
         <!--Repository View Controller-->
         <scene sceneID="Wqb-e3-8PV">
@@ -1264,7 +1265,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3fx-bb-Pcs" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5039" y="-356"/>
+            <point key="canvasLocation" x="5041" y="-51"/>
         </scene>
         <!--Organization View Controller-->
         <scene sceneID="pMo-Rn-568">
@@ -1282,7 +1283,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gQF-ct-P6I" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5794" y="-356"/>
+            <point key="canvasLocation" x="5796" y="-51"/>
         </scene>
         <!--Commit View Controller-->
         <scene sceneID="QsE-ff-eCN">
@@ -1300,7 +1301,26 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GDy-7R-nt5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6572" y="-356"/>
+            <point key="canvasLocation" x="6574" y="-51"/>
+        </scene>
+        <!--Trending-->
+        <scene sceneID="1al-50-Dlq">
+            <objects>
+                <tableViewController id="Ni7-tH-Oq0" customClass="TrendingViewController" customModule="GitIt" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="Plc-g8-MeU" customClass="SFDynamicTableView" customModule="GitIt" customModuleProvider="target">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <connections>
+                            <outlet property="dataSource" destination="Ni7-tH-Oq0" id="yVT-h0-5x3"/>
+                            <outlet property="delegate" destination="Ni7-tH-Oq0" id="YMm-VG-Yxq"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Trending" id="tA1-IN-0lD"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="BbK-lZ-I2h" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2677" y="-779"/>
         </scene>
         <!--Profile-->
         <scene sceneID="wQ5-YG-yOI">
@@ -1328,7 +1348,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4oZ-70-C3y" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1948" y="430"/>
+            <point key="canvasLocation" x="1948" y="753"/>
         </scene>
         <!--Profile View Controller-->
         <scene sceneID="xoz-eL-aox">
@@ -1632,7 +1652,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zoY-3l-Sth" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="P2L-qI-YlI" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2673.913043478261" y="429.61956521739131"/>
+            <point key="canvasLocation" x="2677" y="753"/>
         </scene>
         <!--Settings View Controller-->
         <scene sceneID="5Sl-Sm-u29">
@@ -1694,7 +1714,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hPr-Pa-tHi" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="McU-ah-tA8" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="3441" y="430"/>
+            <point key="canvasLocation" x="3441" y="753"/>
         </scene>
         <!--Bookmarks-->
         <scene sceneID="ZVd-aH-9p5">
@@ -1764,7 +1784,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IR4-cx-FuM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2674" y="-356"/>
+            <point key="canvasLocation" x="2677" y="-51"/>
         </scene>
         <!--Welcome View Controller-->
         <scene sceneID="SuA-tY-qpN">
@@ -1861,7 +1881,27 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0i2-Tp-zxy" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1948" y="-1105"/>
+            <point key="canvasLocation" x="1948" y="-1431"/>
+        </scene>
+        <!--Trending-->
+        <scene sceneID="AKV-d8-qDG">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="DSY-MX-iWK" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Trending" image="chart.line.uptrend.xyaxis.circle" catalog="system" selectedImage="chart.line.uptrend.xyaxis.circle.fill" id="X7u-KU-pN6"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="c0Q-vD-R0M">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="96"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" name="AccentColor"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Ni7-tH-Oq0" kind="relationship" relationship="rootViewController" id="qas-4S-0nw"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kwB-g7-O4Q" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1951" y="-779"/>
         </scene>
     </scenes>
     <resources>
@@ -1870,6 +1910,8 @@
         <image name="bookmark.fill" catalog="system" width="112" height="128"/>
         <image name="branch" width="25" height="25"/>
         <image name="building" catalog="system" width="112" height="128"/>
+        <image name="chart.line.uptrend.xyaxis.circle" catalog="system" width="128" height="121"/>
+        <image name="chart.line.uptrend.xyaxis.circle.fill" catalog="system" width="128" height="121"/>
         <image name="commit" width="25" height="25"/>
         <image name="envelope" catalog="system" width="128" height="93"/>
         <image name="fork" width="25" height="25"/>
@@ -1891,7 +1933,7 @@
         <image name="trash" catalog="system" width="121" height="128"/>
         <image name="twitter" width="50" height="50"/>
         <namedColor name="AccentColor">
-            <color red="0.20000000000000001" green="0.59999999999999998" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+            <color red="0.20000000298023224" green="0.60000002384185791" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
         <namedColor name="Background Color">
             <color red="0.94900000095367432" green="0.94900000095367432" blue="0.96899998188018799" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

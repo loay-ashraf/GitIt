@@ -43,7 +43,7 @@ class RepositoryLogicController {
     }
 
     private func loadMain() {
-        GitHubClient.fetchRepositories(page: model.currentPage, perPage: 10, completionHandler: processResult(result:))
+        GitHubClient.fetchRepositories(page: model.currentPage, completionHandler: processResult(result:))
     }
 
     private func loadUser() {

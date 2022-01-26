@@ -43,3 +43,15 @@ extension Dictionary where Key: StringProtocol, Value: StringProtocol {
     }
     
 }
+
+extension Date {
+    
+    static func dateBefore(numberOfDays: Int) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.timeStyle = .none
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        let previousDate = Calendar.current.date(byAdding: .day, value: -numberOfDays, to: Self())!
+        return dateFormatter.string(from: previousDate)
+    }
+    
+}

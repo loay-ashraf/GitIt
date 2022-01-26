@@ -85,7 +85,7 @@ class GitHubClient {
     
     // MARK: - Repository Search Methods
     
-    class func fetchRepositories(page: Int, perPage: Int, completionHandler: @escaping (Result<[RepositoryModel],NetworkError>) -> Void) {
+    class func fetchRepositories(page: Int, completionHandler: @escaping (Result<[RepositoryModel],NetworkError>) -> Void) {
         func handler(result: Result<BatchResponse<RepositoryModel>,NetworkError>) {
             switch result {
             case .success(let response): completionHandler(.success(response.items))
@@ -93,6 +93,16 @@ class GitHubClient {
             }
         }
         _ = networkManager.dataRequest(request: GitHubRouter.fetchRepositories(page: page), completionHandler: handler(result:))
+    }
+    
+    class func fetchTrendingRepositories(page: Int, completionHandler: @escaping (Result<[RepositoryModel],NetworkError>) -> Void) {
+        func handler(result: Result<BatchResponse<RepositoryModel>,NetworkError>) {
+            switch result {
+            case .success(let response): completionHandler(.success(response.items))
+            case .failure(let networkError): completionHandler(.failure(networkError))
+            }
+        }
+        _ = networkManager.dataRequest(request: GitHubRouter.fetchTrendingRepositories(page: page), completionHandler: handler(result:))
     }
     
     class func searchRepositories(keyword: String, page: Int, completionHandler: @escaping (Result<BatchResponse<RepositoryModel>,NetworkError>) -> Void) {

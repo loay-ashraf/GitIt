@@ -56,7 +56,7 @@ class RepositoryViewController: SFDynamicTableViewController<RepositoryModel>, I
         load(with: .initial)
     }
     
-    // MARK: - UI Helper Methods
+    // MARK: - View Helper Methods
     
     override func configureView() {
         super.configureView()

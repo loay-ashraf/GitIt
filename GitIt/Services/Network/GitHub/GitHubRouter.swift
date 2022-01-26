@@ -30,6 +30,7 @@ enum GitHubRouter {
     case fetchUserStarred(login: String, page: Int)
     
     case fetchRepositories(page: Int)
+    case fetchTrendingRepositories(page: Int)
     case searchRepositories(query: String, page: Int)
     case fetchRepository(fullName: String)
     case fetchRepositoryStars(fullName: String, page: Int)
@@ -95,7 +96,7 @@ extension GitHubRouter {
         case .fetchOrganizationRepositories(let login, _): return NetworkingConstants.organizations.appendPathComponent(login).appendPathComponent(NetworkingConstants.repositories)
             
         case .fetchUsers,.searchUsers: return NetworkingConstants.searchUsers
-        case .fetchRepositories,.searchRepositories: return NetworkingConstants.searchRepositories
+        case .fetchRepositories,.fetchTrendingRepositories,.searchRepositories: return NetworkingConstants.searchRepositories
         case .fetchOrganizations,.searchOrganizations: return NetworkingConstants.searchOrganizations
         }
         
@@ -125,6 +126,7 @@ extension GitHubRouter {
             .fetchUserStarred,
             .fetchRepository,
             .fetchRepositories,
+            .fetchTrendingRepositories,
             .searchRepositories,
             .fetchRepositoryStars,
             .fetchRepositoryForks,
@@ -169,6 +171,11 @@ extension GitHubRouter {
             .searchRepositories(let query, let page): parametersDict[NetworkingConstants.query] = query
                                                       parametersDict[NetworkingConstants.page] = page
                                                       parametersDict[NetworkingConstants.perPage] = NetworkingConstants.maxPageCapacity
+        case .fetchTrendingRepositories(let page): parametersDict[NetworkingConstants.query] = [NetworkingConstants.created:Date.dateBefore(numberOfDays: 7)].queryString
+                                                   parametersDict[NetworkingConstants.sort] = NetworkingConstants.stars
+                                                   parametersDict[NetworkingConstants.order] = NetworkingConstants.descending
+                                                   parametersDict[NetworkingConstants.page] = page
+                                                   parametersDict[NetworkingConstants.perPage] = NetworkingConstants.maxPageCapacity
         case .searchOrganizations(let query, let page): parametersDict[NetworkingConstants.query] = query.appendQueryComponent([NetworkingConstants.type:NetworkingConstants.organization].queryString)
                                                         parametersDict[NetworkingConstants.page] = page
                                                         parametersDict[NetworkingConstants.perPage] = NetworkingConstants.maxPageCapacity

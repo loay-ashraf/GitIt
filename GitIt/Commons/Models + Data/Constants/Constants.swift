@@ -138,14 +138,19 @@ struct Constants {
             static let searchOrganizations = "search/users"
             static let type = "type"
             
+            static let query = "q"
+            static let sort = "sort"
+            static let order = "order"
             static let page = "page"
             static let perPage = "per_page"
             static let total_pages = "total_pages"
             
-            static let query = "q"
             static let contentType = "Content-Type"
             static let contentLength = "Content-Length"
             
+            static let created = "created"
+            static let ascending = "asc"
+            static let descending = "desc"
             static let maxPageCount = 1000
             static let maxPageCapacity = 10
             
