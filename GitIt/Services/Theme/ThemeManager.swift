@@ -12,6 +12,7 @@ class ThemeManager: NSObject {
     
     static let standard = ThemeManager()
     let userDefaultsHelper = DataManager.standard.userDefaultsHelper
+    var isSetup: Bool = false
     
     // MARK: - Initialisation
     
@@ -26,6 +27,7 @@ class ThemeManager: NSObject {
     // MARK: - Setup Methods
     
     func setup() {
+        isSetup = true
         userDefaultsHelper.addValueObserver(observer: self, for: "theme", options: [.new])
         setupProgressHUD()
     }

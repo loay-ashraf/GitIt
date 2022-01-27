@@ -11,7 +11,7 @@ import CoreData
 class CoreDataHelper {
     
     private var persistentContainer: NSPersistentContainer!
-    private var viewContext: NSManagedObjectContext { return persistentContainer.viewContext }
+    private var viewContext: NSManagedObjectContext! { return persistentContainer?.viewContext }
     
     // MARK: - Main Methods
     
@@ -21,7 +21,7 @@ class CoreDataHelper {
     }
     
     func saveContexts() throws {
-        if viewContext.hasChanges {
+        if persistentContainer != nil, viewContext.hasChanges {
             do {
                 try viewContext.save()
             } catch {
@@ -140,6 +140,7 @@ class CoreDataHelper {
         for store in storeCoordinator.persistentStores {
             try storeCoordinator.destroyPersistentStore( at: store.url!, ofType: store.type, options: nil)
         }
+        persistentContainer = nil
     }
     
 }

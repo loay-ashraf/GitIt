@@ -108,7 +108,9 @@ class UserDetailViewController: SFStaticTableViewController, IBViewController {
         blogTextView.text = model.blogURL?.absoluteString
         emailTextView.text = model.email
         twitterTextView.text = model.twitter != nil ? "@".appending(model.twitter!) : nil
-        socialStatusNumericView.numbers = [Double(model.followers!),Double(model.following!)]
+        if let followers = model.followers, let following = model.following {
+            socialStatusNumericView.numbers = [Double(followers),Double(following)]
+        }
         
         if NetworkManager.standard.isReachable {
             followButton.isEnabled = true

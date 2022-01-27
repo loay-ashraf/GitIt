@@ -20,8 +20,35 @@ class SplashViewController: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        ThemeManager.standard.applyPreferedTheme()
-        try? DataManager.standard.loadData()
+        dataManagerSetup()
+        themeManagerSetup()
+        sessionManagerSetup()
+    }
+    
+    // MARK: - Navigation
+
+    @IBAction func unwindToSplash(unwindSegue: UIStoryboardSegue) { }
+    
+    private func dataManagerSetup() {
+        if !DataManager.standard.isSetup {
+            DataManager.standard.setup() { error in
+                try? DataManager.standard.loadData()
+            }
+        } else {
+            try? DataManager.standard.loadData()
+        }
+    }
+    
+    private func themeManagerSetup() {
+        if !ThemeManager.standard.isSetup {
+            ThemeManager.standard.setup()
+            ThemeManager.standard.applyPreferedTheme()
+        } else {
+            ThemeManager.standard.applyPreferedTheme()
+        }
+    }
+    
+    private func sessionManagerSetup() {
         SessionManager.standard.setup { networkError in
             if SessionManager.standard.isSignedIn() {
                 self.presentTabBarViewController()
@@ -30,10 +57,6 @@ class SplashViewController: UIViewController {
             }
         }
     }
-    
-    // MARK: - Navigation
-
-    @IBAction func unwindToSplash(unwindSegue: UIStoryboardSegue) { }
     
     private func presentSignInViewController() {
         var rootViewController = UIApplication.shared.windows.first!.rootViewController

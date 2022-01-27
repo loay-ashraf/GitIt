@@ -10,6 +10,7 @@ import Foundation
 class DataManager {
     
     static let standard = DataManager()
+    var isSetup: Bool = false
     
     // MARK: - Manager Helpers
     
@@ -25,6 +26,7 @@ class DataManager {
     // MARK: Setup Methods
     
     func setup(completionHandler: @escaping ((DataError?) -> Void)) {
+        isSetup = true
         coreDataHelper.setup() { coreDataError in
             if let error = coreDataError {
                 completionHandler(.coreData(error))
@@ -67,6 +69,7 @@ class DataManager {
     
     // Clears stored data without removing UserDefaults keys
     func clearData() throws {
+        isSetup = false
         do {
             // Clear data stored in Memory
             try BookmarksManager.standard.clearAll()
@@ -82,6 +85,7 @@ class DataManager {
     
     // Clears all stored data including UserDefaults keys
     func clearAllData() throws {
+        isSetup = false
         do {
             // Clear data stored in Memory
             try BookmarksManager.standard.clearAll()
