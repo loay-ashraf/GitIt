@@ -172,27 +172,27 @@ class UserDetailViewController: SFStaticTableViewController, IBViewController {
     }
     
     @objc func showFollowers() {
-        let followersVC = UserViewController.instatiateWithContextAndParameters(with: .followers, with: (self.model.login,self.model.followers))
+        let followersVC = UserViewController.instatiateWithContext(with: .followers(userLogin: model.login, numberOfFollowers: model.followers!))
         navigationController?.pushViewController(followersVC, animated: true)
     }
     
     @objc func showFollowing() {
-        let followingVC = UserViewController.instatiateWithContextAndParameters(with: .following, with: (self.model.login,self.model.following))
+        let followingVC = UserViewController.instatiateWithContext(with: .following(userLogin: model.login, numberOfFollowing: model.following!))
         navigationController?.pushViewController(followingVC, animated: true)
     }
     
     func showRepositories() {
-        let repositoriesVC = RepositoryViewController.instatiateWithContextAndParameters(with: .user, with: (model.login,model.repositories!))
+        let repositoriesVC = RepositoryViewController.instatiateWithContext(with: .user(userLogin: model.login, numberOfRepositories: model.repositories!))
         navigationController?.pushViewController(repositoriesVC, animated: true)
     }
     
     func showOrganizations() {
-        let organizationsVC = OrganizationViewController.instatiateWithContextAndParameters(with: .user, with: model.login)
+        let organizationsVC = OrganizationViewController.instatiateWithContext(with: .user(userLogin: model.login))
         navigationController?.pushViewController(organizationsVC, animated: true)
     }
     
     func showStarred() {
-        let repositoriesVC = RepositoryViewController.instatiateWithContextAndParameters(with: .starred, with: model.login)
+        let repositoriesVC = RepositoryViewController.instatiateWithContext(with: .starred(userLogin: model.login))
         navigationController?.pushViewController(repositoriesVC, animated: true)
     }
     

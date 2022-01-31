@@ -96,6 +96,19 @@
 		C6603402277CE69400907494 /* IBCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6603401277CE69400907494 /* IBCollectionViewCell.swift */; };
 		C6603404277CE86700907494 /* SFDynamicCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6603403277CE86700907494 /* SFDynamicCollectionView.swift */; };
 		C6603406277CEA9B00907494 /* SFDynamicCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6603405277CEA9B00907494 /* SFDynamicCollectionViewController.swift */; };
+		C661C73A27A7970000E02215 /* FollowersLogicController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C661C73927A7970000E02215 /* FollowersLogicController.swift */; };
+		C661C73C27A79B6D00E02215 /* FollowingLogicController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C661C73B27A79B6D00E02215 /* FollowingLogicController.swift */; };
+		C661C73E27A79C1B00E02215 /* StargazersLogicController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C661C73D27A79C1B00E02215 /* StargazersLogicController.swift */; };
+		C661C74027A79CB200E02215 /* ContributorsLogicController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C661C73F27A79CB200E02215 /* ContributorsLogicController.swift */; };
+		C661C74227A79D7E00E02215 /* MembersLogicController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C661C74127A79D7E00E02215 /* MembersLogicController.swift */; };
+		C661C74627A7A3FC00E02215 /* UserTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = C661C74527A7A3FC00E02215 /* UserTypes.swift */; };
+		C661C74927A7A63000E02215 /* UserOwnedLogicController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C661C74827A7A63000E02215 /* UserOwnedLogicController.swift */; };
+		C661C74B27A7A64B00E02215 /* OrganizationOwnedLogicController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C661C74A27A7A64B00E02215 /* OrganizationOwnedLogicController.swift */; };
+		C661C74D27A7A86900E02215 /* ForksLogicController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C661C74C27A7A86900E02215 /* ForksLogicController.swift */; };
+		C661C74F27A7A93300E02215 /* StarredLogicController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C661C74E27A7A93300E02215 /* StarredLogicController.swift */; };
+		C661C75127A7AB4F00E02215 /* RepositoryTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = C661C75027A7AB4F00E02215 /* RepositoryTypes.swift */; };
+		C661C75427A7AD7600E02215 /* UserEnrolledLogicController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C661C75327A7AD7600E02215 /* UserEnrolledLogicController.swift */; };
+		C661C75727A7AFF000E02215 /* OrganizationTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = C661C75627A7AFF000E02215 /* OrganizationTypes.swift */; };
 		C662BE23279361690018845C /* AdaptableSizeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C662BE22279361690018845C /* AdaptableSizeButton.swift */; };
 		C662EE95278F071F005545DB /* ErrorView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C662EE97278F071F005545DB /* ErrorView.xib */; };
 		C6638E38279DF87E00CB680E /* GitHubEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6638E37279DF87E00CB680E /* GitHubEncoding.swift */; };
@@ -283,6 +296,19 @@
 		C6603401277CE69400907494 /* IBCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IBCollectionViewCell.swift; sourceTree = "<group>"; };
 		C6603403277CE86700907494 /* SFDynamicCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFDynamicCollectionView.swift; sourceTree = "<group>"; };
 		C6603405277CEA9B00907494 /* SFDynamicCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFDynamicCollectionViewController.swift; sourceTree = "<group>"; };
+		C661C73927A7970000E02215 /* FollowersLogicController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowersLogicController.swift; sourceTree = "<group>"; };
+		C661C73B27A79B6D00E02215 /* FollowingLogicController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowingLogicController.swift; sourceTree = "<group>"; };
+		C661C73D27A79C1B00E02215 /* StargazersLogicController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StargazersLogicController.swift; sourceTree = "<group>"; };
+		C661C73F27A79CB200E02215 /* ContributorsLogicController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContributorsLogicController.swift; sourceTree = "<group>"; };
+		C661C74127A79D7E00E02215 /* MembersLogicController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembersLogicController.swift; sourceTree = "<group>"; };
+		C661C74527A7A3FC00E02215 /* UserTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTypes.swift; sourceTree = "<group>"; };
+		C661C74827A7A63000E02215 /* UserOwnedLogicController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserOwnedLogicController.swift; sourceTree = "<group>"; };
+		C661C74A27A7A64B00E02215 /* OrganizationOwnedLogicController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrganizationOwnedLogicController.swift; sourceTree = "<group>"; };
+		C661C74C27A7A86900E02215 /* ForksLogicController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForksLogicController.swift; sourceTree = "<group>"; };
+		C661C74E27A7A93300E02215 /* StarredLogicController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarredLogicController.swift; sourceTree = "<group>"; };
+		C661C75027A7AB4F00E02215 /* RepositoryTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryTypes.swift; sourceTree = "<group>"; };
+		C661C75327A7AD7600E02215 /* UserEnrolledLogicController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserEnrolledLogicController.swift; sourceTree = "<group>"; };
+		C661C75627A7AFF000E02215 /* OrganizationTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrganizationTypes.swift; sourceTree = "<group>"; };
 		C662BE22279361690018845C /* AdaptableSizeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdaptableSizeButton.swift; sourceTree = "<group>"; };
 		C662EE96278F071F005545DB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/ErrorView.xib; sourceTree = "<group>"; };
 		C662EE9B278F0725005545DB /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/ErrorView.strings; sourceTree = "<group>"; };
@@ -607,8 +633,8 @@
 		C6102C3D2794D2C1003A2E26 /* Logic Controller */ = {
 			isa = PBXGroup;
 			children = (
-				C65C0E07276A371900ED17CB /* OrganizationLogicController.swift */,
-				C65C0E09276A374700ED17CB /* OrganizationDetailLogicController.swift */,
+				C661C75927A7B09D00E02215 /* Detail */,
+				C661C75227A7AD4000E02215 /* Master */,
 			);
 			path = "Logic Controller";
 			sourceTree = "<group>";
@@ -616,9 +642,9 @@
 		C6102C3E2794D2C1003A2E26 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				C68AC8122783414400FE0C08 /* Organization+CoreDataClass.swift */,
-				C68AC8112783414400FE0C08 /* Organization+CoreDataProperties.swift */,
+				C661C75527A7AFD800E02215 /* Core Data */,
 				C65EA16F2795C45C001C5174 /* OrganizationModel.swift */,
+				C661C75627A7AFF000E02215 /* OrganizationTypes.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -704,8 +730,8 @@
 		C6102C472794D2C1003A2E26 /* Logic Controller */ = {
 			isa = PBXGroup;
 			children = (
-				C6110AE7275509AC0078D7E8 /* RepositoryLogicController.swift */,
-				C6110AEE275545730078D7E8 /* RepositoryDetailLogicController.swift */,
+				C661C75827A7B08C00E02215 /* Detail */,
+				C661C74727A7A43000E02215 /* Master */,
 			);
 			path = "Logic Controller";
 			sourceTree = "<group>";
@@ -715,6 +741,7 @@
 			children = (
 				C65EA1D82795E276001C5174 /* Core Data */,
 				C65EA1712795C4DC001C5174 /* RepositoryModel.swift */,
+				C661C75027A7AB4F00E02215 /* RepositoryTypes.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -751,8 +778,8 @@
 		C6102C4C2794D2C1003A2E26 /* Logic Controller */ = {
 			isa = PBXGroup;
 			children = (
-				C64F6F072736DCF900E2E727 /* UserLogicController.swift */,
-				C6856678274BC3E200833D6E /* UserDetailLogicController.swift */,
+				C661C74427A7A3B500E02215 /* Detail */,
+				C661C74327A7A1EF00E02215 /* Master */,
 			);
 			path = "Logic Controller";
 			sourceTree = "<group>";
@@ -762,6 +789,7 @@
 			children = (
 				C65EA1D72795E264001C5174 /* Core Data */,
 				C65EA1732795C568001C5174 /* UserModel.swift */,
+				C661C74527A7A3FC00E02215 /* UserTypes.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1388,6 +1416,73 @@
 			path = Modules;
 			sourceTree = "<group>";
 		};
+		C661C74327A7A1EF00E02215 /* Master */ = {
+			isa = PBXGroup;
+			children = (
+				C661C73F27A79CB200E02215 /* ContributorsLogicController.swift */,
+				C661C73927A7970000E02215 /* FollowersLogicController.swift */,
+				C661C73B27A79B6D00E02215 /* FollowingLogicController.swift */,
+				C661C74127A79D7E00E02215 /* MembersLogicController.swift */,
+				C661C73D27A79C1B00E02215 /* StargazersLogicController.swift */,
+				C64F6F072736DCF900E2E727 /* UserLogicController.swift */,
+			);
+			path = Master;
+			sourceTree = "<group>";
+		};
+		C661C74427A7A3B500E02215 /* Detail */ = {
+			isa = PBXGroup;
+			children = (
+				C6856678274BC3E200833D6E /* UserDetailLogicController.swift */,
+			);
+			path = Detail;
+			sourceTree = "<group>";
+		};
+		C661C74727A7A43000E02215 /* Master */ = {
+			isa = PBXGroup;
+			children = (
+				C661C74C27A7A86900E02215 /* ForksLogicController.swift */,
+				C661C74A27A7A64B00E02215 /* OrganizationOwnedLogicController.swift */,
+				C661C74827A7A63000E02215 /* UserOwnedLogicController.swift */,
+				C6110AE7275509AC0078D7E8 /* RepositoryLogicController.swift */,
+				C661C74E27A7A93300E02215 /* StarredLogicController.swift */,
+			);
+			path = Master;
+			sourceTree = "<group>";
+		};
+		C661C75227A7AD4000E02215 /* Master */ = {
+			isa = PBXGroup;
+			children = (
+				C65C0E07276A371900ED17CB /* OrganizationLogicController.swift */,
+				C661C75327A7AD7600E02215 /* UserEnrolledLogicController.swift */,
+			);
+			path = Master;
+			sourceTree = "<group>";
+		};
+		C661C75527A7AFD800E02215 /* Core Data */ = {
+			isa = PBXGroup;
+			children = (
+				C68AC8122783414400FE0C08 /* Organization+CoreDataClass.swift */,
+				C68AC8112783414400FE0C08 /* Organization+CoreDataProperties.swift */,
+			);
+			path = "Core Data";
+			sourceTree = "<group>";
+		};
+		C661C75827A7B08C00E02215 /* Detail */ = {
+			isa = PBXGroup;
+			children = (
+				C6110AEE275545730078D7E8 /* RepositoryDetailLogicController.swift */,
+			);
+			path = Detail;
+			sourceTree = "<group>";
+		};
+		C661C75927A7B09D00E02215 /* Detail */ = {
+			isa = PBXGroup;
+			children = (
+				C65C0E09276A374700ED17CB /* OrganizationDetailLogicController.swift */,
+			);
+			path = Detail;
+			sourceTree = "<group>";
+		};
 		C6638E3E279E23F900CB680E /* GitHub */ = {
 			isa = PBXGroup;
 			children = (
@@ -1740,6 +1835,7 @@
 				C66005832794AB3B00770045 /* TableViewDelegate.swift in Sources */,
 				C6641241278083D700D605BF /* ResultsProtocols.swift in Sources */,
 				C660057D27948C7100770045 /* CollectionViewCellConfigurator.swift in Sources */,
+				C661C75427A7AD7600E02215 /* UserEnrolledLogicController.swift in Sources */,
 				C69ECCDB2732441F00E158A3 /* DataManager.swift in Sources */,
 				C66412492780888D00D605BF /* EmptyView.swift in Sources */,
 				C6B26AEC2768B51400ED41F8 /* CommitLogicController.swift in Sources */,
@@ -1757,6 +1853,7 @@
 				C64F6F082736DCF900E2E727 /* UserLogicController.swift in Sources */,
 				C68AC80027831E4000FE0C08 /* BookmarksManager.swift in Sources */,
 				C65EA1EA2795E57D001C5174 /* OrganizationDelegate.swift in Sources */,
+				C661C74927A7A63000E02215 /* UserOwnedLogicController.swift in Sources */,
 				C68B6506271DEB8E00A26D05 /* RepositoryViewController.swift in Sources */,
 				C6C605FD273EC89000BA27C2 /* SearchCoordinator.swift in Sources */,
 				C656EB9C277A269300E39EFC /* Constants.swift in Sources */,
@@ -1806,6 +1903,7 @@
 				C656EBA3277A47FA00E39EFC /* FooterErrorView.swift in Sources */,
 				C62899E7278400EE007155E8 /* BookmarksLogicController.swift in Sources */,
 				C68C3B3C2799B4710048F35B /* TableView.swift in Sources */,
+				C661C73A27A7970000E02215 /* FollowersLogicController.swift in Sources */,
 				C68C3B3F2799B4A30048F35B /* CollectionView.swift in Sources */,
 				C69C32EE2798C25200AEB64B /* SearchResultsTapResponder.swift in Sources */,
 				C65EA2012795E833001C5174 /* SearchHistoryDelegate.swift in Sources */,
@@ -1817,6 +1915,7 @@
 				C65C0E0A276A374700ED17CB /* OrganizationDetailLogicController.swift in Sources */,
 				C69ECCE62732819000E158A3 /* SessionManager.swift in Sources */,
 				C66005872794AD2700770045 /* TableViewTapResponder.swift in Sources */,
+				C661C75127A7AB4F00E02215 /* RepositoryTypes.swift in Sources */,
 				C68B650F271E1A1400A26D05 /* GitHubClient.swift in Sources */,
 				C68B650C271E152E00A26D05 /* RepositoryDetailViewController.swift in Sources */,
 				C65EA1D02795D99E001C5174 /* UserCellConfigurator.swift in Sources */,
@@ -1824,19 +1923,26 @@
 				C6564235277F3BFF00FBCE2F /* SFViewController.swift in Sources */,
 				C66412382780796E00D605BF /* SearchHistoryExtensions.swift in Sources */,
 				C659EE6427760600001C1E5D /* ActivityIndicatorView.swift in Sources */,
+				C661C74027A79CB200E02215 /* ContributorsLogicController.swift in Sources */,
 				C69C32F02798C26F00AEB64B /* SearchResultsContextMenuConfigurator.swift in Sources */,
 				C656EB9A277A216B00E39EFC /* StatefulView.swift in Sources */,
+				C661C73C27A79B6D00E02215 /* FollowingLogicController.swift in Sources */,
+				C661C74627A7A3FC00E02215 /* UserTypes.swift in Sources */,
 				C66005812794967500770045 /* TableViewDataSource.swift in Sources */,
 				C694B49D273F7DF400C6F5A6 /* SettingsViewController.swift in Sources */,
 				C65EA1B12795D2C0001C5174 /* OwnerModel.swift in Sources */,
 				C69C32EC2798C23A00AEB64B /* SearchResultsDelegate.swift in Sources */,
 				C65EA1742795C568001C5174 /* UserModel.swift in Sources */,
+				C661C74227A79D7E00E02215 /* MembersLogicController.swift in Sources */,
 				C65EA1EC2795E592001C5174 /* OrganizationTapResponder.swift in Sources */,
 				C68B64ED271DD34B00A26D05 /* SceneDelegate.swift in Sources */,
 				C6110AE22754FFF10078D7E8 /* RepositoryTableViewCell.swift in Sources */,
 				C68B64F5271DD34B00A26D05 /* GitIt.xcdatamodeld in Sources */,
 				C6B3EB3E278AD96200CBEA48 /* IconicTextView.swift in Sources */,
+				C661C74D27A7A86900E02215 /* ForksLogicController.swift in Sources */,
+				C661C73E27A79C1B00E02215 /* StargazersLogicController.swift in Sources */,
 				C6638E3C279E233E00CB680E /* NetworkLogger.swift in Sources */,
+				C661C74B27A7A64B00E02215 /* OrganizationOwnedLogicController.swift in Sources */,
 				C66562C227A079CF002BD64C /* License+CoreDataClass.swift in Sources */,
 				C69A5E4927428B5F007054EA /* SearchHistoryTableViewCell.swift in Sources */,
 				C656EB96277A20B000E39EFC /* SFDynamicTableViewController.swift in Sources */,
@@ -1851,6 +1957,7 @@
 				C6DD549F2771141800DA0223 /* DataTypes.swift in Sources */,
 				C65EA1DA2795E414001C5174 /* RepositoryCellConfigurator.swift in Sources */,
 				C65EA1F22795E696001C5174 /* CommitContextMenuConfigurator.swift in Sources */,
+				C661C75727A7AFF000E02215 /* OrganizationTypes.swift in Sources */,
 				C65EA1CC2795D931001C5174 /* UserDelegate.swift in Sources */,
 				C6DD54A3277114CF00DA0223 /* ThemeTypes.swift in Sources */,
 				C67DF26B279EF9DB005B9AB7 /* HapticsManager.swift in Sources */,
@@ -1870,6 +1977,7 @@
 				C6603404277CE86700907494 /* SFDynamicCollectionView.swift in Sources */,
 				C685667E274BF7EB00833D6E /* RoundedImageCollectionViewCell.swift in Sources */,
 				C6638E3A279E231000CB680E /* NetworkRequestInterceptor.swift in Sources */,
+				C661C74F27A7A93300E02215 /* StarredLogicController.swift in Sources */,
 				C664124B2780C63B00D605BF /* AlertHelper.swift in Sources */,
 				C6B26AF32768C76600ED41F8 /* CommitTableViewCell.swift in Sources */,
 				C6856679274BC3E300833D6E /* UserDetailLogicController.swift in Sources */,

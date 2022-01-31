@@ -56,72 +56,6 @@ struct List<Type> {
     
 }
 
-enum UserContext {
-    
-    case main
-    case followers
-    case following
-    case stars
-    case contributors
-    case members
-    
-    var titleValue: String {
-        switch self {
-        case .main: return Constants.View.Title.users.main
-        case .followers: return Constants.View.Title.users.followers
-        case .following: return Constants.View.Title.users.following
-        case .stars: return Constants.View.Title.users.stargazers
-        case .contributors: return Constants.View.Title.users.contributors
-        case .members: return Constants.View.Title.users.members
-        }
-    }
-    
-    typealias FollowersParameters = (String,Int)
-    typealias FollowingParameters = (String,Int)
-    typealias StarsParameters = (String,Int)
-    typealias ContributorsParameters = String
-    typealias MembersParameters = String
-    
-}
-
-enum RepositoryContext {
-    
-    case main
-    case user
-    case organization
-    case forks
-    case starred
-    
-    var titleValue: String {
-        switch self {
-        case .forks: return Constants.View.Title.repositories.forks
-        case .starred: return Constants.View.Title.repositories.starred
-        default: return Constants.View.Title.repositories.main
-        }
-    }
-    
-    typealias UserParameters = (String,Int)
-    typealias OrganizationParameters = (String,Int)
-    typealias ForksParameters = (String,Int)
-    typealias StarredParameters = String
-    
-}
-
-enum OrganizationContext {
-    
-    case main
-    case user
-    
-    var titleValue: String {
-        switch self {
-        default: return Constants.View.Title.organizations.main
-        }
-    }
-    
-    typealias UserParameters = String
-    
-}
-
 typealias LoadingHandler = (Error?) -> Void
 
 enum ViewState {
@@ -320,17 +254,3 @@ struct EmptyViewModel {
     }
     
 }
-
-enum SubviewsOffsetSize: CGFloat {
-    
-    typealias RawValue = CGFloat
-    
-    case mainScreen = 96.0
-    case mainScreenWithSearch = 205.0
-    case subScreen = 95.0
-    case searchScreen = 88.0
-    case searchScreenWithNavBar = 145.0
-    
-}
-
-

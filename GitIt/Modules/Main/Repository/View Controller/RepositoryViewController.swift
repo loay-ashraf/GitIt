@@ -14,15 +14,16 @@ class RepositoryViewController: SFDynamicTableViewController<RepositoryModel>, I
     override var model: List<RepositoryModel>! { return logicController.model }
     override var emptyViewModel: EmptyViewModel { return Constants.View.Empty.Repositories.viewModel }
     
+    private var context: RepositoryContext
     private let logicController: RepositoryLogicController
-    private var context: RepositoryContext { return logicController.context }
     
     private var searchCoordinator: SearchCoordinator<RepositoryModel>!
     
     // MARK: - Initialisation
     
-    required init?(coder: NSCoder, context: RepositoryContext, contextParameters: Any? = nil) {
-        logicController = RepositoryLogicController(context: context, contextParameters: contextParameters)
+    required init?(coder: NSCoder, context: RepositoryContext) {
+        self.context = context
+        logicController = context.logicController
         super.init(coder: coder, tableViewDataSource: RepositoryTableViewDataSource(), tableViewDelegate: RepositoryTableViewDelegate())
     }
     
@@ -30,10 +31,10 @@ class RepositoryViewController: SFDynamicTableViewController<RepositoryModel>, I
         fatalError("Fatal Error, coder initializer not implemented.")
     }
     
-    static func instatiateWithContextAndParameters(with context: RepositoryContext, with contextParameters: Any? = nil) -> UIViewController {
+    static func instatiateWithContext(with context: RepositoryContext) -> UIViewController {
         let storyBoard = UIStoryboard(name: "Main", bundle: nil)
         return storyBoard.instantiateViewController(identifier: self.storyboardIdentifier, creator: { coder -> RepositoryViewController in
-                    self.init(coder: coder, context: context, contextParameters: contextParameters)!
+                    self.init(coder: coder, context: context)!
                 })
     }
     
@@ -61,11 +62,17 @@ class RepositoryViewController: SFDynamicTableViewController<RepositoryModel>, I
     override func configureView() {
         super.configureView()
         
-        title = context.titleValue
-        navigationItem.largeTitleDisplayMode = context == .main ? .always : .never
+        title = context.title
+        switch context {
+        case .main: navigationItem.largeTitleDisplayMode = .always
+        default: navigationItem.largeTitleDisplayMode = .never
+        }
         tableView.contentInset = UIEdgeInsets(top: 20, left: 0, bottom: 0, right: 0)
         
-        searchCoordinator = context == .main ? SearchCoordinator(self) : nil
+        switch context {
+        case .main: searchCoordinator = SearchCoordinator(self)
+        default: searchCoordinator = nil
+        }
     }
     
     // MARK: - Loading Methods

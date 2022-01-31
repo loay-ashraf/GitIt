@@ -175,17 +175,17 @@ class RepositoryDetailViewController: SFStaticTableViewController, IBViewControl
     }
     
     @objc func showStars() {
-        let starsVC = UserViewController.instatiateWithContextAndParameters(with: .stars, with: (model.fullName,model.stars))
+        let starsVC = UserViewController.instatiateWithContext(with: .stargazers(repositoryFullName: model.fullName, numberOfStargazers: model.stars))
         navigationController?.pushViewController(starsVC, animated: true)
     }
     
     @objc func showForks() {
-        let forksVC = RepositoryViewController.instatiateWithContextAndParameters(with: .forks, with: (model.fullName,model.forks))
+        let forksVC = RepositoryViewController.instatiateWithContext(with: .forks(repositoryFullName: model.fullName, numberOfForks: model.forks))
         navigationController?.pushViewController(forksVC, animated: true)
     }
     
     func showContributors() {
-        let contributorsVC = UserViewController.instatiateWithContextAndParameters(with: .contributors, with: model.fullName)
+        let contributorsVC = UserViewController.instatiateWithContext(with: .contributors(repositoryFullName: model.fullName))
         navigationController?.pushViewController(contributorsVC, animated: true)
     }
     

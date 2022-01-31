@@ -15,15 +15,16 @@ class OrganizationViewController: SFDynamicTableViewController<OrganizationModel
     override var emptyViewModel: EmptyViewModel { return Constants.View.Empty.Organizations.viewModel }
     //override var cellConfigurator: TableViewCellConfigurator! { return OrganizationTableViewCellConfigurator() }
     
+    private var context: OrganizationContext
     private let logicController: OrganizationLogicController
-    private var context: OrganizationContext { return logicController.context }
     
     private var searchCoordinator: SearchCoordinator<OrganizationModel>!
     
     // MARK: - Initialisation
     
-    required init?(coder: NSCoder, context: OrganizationContext, contextParameters: Any? = nil) {
-        logicController = OrganizationLogicController(context: context, contextParameters: contextParameters)
+    required init?(coder: NSCoder, context: OrganizationContext) {
+        self.context = context
+        logicController = context.logicController
         super.init(coder: coder, tableViewDataSource: OrganizationTableViewDataSource(), tableViewDelegate: OrganizationTableViewDelegate())
     }
     
@@ -31,10 +32,10 @@ class OrganizationViewController: SFDynamicTableViewController<OrganizationModel
         fatalError("Fatal Error, coder initializer not implemented.")
     }
     
-    static func instatiateWithContextAndParameters(with context: OrganizationContext, with contextParameters: Any? = nil) -> UIViewController {
+    static func instatiateWithContext(with context: OrganizationContext) -> UIViewController {
         let storyBoard = UIStoryboard(name: "Main", bundle: nil)
         return storyBoard.instantiateViewController(identifier: self.storyboardIdentifier, creator: { coder -> OrganizationViewController in
-                    self.init(coder: coder, context: context, contextParameters: contextParameters)!
+                    self.init(coder: coder, context: context)!
                 })
     }
     
@@ -62,11 +63,17 @@ class OrganizationViewController: SFDynamicTableViewController<OrganizationModel
     override func configureView() {
         super.configureView()
         
-        title = context.titleValue
-        navigationItem.largeTitleDisplayMode = context == .main ? .always : .never
+        title = context.title
+        switch context {
+        case .main: navigationItem.largeTitleDisplayMode = .always
+        default: navigationItem.largeTitleDisplayMode = .never
+        }
         tableView.contentInset = UIEdgeInsets(top: 20, left: 0, bottom: 0, right: 0)
         
-        searchCoordinator = context == .main ? SearchCoordinator(self) : nil
+        switch context {
+        case .main: searchCoordinator = SearchCoordinator(self)
+        default: searchCoordinator = nil
+        }
     }
     
     // MARK: - Loading Methods
