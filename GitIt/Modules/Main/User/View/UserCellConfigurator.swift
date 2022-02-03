@@ -10,7 +10,7 @@ import UIKit
 class UserTableViewCellConfigurator: TableViewCellConfigurator {
     
     override func configure<Type>(_ cell: UITableViewCell, forDisplaying item: Type) {
-        if let cell = cell as? RoundedImageTableViewCell, let item = item as? UserModel {
+        if let cell = cell as? RoundedImageTableViewCell, let item = item as? UserCellViewModel {
             cell.nameLabel.text = item.login
             cell.iconImageView.load(at: item.avatarURL)
             cell.setNeedsLayout()

@@ -17,6 +17,16 @@ class OrganizationTableViewDelegate: TableViewDelegate<OrganizationModel> {
     
 }
 
+class dcf: TableViewDelegate<OrganizationCellViewModel> {
+    
+    override init() {
+        super.init()
+        tapResponder = OrganizationTableViewTapResponder()
+        contextMenuConfigurator = OrganizationTableViewContextMenuConfigurator()
+    }
+    
+}
+
 class OrganizationCollectionViewDelegate: CollectionViewDelegate<OrganizationModel> {
     
     override init() {

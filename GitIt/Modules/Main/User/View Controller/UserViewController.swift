@@ -7,15 +7,11 @@
 
 import UIKit
 
-class UserViewController: SFDynamicTableViewController<UserModel>, IBViewController {
+class UserViewController: SFDynamicTableViewController<UserCellViewModel>, IBViewController {
     
     static var storyboardIdentifier = "UserVC"
     
-    override var model: List<UserModel>! { return logicController.model }
-    override var emptyViewModel: EmptyViewModel { return Constants.View.Empty.Users.viewModel }
-    
     private var context: UserContext
-    private let logicController: UserLogicController
     
     private var searchCoordinator: SearchCoordinator<UserModel>!
     
@@ -23,8 +19,9 @@ class UserViewController: SFDynamicTableViewController<UserModel>, IBViewControl
     
     required init?(coder: NSCoder, context: UserContext) {
         self.context = context
-        logicController = context.logicController
-        super.init(coder: coder, tableViewDataSource: UserTableViewDataSource(), tableViewDelegate: UserTableViewDelegate())
+        super.init(coder: coder, tableViewDataSource: z(), tableViewDelegate: x())
+        viewModel = UserViewModel(context: context)
+        emptyViewModel = ViewConstants.Empty.Users.viewModel
     }
     
     required init?(coder: NSCoder) {
@@ -69,10 +66,10 @@ class UserViewController: SFDynamicTableViewController<UserModel>, IBViewControl
         }
         tableView.contentInset = UIEdgeInsets(top: 20, left: 0, bottom: 0, right: 0)
         
-        switch context {
-        case .main: searchCoordinator = SearchCoordinator(self)
-        default: searchCoordinator = nil
-        }
+//        switch context {
+//        case .main: searchCoordinator = SearchCoordinator(self)
+//        default: searchCoordinator = nil
+//        }
     }
     
     // MARK: - Loading Methods
@@ -80,9 +77,9 @@ class UserViewController: SFDynamicTableViewController<UserModel>, IBViewControl
     override func load(with loadingViewState: LoadingViewState) {
         super.load(with: loadingViewState)
         switch loadingViewState {
-        case .initial: logicController.load { [weak self] error in self?.loadHandler(error: error) }
-        case .refresh: logicController.refresh { [weak self] error in self?.refreshHandler(error: error) }
-        case .paginate: logicController.load { [weak self] error in self?.paginateHandler(error: error) }
+        case .initial: viewModel?.load { [weak self] error in self?.loadHandler(error: error) }
+        case .refresh: viewModel?.refresh { [weak self] error in self?.refreshHandler(error: error) }
+        case .paginate: viewModel?.load { [weak self] error in self?.paginateHandler(error: error) }
         }
     }
     

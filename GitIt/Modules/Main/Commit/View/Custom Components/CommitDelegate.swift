@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CommitTableViewDelegate: TableViewDelegate<CommitModel> {
+class CommitTableViewDelegate: TableViewDelegate<CommitCellViewModel> {
     
     override init() {
         super.init()

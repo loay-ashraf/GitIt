@@ -17,6 +17,16 @@ class UserTableViewDelegate: TableViewDelegate<UserModel> {
     
 }
 
+class x: TableViewDelegate<UserCellViewModel> {
+    
+    override init() {
+        let tapResponder = UserTableViewTapResponder()
+        let contextMenuConfigurator = UserTableViewContextMenuConfigurator()
+        super.init(tapResponder: tapResponder, contextMenuConfigurator: contextMenuConfigurator, scrollViewAction: nil)
+    }
+    
+}
+
 class UserCollectionViewDelegate: CollectionViewDelegate<UserModel> {
     
     override init() {

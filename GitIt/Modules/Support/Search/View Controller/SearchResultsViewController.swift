@@ -9,9 +9,6 @@ import UIKit
 
 class SearchResultsViewController<Type: Model>: SFDynamicTableViewController<Type> {
     
-    override var model: List<Type>! { return logicController.model }
-    override var emptyViewModel: EmptyViewModel { return EmptyConstants.SearchResults.viewModel }
-    
     private weak var delegate: ResultsDelegate!
     private var logicController: SearchResultsLogicController<Type>!
     
@@ -21,6 +18,7 @@ class SearchResultsViewController<Type: Model>: SFDynamicTableViewController<Typ
         super.init(coder: coder, tableViewDataSource: SearchResultsDataSource<Type>.raw(), tableViewDelegate: SearchResultsDelegate<Type>(delegate: delegate))
         self.delegate = delegate
         logicController = SearchResultsLogicController()
+        emptyViewModel = EmptyConstants.SearchResults.viewModel
     }
     
     required init?(coder: NSCoder) {

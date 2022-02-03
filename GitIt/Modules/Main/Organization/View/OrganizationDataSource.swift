@@ -17,6 +17,16 @@ class OrganizationTableViewDataSource: TableViewDataSource<OrganizationModel> {
     
 }
 
+class cvx: TableViewDataSource<OrganizationCellViewModel> {
+    
+    override init() {
+        let cellClass = RoundedImageTableViewCell.self
+        let cellConfigurator = OrganizationTableViewCellConfigurator()
+        super.init(cellClass: cellClass, cellConfigurator: cellConfigurator, swipeResponder: nil)
+    }
+    
+}
+
 class OrganizationCollectionViewDataSource: CollectionViewDataSource<OrganizationModel> {
     
     override init() {

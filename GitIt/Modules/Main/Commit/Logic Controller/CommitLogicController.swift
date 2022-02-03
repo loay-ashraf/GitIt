@@ -10,16 +10,16 @@ import Foundation
 class CommitLogicController {
     
     var model = List<CommitModel>()
-    private var parameters: String
+    private var repositoryFullName: String
     private var handler: LoadingHandler?
 
-    init(parameters: String) {
-        self.parameters = parameters
+    init(repositoryFullName: String) {
+        self.repositoryFullName = repositoryFullName
     }
 
     func load(then handler: @escaping LoadingHandler) {
         self.handler = handler
-        GitHubClient.fetchRepositoryCommits(fullName: parameters, page: model.currentPage, completionHandler: processResult(result:))
+        GitHubClient.fetchRepositoryCommits(fullName: repositoryFullName, page: model.currentPage, completionHandler: processResult(result:))
     }
     
     func refresh(then handler: @escaping LoadingHandler) {

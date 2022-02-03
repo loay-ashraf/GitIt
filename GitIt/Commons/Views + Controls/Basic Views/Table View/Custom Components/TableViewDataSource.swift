@@ -10,6 +10,7 @@ import UIKit
 class TableViewDataSource<Type>: NSObject, UITableViewDataSource {
     
     var model = List<Type>()
+    var viewModels = List<Type>()
     weak var tableView: TableView! { didSet { registerCell() } }
     var cellClass: TableViewCell.Type!
     var cellConfigurator: TableViewCellConfigurator!
@@ -38,13 +39,13 @@ class TableViewDataSource<Type>: NSObject, UITableViewDataSource {
     // MARK: - Data Source
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return model.count
+        return viewModels.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let refreshControl = tableView.refreshControl, refreshControl.isRefreshing { return TableViewCell() }
         let cell = self.tableView.dequeue(cellClass: cellClass, for: indexPath)
-        let item = model.items[indexPath.row]
+        let item = viewModels.items[indexPath.row]
                 
         // Configure the cell...
         cellConfigurator.configure(cell, forDisplaying: item)

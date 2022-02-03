@@ -17,6 +17,16 @@ class UserTableViewDataSource: TableViewDataSource<UserModel> {
     
 }
 
+class z: TableViewDataSource<UserCellViewModel> {
+    
+    override init() {
+        let cellClass = RoundedImageTableViewCell.self
+        let cellConfigurator = UserTableViewCellConfigurator()
+        super.init(cellClass: cellClass, cellConfigurator: cellConfigurator, swipeResponder: nil)
+    }
+    
+}
+
 class UserCollectionViewDataSource: CollectionViewDataSource<UserModel> {
     
     override init() {

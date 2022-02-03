@@ -7,24 +7,21 @@
 
 import UIKit
 
-class RepositoryViewController: SFDynamicTableViewController<RepositoryModel>, IBViewController {
+class RepositoryViewController: SFDynamicTableViewController<RepositoryCellViewModel>, IBViewController {
     
     static var storyboardIdentifier = "RepositoryVC"
     
-    override var model: List<RepositoryModel>! { return logicController.model }
-    override var emptyViewModel: EmptyViewModel { return Constants.View.Empty.Repositories.viewModel }
-    
     private var context: RepositoryContext
-    private let logicController: RepositoryLogicController
     
     private var searchCoordinator: SearchCoordinator<RepositoryModel>!
     
-    // MARK: - Initialisation
+    // MARK: - Initialization
     
     required init?(coder: NSCoder, context: RepositoryContext) {
         self.context = context
-        logicController = context.logicController
-        super.init(coder: coder, tableViewDataSource: RepositoryTableViewDataSource(), tableViewDelegate: RepositoryTableViewDelegate())
+        super.init(coder: coder, tableViewDataSource: yz(), tableViewDelegate: xz())
+        viewModel = RepositoryViewModel(context: context)
+        emptyViewModel = ViewConstants.Empty.Repositories.viewModel
     }
     
     required init?(coder: NSCoder) {
@@ -69,10 +66,10 @@ class RepositoryViewController: SFDynamicTableViewController<RepositoryModel>, I
         }
         tableView.contentInset = UIEdgeInsets(top: 20, left: 0, bottom: 0, right: 0)
         
-        switch context {
-        case .main: searchCoordinator = SearchCoordinator(self)
-        default: searchCoordinator = nil
-        }
+//        switch context {
+//        case .main: searchCoordinator = SearchCoordinator(self)
+//        default: searchCoordinator = nil
+//        }
     }
     
     // MARK: - Loading Methods
@@ -80,9 +77,9 @@ class RepositoryViewController: SFDynamicTableViewController<RepositoryModel>, I
     override func load(with loadingViewState: LoadingViewState) {
         super.load(with: loadingViewState)
         switch loadingViewState {
-        case .initial: logicController.load { [weak self] error in self?.loadHandler(error: error) }
-        case .refresh: logicController.refresh { [weak self] error in self?.refreshHandler(error: error) }
-        case .paginate: logicController.load { [weak self] error in self?.paginateHandler(error: error) }
+        case .initial: viewModel.load { [weak self] error in self?.loadHandler(error: error) }
+        case .refresh: viewModel.refresh { [weak self] error in self?.refreshHandler(error: error) }
+        case .paginate: viewModel.load { [weak self] error in self?.paginateHandler(error: error) }
         }
     }
 

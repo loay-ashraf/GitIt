@@ -14,22 +14,19 @@ class SFDynamicTableViewController<Type>: UITableViewController {
     var tableViewDataSource: TableViewDataSource<Type>!
     var tableViewDelegate: TableViewDelegate<Type>!
     
-    private(set) var model: List<Type>!
-    private(set) var emptyViewModel: EmptyViewModel = EmptyConstants.General.viewModel
+    var viewModel: DynamicTableViewModel<Type>!
+    var emptyViewModel: EmptyViewModel = EmptyConstants.General.viewModel
     
     // MARK: - Initialisation
     
     init(tableViewDataSource: TableViewDataSource<Type>, tableViewDelegate: TableViewDelegate<Type>) {
         super.init(nibName: nil, bundle: nil)
-        self.model = List<Type>()
         self.tableViewDataSource = tableViewDataSource
         self.tableViewDelegate = tableViewDelegate
-        
     }
     
     init?(coder: NSCoder, tableViewDataSource: TableViewDataSource<Type>, tableViewDelegate: TableViewDelegate<Type>) {
         super.init(coder: coder)
-        self.model = List<Type>()
         self.tableViewDataSource = tableViewDataSource
         self.tableViewDelegate = tableViewDelegate
     }
@@ -75,7 +72,7 @@ class SFDynamicTableViewController<Type>: UITableViewController {
         // Setup table view data source and delegates
         xTableView.setDataSource(tableViewDataSource)
         xTableView.setDelegate(tableViewDelegate)
-        tableViewDelegate.scrollViewAction = { [weak self] in if (self?.model.count) ?? 0 > 0 { self?.paginate() } }
+        tableViewDelegate.scrollViewAction = { [weak self] in if (self?.viewModel.count) ?? 0 > 0 { self?.paginate() } }
         // Setup table view header, footer and content insets
         if xTableView.tableHeaderView == nil { xTableView.tableHeaderView = UIView() }
         if xTableView.tableFooterView == nil { xTableView.tableFooterView = UIView() }
@@ -132,7 +129,7 @@ class SFDynamicTableViewController<Type>: UITableViewController {
     func paginate() {
         let lastRowIndex = tableView.indexPathsForVisibleRows?.last?.row
         if let lastRowIndex = lastRowIndex {
-            if model.isPaginable, lastRowIndex + 1 == model.count {
+            if viewModel.isPaginable, lastRowIndex + 1 == viewModel.count {
                 switch self.xTableView.state {
                 case .presenting: load(with: .paginate)
                 default: break
@@ -151,7 +148,7 @@ class SFDynamicTableViewController<Type>: UITableViewController {
         if let error = error {
             xTableView.transition(to: .failed(.initial(error)))
             disableSearchBar()
-        } else if model.isEmpty {
+        } else if viewModel.isEmpty {
             xTableView.transition(to: .empty(emptyViewModel))
             disableSearchBar()
         } else {
@@ -189,8 +186,8 @@ class SFDynamicTableViewController<Type>: UITableViewController {
     }
     
     func synchronizeTableView() {
-        tableViewDataSource.model = model
-        tableViewDelegate.model = model
+        tableViewDataSource.viewModels = viewModel.cellViewModels
+        tableViewDelegate.viewModels = viewModel.cellViewModels
     }
     
 }

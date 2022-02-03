@@ -17,6 +17,16 @@ class RepositoryTableViewDataSource: TableViewDataSource<RepositoryModel> {
     
 }
 
+class yz: TableViewDataSource<RepositoryCellViewModel> {
+    
+    override init() {
+        let cellClass = RepositoryTableViewCell.self
+        let cellConfigurator = RepositoryTableViewCellConfigurator()
+        super.init(cellClass: cellClass, cellConfigurator: cellConfigurator, swipeResponder: nil)
+    }
+    
+}
+
 class RepositoryCollectionViewDataSource: CollectionViewDataSource<RepositoryModel> {
     
     override init() {

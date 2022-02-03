@@ -9,9 +9,6 @@ import UIKit
 
 class TrendingViewController: SFDynamicTableViewController<RepositoryModel> {
 
-    override var model: List<RepositoryModel>! { return logicController.model }
-    override var emptyViewModel: EmptyViewModel { return Constants.View.Empty.Repositories.viewModel }
-    
     var logicController: TrendingLogicController!
 
     // MARK: - Initialisation
@@ -19,6 +16,7 @@ class TrendingViewController: SFDynamicTableViewController<RepositoryModel> {
     required init?(coder: NSCoder) {
         super.init(coder: coder, tableViewDataSource: RepositoryTableViewDataSource(), tableViewDelegate: RepositoryTableViewDelegate())
         logicController = TrendingLogicController()
+        emptyViewModel = Constants.View.Empty.Repositories.viewModel
     }
     
     // MARK: - Lifecycle

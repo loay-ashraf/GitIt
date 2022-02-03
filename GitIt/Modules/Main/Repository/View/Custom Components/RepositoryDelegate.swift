@@ -17,6 +17,16 @@ class RepositoryTableViewDelegate: TableViewDelegate<RepositoryModel> {
     
 }
 
+class xz: TableViewDelegate<RepositoryCellViewModel> {
+    
+    override init() {
+        let tapResponder = RepositoryTableViewTapResponder()
+        let contextMenuConfigurator = RepositoryTableViewContextMenuConfigurator()
+        super.init(tapResponder: tapResponder, contextMenuConfigurator: contextMenuConfigurator, scrollViewAction: nil)
+    }
+    
+}
+
 class RepositoryCollectionViewDelegate: CollectionViewDelegate<RepositoryModel> {
     
     override init() {

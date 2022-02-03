@@ -21,7 +21,7 @@ class RepositoryTableViewCellConfigurator: TableViewCellConfigurator {
     }
     
     override func configure<Type>(_ cell: UITableViewCell, forDisplaying item: Type) {
-        if let cell = cell as? RepositoryTableViewCell, let item = item as? RepositoryModel {
+        if let cell = cell as? RepositoryTableViewCell, let item = item as? RepositoryCellViewModel {
             cell.ownerTextView.loadIcon(at: item.owner.avatarURL)
             cell.ownerTextView.text = item.owner.login
             cell.nameLabel.text = item.name
@@ -30,7 +30,7 @@ class RepositoryTableViewCellConfigurator: TableViewCellConfigurator {
             } else {
                 cell.descriptionLabel.isHidden = true
             }
-            cell.starsNumericView.numbers = [ Double(item.stars) ]
+            cell.starsNumericView.numbers = [ Double(item.stargazers) ]
             cell.languageTextView.text = item.language
             if let language = item.language, let languageColors = languageColors {
                 if let colorString = languageColors[language] {

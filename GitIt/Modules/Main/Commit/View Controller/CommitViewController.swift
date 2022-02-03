@@ -7,21 +7,16 @@
 
 import UIKit
 
-class CommitViewController: SFDynamicTableViewController<CommitModel>, IBViewController {
+class CommitViewController: SFDynamicTableViewController<CommitCellViewModel>, IBViewController {
     
     static var storyboardIdentifier = "CommitVC"
     
-    override var model: List<CommitModel>! { return logicController.model }
-    override var emptyViewModel: EmptyViewModel { return Constants.View.Empty.Commits.viewModel }
+    // MARK: - Initialization
     
-    let logicController: CommitLogicController
-    
-    // MARK: - Initialisation
-    
-    required init?(coder: NSCoder, parameters: String) {
-        logicController = CommitLogicController(parameters: parameters)
+    required init?(coder: NSCoder, repositoryFullName: String) {
         super.init(coder: coder, tableViewDataSource: CommitTableViewDataSource(), tableViewDelegate: CommitTableViewDelegate())
-        hidesBottomBarWhenPushed = true
+        viewModel = CommitViewModel(repositoryFullName: repositoryFullName)
+        emptyViewModel = Constants.View.Empty.Commits.viewModel
     }
     
     required init?(coder: NSCoder) {
@@ -31,7 +26,7 @@ class CommitViewController: SFDynamicTableViewController<CommitModel>, IBViewCon
     static func instatiateWithParameters(with parameters: Any) -> UIViewController {
         let storyBoard = UIStoryboard(name: "Main", bundle: nil)
         return storyBoard.instantiateViewController(identifier: self.storyboardIdentifier, creator: { coder -> CommitViewController in
-                    self.init(coder: coder, parameters: parameters as! String)!
+                    self.init(coder: coder, repositoryFullName: parameters as! String)!
                 })
     }
     
@@ -66,9 +61,9 @@ class CommitViewController: SFDynamicTableViewController<CommitModel>, IBViewCon
     override func load(with loadingViewState: LoadingViewState) {
         super.load(with: loadingViewState)
         switch loadingViewState {
-        case .initial: logicController.load { [weak self] error in self?.loadHandler(error: error) }
-        case .refresh: logicController.refresh { [weak self] error in self?.refreshHandler(error: error) }
-        case .paginate: logicController.load { [weak self] error in self?.paginateHandler(error: error) }
+        case .initial: viewModel.load { [weak self] error in self?.loadHandler(error: error) }
+        case .refresh: viewModel.refresh { [weak self] error in self?.refreshHandler(error: error) }
+        case .paginate: viewModel.load { [weak self] error in self?.paginateHandler(error: error) }
         }
     }
 
