@@ -18,8 +18,8 @@ class LicenseViewController: SFViewController, IBViewController {
     
     // MARK: - Initialisation
     
-    init?(coder: NSCoder, parameters: (String,String)) {
-        logicController = LicenseLogicController(parameters: parameters)
+    init?(coder: NSCoder, repositoryFullName: String, defaultBranch: String) {
+        logicController = LicenseLogicController(repositoryFullName: repositoryFullName, defaultBranch: defaultBranch)
         super.init(coder: coder)
     }
     
@@ -28,9 +28,13 @@ class LicenseViewController: SFViewController, IBViewController {
     }
     
     static func instatiateWithParameters(with parameters: Any) -> UIViewController {
+        fatalError("This View controller is instaniated only using parameters")
+    }
+    
+    static func instatiateWithParameters(repositoryFullName: String, defaultBranch: String) -> UIViewController {
         let storyBoard = UIStoryboard(name: "Main", bundle: nil)
         return storyBoard.instantiateViewController(identifier: LicenseViewController.storyboardIdentifier, creator: {coder ->                                  LicenseViewController in
-                        LicenseViewController(coder: coder, parameters: parameters as! (String,String))!
+                        LicenseViewController(coder: coder, repositoryFullName: repositoryFullName, defaultBranch: defaultBranch)!
                 })
     }
     

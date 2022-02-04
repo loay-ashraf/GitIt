@@ -195,7 +195,7 @@ class RepositoryDetailViewController: SFStaticTableViewController, IBViewControl
     }
     
     func showLicense() {
-        let licenseVC = LicenseViewController.instatiateWithParameters(with: (model.fullName,model.defaultBranch))
+        let licenseVC = LicenseViewController.instatiateWithParameters(repositoryFullName: model.fullName, defaultBranch: model.defaultBranch)
         navigationController?.pushViewController(licenseVC, animated: true)
     }
     
