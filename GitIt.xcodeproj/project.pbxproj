@@ -18,6 +18,10 @@
 		C62899E12783EA8D007155E8 /* Owner+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C62899E02783EA8D007155E8 /* Owner+CoreDataClass.swift */; };
 		C62899E22783EA8D007155E8 /* Owner+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C62899DF2783EA8D007155E8 /* Owner+CoreDataProperties.swift */; };
 		C62899E7278400EE007155E8 /* BookmarksLogicController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C62899E6278400EE007155E8 /* BookmarksLogicController.swift */; };
+		C629F36027ACCBAC00995565 /* UserDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C629F35F27ACCBAC00995565 /* UserDetailViewModel.swift */; };
+		C629F36227ACD8CA00995565 /* RepositoryDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C629F36127ACD8CA00995565 /* RepositoryDetailViewModel.swift */; };
+		C629F36427ACE7D600995565 /* OrganizationDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C629F36327ACE7D600995565 /* OrganizationDetailViewModel.swift */; };
+		C629F36627ACEE0B00995565 /* CommitDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C629F36527ACEE0B00995565 /* CommitDetailViewModel.swift */; };
 		C62C11EA27ABB94B0004D3C4 /* RepositoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C62C11E927ABB94B0004D3C4 /* RepositoryViewModel.swift */; };
 		C62C11ED27ABBD1B0004D3C4 /* OrganizationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C62C11EC27ABBD1B0004D3C4 /* OrganizationViewModel.swift */; };
 		C62C11F027ABBED70004D3C4 /* CommitViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C62C11EF27ABBED70004D3C4 /* CommitViewModel.swift */; };
@@ -41,7 +45,7 @@
 		C656EB98277A210800E39EFC /* SFDynamicTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C656EB97277A210800E39EFC /* SFDynamicTableView.swift */; };
 		C656EB9A277A216B00E39EFC /* StatefulView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C656EB99277A216B00E39EFC /* StatefulView.swift */; };
 		C656EB9C277A269300E39EFC /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C656EB9B277A269300E39EFC /* Constants.swift */; };
-		C656EB9F277A3F3D00E39EFC /* IBViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C656EB9E277A3F3D00E39EFC /* IBViewController.swift */; };
+		C656EB9F277A3F3D00E39EFC /* StoryboardableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C656EB9E277A3F3D00E39EFC /* StoryboardableViewController.swift */; };
 		C656EBA1277A3F6B00E39EFC /* IBTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C656EBA0277A3F6B00E39EFC /* IBTableViewCell.swift */; };
 		C656EBA3277A47FA00E39EFC /* FooterErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C656EBA2277A47FA00E39EFC /* FooterErrorView.swift */; };
 		C656EBA5277A491200E39EFC /* FooterErrorView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C656EBA4277A491200E39EFC /* FooterErrorView.xib */; };
@@ -164,6 +168,7 @@
 		C68C3B412799B4F70048F35B /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C68C3B402799B4F70048F35B /* CollectionViewCell.swift */; };
 		C68C3B432799B5160048F35B /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C68C3B422799B5160048F35B /* TableViewCell.swift */; };
 		C68FCBC8273838A50019C932 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C68FCBC7273838A50019C932 /* HomeViewController.swift */; };
+		C691C66227AD10C200E931B6 /* TableViewModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = C691C66127AD10C200E931B6 /* TableViewModels.swift */; };
 		C693C4A92729BE1D0061ED73 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C693C4A82729BE1D0061ED73 /* SignInViewController.swift */; };
 		C694B49D273F7DF400C6F5A6 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C694B49C273F7DF400C6F5A6 /* SettingsViewController.swift */; };
 		C696BFE92725E49E0078FBF4 /* RoundedImageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C696BFE82725E49E0078FBF4 /* RoundedImageTableViewCell.swift */; };
@@ -220,6 +225,10 @@
 		C62899DF2783EA8D007155E8 /* Owner+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Owner+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		C62899E02783EA8D007155E8 /* Owner+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Owner+CoreDataClass.swift"; sourceTree = "<group>"; };
 		C62899E6278400EE007155E8 /* BookmarksLogicController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksLogicController.swift; sourceTree = "<group>"; };
+		C629F35F27ACCBAC00995565 /* UserDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailViewModel.swift; sourceTree = "<group>"; };
+		C629F36127ACD8CA00995565 /* RepositoryDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryDetailViewModel.swift; sourceTree = "<group>"; };
+		C629F36327ACE7D600995565 /* OrganizationDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrganizationDetailViewModel.swift; sourceTree = "<group>"; };
+		C629F36527ACEE0B00995565 /* CommitDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommitDetailViewModel.swift; sourceTree = "<group>"; };
 		C62C11E927ABB94B0004D3C4 /* RepositoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryViewModel.swift; sourceTree = "<group>"; };
 		C62C11EC27ABBD1B0004D3C4 /* OrganizationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrganizationViewModel.swift; sourceTree = "<group>"; };
 		C62C11EF27ABBED70004D3C4 /* CommitViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommitViewModel.swift; sourceTree = "<group>"; };
@@ -246,7 +255,7 @@
 		C656EB97277A210800E39EFC /* SFDynamicTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFDynamicTableView.swift; sourceTree = "<group>"; };
 		C656EB99277A216B00E39EFC /* StatefulView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatefulView.swift; sourceTree = "<group>"; };
 		C656EB9B277A269300E39EFC /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
-		C656EB9E277A3F3D00E39EFC /* IBViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IBViewController.swift; sourceTree = "<group>"; };
+		C656EB9E277A3F3D00E39EFC /* StoryboardableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryboardableViewController.swift; sourceTree = "<group>"; };
 		C656EBA0277A3F6B00E39EFC /* IBTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IBTableViewCell.swift; sourceTree = "<group>"; };
 		C656EBA2277A47FA00E39EFC /* FooterErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FooterErrorView.swift; sourceTree = "<group>"; };
 		C656EBA4277A491200E39EFC /* FooterErrorView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FooterErrorView.xib; sourceTree = "<group>"; };
@@ -372,6 +381,7 @@
 		C68C3B402799B4F70048F35B /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
 		C68C3B422799B5160048F35B /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		C68FCBC7273838A50019C932 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		C691C66127AD10C200E931B6 /* TableViewModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewModels.swift; sourceTree = "<group>"; };
 		C693C4A82729BE1D0061ED73 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		C694B49C273F7DF400C6F5A6 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		C696BFE82725E49E0078FBF4 /* RoundedImageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedImageTableViewCell.swift; sourceTree = "<group>"; };
@@ -675,8 +685,8 @@
 		C6102C402794D2C1003A2E26 /* View Controller */ = {
 			isa = PBXGroup;
 			children = (
-				C65C0E03276A36DD00ED17CB /* OrganizationViewController.swift */,
 				C65C0E05276A36F200ED17CB /* OrganizationDetailViewController.swift */,
+				C65C0E03276A36DD00ED17CB /* OrganizationViewController.swift */,
 			);
 			path = "View Controller";
 			sourceTree = "<group>";
@@ -696,8 +706,8 @@
 		C6102C422794D2C1003A2E26 /* Logic Controller */ = {
 			isa = PBXGroup;
 			children = (
-				C6B26AEB2768B51400ED41F8 /* CommitLogicController.swift */,
 				C6B26AED2768B53100ED41F8 /* CommitDetailLogicController.swift */,
+				C6B26AEB2768B51400ED41F8 /* CommitLogicController.swift */,
 			);
 			path = "Logic Controller";
 			sourceTree = "<group>";
@@ -722,8 +732,8 @@
 		C6102C452794D2C1003A2E26 /* View Controller */ = {
 			isa = PBXGroup;
 			children = (
-				C6B26AE62768B42700ED41F8 /* CommitViewController.swift */,
 				C6B26AE82768B4D600ED41F8 /* CommitDetailViewController.swift */,
+				C6B26AE62768B42700ED41F8 /* CommitViewController.swift */,
 			);
 			path = "View Controller";
 			sourceTree = "<group>";
@@ -771,8 +781,8 @@
 		C6102C4A2794D2C1003A2E26 /* View Controller */ = {
 			isa = PBXGroup;
 			children = (
-				C68B6505271DEB8E00A26D05 /* RepositoryViewController.swift */,
 				C68B650B271E152E00A26D05 /* RepositoryDetailViewController.swift */,
+				C68B6505271DEB8E00A26D05 /* RepositoryViewController.swift */,
 			);
 			path = "View Controller";
 			sourceTree = "<group>";
@@ -823,8 +833,8 @@
 		C6102C4F2794D2C1003A2E26 /* View Controller */ = {
 			isa = PBXGroup;
 			children = (
-				C6A1482B2739819000BE7DE9 /* UserViewController.swift */,
 				C68B6509271E148B00A26D05 /* UserDetailViewController.swift */,
+				C6A1482B2739819000BE7DE9 /* UserViewController.swift */,
 			);
 			path = "View Controller";
 			sourceTree = "<group>";
@@ -860,6 +870,7 @@
 		C62C11E827ABB9310004D3C4 /* View Model */ = {
 			isa = PBXGroup;
 			children = (
+				C629F36127ACD8CA00995565 /* RepositoryDetailViewModel.swift */,
 				C62C11E927ABB94B0004D3C4 /* RepositoryViewModel.swift */,
 			);
 			path = "View Model";
@@ -868,6 +879,7 @@
 		C62C11EB27ABBCFB0004D3C4 /* View Model */ = {
 			isa = PBXGroup;
 			children = (
+				C629F36327ACE7D600995565 /* OrganizationDetailViewModel.swift */,
 				C62C11EC27ABBD1B0004D3C4 /* OrganizationViewModel.swift */,
 			);
 			path = "View Model";
@@ -876,6 +888,7 @@
 		C62C11EE27ABBEAF0004D3C4 /* View Model */ = {
 			isa = PBXGroup;
 			children = (
+				C629F36527ACEE0B00995565 /* CommitDetailViewModel.swift */,
 				C62C11EF27ABBED70004D3C4 /* CommitViewModel.swift */,
 			);
 			path = "View Model";
@@ -932,6 +945,7 @@
 				C65EA1B42795D400001C5174 /* Types */,
 				C65EA19D2795CECB001C5174 /* Views + Controls */,
 				C65EA1A92795D1DC001C5174 /* View Controllers */,
+				C691C66027AD108800E931B6 /* View Models */,
 			);
 			path = Commons;
 			sourceTree = "<group>";
@@ -1006,8 +1020,8 @@
 		C65EA17C2795C84F001C5174 /* License */ = {
 			isa = PBXGroup;
 			children = (
-				C66562C427A07AF3002BD64C /* Model */,
 				C65EA17E2795C865001C5174 /* Logic Controller */,
+				C66562C427A07AF3002BD64C /* Model */,
 				C65EA17D2795C85B001C5174 /* View Controller */,
 				C62C11F127ABC1370004D3C4 /* View Model */,
 			);
@@ -1259,7 +1273,7 @@
 		C65EA1AA2795D1EA001C5174 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
-				C656EB9E277A3F3D00E39EFC /* IBViewController.swift */,
+				C656EB9E277A3F3D00E39EFC /* StoryboardableViewController.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -1533,6 +1547,7 @@
 		C661C75A27A7B2AC00E02215 /* View Model */ = {
 			isa = PBXGroup;
 			children = (
+				C629F35F27ACCBAC00995565 /* UserDetailViewModel.swift */,
 				C661C75B27A7B2CE00E02215 /* UserViewModel.swift */,
 			);
 			path = "View Model";
@@ -1651,6 +1666,14 @@
 				C68C3B402799B4F70048F35B /* CollectionViewCell.swift */,
 			);
 			path = "Custom Classes";
+			sourceTree = "<group>";
+		};
+		C691C66027AD108800E931B6 /* View Models */ = {
+			isa = PBXGroup;
+			children = (
+				C691C66127AD10C200E931B6 /* TableViewModels.swift */,
+			);
+			path = "View Models";
 			sourceTree = "<group>";
 		};
 		C69C32F12798C28200AEB64B /* Search History */ = {
@@ -1900,6 +1923,7 @@
 				C68AC80B2783404700FE0C08 /* User+CoreDataClass.swift in Sources */,
 				C6856677274BBB7400833D6E /* SplashViewController.swift in Sources */,
 				C65EA1FF2795E803001C5174 /* SearchHistoryDataSource.swift in Sources */,
+				C629F36027ACCBAC00995565 /* UserDetailViewModel.swift in Sources */,
 				C6DD54A12771146000DA0223 /* SessionTypes.swift in Sources */,
 				C62C11F327ABC16C0004D3C4 /* LicenseViewModel.swift in Sources */,
 				C65EA1CE2795D965001C5174 /* UserDataSource.swift in Sources */,
@@ -1914,7 +1938,7 @@
 				C6C605FD273EC89000BA27C2 /* SearchCoordinator.swift in Sources */,
 				C656EB9C277A269300E39EFC /* Constants.swift in Sources */,
 				C65EA2032795E9A1001C5174 /* TableViewSwipeResponder.swift in Sources */,
-				C656EB9F277A3F3D00E39EFC /* IBViewController.swift in Sources */,
+				C656EB9F277A3F3D00E39EFC /* StoryboardableViewController.swift in Sources */,
 				C66005792794856900770045 /* TableViewCellConfigurator.swift in Sources */,
 				C659EE6827761F20001C1E5D /* FooterActivityIndicatorView.swift in Sources */,
 				C64531ED279CD43F0083CC1F /* GitHubRouter.swift in Sources */,
@@ -1938,6 +1962,7 @@
 				C62C11EA27ABB94B0004D3C4 /* RepositoryViewModel.swift in Sources */,
 				C696BFE92725E49E0078FBF4 /* RoundedImageTableViewCell.swift in Sources */,
 				C68B650A271E148B00A26D05 /* UserDetailViewController.swift in Sources */,
+				C691C66227AD10C200E931B6 /* TableViewModels.swift in Sources */,
 				C6603406277CEA9B00907494 /* SFDynamicCollectionViewController.swift in Sources */,
 				C63CD23F27A1B5CF003B2665 /* TrendingViewController.swift in Sources */,
 				C6665EE7276F9DFB00178BA6 /* SessionExtensions.swift in Sources */,
@@ -2007,6 +2032,7 @@
 				C656EB96277A20B000E39EFC /* SFDynamicTableViewController.swift in Sources */,
 				C66412312780789500D605BF /* SearchHistoryLogicController.swift in Sources */,
 				C65EA1D22795DA1E001C5174 /* UserContextMenuConfigurator.swift in Sources */,
+				C629F36427ACE7D600995565 /* OrganizationDetailViewModel.swift in Sources */,
 				C65EA1D42795DA67001C5174 /* UserTapResponder.swift in Sources */,
 				C65EA1F82795E6C0001C5174 /* CommitTapResponder.swift in Sources */,
 				C68AC8142783414400FE0C08 /* Organization+CoreDataProperties.swift in Sources */,
@@ -2015,6 +2041,7 @@
 				C6CCED76275D0E370052CC8E /* SFImageView.swift in Sources */,
 				C6DD549F2771141800DA0223 /* DataTypes.swift in Sources */,
 				C65EA1DA2795E414001C5174 /* RepositoryCellConfigurator.swift in Sources */,
+				C629F36227ACD8CA00995565 /* RepositoryDetailViewModel.swift in Sources */,
 				C65EA1F22795E696001C5174 /* CommitContextMenuConfigurator.swift in Sources */,
 				C661C75727A7AFF000E02215 /* OrganizationTypes.swift in Sources */,
 				C65EA1CC2795D931001C5174 /* UserDelegate.swift in Sources */,
@@ -2030,6 +2057,7 @@
 				C62C11ED27ABBD1B0004D3C4 /* OrganizationViewModel.swift in Sources */,
 				C62899E12783EA8D007155E8 /* Owner+CoreDataClass.swift in Sources */,
 				C66033FE277CDF0400907494 /* SearchHistoryViewController.swift in Sources */,
+				C629F36627ACEE0B00995565 /* CommitDetailViewModel.swift in Sources */,
 				C68AC80C2783404700FE0C08 /* User+CoreDataProperties.swift in Sources */,
 				C6DFF6162791A9DF00A617CB /* FileManagerHelper.swift in Sources */,
 				C65EA1702795C45C001C5174 /* OrganizationModel.swift in Sources */,

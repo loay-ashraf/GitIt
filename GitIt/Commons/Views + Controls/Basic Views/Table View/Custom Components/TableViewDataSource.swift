@@ -58,7 +58,8 @@ class TableViewDataSource<Type>: NSObject, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        let item = model.items[indexPath.row]
+        //let item = model.items[indexPath.row]
+        let item = viewModels.items[indexPath.row]
         swipeResponder.respondToSwipe(tableView: tableView, editingStyle: editingStyle, indexPath: indexPath, with: item)
     }
     

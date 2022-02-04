@@ -7,19 +7,22 @@
 
 import UIKit
 
-class LicenseViewController: SFViewController, IBViewController {
+class LicenseViewController: SFViewController, StoryboardableViewController {
+    
+    // MARK: - Properties
     
     static let storyboardIdentifier = "LicenseVC"
     
-    private let logicController: LicenseLogicController
-    private var model: String { return logicController.model }
+    var viewModel: LicenseViewModel
+    
+    // MARK: - View Outlets
     
     @IBOutlet weak var licenseTextView: UITextView!
     
-    // MARK: - Initialisation
+    // MARK: - Initialization
     
-    init?(coder: NSCoder, repositoryFullName: String, defaultBranch: String) {
-        logicController = LicenseLogicController(repositoryFullName: repositoryFullName, defaultBranch: defaultBranch)
+    required init?(coder: NSCoder, repositoryFullName: String, defaultBranch: String) {
+        viewModel = LicenseViewModel(repositoryFullName: repositoryFullName, defaultBranch: defaultBranch)
         super.init(coder: coder)
     }
     
@@ -27,19 +30,27 @@ class LicenseViewController: SFViewController, IBViewController {
         fatalError("Fatal Error, this view controller shouldn't be instantiated via storyboard segue.")
     }
     
-    static func instatiateWithParameters(with parameters: Any) -> UIViewController {
-        fatalError("This View controller is instaniated only using parameters")
+    static func instatiate<T: ViewControllerContext>(context: T) -> UIViewController {
+        fatalError("Fatal Error, This View controller is instaniated only using parameters")
     }
     
-    static func instatiateWithParameters(repositoryFullName: String, defaultBranch: String) -> UIViewController {
+    static func instatiate(parameter: String) -> UIViewController {
+        fatalError("Fatal Error, This View controller is instaniated only using parameters")
+    }
+    
+    static func instatiate(parameters: [String]) -> UIViewController {
         let storyBoard = UIStoryboard(name: "Main", bundle: nil)
-        return storyBoard.instantiateViewController(identifier: LicenseViewController.storyboardIdentifier, creator: {coder ->                                  LicenseViewController in
-                        LicenseViewController(coder: coder, repositoryFullName: repositoryFullName, defaultBranch: defaultBranch)!
+        return storyBoard.instantiateViewController(identifier: self.storyboardIdentifier, creator: { coder -> LicenseViewController in
+                    self.init(coder: coder, repositoryFullName: parameters[0], defaultBranch: parameters[1])!
                 })
     }
     
-    static func instatiateWithModel(with model: Any) -> UIViewController {
-        fatalError("This View controller is instaniated only using parameters")
+    static func instatiate<T: CellViewModel>(cellViewModel: T) -> UIViewController  {
+        fatalError("Fatal Error, This View controller is instaniated only using parameters")
+    }
+    
+    static func instatiate<T: Model>(model: T) -> UIViewController  {
+        fatalError("Fatal Error, This View controller is instaniated only using parameters")
     }
     
     // MARK: - Lifecycle
@@ -58,14 +69,14 @@ class LicenseViewController: SFViewController, IBViewController {
     }
     
     override func updateView() {
-        licenseTextView.text = model
+        licenseTextView.text = viewModel.licenseText
     }
 
     // MARK: - Loading Methods
     
     override func load() {
         super.load()
-        logicController.load(then: loadHandler(error:))
+        viewModel.load(then: loadHandler(error:))
     }
     
 }

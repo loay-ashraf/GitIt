@@ -41,6 +41,22 @@ struct RepositoryModel: Model {
         
     }
     
+    init() {
+        id = 0
+        name = ""
+        fullName = ""
+        owner = OwnerModel()
+        htmlURL = URL(string: "www.github.com")!
+        description = nil
+        homepageURL = nil
+        language = nil
+        stars = 0
+        forks = 0
+        defaultBranch = ""
+        license = nil
+        isComplete = false
+    }
+    
     init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         id = try values.decode(Int.self, forKey: .id)

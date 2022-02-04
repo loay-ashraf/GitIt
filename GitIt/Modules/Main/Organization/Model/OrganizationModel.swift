@@ -38,6 +38,21 @@ struct OrganizationModel: Model {
         
     }
     
+    init() {
+        id = 0
+        login = ""
+        avatarURL = URL(string: "www.github.com")!
+        htmlURL = URL(string: "www.github.com")!
+        name = nil
+        description = nil
+        location = nil
+        blogURL = nil
+        email = nil
+        twitter = nil
+        repositories = nil
+        isComplete = false
+    }
+    
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         id = try container.decode(Int.self, forKey: .id)

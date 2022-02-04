@@ -7,13 +7,19 @@
 
 import Foundation
 
-class UserViewModel: DynamicTableViewModel<UserCellViewModel> {
+class UserViewModel: TableViewModel<UserCellViewModel> {
+    
+    // MARK: - Properties
     
     var logicController: UserLogicController
+    
+    // MARK: - Initialization
     
     init(context: UserContext) {
         logicController = context.logicController
     }
+    
+    // MARK: - Loading Methods
     
     override func load(then handler: @escaping LoadingHandler) {
         logicController.load { [weak self] error in
@@ -37,6 +43,8 @@ class UserViewModel: DynamicTableViewModel<UserCellViewModel> {
         }
     }
     
+    // MARK: - Model Synchronization Methods
+    
     private func synchronizeModel() {
         let modelItems = logicController.model.items
         cellViewModels.items = modelItems.map { return UserCellViewModel(from: $0) }
@@ -46,30 +54,20 @@ class UserViewModel: DynamicTableViewModel<UserCellViewModel> {
     
 }
 
-class UserCellViewModel {
+class UserCellViewModel: CellViewModel {
+    
+    // MARK: - Properties
     
     var avatarURL: URL
     var htmlURL: URL
     var login: String
+    
+    // MARK: - Initialization
     
     init(from userModel: UserModel) {
         avatarURL = userModel.avatarURL
         htmlURL = userModel.htmlURL
         login = userModel.login
     }
-    
-}
-
-class DynamicTableViewModel<T> {
-    
-    var cellViewModels = List<T>()
-    var items: [T] { return cellViewModels.items }
-    var count: Int { return cellViewModels.count }
-    var isEmpty: Bool { return cellViewModels.isEmpty }
-    var currentPage: Int { return cellViewModels.currentPage }
-    var isPaginable: Bool { return cellViewModels.isPaginable }
-    
-    func load(then handler: @escaping LoadingHandler) { }
-    func refresh(then handler: @escaping LoadingHandler) { }
     
 }

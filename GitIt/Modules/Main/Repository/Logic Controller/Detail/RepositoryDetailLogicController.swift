@@ -9,115 +9,112 @@ import Foundation
 
 class RepositoryDetailLogicController {
     
-    var model: RepositoryModel!
-    var fullNameParameter: String!
-    var isBookmarked: Bool = false
-    var isStarred: Bool = false
+    // MARK: - Properties
     
-    typealias StarActionHandler = (Bool) -> Void
-    typealias BookmarkActionHandler = (Bool) -> Void
-    typealias READMEHandler = (NetworkError?) -> Void
+    var fullName = String()
+    var model = RepositoryModel()
     
-    // MARK: - Initialisation
+    // MARK: - Initialization
     
-    init(_ model: RepositoryModel) {
+    init(fullName: String) {
+        self.fullName = fullName
+    }
+    
+    init(model: RepositoryModel) {
         self.model = model
     }
     
-    init(_ fullName: String) {
-        self.fullNameParameter = fullName
-    }
+    // MARK: - Loading Methods
     
-    // MARK: - Business Logic Methods
-    
-    func load(then handler: @escaping LoadingHandler, then starHandler: @escaping StarActionHandler, then bookmarkHandler: @escaping BookmarkActionHandler, then readmeHandler: @escaping READMEHandler) {
-        if model == nil {
-            GitHubClient.fetchRepository(fullName: fullNameParameter!) { result in
+    func load(then handler: @escaping LoadingHandler) {
+        if !fullName.isEmpty, !model.isComplete {
+            GitHubClient.fetchRepository(fullName: fullName) { result in
                 switch result {
                 case .success(let response): self.model = response
-                                             self.loadREADME(then: readmeHandler)
-                                             self.checkIfStarredOrBookmarked(then: handler, then: starHandler, then: bookmarkHandler)
+                                             self.loadREADME(then: handler)
                 case .failure(let networkError): handler(networkError)
                 }
             }
-        } else if !model.isComplete {
-            checkIfStarredOrBookmarked(then: handler, then: starHandler, then: bookmarkHandler)
-            loadREADME(then: readmeHandler)
         } else {
-            checkIfStarredOrBookmarked(then: handler, then: starHandler, then: bookmarkHandler)
-            readmeHandler(nil)
+            handler(nil)
         }
     }
     
-    func loadREADME(then readmeHandler: @escaping READMEHandler) {
+    func loadREADME(then handler: @escaping LoadingHandler) {
         GitHubClient.downloadRepositoryREADME(fullName: model.fullName, branch: model.defaultBranch) { result in
             switch result {
-            case .success(let response): self.model.READMEString = String(data: response, encoding: .utf8); readmeHandler(nil)
+            case .success(let response): self.model.READMEString = String(data: response, encoding: .utf8)
                                          self.model.isComplete = true
-            case .failure(let networkError): readmeHandler(networkError)
+                                         handler(nil)
+            case .failure(let networkError): handler(networkError)
             }
         }
     }
     
-    func star(then handler: @escaping StarActionHandler) {
-        if !isStarred {
-            GitHubClient.starRepository(fullName: model.fullName) { error in
-                guard error != nil else {
-                    self.isStarred = true
-                    handler(self.isStarred)
-                    return
-                }
-            }
-        } else {
-            GitHubClient.unStarRepository(fullName: model.fullName) { error in
-                guard error != nil else {
-                    self.isStarred = false
-                    handler(self.isStarred)
-                    return
-                }
+    // MARK: - (Un)Bookmark Methods
+    
+    func bookmark(then handler: @escaping () -> Void) {
+        if let _ = try? BookmarksManager.standard.add(model: model) {
+            handler()
+        }
+    }
+    
+    func unBookmark(then handler: @escaping () -> Void) {
+        if let _ = try? BookmarksManager.standard.delete(model: model) {
+            handler()
+        }
+    }
+    
+    // MARK: - (Un)Star Methods
+    
+    func star(then handler: @escaping () -> Void) {
+        GitHubClient.starRepository(fullName: model.fullName) { error in
+            guard error != nil else {
+                handler()
+                return
             }
         }
     }
     
-    func bookmark(then handler: @escaping BookmarkActionHandler) {
-        defer { handler(isBookmarked) }
-        if !isBookmarked {
-            if let _ = try? BookmarksManager.standard.add(model: model) {
-                isBookmarked = true
-            }
-        } else {
-            if let _ = try? BookmarksManager.standard.delete(model: model) {
-                isBookmarked = false
+    func unStar(then handler: @escaping () -> Void) {
+        GitHubClient.unStarRepository(fullName: model.fullName) { error in
+            guard error != nil else {
+                handler()
+                return
             }
         }
     }
     
-    func checkIfStarredOrBookmarked(then handler: @escaping LoadingHandler, then starHandler: @escaping StarActionHandler, then bookmarkHandler: @escaping BookmarkActionHandler) {
-        if NetworkManager.standard.isReachable && SessionManager.standard.sessionType == .authenticated {
-            GitHubClient.checkIfStarredRepository(fullName: model.fullName) { error in
-                defer { handler(nil) }
-                let fetchResult = BookmarksManager.standard.check(model: self.model)
-                switch fetchResult {
-                case true: self.isBookmarked = true
-                           bookmarkHandler(self.isBookmarked)
-                case false: self.isBookmarked = false
-                default: break
-                }
-                guard error != nil else {
-                    self.isStarred = true
-                    starHandler(self.isStarred)
-                    return
-                }
+    // MARK: - Status Checking Methods
+    
+    func checkIfBookmarkedOrStarred(then handler: @escaping (Bool,Bool) -> Void) {
+        if NetworkManager.standard.isReachable, SessionManager.standard.sessionType == .authenticated {
+            checkIfStarred { isStarred in
+                let isBookmarked = self.checkIfBookmarked()
+                handler(isBookmarked,isStarred)
             }
         } else {
-            let fetchResult = BookmarksManager.standard.check(model: self.model)
-            switch fetchResult {
-            case true: self.isBookmarked = true
-                        bookmarkHandler(self.isBookmarked)
-            case false: self.isBookmarked = false
-            default: break
+            let isBookmarked = self.checkIfBookmarked()
+            handler(isBookmarked,false)
+        }
+    }
+    
+    func checkIfBookmarked() -> Bool {
+        let fetchResult = BookmarksManager.standard.check(model: model)
+        switch fetchResult {
+        case true: return true
+        case false: return false
+        default: return false
+        }
+    }
+    
+    func checkIfStarred(then handler: @escaping (Bool) -> Void) {
+        GitHubClient.checkIfStarredRepository(fullName: model.fullName) { error in
+            guard error != nil else {
+                handler(true)
+                return
             }
-            handler(nil)
+            handler(false)
         }
     }
     

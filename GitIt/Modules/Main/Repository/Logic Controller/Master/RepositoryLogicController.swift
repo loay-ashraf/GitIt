@@ -9,12 +9,18 @@ import Foundation
 
 class RepositoryLogicController {
     
+    // MARK: - Properties
+    
     var model = List<RepositoryModel>()
     var handler: LoadingHandler?
 
+    // MARK: - Initialization
+    
     init() {
         model.isPaginable = true
     }
+    
+    // MARK: - Loading Methods
 
     func load(then handler: @escaping LoadingHandler) {
         self.handler = handler
@@ -25,6 +31,8 @@ class RepositoryLogicController {
         model.reset()
         load(then: handler)
     }
+    
+    // MARK: - Result Processing Methods
     
     func processResult(result: Result<[RepositoryModel],NetworkError>) {
         switch result {

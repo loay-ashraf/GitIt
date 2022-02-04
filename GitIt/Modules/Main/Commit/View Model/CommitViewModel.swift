@@ -7,13 +7,19 @@
 
 import Foundation
 
-class CommitViewModel: DynamicTableViewModel<CommitCellViewModel> {
+class CommitViewModel: TableViewModel<CommitCellViewModel> {
+    
+    // MARK: - Properties
     
     var logicController: CommitLogicController
+    
+    // MARK: - Initialization
     
     init(repositoryFullName: String) {
         logicController = CommitLogicController(repositoryFullName: repositoryFullName)
     }
+    
+    // MARK: - Loading Methods
     
     override func load(then handler: @escaping LoadingHandler) {
         logicController.load { [weak self] error in
@@ -37,6 +43,8 @@ class CommitViewModel: DynamicTableViewModel<CommitCellViewModel> {
         }
     }
     
+    // MARK: - Model Synchronization Methods
+    
     private func synchronizeModel() {
         let modelItems = logicController.model.items
         cellViewModels.items = modelItems.map { return CommitCellViewModel(from: $0) }
@@ -46,11 +54,15 @@ class CommitViewModel: DynamicTableViewModel<CommitCellViewModel> {
     
 }
 
-class CommitCellViewModel {
+class CommitCellViewModel: CellViewModel {
+    
+    // MARK: - Properties
     
     var author: OwnerModel?
     var htmlURL: URL
     var message: String
+    
+    // MARK: - Loading Methods
     
     init(from commitModel: CommitModel) {
         author = commitModel.author

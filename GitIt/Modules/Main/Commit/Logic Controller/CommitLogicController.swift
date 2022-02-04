@@ -9,13 +9,19 @@ import Foundation
 
 class CommitLogicController {
     
+    // MARK: - Properties
+    
     var model = List<CommitModel>()
     private var repositoryFullName: String
     private var handler: LoadingHandler?
 
+    // MARK: - Initialization
+    
     init(repositoryFullName: String) {
         self.repositoryFullName = repositoryFullName
     }
+    
+    // MARK: - Loading Methods
 
     func load(then handler: @escaping LoadingHandler) {
         self.handler = handler
@@ -26,6 +32,8 @@ class CommitLogicController {
         model.reset()
         load(then: handler)
     }
+    
+    // MARK: - Result Processing Methods
     
     private func processResult(result: Result<[CommitModel],NetworkError>) {
         switch result {

@@ -9,6 +9,8 @@ import Foundation
 
 class LicenseLogicController {
 
+    // MARK: - Properties
+    
     var model = String()
     var repositoryFullName: String
     var defaultBranch: String
@@ -20,7 +22,7 @@ class LicenseLogicController {
         self.defaultBranch = defaultBranch
     }
 
-    // MARK: - Business Logic Methods
+    // MARK: - Loading Methods
 
     func load(then handler: @escaping LoadingHandler) {
         GitHubClient.downloadRepositoryLicense(fullName: repositoryFullName, branch: defaultBranch) { result in

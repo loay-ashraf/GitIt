@@ -9,13 +9,20 @@ import Foundation
 
 class LicenseViewModel {
     
+    // MARK: - Properties
+    
     var logicController: LicenseLogicController
+    
     var licenseText: String
+    
+    // MARK: - Initialization
     
     init(repositoryFullName: String, defaultBranch: String) {
         logicController = LicenseLogicController(repositoryFullName: repositoryFullName, defaultBranch: defaultBranch)
         licenseText = String()
     }
+    
+    // MARK: - Loading Methods
     
     func load(then handler: @escaping LoadingHandler) {
         logicController.load { [weak self] error in
@@ -27,6 +34,8 @@ class LicenseViewModel {
             }
         }
     }
+    
+    // MARK: - Model Synchronization Methods
     
     private func synchronizeModel() {
         licenseText = logicController.model

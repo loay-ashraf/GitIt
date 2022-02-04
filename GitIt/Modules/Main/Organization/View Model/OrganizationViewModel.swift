@@ -7,13 +7,19 @@
 
 import Foundation
 
-class OrganizationViewModel: DynamicTableViewModel<OrganizationCellViewModel> {
+class OrganizationViewModel: TableViewModel<OrganizationCellViewModel> {
+    
+    // MARK: - Properties
     
     var logicController: OrganizationLogicController
+    
+    // MARK: - Initialization
     
     init(context: OrganizationContext) {
         logicController = context.logicController
     }
+    
+    // MARK: - Loading Methods
     
     override func load(then handler: @escaping LoadingHandler) {
         logicController.load { [weak self] error in
@@ -37,6 +43,8 @@ class OrganizationViewModel: DynamicTableViewModel<OrganizationCellViewModel> {
         }
     }
     
+    // MARK: - Model Synchronization Methods
+    
     private func synchronizeModel() {
         let modelItems = logicController.model.items
         cellViewModels.items = modelItems.map { return OrganizationCellViewModel(from: $0) }
@@ -46,11 +54,15 @@ class OrganizationViewModel: DynamicTableViewModel<OrganizationCellViewModel> {
     
 }
 
-class OrganizationCellViewModel {
+class OrganizationCellViewModel: CellViewModel {
+    
+    // MARK: - Properties
     
     var avatarURL: URL
     var htmlURL: URL
     var login: String
+    
+    // MARK: - Initialization
     
     init(from organizationModel: OrganizationModel) {
         avatarURL = organizationModel.avatarURL

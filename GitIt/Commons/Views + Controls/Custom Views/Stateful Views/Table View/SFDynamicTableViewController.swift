@@ -14,7 +14,7 @@ class SFDynamicTableViewController<Type>: UITableViewController {
     var tableViewDataSource: TableViewDataSource<Type>!
     var tableViewDelegate: TableViewDelegate<Type>!
     
-    var viewModel: DynamicTableViewModel<Type>!
+    var viewModel: TableViewModel<Type>!
     var emptyViewModel: EmptyViewModel = EmptyConstants.General.viewModel
     
     // MARK: - Initialisation

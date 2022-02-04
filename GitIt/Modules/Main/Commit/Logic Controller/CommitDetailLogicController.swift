@@ -9,15 +9,17 @@ import Foundation
 
 class CommitDetailLogicController {
     
-    var model: CommitModel
+    // MARK: - Properties
     
-    // MARK: - Initialisation
+    var model = CommitModel()
     
-    init(_ model: CommitModel) {
+    // MARK: - Initialization
+
+    init(model: CommitModel) {
         self.model = model
     }
     
-    // MARK: - Business Logic Methods
+    // MARK: - Loading Methods
     
     func load(then handler: @escaping LoadingHandler) {
         handler(nil)

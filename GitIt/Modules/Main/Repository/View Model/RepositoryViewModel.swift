@@ -7,13 +7,19 @@
 
 import Foundation
 
-class RepositoryViewModel: DynamicTableViewModel<RepositoryCellViewModel> {
+class RepositoryViewModel: TableViewModel<RepositoryCellViewModel> {
+    
+    // MARK: - Properties
     
     var logicController: RepositoryLogicController
+    
+    // MARK: - Initialization
     
     init(context: RepositoryContext) {
         logicController = context.logicController
     }
+    
+    // MARK: - Loading Methods
     
     override func load(then handler: @escaping LoadingHandler) {
         logicController.load { [weak self] error in
@@ -37,6 +43,8 @@ class RepositoryViewModel: DynamicTableViewModel<RepositoryCellViewModel> {
         }
     }
     
+    // MARK: - Model Synchronization Methods
+    
     private func synchronizeModel() {
         let modelItems = logicController.model.items
         cellViewModels.items = modelItems.map { return RepositoryCellViewModel(from: $0) }
@@ -46,7 +54,9 @@ class RepositoryViewModel: DynamicTableViewModel<RepositoryCellViewModel> {
     
 }
 
-class RepositoryCellViewModel {
+class RepositoryCellViewModel: CellViewModel {
+    
+    // MARK: - Properties
     
     var owner: OwnerModel
     var htmlURL: URL
@@ -54,6 +64,8 @@ class RepositoryCellViewModel {
     var description: String?
     var stargazers: Int
     var language: String?
+    
+    // MARK: - Initialization
     
     init(from repositoryModel: RepositoryModel) {
         owner = repositoryModel.owner

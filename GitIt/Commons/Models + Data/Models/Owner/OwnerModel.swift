@@ -33,6 +33,15 @@ struct OwnerModel: Model {
         
     }
     
+    init() {
+        id = 0
+        login = ""
+        avatarURL = URL(string: "www.github.com")!
+        htmlURL = URL(string: "www.github.com")!
+        type = .user
+        isComplete = false
+    }
+    
     init(id: Int, login: String, avatarURL: URL, htmURL: URL, type: OwnerType) {
         self.id = id
         self.login = login

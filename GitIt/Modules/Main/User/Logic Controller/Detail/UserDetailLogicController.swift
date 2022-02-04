@@ -9,95 +9,102 @@ import Foundation
 
 class UserDetailLogicController {
     
-    var model: UserModel
-    var isBookmarked: Bool = false
-    var isFollowed: Bool = false
+    // MARK: - Properties
     
-    typealias FollowActionHandler = (Bool) -> Void
-    typealias BookmarkActionHandler = (Bool) -> Void
+    var login = String()
+    var model = UserModel()
     
-    // MARK: - Initialisation
+    // MARK: - Initialization
+
+    init(login: String) {
+        self.login = login
+    }
     
-    init(_ model: UserModel) {
+    init(model: UserModel) {
         self.model = model
     }
     
-    // MARK: - Business Logic Methods
+    // MARK: - Loading Methods
     
-    func load(then handler: @escaping LoadingHandler, then followHandler: @escaping FollowActionHandler, then bookmarkHandler: @escaping BookmarkActionHandler) {
-        if !model.isComplete {
-            GitHubClient.fetchUser(userLogin: model.login) { result in
+    func load(then handler: @escaping LoadingHandler) {
+        if !login.isEmpty, !model.isComplete {
+            GitHubClient.fetchUser(userLogin: login) { result in
                 switch result {
                 case .success(let response): self.model = response
                                              self.model.isComplete = true
-                                             self.checkIfFollowedOrBookmarked(then: handler, then: followHandler, then: bookmarkHandler)
+                                             handler(nil)
                 case .failure(let networkError): handler(networkError)
                 }
             }
         } else {
-            checkIfFollowedOrBookmarked(then: handler, then: followHandler, then: bookmarkHandler)
-        }
-    }
-    
-    func follow(then handler: @escaping FollowActionHandler) {
-        if !isFollowed {
-            GitHubClient.followUser(userLogin: model.login) { error in
-                guard error != nil else {
-                    self.isFollowed = true
-                    handler(self.isFollowed)
-                    return
-                }
-            }
-        } else {
-            GitHubClient.unFollowUser(userLogin: model.login) { error in
-                guard error != nil else {
-                    self.isFollowed = false
-                    handler(self.isFollowed)
-                    return
-                }
-            }
-        }
-    }
-    
-    func bookmark(then handler: @escaping BookmarkActionHandler) {
-        defer { handler(isBookmarked) }
-        if !isBookmarked {
-            if let _ = try? BookmarksManager.standard.add(model: model) {
-                isBookmarked = true
-            }
-        } else {
-            if let _ = try? BookmarksManager.standard.delete(model: model) {
-                isBookmarked = false
-            }
-        }
-    }
-    
-    func checkIfFollowedOrBookmarked(then handler: @escaping LoadingHandler, then followHandler: @escaping FollowActionHandler, then bookmarkHandler: @escaping BookmarkActionHandler) {
-        if NetworkManager.standard.isReachable && SessionManager.standard.sessionType == .authenticated {
-            GitHubClient.checkIfFollowingUser(userLogin: model.login) { error in
-                defer { handler(nil) }
-                let fetchResult = BookmarksManager.standard.check(model: self.model)
-                switch fetchResult {
-                case true: self.isBookmarked = true
-                            bookmarkHandler(self.isBookmarked)
-                case false: self.isBookmarked = false
-                default: break
-                }
-                guard error != nil else {
-                    self.isFollowed = true
-                    followHandler(self.isFollowed)
-                    return
-                }
-            }
-        } else {
-            let fetchResult = BookmarksManager.standard.check(model: self.model)
-            switch fetchResult {
-            case true: self.isBookmarked = true
-                        bookmarkHandler(self.isBookmarked)
-            case false: self.isBookmarked = false
-            default: break
-            }
             handler(nil)
+        }
+    }
+    
+    // MARK: - (Un)Bookmark Methods
+    
+    func bookmark(then handler: @escaping () -> Void) {
+        if let _ = try? BookmarksManager.standard.add(model: model) {
+            handler()
+        }
+    }
+    
+    func unBookmark(then handler: @escaping () -> Void) {
+        if let _ = try? BookmarksManager.standard.delete(model: model) {
+            handler()
+        }
+    }
+    
+    // MARK: - (Un)Follow Methods
+    
+    func follow(then handler: @escaping () -> Void) {
+        GitHubClient.followUser(userLogin: model.login) { error in
+            guard error != nil else {
+                handler()
+                return
+            }
+        }
+    }
+    
+    func unFollow(then handler: @escaping () -> Void) {
+        GitHubClient.unFollowUser(userLogin: model.login) { error in
+            guard error != nil else {
+                handler()
+                return
+            }
+        }
+    }
+    
+    // MARK: - Status Checking Methods
+    
+    func checkIfBookmarkedOrFollowed(then handler: @escaping (Bool,Bool) -> Void) {
+        if NetworkManager.standard.isReachable, SessionManager.standard.sessionType == .authenticated {
+            checkIfFollowed { isFollowed in
+                let isBookmarked = self.checkIfBookmarked()
+                handler(isBookmarked,isFollowed)
+            }
+        } else {
+            let isBookmarked = self.checkIfBookmarked()
+            handler(isBookmarked,false)
+        }
+    }
+    
+    func checkIfBookmarked() -> Bool {
+        let fetchResult = BookmarksManager.standard.check(model: model)
+        switch fetchResult {
+        case true: return true
+        case false: return false
+        default: return false
+        }
+    }
+    
+    func checkIfFollowed(then handler: @escaping (Bool) -> Void) {
+        GitHubClient.checkIfFollowingUser(userLogin: model.login) { error in
+            guard error != nil else {
+                handler(true)
+                return
+            }
+            handler(false)
         }
     }
     

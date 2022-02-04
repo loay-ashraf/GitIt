@@ -7,24 +7,30 @@
 
 import UIKit
 
-class CommitDetailViewController: SFStaticTableViewController, IBViewController {
+class CommitDetailViewController: SFStaticTableViewController, StoryboardableViewController {
 
+    // MARK: - Properties
+    
     static let storyboardIdentifier = "CommitDetailVC"
     
-    private let logicController: CommitDetailLogicController
-    private var model: CommitModel { return logicController.model }
+    var viewModel: CommitDetailViewModel
     
-    // MARK: - UI Outlets
+    // MARK: - View Outlets
     
     @IBOutlet weak var authorTextView: IconicTextView!
     @IBOutlet weak var messageLabel: UILabel!
     @IBOutlet weak var openInSafariButton: UIBarButtonItem!
     @IBOutlet weak var shareButton: UIBarButtonItem!
     
-    // MARK: - Initialisation
+    // MARK: - Initialization
+    
+    required init?(coder: NSCoder, cellViewModel: CommitCellViewModel) {
+        viewModel = CommitDetailViewModel(cellViewModel: cellViewModel)
+        super.init(coder: coder)
+    }
     
     required init?(coder: NSCoder, model: CommitModel) {
-        logicController = CommitDetailLogicController(model)
+        viewModel = CommitDetailViewModel(model: model)
         super.init(coder: coder)
     }
     
@@ -32,15 +38,34 @@ class CommitDetailViewController: SFStaticTableViewController, IBViewController 
         fatalError("Fatal Error, this view controller shouldn't be instantiated via storyboard segue.")
     }
     
-    static func instatiateWithParameters(with parameters: Any) -> UIViewController {
-        fatalError("This View controller is instaniated only using a model")
+    static func instatiate<T: ViewControllerContext>(context: T) -> UIViewController {
+        fatalError("Fatal Error, This View controller is instaniated only using cellViewModel or model")
     }
     
-    static func instatiateWithModel(with model: Any) -> UIViewController {
-        let storyBoard = UIStoryboard(name: "Main", bundle: nil)
-        return storyBoard.instantiateViewController(identifier: self.storyboardIdentifier, creator: {coder -> CommitDetailViewController in
-                        self.init(coder: coder, model: model as! CommitModel)!
-                })
+    static func instatiate(parameter: String) -> UIViewController {
+        fatalError("Fatal Error, This View controller is instaniated only using cellViewModel or model")
+    }
+    
+    static func instatiate<T: CellViewModel>(cellViewModel: T) -> UIViewController  {
+        if let cellViewModel = cellViewModel as? CommitCellViewModel {
+            let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+            return storyBoard.instantiateViewController(identifier: self.storyboardIdentifier, creator: { coder -> CommitDetailViewController in
+                            self.init(coder: coder, cellViewModel: cellViewModel)!
+                    })
+        } else {
+            return UIViewController()
+        }
+    }
+    
+    static func instatiate<T: Model>(model: T) -> UIViewController  {
+        if let model = model as? CommitModel {
+            let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+            return storyBoard.instantiateViewController(identifier: self.storyboardIdentifier, creator: { coder -> CommitDetailViewController in
+                            self.init(coder: coder, model: model)!
+                    })
+        } else {
+            return UIViewController()
+        }
     }
     
     deinit {
@@ -61,17 +86,17 @@ class CommitDetailViewController: SFStaticTableViewController, IBViewController 
         
         navigationItem.largeTitleDisplayMode = .never
         
-        authorTextView.action = { [weak self] in self?.showOwner() }
+        authorTextView.action = { [weak self] in self?.showAuthor() }
     }
     
     override func updateView() {
-        if let author = model.author {
+        if let author = viewModel.author {
             authorTextView.loadIcon(at: author.avatarURL)
             authorTextView.text = author.login
         } else {
             authorTextView.text = nil
         }
-        messageLabel.text = model.message
+        messageLabel.text = viewModel.message
         
         openInSafariButton.isEnabled = true
         shareButton.isEnabled = true
@@ -80,28 +105,22 @@ class CommitDetailViewController: SFStaticTableViewController, IBViewController 
     // MARK: - View Actions
     
     @IBAction func openInSafari(_ sender: UIBarButtonItem) {
-        let htmlURL = model.htmlURL
-        URLHelper.openURL(htmlURL)
+        viewModel.openInSafari()
     }
     
     @IBAction func share(_ sender: UIBarButtonItem) {
-        let htmlURL = model.htmlURL
-        URLHelper.shareURL(htmlURL)
+        viewModel.share()
     }
     
-    func showOwner() {
-        if model.author != nil && model.author!.type == .user {
-            let userModel = UserModel(from: model.author!)
-            let userDetailVC = UserDetailViewController.instatiateWithModel(with: userModel)
-            navigationController?.pushViewController(userDetailVC, animated: true)
-        }
+    func showAuthor() {
+        viewModel.showAuthor(navigationController: navigationController)
     }
     
     // MARK: - Loading Methods
     
     override func load() {
         super.load()
-        logicController.load(then: loadHandler(error:))
+        viewModel.load(then: loadHandler(error:))
     }
     
 }

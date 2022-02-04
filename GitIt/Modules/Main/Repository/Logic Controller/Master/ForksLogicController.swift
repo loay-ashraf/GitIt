@@ -9,8 +9,12 @@ import Foundation
 
 class ForksLogicController: RepositoryLogicController {
     
+    // MARK: - Properties
+    
     var repositoryFullName: String
     var numberOfForks: Int
+    
+    // MARK: - Initialization
     
     init(repositoryFullName: String, numberOfForks: Int) {
         self.repositoryFullName = repositoryFullName
@@ -18,10 +22,14 @@ class ForksLogicController: RepositoryLogicController {
         super.init()
     }
     
+    // MARK: - Loading Methods
+    
     override func load(then handler: @escaping LoadingHandler) {
         self.handler  = handler
         GitHubClient.fetchRepositoryForks(fullName: repositoryFullName, page: model.currentPage, completionHandler: processResult(result:))
     }
+    
+    // MARK: - Result Processing Methods
     
     override func updateModelParameters(newItemsCount: Int = 0) {
         super.updateModelParameters(newItemsCount: newItemsCount)

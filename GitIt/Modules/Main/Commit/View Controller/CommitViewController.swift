@@ -7,7 +7,9 @@
 
 import UIKit
 
-class CommitViewController: SFDynamicTableViewController<CommitCellViewModel>, IBViewController {
+class CommitViewController: SFDynamicTableViewController<CommitCellViewModel>, StoryboardableViewController {
+    
+    // MARK: - Properties
     
     static var storyboardIdentifier = "CommitVC"
     
@@ -23,15 +25,23 @@ class CommitViewController: SFDynamicTableViewController<CommitCellViewModel>, I
         fatalError("Fatal Error, coder initializer not implemented.")
     }
     
-    static func instatiateWithParameters(with parameters: Any) -> UIViewController {
+    static func instatiate<T: ViewControllerContext>(context: T) -> UIViewController {
+        fatalError("Fatal Error, This View controller is instaniated only using parameter")
+    }
+    
+    static func instatiate(parameter: String) -> UIViewController {
         let storyBoard = UIStoryboard(name: "Main", bundle: nil)
         return storyBoard.instantiateViewController(identifier: self.storyboardIdentifier, creator: { coder -> CommitViewController in
-                    self.init(coder: coder, repositoryFullName: parameters as! String)!
+                    self.init(coder: coder, repositoryFullName: parameter)!
                 })
     }
     
-    static func instatiateWithModel(with model: Any) -> UIViewController {
-        fatalError("Fatal Error, This View controller is instaniated only using parameters")
+    static func instatiate<T: CellViewModel>(cellViewModel: T) -> UIViewController  {
+        fatalError("Fatal Error, This View controller is instaniated only using parameter")
+    }
+    
+    static func instatiate<T: Model>(model: T) -> UIViewController  {
+        fatalError("Fatal Error, This View controller is instaniated only using parameter")
     }
     
     deinit {

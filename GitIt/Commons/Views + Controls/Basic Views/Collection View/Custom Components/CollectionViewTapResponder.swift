@@ -9,10 +9,10 @@ import UIKit
 
 class CollectionViewTapResponder {
     
-    var viewControllerClass: IBViewController.Type!
+    var viewControllerClass: StoryboardableViewController.Type!
     var customResponse: ((Any) -> Void)!
     
-    init(viewControllerClass: IBViewController.Type? = nil, customResponse: ((Any) -> Void)? = nil) {
+    init(viewControllerClass: StoryboardableViewController.Type? = nil, customResponse: ((Any) -> Void)? = nil) {
         self.viewControllerClass = viewControllerClass
         self.customResponse = customResponse
     }

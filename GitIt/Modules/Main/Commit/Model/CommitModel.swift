@@ -29,6 +29,22 @@ struct CommitModel: Model {
     
     }
     
+    init() {
+        id = 0
+        message = ""
+        htmlURL = URL(string: "www.github.com")!
+        author = OwnerModel()
+        isComplete = false
+    }
+    
+    init(message: String, htmlURL: URL, author: OwnerModel?) {
+        id = 0
+        self.message = message
+        self.htmlURL = htmlURL
+        self.author = author
+        isComplete = true
+    }
+    
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         let nestedContainer = try container.nestedContainer(keyedBy: CommitCodingKeys.self, forKey: .commit)

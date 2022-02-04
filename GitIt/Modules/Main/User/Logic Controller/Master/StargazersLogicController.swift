@@ -9,8 +9,12 @@ import Foundation
 
 class StargazersLogicController: UserLogicController {
     
+    // MARK: - Properties
+    
     var repositoryFullName: String
     var numberofStargazers: Int
+    
+    // MARK: - Initialization
     
     init(repositoryFullName: String, numberofStargazers: Int) {
         self.repositoryFullName = repositoryFullName
@@ -18,10 +22,14 @@ class StargazersLogicController: UserLogicController {
         super.init()
     }
     
+    // MARK: - Loading Methods
+    
     override func load(then handler: @escaping LoadingHandler) {
         self.handler = handler
         GitHubClient.fetchRepositoryStars(fullName: repositoryFullName, page: model.currentPage, completionHandler: processResult(result:))
     }
+    
+    // MARK: - Result Processing Methods
     
     override func updateModelParameters(newItemsCount: Int = 0) {
         super.updateModelParameters(newItemsCount: newItemsCount)

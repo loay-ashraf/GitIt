@@ -9,12 +9,18 @@ import Foundation
 
 class UserLogicController {
     
+    // MARK: - Properties
+    
     var model = List<UserModel>()
     var handler: LoadingHandler?
+    
+    // MARK: - Initialization
     
     init() {
         model.isPaginable = true
     }
+    
+    // MARK: - Loading Methods
     
     func load(then handler: @escaping LoadingHandler) {
         self.handler = handler
@@ -25,6 +31,8 @@ class UserLogicController {
         model.reset()
         load(then: handler)
     }
+    
+    // MARK: - Result Processing Methods
     
     func processResult(result: Result<[UserModel],NetworkError>) {
         switch result {

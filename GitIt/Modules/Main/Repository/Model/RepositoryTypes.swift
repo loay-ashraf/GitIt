@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum RepositoryContext {
+enum RepositoryContext: ViewControllerContext {
     
     case main
     case user(userLogin: String,numberOfRepositories: Int)

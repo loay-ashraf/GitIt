@@ -44,6 +44,24 @@ struct UserModel: Model {
         
     }
     
+    init() {
+        id = 0
+        login = ""
+        avatarURL = URL(string: "www.github.com")!
+        htmlURL = URL(string: "www.github.com")!
+        name = nil
+        bio = nil
+        company = nil
+        location = nil
+        blogURL = nil
+        email = nil
+        twitter = nil
+        repositories = nil
+        followers = nil
+        following = nil
+        isComplete = false
+    }
+    
     init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         id = try values.decode(Int.self, forKey: .id)

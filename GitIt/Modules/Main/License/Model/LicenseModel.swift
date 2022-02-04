@@ -21,6 +21,12 @@ struct LicenseModel: Codable, Equatable {
         
     }
     
+    init() {
+        key = ""
+        name = ""
+        url = URL(string: "www.github.com")!
+    }
+    
     init?(from license: License?) {
         if let license = license {
             self.key = license.key ?? ""

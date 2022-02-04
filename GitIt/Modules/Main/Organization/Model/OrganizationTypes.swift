@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum OrganizationContext {
+enum OrganizationContext: ViewControllerContext {
     
     case main
     case user(userLogin: String)

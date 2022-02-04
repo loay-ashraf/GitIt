@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum UserContext {
+enum UserContext: ViewControllerContext {
     
     case main
     case followers(userLogin: String,numberOfFollowers: Int)
@@ -38,4 +38,8 @@ enum UserContext {
         }
     }
 
+}
+
+protocol ViewControllerContext {
+    
 }

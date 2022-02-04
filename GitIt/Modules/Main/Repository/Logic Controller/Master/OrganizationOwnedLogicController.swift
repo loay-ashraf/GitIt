@@ -9,8 +9,12 @@ import Foundation
 
 class OrganizationOwnedLogicController: RepositoryLogicController {
     
+    // MARK: - Properties
+    
     var organizationLogin: String
     var numberOfRepositories: Int
+    
+    // MARK: - Initialization
     
     init(organizationLogin: String, numberOfRepositories: Int) {
         self.organizationLogin = organizationLogin
@@ -18,10 +22,14 @@ class OrganizationOwnedLogicController: RepositoryLogicController {
         super.init()
     }
     
+    // MARK: - Loading Methods
+    
     override func load(then handler: @escaping LoadingHandler) {
         self.handler  = handler
         GitHubClient.fetchOrganizationRepositories(organizationLogin: organizationLogin, page: model.currentPage, completionHandler: processResult(result:))
     }
+    
+    // MARK: - Result Processing Methods
     
     override func updateModelParameters(newItemsCount: Int = 0) {
         super.updateModelParameters(newItemsCount: newItemsCount)

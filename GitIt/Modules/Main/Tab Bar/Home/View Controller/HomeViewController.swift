@@ -19,16 +19,16 @@ class HomeViewController: UITableViewController {
         let section = indexPath.section
         let row = indexPath.row
         if section == 0, row == 0 {
-            let userVC = UserViewController.instatiateWithContext(with: .main)
+            let userVC = UserViewController.instatiate(context: .main as UserContext)
             navigationController?.pushViewController(userVC, animated: true)
         } else if section == 0, row == 1 {
-            let repositoryVC = RepositoryViewController.instatiateWithContext(with: .main)
+            let repositoryVC = RepositoryViewController.instatiate(context: .main as RepositoryContext)
             navigationController?.pushViewController(repositoryVC, animated: true)
         } else if section == 0, row == 2 {
-            let organizationVC = OrganizationViewController.instatiateWithContext(with: .main)
+            let organizationVC = OrganizationViewController.instatiate(context: .main as OrganizationContext)
             navigationController?.pushViewController(organizationVC, animated: true)
         } else if section == 1, row == 0 {
-            let repositoryVC = RepositoryDetailViewController.instatiateWithParameters(with: "loay-ashraf/GitIt")
+            let repositoryVC = RepositoryDetailViewController.instatiate(parameter: "loay-ashraf/GitIt")
             navigationController?.pushViewController(repositoryVC, animated: true)
         }
     }

@@ -9,12 +9,18 @@ import Foundation
 
 class OrganizationLogicController {
     
+    // MARK: - Properties
+    
     var model = List<OrganizationModel>()
     var handler: LoadingHandler?
+    
+    // MARK: - Initialization
     
     init() {
         self.model.isPaginable = true
     }
+    
+    // MARK: - Loading Methods
     
     func load(then handler: @escaping LoadingHandler) {
         self.handler = handler
@@ -25,6 +31,8 @@ class OrganizationLogicController {
         model.reset()
         load(then: handler)
     }
+    
+    // MARK: - Result Processing Methods
     
     func processResult(result: Result<[OrganizationModel],NetworkError>) {
         switch result {

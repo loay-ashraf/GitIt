@@ -7,14 +7,15 @@
 
 import UIKit
 
-class OrganizationDetailViewController: SFStaticTableViewController, IBViewController {
+class OrganizationDetailViewController: SFStaticTableViewController, StoryboardableViewController {
 
+    // MARK: - Properties
+    
     static let storyboardIdentifier = "OrganizationDetailVC"
     
-    private let logicController: OrganizationDetailLogicController
-    private var model: OrganizationModel { return logicController.model }
+    var viewModel: OrganizationDetailViewModel
     
-    // MARK: - UI Outlets
+    // MARK: - View Outlets
     
     @IBOutlet weak var avatarImageView: SFImageView!
     @IBOutlet weak var fullNameLabel: UILabel!
@@ -28,10 +29,20 @@ class OrganizationDetailViewController: SFStaticTableViewController, IBViewContr
     @IBOutlet weak var openInSafariButton: UIBarButtonItem!
     @IBOutlet weak var shareButton: UIBarButtonItem!
     
-    // MARK: - Initialisation
+    // MARK: - Initialization
+    
+    required init?(coder: NSCoder, login: String) {
+        viewModel = OrganizationDetailViewModel(login: login)
+        super.init(coder: coder)
+    }
+    
+    required init?(coder: NSCoder, cellViewModel: OrganizationCellViewModel) {
+        viewModel = OrganizationDetailViewModel(cellViewModel: cellViewModel)
+        super.init(coder: coder)
+    }
     
     required init?(coder: NSCoder, model: OrganizationModel) {
-        logicController = OrganizationDetailLogicController(model)
+        viewModel = OrganizationDetailViewModel(model: model)
         super.init(coder: coder)
     }
     
@@ -39,15 +50,37 @@ class OrganizationDetailViewController: SFStaticTableViewController, IBViewContr
         fatalError("Fatal Error, this view controller shouldn't be instantiated via storyboard segue.")
     }
     
-    static func instatiateWithParameters(with parameters: Any) -> UIViewController {
-        fatalError("This View controller is instaniated only using a model")
+    static func instatiate<T: ViewControllerContext>(context: T) -> UIViewController {
+        fatalError("Fatal Error, This View controller is instaniated only using paramter, cellViewModel or model")
     }
     
-    static func instatiateWithModel(with model: Any) -> UIViewController {
+    static func instatiate(parameter: String) -> UIViewController {
         let storyBoard = UIStoryboard(name: "Main", bundle: nil)
-        return storyBoard.instantiateViewController(identifier: self.storyboardIdentifier, creator: {coder -> OrganizationDetailViewController in
-                    self.init(coder: coder, model: model as! OrganizationModel)!
+        return storyBoard.instantiateViewController(identifier: self.storyboardIdentifier, creator: { coder -> OrganizationDetailViewController in
+                        self.init(coder: coder, login: parameter)!
                 })
+    }
+    
+    static func instatiate<T: CellViewModel>(cellViewModel: T) -> UIViewController  {
+        if let cellViewModel = cellViewModel as? OrganizationCellViewModel {
+            let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+            return storyBoard.instantiateViewController(identifier: self.storyboardIdentifier, creator: { coder -> OrganizationDetailViewController in
+                            self.init(coder: coder, cellViewModel: cellViewModel)!
+                    })
+        } else {
+            return UIViewController()
+        }
+    }
+    
+    static func instatiate<T: Model>(model: T) -> UIViewController  {
+        if let model = model as? OrganizationModel {
+            let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+            return storyBoard.instantiateViewController(identifier: self.storyboardIdentifier, creator: { coder -> OrganizationDetailViewController in
+                            self.init(coder: coder, model: model)!
+                    })
+        } else {
+            return UIViewController()
+        }
     }
     
     deinit {
@@ -74,28 +107,30 @@ class OrganizationDetailViewController: SFStaticTableViewController, IBViewContr
         
         avatarImageView.addInteraction(UIContextMenuInteraction(delegate: self))
         
-        blogTextView.action = { [weak self] in self?.goToBlog() }
-        emailTextView.action = { [weak self] in self?.composeMail() }
-        twitterTextView.action = { [weak self] in self?.goToTwitter() }
+        blogTextView.action = { [weak self] in self?.viewModel.goToBlog() }
+        emailTextView.action = { [weak self] in self?.viewModel.composeMail() }
+        twitterTextView.action = { [weak self] in self?.viewModel.goToTwitter() }
     }
     
     override func updateView() {
-        avatarImageView.load(at: model.avatarURL)
-        if model.name != nil {
-            fullNameLabel.text = model.name
+        avatarImageView.load(at: viewModel.avatarURL)
+        if viewModel.name != nil {
+            fullNameLabel.text = viewModel.name
         } else  {
             fullNameLabel.isHidden = true
         }
-        loginLabel.text = model.login
-        if model.description != nil {
-            descriptionLabel.text = model.description
+        loginLabel.text = viewModel.login
+        if viewModel.description != nil {
+            descriptionLabel.text = viewModel.description
         } else {
             descriptionLabel.isHidden = true
         }
-        locationTextView.text = model.location
-        blogTextView.text = model.blogURL?.absoluteString
-        emailTextView.text = model.email
-        twitterTextView.text = model.twitter != nil ? "@".appending(model.twitter!) : nil
+        locationTextView.text = viewModel.location
+        blogTextView.text = viewModel.blogURL?.absoluteString
+        emailTextView.text = viewModel.email
+        twitterTextView.text = viewModel.twitter != nil ? "@".appending(viewModel.twitter!) : nil
+        
+        updateBookmarkButton()
         
         bookmarkButton.isEnabled = true
         openInSafariButton.isEnabled = true
@@ -105,63 +140,23 @@ class OrganizationDetailViewController: SFStaticTableViewController, IBViewContr
     // MARK: - View Actions
     
     @IBAction func bookmark(_ sender: UIBarButtonItem) {
-        logicController.bookmark(then: updateBookmarkButton(isBookmarked:))
+        viewModel.bookmarkAction(then: updateBookmarkButton)
     }
     
     @IBAction func openInSafari(_ sender: UIBarButtonItem) {
-        let htmlURL = model.htmlURL
-        URLHelper.openURL(htmlURL)
+        viewModel.openInSafari()
     }
     
     @IBAction func share(_ sender: UIBarButtonItem) {
-        let htmlURL = model.htmlURL
-        URLHelper.shareURL(htmlURL)
-    }
-    
-    @IBAction func saveAvatar(_ sender: UILongPressGestureRecognizer) {
-        if sender.state == .ended {
-            UIImageWriteToSavedPhotosAlbum(avatarImageView.image!, self, nil, nil)
-        }
-    }
-    
-    @objc func goToBlog() {
-        let webURL = model.blogURL
-        URLHelper.openURL(webURL!)
-    }
-    
-    @objc func composeMail() {
-        let appURL = URL(string: "mailto://" + model.email!)!
-        if UIApplication.shared.canOpenURL(appURL) {
-            UIApplication.shared.open(appURL)
-        }
-    }
-    
-    @objc func goToTwitter() {
-        let appURL = URL(string: "twitter://user?screen_name=" + model.twitter!)!
-        let webURL = URL(string: "https://twitter.com/" + model.twitter!)!
-        if UIApplication.shared.canOpenURL(appURL) {
-            UIApplication.shared.open(appURL)
-        } else {
-            URLHelper.openURL(webURL)
-        }
-    }
-    
-    func showMemebers() {
-        let usersVC = UserViewController.instatiateWithContext(with: .members(organizationLogin: model.login))
-        navigationController?.pushViewController(usersVC, animated: true)
-    }
-    
-    func showRepositories() {
-        let repositoriesVC = RepositoryViewController.instatiateWithContext(with: .user(userLogin: model.login, numberOfRepositories: model.repositories!))
-        navigationController?.pushViewController(repositoriesVC, animated: true)
+        viewModel.share()
     }
     
     override func showViewController(forRowAt indexPath: IndexPath) {
         super.showViewController(forRowAt: indexPath)
         if indexPath.row == 0 {
-            showMemebers()
+            viewModel.showMembers(navigationController: navigationController)
         } else if indexPath.row == 1 {
-            showRepositories()
+            viewModel.showRepositories(navigationController: navigationController)
         }
     }
     
@@ -169,17 +164,17 @@ class OrganizationDetailViewController: SFStaticTableViewController, IBViewContr
     
     override func load() {
         super.load()
-        logicController.load(then: loadHandler(error:), then: updateBookmarkButton(isBookmarked:))
+        viewModel.load(then: loadHandler(error:))
     }
     
 }
 
 extension OrganizationDetailViewController {
     
-    // MARK: - View Actions (private)
+    // MARK: - View Helper Methods (private)
     
-    private func updateBookmarkButton(isBookmarked: Bool) {
-        if isBookmarked {
+    private func updateBookmarkButton() {
+        if viewModel.isBookmarked {
             bookmarkButton.image = UIImage(systemName: "bookmark.fill")
         } else {
             bookmarkButton.image = UIImage(systemName: "bookmark")

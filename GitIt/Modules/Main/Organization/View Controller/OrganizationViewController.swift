@@ -7,7 +7,9 @@
 
 import UIKit
 
-class OrganizationViewController: SFDynamicTableViewController<OrganizationCellViewModel>, IBViewController {
+class OrganizationViewController: SFDynamicTableViewController<OrganizationCellViewModel>, StoryboardableViewController {
+    
+    // MARK: - Properties
     
     static var storyboardIdentifier = "OrganizationVC"
     
@@ -28,19 +30,27 @@ class OrganizationViewController: SFDynamicTableViewController<OrganizationCellV
         fatalError("Fatal Error, coder initializer not implemented.")
     }
     
-    static func instatiateWithContext(with context: OrganizationContext) -> UIViewController {
-        let storyBoard = UIStoryboard(name: "Main", bundle: nil)
-        return storyBoard.instantiateViewController(identifier: self.storyboardIdentifier, creator: { coder -> OrganizationViewController in
-                    self.init(coder: coder, context: context)!
-                })
+    static func instatiate<T: ViewControllerContext>(context: T) -> UIViewController {
+        if let organizationContext = context as? OrganizationContext {
+            let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+            return storyBoard.instantiateViewController(identifier: self.storyboardIdentifier, creator: { coder -> OrganizationViewController in
+                        self.init(coder: coder, context: organizationContext)!
+            })
+        } else {
+            return UIViewController()
+        }
     }
     
-    static func instatiateWithParameters(with parameters: Any) -> UIViewController {
-        fatalError("Fatal Error, This View controller is instaniated only using context and context parameters")
+    static func instatiate(parameter: String) -> UIViewController {
+        fatalError("Fatal Error, This View controller is instaniated only using context")
     }
     
-    static func instatiateWithModel(with model: Any) -> UIViewController {
-        fatalError("Fatal Error, This View controller is instaniated only using context and context parameters")
+    static func instatiate<T: CellViewModel>(cellViewModel: T) -> UIViewController  {
+        fatalError("Fatal Error, This View controller is instaniated only using context")
+    }
+    
+    static func instatiate<T: Model>(model: T) -> UIViewController  {
+        fatalError("Fatal Error, This View controller is instaniated only using context")
     }
     
     deinit {

@@ -7,12 +7,13 @@
 
 import UIKit
 
-class UserDetailViewController: SFStaticTableViewController, IBViewController {
+class UserDetailViewController: SFStaticTableViewController, StoryboardableViewController {
+    
+    // MARK: - Properties
     
     static let storyboardIdentifier = "UserDetailVC"
     
-    private let logicController: UserDetailLogicController
-    private var model: UserModel { return logicController.model }
+    var viewModel: UserDetailViewModel
     
     // MARK: - View Outlets
     
@@ -31,10 +32,20 @@ class UserDetailViewController: SFStaticTableViewController, IBViewController {
     @IBOutlet weak var openInSafariButton: UIBarButtonItem!
     @IBOutlet weak var shareButton: UIBarButtonItem!
     
-    // MARK: - Initialisation
+    // MARK: - Initialization
+    
+    required init?(coder: NSCoder, login: String) {
+        viewModel = UserDetailViewModel(login: login)
+        super.init(coder: coder)
+    }
+    
+    required init?(coder: NSCoder, cellViewModel: UserCellViewModel) {
+        viewModel = UserDetailViewModel(cellViewModel: cellViewModel)
+        super.init(coder: coder)
+    }
     
     required init?(coder: NSCoder, model: UserModel) {
-        logicController = UserDetailLogicController(model)
+        viewModel = UserDetailViewModel(model: model)
         super.init(coder: coder)
     }
     
@@ -42,15 +53,37 @@ class UserDetailViewController: SFStaticTableViewController, IBViewController {
         fatalError("Fatal Error, this view controller shouldn't be instantiated via storyboard segue.")
     }
     
-    static func instatiateWithParameters(with parameters: Any) -> UIViewController {
-        fatalError("Fatal Error, This View controller is instaniated only using a model")
+    static func instatiate<T: ViewControllerContext>(context: T) -> UIViewController {
+        fatalError("Fatal Error, This View controller is instaniated only using paramter, cellViewModel or model")
     }
     
-    static func instatiateWithModel(with model: Any) -> UIViewController {
+    static func instatiate(parameter: String) -> UIViewController {
         let storyBoard = UIStoryboard(name: "Main", bundle: nil)
-        return storyBoard.instantiateViewController(identifier: self.storyboardIdentifier, creator: {coder -> UserDetailViewController in
-                    self.init(coder: coder, model: model as! UserModel)!
+        return storyBoard.instantiateViewController(identifier: self.storyboardIdentifier, creator: { coder -> UserDetailViewController in
+                        self.init(coder: coder, login: parameter)!
                 })
+    }
+    
+    static func instatiate<T: CellViewModel>(cellViewModel: T) -> UIViewController  {
+        if let cellViewModel = cellViewModel as? UserCellViewModel {
+            let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+            return storyBoard.instantiateViewController(identifier: self.storyboardIdentifier, creator: { coder -> UserDetailViewController in
+                            self.init(coder: coder, cellViewModel: cellViewModel)!
+                    })
+        } else {
+            return UIViewController()
+        }
+    }
+    
+    static func instatiate<T: Model>(model: T) -> UIViewController  {
+        if let model = model as? UserModel {
+            let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+            return storyBoard.instantiateViewController(identifier: self.storyboardIdentifier, creator: { coder -> UserDetailViewController in
+                            self.init(coder: coder, model: model)!
+                    })
+        } else {
+            return UIViewController()
+        }
     }
     
     deinit {
@@ -77,10 +110,10 @@ class UserDetailViewController: SFStaticTableViewController, IBViewController {
         
         avatarImageView.addInteraction(UIContextMenuInteraction(delegate: self))
         
-        blogTextView.action = { [weak self] in self?.goToBlog() }
-        emailTextView.action = { [weak self] in self?.composeMail() }
-        twitterTextView.action = { [weak self] in self?.goToTwitter() }
-        socialStatusNumericView.actions = [{ [weak self] in self?.showFollowers() },{ [weak self] in self?.showFollowing() }]
+        blogTextView.action = { [weak self] in self?.viewModel.goToBlog() }
+        emailTextView.action = { [weak self] in self?.viewModel.composeMail() }
+        twitterTextView.action = { [weak self] in self?.viewModel.goToTwitter() }
+        socialStatusNumericView.actions = [{ [weak self] in self?.viewModel.showFollowers(navigationController: self?.navigationController) },{ [weak self] in self?.viewModel.showFollowing(navigationController: self?.navigationController) }]
         
         switch UIApplication.shared.userInterfaceLayoutDirection {
         case .leftToRight: followButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 15.0)
@@ -88,29 +121,6 @@ class UserDetailViewController: SFStaticTableViewController, IBViewController {
         @unknown default: break
         }
         followButton.cornerRadius = 10
-    }
-    
-    override func updateView() {
-        avatarImageView.load(at: model.avatarURL)
-        if model.name != nil {
-            fullNameLabel.text = model.name
-        } else  {
-            fullNameLabel.isHidden = true
-        }
-        loginLabel.text = model.login
-        if model.bio != nil {
-            bioLabel.text = model.bio
-        } else {
-            bioLabel.isHidden = true
-        }
-        companyTextView.text = model.company
-        locationTextView.text = model.location
-        blogTextView.text = model.blogURL?.absoluteString
-        emailTextView.text = model.email
-        twitterTextView.text = model.twitter != nil ? "@".appending(model.twitter!) : nil
-        if let followers = model.followers, let following = model.following {
-            socialStatusNumericView.numbers = [Double(followers),Double(following)]
-        }
         
         if NetworkManager.standard.isReachable {
             followButton.isEnabled = true
@@ -118,11 +128,35 @@ class UserDetailViewController: SFStaticTableViewController, IBViewController {
             followButton.isEnabled = false
         }
         
-        if SessionManager.standard.sessionType == .guest || model.login == SessionManager.standard.sessionUser?.login  {
+        if SessionManager.standard.sessionType == .guest || viewModel.login == SessionManager.standard.sessionUser?.login  {
             followButton.isHidden = true
         } else {
             followButton.isHidden = false
         }
+    }
+    
+    override func updateView() {
+        avatarImageView.load(at: viewModel.avatarURL)
+        if viewModel.name != nil {
+            fullNameLabel.text = viewModel.name
+        } else  {
+            fullNameLabel.isHidden = true
+        }
+        loginLabel.text = viewModel.login
+        if viewModel.bio != nil {
+            bioLabel.text = viewModel.bio
+        } else {
+            bioLabel.isHidden = true
+        }
+        companyTextView.text = viewModel.company
+        locationTextView.text = viewModel.location
+        blogTextView.text = viewModel.blogURL?.absoluteString
+        emailTextView.text = viewModel.email
+        twitterTextView.text = viewModel.twitter != nil ? "@".appending(viewModel.twitter!) : nil
+        socialStatusNumericView.numbers = [Double(viewModel.followers),Double(viewModel.following)]
+        
+        updateBookmarkButton()
+        updateFollowButton()
         
         bookmarkButton.isEnabled = true
         openInSafariButton.isEnabled = true
@@ -131,79 +165,30 @@ class UserDetailViewController: SFStaticTableViewController, IBViewController {
     
     // MARK: - View Actions
     
-    @IBAction func follow(_ sender: Any) {
-        logicController.follow(then: updateFollowButton(isFollowed:))
+    @IBAction func bookmark(_ sender: UIBarButtonItem) {
+        viewModel.bookmarkAction(then: updateBookmarkButton)
     }
     
-    @IBAction func bookmark(_ sender: UIBarButtonItem) {
-        logicController.bookmark(then: updateBookmarkButton(isBookmarked:))
+    @IBAction func follow(_ sender: Any) {
+        viewModel.followAction(then: updateFollowButton)
     }
     
     @IBAction func openInSafari(_ sender: UIBarButtonItem) {
-        let htmlURL = model.htmlURL
-        URLHelper.openURL(htmlURL)
+        viewModel.openInSafari()
     }
     
     @IBAction func share(_ sender: UIBarButtonItem) {
-        let htmlURL = model.htmlURL
-        URLHelper.shareURL(htmlURL)
-    }
-    
-    @objc func goToBlog() {
-        let webURL = model.blogURL
-        URLHelper.openURL(webURL!)
-    }
-    
-    @objc func composeMail() {
-        let appURL = URL(string: "mailto://" + model.email!)!
-        if UIApplication.shared.canOpenURL(appURL) {
-            UIApplication.shared.open(appURL)
-        }
-    }
-    
-    @objc func goToTwitter() {
-        let appURL = URL(string: "twitter://user?screen_name=" + model.twitter!)!
-        let webURL = URL(string: "https://twitter.com/" + model.twitter!)!
-        if UIApplication.shared.canOpenURL(appURL) {
-            UIApplication.shared.open(appURL)
-        } else {
-            URLHelper.openURL(webURL)
-        }
-    }
-    
-    @objc func showFollowers() {
-        let followersVC = UserViewController.instatiateWithContext(with: .followers(userLogin: model.login, numberOfFollowers: model.followers!))
-        navigationController?.pushViewController(followersVC, animated: true)
-    }
-    
-    @objc func showFollowing() {
-        let followingVC = UserViewController.instatiateWithContext(with: .following(userLogin: model.login, numberOfFollowing: model.following!))
-        navigationController?.pushViewController(followingVC, animated: true)
-    }
-    
-    func showRepositories() {
-        let repositoriesVC = RepositoryViewController.instatiateWithContext(with: .user(userLogin: model.login, numberOfRepositories: model.repositories!))
-        navigationController?.pushViewController(repositoriesVC, animated: true)
-    }
-    
-    func showOrganizations() {
-        let organizationsVC = OrganizationViewController.instatiateWithContext(with: .user(userLogin: model.login))
-        navigationController?.pushViewController(organizationsVC, animated: true)
-    }
-    
-    func showStarred() {
-        let repositoriesVC = RepositoryViewController.instatiateWithContext(with: .starred(userLogin: model.login))
-        navigationController?.pushViewController(repositoriesVC, animated: true)
+        viewModel.share()
     }
     
     override func showViewController(forRowAt indexPath: IndexPath) {
         super.showViewController(forRowAt: indexPath)
         if indexPath.row == 0 {
-            showRepositories()
+            viewModel.showRepositories(navigationController: navigationController)
         } else if indexPath.row == 1 {
-            showOrganizations()
+            viewModel.showOrganizations(navigationController: navigationController)
         } else if indexPath.row == 2 {
-            showStarred()
+            viewModel.showStarred(navigationController: navigationController)
         }
     }
     
@@ -211,7 +196,7 @@ class UserDetailViewController: SFStaticTableViewController, IBViewController {
     
     override func load() {
         super.load()
-        logicController.load(then: loadHandler(error:), then: updateFollowButton(isFollowed:), then: updateBookmarkButton(isBookmarked:))
+        viewModel.load(then: loadHandler(error:))
     }
     
 }
@@ -220,8 +205,8 @@ extension UserDetailViewController {
     
     // MARK: - View Helper Methods (Private)
     
-    private func updateFollowButton(isFollowed: Bool) {
-        if isFollowed {
+    private func updateFollowButton() {
+        if viewModel.isFollowed {
             followButton.setTitle(Constants.View.Button.follow.followedTitle, for: .normal)
             followButton.setImage(Constants.View.Button.follow.followedImage, for: .normal)
         } else {
@@ -230,8 +215,8 @@ extension UserDetailViewController {
         }
     }
     
-    private func updateBookmarkButton(isBookmarked: Bool) {
-        if isBookmarked {
+    private func updateBookmarkButton() {
+        if viewModel.isBookmarked {
             bookmarkButton.image = Constants.View.Button.bookmark.bookmarkedImage
         } else {
             bookmarkButton.image = Constants.View.Button.bookmark.defaultImage

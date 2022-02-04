@@ -9,8 +9,12 @@ import Foundation
 
 class FollowersLogicController: UserLogicController {
     
+    // MARK: - Properties
+    
     var userLogin: String
     var numberofFollowers: Int
+    
+    // MARK: - Initialization
     
     init(userLogin: String, numberofFollowers: Int) {
         self.userLogin = userLogin
@@ -18,10 +22,14 @@ class FollowersLogicController: UserLogicController {
         super.init()
     }
     
+    // MARK: - Loading Methods
+    
     override func load(then handler: @escaping LoadingHandler) {
         self.handler = handler
         GitHubClient.fetchUserFollowers(userLogin: userLogin, page: model.currentPage, completion: processResult(result:))
     }
+    
+    // MARK: - Result Processing Methods
     
     override func updateModelParameters(newItemsCount: Int = 0) {
         super.updateModelParameters(newItemsCount: newItemsCount)
