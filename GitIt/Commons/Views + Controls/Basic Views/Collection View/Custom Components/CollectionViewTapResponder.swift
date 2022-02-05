@@ -17,11 +17,11 @@ class CollectionViewTapResponder {
         self.customResponse = customResponse
     }
 
-    func respondToTap<Type>(with item: Type) {
+    func respondToTap<T: CollectionCellViewModel>(with item: T) {
         if let customRespone = customResponse {
             customRespone(item)
         } else if let viewControllerClass = viewControllerClass {
-            let detailVC = viewControllerClass.instatiateWithModel(with: item)
+            let detailVC = viewControllerClass.instatiate(collectionCellViewModel: item)
             if let topViewController = UIApplication.topViewController() {
                 if let navigationController = topViewController.navigationController {
                     navigationController.pushViewController(detailVC, animated: true)

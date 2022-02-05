@@ -30,27 +30,11 @@ class LicenseViewController: SFViewController, StoryboardableViewController {
         fatalError("Fatal Error, this view controller shouldn't be instantiated via storyboard segue.")
     }
     
-    static func instatiate<T: ViewControllerContext>(context: T) -> UIViewController {
-        fatalError("Fatal Error, This View controller is instaniated only using parameters")
-    }
-    
-    static func instatiate(parameter: String) -> UIViewController {
-        fatalError("Fatal Error, This View controller is instaniated only using parameters")
-    }
-    
     static func instatiate(parameters: [String]) -> UIViewController {
         let storyBoard = UIStoryboard(name: "Main", bundle: nil)
         return storyBoard.instantiateViewController(identifier: self.storyboardIdentifier, creator: { coder -> LicenseViewController in
                     self.init(coder: coder, repositoryFullName: parameters[0], defaultBranch: parameters[1])!
                 })
-    }
-    
-    static func instatiate<T: CellViewModel>(cellViewModel: T) -> UIViewController  {
-        fatalError("Fatal Error, This View controller is instaniated only using parameters")
-    }
-    
-    static func instatiate<T: Model>(model: T) -> UIViewController  {
-        fatalError("Fatal Error, This View controller is instaniated only using parameters")
     }
     
     // MARK: - Lifecycle

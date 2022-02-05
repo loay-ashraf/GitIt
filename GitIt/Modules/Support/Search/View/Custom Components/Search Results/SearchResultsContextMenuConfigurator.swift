@@ -7,21 +7,21 @@
 
 import UIKit
 
-class SearchResultsContextMenuConfigurator<Type>: TableViewContextMenuConfigurator {
+class SearchResultsContextMenuConfigurator<T: TableCellViewModel>: TableViewContextMenuConfigurator {
     
     var rawConfigurator: TableViewContextMenuConfigurator!
     
     override init() {
         super.init()
-        switch Type.self {
-        case is UserModel.Type: rawConfigurator = UserTableViewContextMenuConfigurator()
-        case is RepositoryModel.Type: rawConfigurator = RepositoryTableViewContextMenuConfigurator()
-        case is OrganizationModel.Type: rawConfigurator = OrganizationTableViewContextMenuConfigurator()
+        switch T.self {
+        case is UserTableCellViewModel.Type: rawConfigurator = UserTableViewContextMenuConfigurator()
+        case is RepositoryTableCellViewModel.Type: rawConfigurator = RepositoryTableViewContextMenuConfigurator()
+        case is OrganizationTableCellViewModel.Type: rawConfigurator = OrganizationTableViewContextMenuConfigurator()
         default: break
         }
     }
     
-    override func configure<Type>(with item: Type) -> UIContextMenuConfiguration {
+    override func configure<T: TableCellViewModel>(with item: T) -> UIContextMenuConfiguration {
         rawConfigurator.configure(with: item)
     }
     

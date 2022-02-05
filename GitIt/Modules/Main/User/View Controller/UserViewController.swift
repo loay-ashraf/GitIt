@@ -7,7 +7,7 @@
 
 import UIKit
 
-class UserViewController: SFDynamicTableViewController<UserCellViewModel>, StoryboardableViewController {
+class UserViewController: SFDynamicTableViewController<UserViewModel>, StoryboardableViewController {
 
     // MARK: - Properties
     
@@ -15,13 +15,13 @@ class UserViewController: SFDynamicTableViewController<UserCellViewModel>, Story
     
     private var context: UserContext
     
-    private var searchCoordinator: SearchCoordinator<UserModel>!
+    private var searchCoordinator: SearchCoordinator<UserSearchStack>!
     
     // MARK: - Initialization
     
     required init?(coder: NSCoder, context: UserContext) {
         self.context = context
-        super.init(coder: coder, tableViewDataSource: z(), tableViewDelegate: x())
+        super.init(coder: coder, tableViewDataSource: UserTableViewDataSource(), tableViewDelegate: UserTableViewDelegate())
         viewModel = UserViewModel(context: context)
         emptyViewModel = ViewConstants.Empty.Users.viewModel
     }
@@ -39,18 +39,6 @@ class UserViewController: SFDynamicTableViewController<UserCellViewModel>, Story
         } else {
             return UIViewController()
         }
-    }
-    
-    static func instatiate(parameter: String) -> UIViewController {
-        fatalError("Fatal Error, This View controller is instaniated only using context")
-    }
-    
-    static func instatiate<T: CellViewModel>(cellViewModel: T) -> UIViewController  {
-        fatalError("Fatal Error, This View controller is instaniated only using context")
-    }
-    
-    static func instatiate<T: Model>(model: T) -> UIViewController  {
-        fatalError("Fatal Error, This View controller is instaniated only using context")
     }
     
     deinit {
@@ -76,10 +64,10 @@ class UserViewController: SFDynamicTableViewController<UserCellViewModel>, Story
         }
         tableView.contentInset = UIEdgeInsets(top: 20, left: 0, bottom: 0, right: 0)
         
-//        switch context {
-//        case .main: searchCoordinator = SearchCoordinator(self)
-//        default: searchCoordinator = nil
-//        }
+        switch context {
+        case .main: searchCoordinator = SearchCoordinator(self)
+        default: searchCoordinator = nil
+        }
     }
     
     // MARK: - Loading Methods

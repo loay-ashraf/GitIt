@@ -7,9 +7,9 @@
 
 import UIKit
 
-class SearchHistoryTableViewDataSource: TableViewDataSource<String> {
+class SearchHistoryTableViewDataSource: TableViewDataSource<QueryCellViewModel> {
     
-    init(tableDelegate: HistoryTableDelegate) {
+    init(tableDelegate: SearchHistoryTableDelegate) {
         let cellClass = SearchHistoryTableViewCell.self
         let cellConfigurator = SearchHistoryTableViewCellConfigurator()
         let swipeResponder = SearchHistoryTableViewSwipeResponder(delegate: tableDelegate)
@@ -18,14 +18,14 @@ class SearchHistoryTableViewDataSource: TableViewDataSource<String> {
     
 }
 
-class SearchHistoryCollectionViewDataSource<Type>: CollectionViewDataSource<Type> {
+class SearchHistoryCollectionViewDataSource<T: CollectionCellViewModel>: CollectionViewDataSource<T> {
     
-    class func raw() -> CollectionViewDataSource<Type> {
-        switch Type.self {
-        case is UserModel.Type: return CollectionViewDataSourceConstants.userDataSource as! CollectionViewDataSource<Type>
-        case is RepositoryModel.Type: return CollectionViewDataSourceConstants.repositoryDataSource as! CollectionViewDataSource<Type>
-        case is OrganizationModel.Type: return CollectionViewDataSourceConstants.organizationDataSource as! CollectionViewDataSource<Type>
-        default: return CollectionViewDataSource<Type>()
+    class func raw() -> CollectionViewDataSource<T> {
+        switch T.self {
+        case is UserCollectionCellViewModel.Type: return CollectionViewDataSourceConstants.userDataSource as! CollectionViewDataSource<T>
+        case is RepositoryCollectionCellViewModel.Type: return CollectionViewDataSourceConstants.repositoryDataSource as! CollectionViewDataSource<T>
+        case is OrganizationCollectionCellViewModel.Type: return CollectionViewDataSourceConstants.organizationDataSource as! CollectionViewDataSource<T>
+        default: return CollectionViewDataSource<T>()
         }
     }
     

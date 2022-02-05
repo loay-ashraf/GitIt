@@ -9,6 +9,6 @@ import UIKit
 
 class TableViewCellConfigurator {
     
-    func configure<Type>(_ cell: UITableViewCell, forDisplaying item: Type) { /* override this method in sub classes */ }
+    func configure<T: TableCellViewModel>(_ cell: UITableViewCell, forDisplaying item: T) { /* override this method in sub classes */ }
     
 }

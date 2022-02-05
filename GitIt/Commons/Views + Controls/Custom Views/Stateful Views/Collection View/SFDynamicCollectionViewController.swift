@@ -7,30 +7,28 @@
 
 import UIKit
 
-class SFDynamicCollectionViewController<Type>: UICollectionViewController {
+class SFDynamicCollectionViewController<T: CollectionViewModel>: UICollectionViewController {
     
     var xCollectionView: SFDynamicCollectionView! { return collectionView as? SFDynamicCollectionView }
     
-    var collectionViewDataSource: CollectionViewDataSource<Type>!
-    var collectionViewDelegate: CollectionViewDelegate<Type>!
+    var collectionViewDataSource: CollectionViewDataSource<T.CollectionCellViewModelType>!
+    var collectionViewDelegate: CollectionViewDelegate<T.CollectionCellViewModelType>!
     
-    private(set) var model: List<Type>!
-    private(set) var emptyModel: EmptyViewModel = Constants.View.Empty.General.viewModel
+    var viewModel: T!
+    var emptyViewModel: EmptyViewModel = Constants.View.Empty.General.viewModel
     
-    // MARK: - Initialisation
+    // MARK: - Initialization
     
-    init(collectionViewDataSource: CollectionViewDataSource<Type>, collectionViewDelegate: CollectionViewDelegate<Type>) {
+    init(collectionViewDataSource: CollectionViewDataSource<T.CollectionCellViewModelType>, collectionViewDelegate: CollectionViewDelegate<T.CollectionCellViewModelType>) {
         super.init(nibName: nil, bundle: nil)
-        self.model = List<Type>()
         self.collectionViewDataSource = collectionViewDataSource
         self.collectionViewDelegate = collectionViewDelegate
     }
     
-    init?(coder: NSCoder, collectionViewDataSource: CollectionViewDataSource<Type>, collectionViewDelegate: CollectionViewDelegate<Type>) {
+    init?(coder: NSCoder, collectionViewDataSource: CollectionViewDataSource<T.CollectionCellViewModelType>, collectionViewDelegate: CollectionViewDelegate<T.CollectionCellViewModelType>) {
         super.init(coder: coder)
         self.collectionViewDataSource = collectionViewDataSource
         self.collectionViewDelegate = collectionViewDelegate
-        self.model = List<Type>()
     }
     
     override init(nibName: String?, bundle: Bundle?) {
@@ -71,6 +69,7 @@ class SFDynamicCollectionViewController<Type>: UICollectionViewController {
     }
     
     func updateView() {
+        synchronizeCollectionView()
         xCollectionView.reloadData()
     }
 
@@ -131,7 +130,11 @@ class SFDynamicCollectionViewController<Type>: UICollectionViewController {
         if let error = error {
             xCollectionView.transition(to: .failed(.initial(error)))
             disableSearchBar()
+        } else if viewModel.isEmpty {
+            xCollectionView.transition(to: .empty(emptyViewModel))
+            disableSearchBar()
         } else {
+            synchronizeCollectionView()
             xCollectionView.transition(to: .presenting)
             enableSearchBar()
         }
@@ -142,6 +145,7 @@ class SFDynamicCollectionViewController<Type>: UICollectionViewController {
             xCollectionView.transition(to: .failed(.refresh(error)))
             disableSearchBar()
         } else {
+            synchronizeCollectionView()
             xCollectionView.transition(to: .presenting)
             enableSearchBar()
         }
@@ -152,48 +156,9 @@ class SFDynamicCollectionViewController<Type>: UICollectionViewController {
         enableSearchBar()
     }
     
-    // MARK: - Collection View Data Source
-    
-    /*override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
+    func synchronizeCollectionView() {
+        collectionViewDataSource.cellViewModels = viewModel.cellViewModels.items
+        collectionViewDelegate.cellViewModels = viewModel.cellViewModels.items
     }
 
-    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return model?.items.count ?? 0
-    }
-    
-    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if let refreshControl = xCollectionView.refreshControl, refreshControl.isRefreshing { return UICollectionViewCell() }
-        if let cellIdentifier = xCollectionView.registeredViews.keys.first {
-            let cell = xCollectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath) as! IBCollectionViewCell
-            let item = model.items[indexPath.row]
-            
-            // Configure the cell...
-            //cell.configure(with: item)
-            cellConfigurator.configure(cell, forDisplaying: item)
-            
-            return cell
-        }
-        return UICollectionViewCell()
-    }
-    
-    // MARK: - Collection View Delegate
-    
-    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        xCollectionView.deselectItem(at: indexPath, animated: true)
-        if let detailViewControllerType = detailViewControllerType {
-            let modelItem = model.items[indexPath.row]
-            let detailVC = detailViewControllerType.instatiateWithModel(with: modelItem)
-            if let navigationController = navigationController {
-                navigationController.pushViewController(detailVC, animated: true)
-            } else if let parent = parent {
-                parent.navigationController?.pushViewController(detailVC, animated: true)
-            }
-        }
-    }
-    
-    /*override func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
-        return configureContextMenu(indexPath: indexPath)
-    }*/
-     */
 }

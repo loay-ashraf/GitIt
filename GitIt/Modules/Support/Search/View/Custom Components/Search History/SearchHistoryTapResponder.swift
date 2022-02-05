@@ -9,38 +9,38 @@ import UIKit
 
 class SearchHistoryTableViewTapResponder: TableViewTapResponder {
     
-    weak var historyTableDelegate: HistoryTableDelegate?
+    weak var historyTableDelegate: SearchHistoryTableDelegate?
     
-    init(delegate: HistoryTableDelegate) {
+    init(delegate: SearchHistoryTableDelegate) {
         self.historyTableDelegate = delegate
     }
     
-    override func respondToTap<Type>(with item: Type) {
-        historyTableDelegate?.add(keyWord: item as! String)
+    override func respondToTap<T: TableCellViewModel>(with item: T) {
+        historyTableDelegate?.add(queryCellViewModel: item as! QueryCellViewModel)
         historyTableDelegate?.updateTable()
         historyTableDelegate?.didUpdateTable()
     }
     
 }
 
-class SearchHistoryCollectionViewTapResponder<Type>: CollectionViewTapResponder {
+class SearchHistoryCollectionViewTapResponder<T: CollectionCellViewModel>: CollectionViewTapResponder {
     
     var rawTapResponder: CollectionViewTapResponder?
-    weak var historyCollectionDelegate: HistoryCollectionDelegate?
+    weak var historyCollectionDelegate: SearchHistoryCollectionDelegate?
     
-    init(delegate: HistoryCollectionDelegate) {
+    init(delegate: SearchHistoryCollectionDelegate) {
         self.historyCollectionDelegate = delegate
-        switch Type.self {
-        case is UserModel.Type: rawTapResponder = UserCollectionViewTapResponder()
-        case is RepositoryModel.Type: rawTapResponder = RepositoryCollectionViewTapResponder()
-        case is OrganizationModel.Type: rawTapResponder = OrganizationCollectionViewTapResponder()
+        switch T.self {
+        case is UserCollectionCellViewModel.Type: rawTapResponder = UserCollectionViewTapResponder()
+        case is RepositoryCollectionCellViewModel.Type: rawTapResponder = RepositoryCollectionViewTapResponder()
+        case is OrganizationCollectionCellViewModel.Type: rawTapResponder = OrganizationCollectionViewTapResponder()
         default: break
         }
     }
     
-    override func respondToTap<Type>(with item: Type) {
+    override func respondToTap<T: CollectionCellViewModel>(with item: T) {
         historyCollectionDelegate?.dismissHistoryKeyboard()
-        historyCollectionDelegate?.add(model: item)
+        historyCollectionDelegate?.add(objectCellViewModel: item)
         historyCollectionDelegate?.updateCollection()
         historyCollectionDelegate?.didUpdateCollection()
         rawTapResponder?.respondToTap(with: item)

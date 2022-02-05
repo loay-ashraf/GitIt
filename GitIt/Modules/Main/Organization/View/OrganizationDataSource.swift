@@ -7,7 +7,7 @@
 
 import UIKit
 
-class OrganizationTableViewDataSource: TableViewDataSource<OrganizationModel> {
+class OrganizationTableViewDataSource: TableViewDataSource<OrganizationTableCellViewModel> {
     
     override init() {
         let cellClass = RoundedImageTableViewCell.self
@@ -17,17 +17,7 @@ class OrganizationTableViewDataSource: TableViewDataSource<OrganizationModel> {
     
 }
 
-class cvx: TableViewDataSource<OrganizationCellViewModel> {
-    
-    override init() {
-        let cellClass = RoundedImageTableViewCell.self
-        let cellConfigurator = OrganizationTableViewCellConfigurator()
-        super.init(cellClass: cellClass, cellConfigurator: cellConfigurator, swipeResponder: nil)
-    }
-    
-}
-
-class OrganizationCollectionViewDataSource: CollectionViewDataSource<OrganizationModel> {
+class OrganizationCollectionViewDataSource: CollectionViewDataSource<OrganizationCollectionCellViewModel> {
     
     override init() {
         let cellClass = RoundedImageCollectionViewCell.self

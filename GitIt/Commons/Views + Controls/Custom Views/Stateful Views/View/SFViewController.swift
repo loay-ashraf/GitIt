@@ -11,7 +11,7 @@ class SFViewController: UIViewController {
 
     var xView: SFView! { return view as? SFView }
     
-    private(set) var emptyViewModel: EmptyViewModel = EmptyConstants.General.viewModel
+    var emptyViewModel: EmptyViewModel = EmptyConstants.General.viewModel
     
     // MARK: - Initialisation
     

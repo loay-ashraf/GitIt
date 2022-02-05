@@ -9,7 +9,7 @@ import UIKit
 
 class CollectionViewContextMenuConfigurator {
     
-    func configure<Type>(collectionView: UICollectionView, indexPath: IndexPath, with item: Type) -> UIContextMenuConfiguration {
+    func configure<T: CollectionCellViewModel>(collectionView: UICollectionView, indexPath: IndexPath, with item: T) -> UIContextMenuConfiguration {
         return UIContextMenuConfiguration()
     }
     

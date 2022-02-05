@@ -7,17 +7,18 @@
 
 import UIKit
 
-class SearchResultsViewController<Type: Model>: SFDynamicTableViewController<Type> {
+class SearchResultsViewController<T: SearchResultsViewModel>: SFDynamicTableViewController<T> {
     
-    private weak var delegate: ResultsDelegate!
-    private var logicController: SearchResultsLogicController<Type>!
+    // MARK: - Properties
     
-    // MARK: - Initialisation
+    private weak var delegate: SearchResultsDelegate!
     
-    required init?(coder: NSCoder, delegate: ResultsDelegate) {
-        super.init(coder: coder, tableViewDataSource: SearchResultsDataSource<Type>.raw(), tableViewDelegate: SearchResultsDelegate<Type>(delegate: delegate))
+    // MARK: - Initialization
+    
+    required init?(coder: NSCoder, delegate: SearchResultsDelegate) {
+        super.init(coder: coder, tableViewDataSource: SearchResultsTableViewDataSource<T.TableCellViewModelType>.raw(), tableViewDelegate: SearchResultsTableViewDelegate<T.TableCellViewModelType>(delegate: delegate))
         self.delegate = delegate
-        logicController = SearchResultsLogicController()
+        viewModel = T()
         emptyViewModel = EmptyConstants.SearchResults.viewModel
     }
     
@@ -25,9 +26,9 @@ class SearchResultsViewController<Type: Model>: SFDynamicTableViewController<Typ
         super.init(coder: coder)
     }
     
-    static func instatiateFromStoryboard(with delegate: ResultsDelegate) -> SearchResultsViewController<Type> {
+    static func instatiateFromStoryboard(with delegate: SearchResultsDelegate) -> SearchResultsViewController<T> {
         let storyBoard = UIStoryboard(name: "Search", bundle: nil)
-        return storyBoard.instantiateViewController(identifier: "ResultsVC", creator: {coder -> SearchResultsViewController<Type> in
+        return storyBoard.instantiateViewController(identifier: "ResultsVC", creator: {coder -> SearchResultsViewController<T> in
                         self.init(coder: coder, delegate: delegate)!
                 })
     }
@@ -40,23 +41,23 @@ class SearchResultsViewController<Type: Model>: SFDynamicTableViewController<Typ
     
     func loadResults(with keyword: String) {
         reset()
-        logicController.keyword = keyword
+        viewModel.setQuery(query: keyword)
         load(with: .initial)
     }
     
     override func load(with loadingViewState: LoadingViewState) {
         super.load(with: loadingViewState)
         switch loadingViewState {
-        case .initial: logicController.load { [weak self] error in self?.loadHandler(error: error) }
-        case .refresh: logicController.refresh { [weak self] error in self?.refreshHandler(error: error) }
-        case .paginate: logicController.load { [weak self] error in self?.paginateHandler(error: error) }
+        case .initial: viewModel.load { [weak self] error in self?.loadHandler(error: error) }
+        case .refresh: viewModel.refresh { [weak self] error in self?.refreshHandler(error: error) }
+        case .paginate: viewModel.load { [weak self] error in self?.paginateHandler(error: error) }
         }
     }
     
     // MARK: - Reset Methods
     
     override func reset() {
-        logicController.reset()
+        viewModel.reset()
         updateView()
     }
 

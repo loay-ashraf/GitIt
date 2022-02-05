@@ -7,27 +7,17 @@
 
 import UIKit
 
-class OrganizationTableViewDelegate: TableViewDelegate<OrganizationModel> {
-    
+class OrganizationTableViewDelegate: TableViewDelegate<OrganizationTableCellViewModel> {
+
     override init() {
         super.init()
         tapResponder = OrganizationTableViewTapResponder()
         contextMenuConfigurator = OrganizationTableViewContextMenuConfigurator()
     }
-    
+
 }
 
-class dcf: TableViewDelegate<OrganizationCellViewModel> {
-    
-    override init() {
-        super.init()
-        tapResponder = OrganizationTableViewTapResponder()
-        contextMenuConfigurator = OrganizationTableViewContextMenuConfigurator()
-    }
-    
-}
-
-class OrganizationCollectionViewDelegate: CollectionViewDelegate<OrganizationModel> {
+class OrganizationCollectionViewDelegate: CollectionViewDelegate<OrganizationCollectionCellViewModel> {
     
     override init() {
         let tapResponder = OrganizationCollectionViewTapResponder()

@@ -7,20 +7,24 @@
 
 import UIKit
 
-class SearchController<Type: Model>: UISearchController, UISearchControllerDelegate, UISearchBarDelegate {
+class SearchController: UISearchController, UISearchControllerDelegate, UISearchBarDelegate {
 
-    private weak var coordinator: SearchCoordinator<Type>!
+    // MARK: - Properties
+    
+    private weak var controllerDelegate: SearchControllerDelegate!
+    private var searchContext: SearchContext!
     private lazy var timer = SearchTimer { [weak self] in self?.timerSearch() }
-    var keyword: String {
+    var query: String {
         get { return searchBar.text! }
         set { searchBar.text = newValue }
     }
     
-    // MARK: - Initialisation
+    // MARK: - Initialization
 
-    init(_ coordinator: SearchCoordinator<Type>, searchResultsController: UIViewController) {
+    init(_ controllerDelegate: SearchControllerDelegate, searchContext: SearchContext, searchResultsController: UIViewController) {
         super.init(searchResultsController: searchResultsController)
-        self.coordinator = coordinator
+        self.controllerDelegate = controllerDelegate
+        self.searchContext = searchContext
         self.configure()
     }
     
@@ -37,7 +41,7 @@ class SearchController<Type: Model>: UISearchController, UISearchControllerDeleg
     private func configure() {
         delegate = self
         searchBar.delegate = self
-        searchBar.placeholder = SearchContext(from: Type.self)?.barPlaceholder
+        searchBar.placeholder = searchContext.barPlaceholder
         searchBar.autocapitalizationType = .none
         searchBar.returnKeyType = .done
         searchBar.enablesReturnKeyAutomatically = false
@@ -48,17 +52,17 @@ class SearchController<Type: Model>: UISearchController, UISearchControllerDeleg
     
     private func timerSearch() {
         timer.cancel()
-        coordinator.willSearch()
+        controllerDelegate.willSearch()
     }
 
     // MARK: - Search Controller Delegate
     
     func didPresentSearchController(_ searchController: UISearchController) {
-        coordinator.didBeginSearchingSession()
+        controllerDelegate.didBeginSearchingSession()
     }
     
     func didDismissSearchController(_ searchController: UISearchController) {
-        coordinator.didEndSearchingSession()
+        controllerDelegate.didEndSearchingSession()
     }
     
     // MARK: - Search Bar Delegate
@@ -68,7 +72,7 @@ class SearchController<Type: Model>: UISearchController, UISearchControllerDeleg
             timer.activate()
         } else {
             timer.cancel()
-            coordinator.didSearch()
+            controllerDelegate.didSearch()
         }
     }
 

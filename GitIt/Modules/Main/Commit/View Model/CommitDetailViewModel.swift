@@ -20,8 +20,8 @@ class CommitDetailViewModel {
     
     // MARK: - Initialization
     
-    init(cellViewModel: CommitCellViewModel) {
-        let commitModel = CommitModel(message: cellViewModel.message, htmlURL: cellViewModel.htmlURL, author: cellViewModel.author)
+    init(tableCellViewModel: CommitCellViewModel) {
+        let commitModel = CommitModel(message: tableCellViewModel.message, htmlURL: tableCellViewModel.htmlURL, author: tableCellViewModel.author)
         logicController = CommitDetailLogicController(model: commitModel)
     }
     

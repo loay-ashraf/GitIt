@@ -9,9 +9,9 @@ import UIKit
 
 class SearchHistoryTableViewCellConfigurator: TableViewCellConfigurator {
     
-    override func configure<Type>(_ cell: UITableViewCell, forDisplaying item: Type) {
-        if let cell = cell as? SearchHistoryTableViewCell, let item = item as? String {
-            cell.historyLabel.text = item
+    override func configure<T: TableCellViewModel>(_ cell: UITableViewCell, forDisplaying item: T) {
+        if let cell = cell as? SearchHistoryTableViewCell, let item = item as? QueryCellViewModel {
+            cell.historyLabel.text = item.query
             cell.setNeedsLayout()
         }
     }

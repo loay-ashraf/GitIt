@@ -36,8 +36,13 @@ class OrganizationDetailViewController: SFStaticTableViewController, Storyboarda
         super.init(coder: coder)
     }
     
-    required init?(coder: NSCoder, cellViewModel: OrganizationCellViewModel) {
-        viewModel = OrganizationDetailViewModel(cellViewModel: cellViewModel)
+    required init?(coder: NSCoder, collectionCellViewModel: OrganizationCollectionCellViewModel) {
+        viewModel = OrganizationDetailViewModel(collectionCellViewModel: collectionCellViewModel)
+        super.init(coder: coder)
+    }
+    
+    required init?(coder: NSCoder, tableCellViewModel: OrganizationTableCellViewModel) {
+        viewModel = OrganizationDetailViewModel(tableCellViewModel: tableCellViewModel)
         super.init(coder: coder)
     }
     
@@ -50,10 +55,6 @@ class OrganizationDetailViewController: SFStaticTableViewController, Storyboarda
         fatalError("Fatal Error, this view controller shouldn't be instantiated via storyboard segue.")
     }
     
-    static func instatiate<T: ViewControllerContext>(context: T) -> UIViewController {
-        fatalError("Fatal Error, This View controller is instaniated only using paramter, cellViewModel or model")
-    }
-    
     static func instatiate(parameter: String) -> UIViewController {
         let storyBoard = UIStoryboard(name: "Main", bundle: nil)
         return storyBoard.instantiateViewController(identifier: self.storyboardIdentifier, creator: { coder -> OrganizationDetailViewController in
@@ -61,11 +62,22 @@ class OrganizationDetailViewController: SFStaticTableViewController, Storyboarda
                 })
     }
     
-    static func instatiate<T: CellViewModel>(cellViewModel: T) -> UIViewController  {
-        if let cellViewModel = cellViewModel as? OrganizationCellViewModel {
+    static func instatiate<T: CollectionCellViewModel>(collectionCellViewModel: T) -> UIViewController  {
+        if let cellViewModel = collectionCellViewModel as? OrganizationCollectionCellViewModel {
             let storyBoard = UIStoryboard(name: "Main", bundle: nil)
             return storyBoard.instantiateViewController(identifier: self.storyboardIdentifier, creator: { coder -> OrganizationDetailViewController in
-                            self.init(coder: coder, cellViewModel: cellViewModel)!
+                            self.init(coder: coder, collectionCellViewModel: cellViewModel)!
+                    })
+        } else {
+            return UIViewController()
+        }
+    }
+    
+    static func instatiate<T: TableCellViewModel>(tableCellViewModel: T) -> UIViewController  {
+        if let cellViewModel = tableCellViewModel as? OrganizationTableCellViewModel {
+            let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+            return storyBoard.instantiateViewController(identifier: self.storyboardIdentifier, creator: { coder -> OrganizationDetailViewController in
+                            self.init(coder: coder, tableCellViewModel: cellViewModel)!
                     })
         } else {
             return UIViewController()

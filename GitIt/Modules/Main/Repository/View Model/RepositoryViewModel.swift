@@ -7,11 +7,14 @@
 
 import Foundation
 
-class RepositoryViewModel: TableViewModel<RepositoryCellViewModel> {
+class RepositoryViewModel: TableViewModel {
     
     // MARK: - Properties
     
+    typealias TableCellViewModelType = RepositoryTableCellViewModel
+    
     var logicController: RepositoryLogicController
+    var cellViewModels = List<TableCellViewModelType>()
     
     // MARK: - Initialization
     
@@ -21,7 +24,7 @@ class RepositoryViewModel: TableViewModel<RepositoryCellViewModel> {
     
     // MARK: - Loading Methods
     
-    override func load(then handler: @escaping LoadingHandler) {
+    func load(then handler: @escaping LoadingHandler) {
         logicController.load { [weak self] error in
             if let error = error {
                 handler(error)
@@ -32,7 +35,7 @@ class RepositoryViewModel: TableViewModel<RepositoryCellViewModel> {
         }
     }
     
-    override func refresh(then handler: @escaping LoadingHandler) {
+    func refresh(then handler: @escaping LoadingHandler) {
         logicController.refresh { [weak self] error in
             if let error = error {
                 handler(error)
@@ -47,16 +50,52 @@ class RepositoryViewModel: TableViewModel<RepositoryCellViewModel> {
     
     private func synchronizeModel() {
         let modelItems = logicController.model.items
-        cellViewModels.items = modelItems.map { return RepositoryCellViewModel(from: $0) }
+        cellViewModels.items = modelItems.map { return TableCellViewModelType(from: $0) }
         cellViewModels.currentPage = logicController.model.currentPage
         cellViewModels.isPaginable = logicController.model.isPaginable
     }
     
 }
 
-class RepositoryCellViewModel: CellViewModel {
+final class RepositoryCollectionCellViewModel: CollectionCellViewModel {
     
     // MARK: - Properties
+    
+    typealias ModelType = RepositoryModel
+    typealias TableCellViewModelType = RepositoryTableCellViewModel
+    
+    var owner: OwnerModel
+    var htmlURL: URL
+    var name: String
+    
+    // MARK: - Initialization
+    
+    init(from model: ModelType) {
+        owner = model.owner
+        htmlURL = model.htmlURL
+        name = model.name
+    }
+    
+    init(from tableCellViewModel: TableCellViewModelType) {
+        owner = tableCellViewModel.owner
+        htmlURL = tableCellViewModel.htmlURL
+        name = tableCellViewModel.name
+    }
+    
+    // MARK: - View Model Adapter Methods
+    
+    func tableCellViewModel() -> TableCellViewModelType {
+        return TableCellViewModelType(from: self)
+    }
+    
+}
+
+final class RepositoryTableCellViewModel: TableCellViewModel {
+    
+    // MARK: - Properties
+    
+    typealias ModelType = RepositoryModel
+    typealias CollectionCellViewModelType = RepositoryCollectionCellViewModel
     
     var owner: OwnerModel
     var htmlURL: URL
@@ -67,13 +106,28 @@ class RepositoryCellViewModel: CellViewModel {
     
     // MARK: - Initialization
     
-    init(from repositoryModel: RepositoryModel) {
-        owner = repositoryModel.owner
-        htmlURL = repositoryModel.htmlURL
-        name = repositoryModel.name
-        description = repositoryModel.description
-        stargazers = repositoryModel.stars
-        language = repositoryModel.language
+    init(from model: ModelType) {
+        owner = model.owner
+        htmlURL = model.htmlURL
+        name = model.name
+        description = model.description
+        stargazers = model.stars
+        language = model.language
+    }
+    
+    init(from collectionCellViewModel: CollectionCellViewModelType) {
+        owner = collectionCellViewModel.owner
+        htmlURL = collectionCellViewModel.htmlURL
+        name = collectionCellViewModel.name
+        description = nil
+        stargazers = 0
+        language = nil
+    }
+    
+    // MARK: - View Model Adapter Methods
+    
+    func collectionCellViewModel() -> CollectionCellViewModelType {
+        return CollectionCellViewModelType(from: self)
     }
     
 }

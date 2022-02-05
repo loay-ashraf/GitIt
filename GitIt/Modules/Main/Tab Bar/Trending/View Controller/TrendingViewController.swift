@@ -7,15 +7,13 @@
 
 import UIKit
 
-class TrendingViewController: SFDynamicTableViewController<RepositoryModel> {
+class TrendingViewController: SFDynamicTableViewController<RepositoryViewModel> {
 
-    var logicController: TrendingLogicController!
-
-    // MARK: - Initialisation
+    // MARK: - Initialization
     
     required init?(coder: NSCoder) {
         super.init(coder: coder, tableViewDataSource: RepositoryTableViewDataSource(), tableViewDelegate: RepositoryTableViewDelegate())
-        logicController = TrendingLogicController()
+        viewModel = RepositoryViewModel(context: .main)
         emptyViewModel = Constants.View.Empty.Repositories.viewModel
     }
     
@@ -39,9 +37,9 @@ class TrendingViewController: SFDynamicTableViewController<RepositoryModel> {
     override func load(with loadingViewState: LoadingViewState) {
         super.load(with: loadingViewState)
         switch loadingViewState {
-        case .initial: logicController.load { [weak self] error in self?.loadHandler(error: error) }
-        case .refresh: logicController.refresh { [weak self] error in self?.refreshHandler(error: error) }
-        case .paginate: logicController.load { [weak self] error in self?.paginateHandler(error: error) }
+        case .initial: viewModel.load { [weak self] error in self?.loadHandler(error: error) }
+        case .refresh: viewModel.refresh { [weak self] error in self?.refreshHandler(error: error) }
+        case .paginate: viewModel.load { [weak self] error in self?.paginateHandler(error: error) }
         }
     }
 

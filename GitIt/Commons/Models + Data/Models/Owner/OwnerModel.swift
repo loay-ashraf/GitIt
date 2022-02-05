@@ -9,6 +9,9 @@ import Foundation
 
 struct OwnerModel: Model {
     
+    typealias T = UserCollectionCellViewModel
+    typealias U = UserTableCellViewModel
+    
     let id: Int
     let login: String
     let avatarURL: URL
@@ -59,6 +62,24 @@ struct OwnerModel: Model {
         htmlURL = try container.decode(URL.self, forKey: .htmlURL)
         type = try container.decode(OwnerType.self, forKey: .type)
         isComplete = true
+    }
+    
+    init(from collectionCellViewModel: T) {
+        id = 0
+        login = ""
+        avatarURL = URL(string: "www.github.com")!
+        htmlURL = URL(string: "www.github.com")!
+        type = .user
+        isComplete = false
+    }
+    
+    init(from tableCellViewModel: U) {
+        id = 0
+        login = ""
+        avatarURL = URL(string: "www.github.com")!
+        htmlURL = URL(string: "www.github.com")!
+        type = .user
+        isComplete = false
     }
     
     init(from owner: Owner) {

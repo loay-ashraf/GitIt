@@ -32,8 +32,12 @@ class OrganizationDetailViewModel {
         logicController = OrganizationDetailLogicController(login: login)
     }
     
-    init(cellViewModel: OrganizationCellViewModel) {
-        logicController = OrganizationDetailLogicController(login: cellViewModel.login)
+    init(collectionCellViewModel: OrganizationCollectionCellViewModel) {
+        logicController = OrganizationDetailLogicController(login: collectionCellViewModel.login)
+    }
+    
+    init(tableCellViewModel: OrganizationTableCellViewModel) {
+        logicController = OrganizationDetailLogicController(login: tableCellViewModel.login)
     }
     
     init(model: OrganizationModel) {

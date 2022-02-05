@@ -11,12 +11,12 @@ class CollectionView: UICollectionView {
     
     var registeredCells = [CollectionViewCell.Type]()
     
-    func setDataSource<Type>(_ dataSource: CollectionViewDataSource<Type>) {
+    func setDataSource<T: CollectionCellViewModel>(_ dataSource: CollectionViewDataSource<T>) {
         self.dataSource = dataSource
         dataSource.collectionView = self
     }
     
-    func setDelegate<Type>(_ delegate: CollectionViewDelegate<Type>) {
+    func setDelegate<T: CollectionCellViewModel>(_ delegate: CollectionViewDelegate<T>) {
         self.delegate = delegate
         delegate.collectionView = self
     }

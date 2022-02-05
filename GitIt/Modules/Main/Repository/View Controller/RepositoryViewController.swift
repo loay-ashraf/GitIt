@@ -7,7 +7,7 @@
 
 import UIKit
 
-class RepositoryViewController: SFDynamicTableViewController<RepositoryCellViewModel>, StoryboardableViewController {
+class RepositoryViewController: SFDynamicTableViewController<RepositoryViewModel>, StoryboardableViewController {
     
     // MARK: - Properties
     
@@ -15,13 +15,13 @@ class RepositoryViewController: SFDynamicTableViewController<RepositoryCellViewM
     
     private var context: RepositoryContext
     
-    private var searchCoordinator: SearchCoordinator<RepositoryModel>!
+    private var searchCoordinator: SearchCoordinator<RepositorySearchStack>!
     
     // MARK: - Initialization
     
     required init?(coder: NSCoder, context: RepositoryContext) {
         self.context = context
-        super.init(coder: coder, tableViewDataSource: yz(), tableViewDelegate: xz())
+        super.init(coder: coder, tableViewDataSource: RepositoryTableViewDataSource(), tableViewDelegate: RepositoryTableViewDelegate())
         viewModel = RepositoryViewModel(context: context)
         emptyViewModel = ViewConstants.Empty.Repositories.viewModel
     }
@@ -39,18 +39,6 @@ class RepositoryViewController: SFDynamicTableViewController<RepositoryCellViewM
         } else {
             return UIViewController()
         }
-    }
-    
-    static func instatiate(parameter: String) -> UIViewController {
-        fatalError("Fatal Error, This View controller is instaniated only using context")
-    }
-    
-    static func instatiate<T: CellViewModel>(cellViewModel: T) -> UIViewController  {
-        fatalError("Fatal Error, This View controller is instaniated only using context")
-    }
-    
-    static func instatiate<T: Model>(model: T) -> UIViewController  {
-        fatalError("Fatal Error, This View controller is instaniated only using context")
     }
     
     deinit {
@@ -76,10 +64,10 @@ class RepositoryViewController: SFDynamicTableViewController<RepositoryCellViewM
         }
         tableView.contentInset = UIEdgeInsets(top: 20, left: 0, bottom: 0, right: 0)
         
-//        switch context {
-//        case .main: searchCoordinator = SearchCoordinator(self)
-//        default: searchCoordinator = nil
-//        }
+        switch context {
+        case .main: searchCoordinator = SearchCoordinator(self)
+        default: searchCoordinator = nil
+        }
     }
     
     // MARK: - Loading Methods

@@ -7,11 +7,10 @@
 
 import UIKit
 
-class TableViewDataSource<Type>: NSObject, UITableViewDataSource {
+class TableViewDataSource<T: TableCellViewModel>: NSObject, UITableViewDataSource {
     
-    var model = List<Type>()
-    var viewModels = List<Type>()
     weak var tableView: TableView! { didSet { registerCell() } }
+    var cellViewModels = Array<T>()
     var cellClass: TableViewCell.Type!
     var cellConfigurator: TableViewCellConfigurator!
     var swipeResponder: TableViewSwipeResponder!
@@ -39,13 +38,13 @@ class TableViewDataSource<Type>: NSObject, UITableViewDataSource {
     // MARK: - Data Source
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModels.count
+        return cellViewModels.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let refreshControl = tableView.refreshControl, refreshControl.isRefreshing { return TableViewCell() }
         let cell = self.tableView.dequeue(cellClass: cellClass, for: indexPath)
-        let item = viewModels.items[indexPath.row]
+        let item = cellViewModels[indexPath.row]
                 
         // Configure the cell...
         cellConfigurator.configure(cell, forDisplaying: item)
@@ -58,8 +57,7 @@ class TableViewDataSource<Type>: NSObject, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        //let item = model.items[indexPath.row]
-        let item = viewModels.items[indexPath.row]
+        let item = cellViewModels[indexPath.row]
         swipeResponder.respondToSwipe(tableView: tableView, editingStyle: editingStyle, indexPath: indexPath, with: item)
     }
     

@@ -25,7 +25,7 @@ class CommitDetailViewController: SFStaticTableViewController, StoryboardableVie
     // MARK: - Initialization
     
     required init?(coder: NSCoder, cellViewModel: CommitCellViewModel) {
-        viewModel = CommitDetailViewModel(cellViewModel: cellViewModel)
+        viewModel = CommitDetailViewModel(tableCellViewModel: cellViewModel)
         super.init(coder: coder)
     }
     
@@ -38,16 +38,8 @@ class CommitDetailViewController: SFStaticTableViewController, StoryboardableVie
         fatalError("Fatal Error, this view controller shouldn't be instantiated via storyboard segue.")
     }
     
-    static func instatiate<T: ViewControllerContext>(context: T) -> UIViewController {
-        fatalError("Fatal Error, This View controller is instaniated only using cellViewModel or model")
-    }
-    
-    static func instatiate(parameter: String) -> UIViewController {
-        fatalError("Fatal Error, This View controller is instaniated only using cellViewModel or model")
-    }
-    
-    static func instatiate<T: CellViewModel>(cellViewModel: T) -> UIViewController  {
-        if let cellViewModel = cellViewModel as? CommitCellViewModel {
+    static func instatiate<T: TableCellViewModel>(tableCellViewModel: T) -> UIViewController  {
+        if let cellViewModel = tableCellViewModel as? CommitCellViewModel {
             let storyBoard = UIStoryboard(name: "Main", bundle: nil)
             return storyBoard.instantiateViewController(identifier: self.storyboardIdentifier, creator: { coder -> CommitDetailViewController in
                             self.init(coder: coder, cellViewModel: cellViewModel)!

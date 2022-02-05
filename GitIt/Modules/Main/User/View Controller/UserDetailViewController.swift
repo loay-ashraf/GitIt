@@ -39,8 +39,13 @@ class UserDetailViewController: SFStaticTableViewController, StoryboardableViewC
         super.init(coder: coder)
     }
     
-    required init?(coder: NSCoder, cellViewModel: UserCellViewModel) {
-        viewModel = UserDetailViewModel(cellViewModel: cellViewModel)
+    required init?(coder: NSCoder, collectionCellViewModel: UserCollectionCellViewModel) {
+        viewModel = UserDetailViewModel(collectionCellViewModel: collectionCellViewModel)
+        super.init(coder: coder)
+    }
+    
+    required init?(coder: NSCoder, tableCellViewModel: UserTableCellViewModel) {
+        viewModel = UserDetailViewModel(tableCellViewModel: tableCellViewModel)
         super.init(coder: coder)
     }
     
@@ -53,10 +58,6 @@ class UserDetailViewController: SFStaticTableViewController, StoryboardableViewC
         fatalError("Fatal Error, this view controller shouldn't be instantiated via storyboard segue.")
     }
     
-    static func instatiate<T: ViewControllerContext>(context: T) -> UIViewController {
-        fatalError("Fatal Error, This View controller is instaniated only using paramter, cellViewModel or model")
-    }
-    
     static func instatiate(parameter: String) -> UIViewController {
         let storyBoard = UIStoryboard(name: "Main", bundle: nil)
         return storyBoard.instantiateViewController(identifier: self.storyboardIdentifier, creator: { coder -> UserDetailViewController in
@@ -64,11 +65,22 @@ class UserDetailViewController: SFStaticTableViewController, StoryboardableViewC
                 })
     }
     
-    static func instatiate<T: CellViewModel>(cellViewModel: T) -> UIViewController  {
-        if let cellViewModel = cellViewModel as? UserCellViewModel {
+    static func instatiate<T: CollectionCellViewModel>(collectionCellViewModel: T) -> UIViewController  {
+        if let cellViewModel = collectionCellViewModel as? UserCollectionCellViewModel {
             let storyBoard = UIStoryboard(name: "Main", bundle: nil)
             return storyBoard.instantiateViewController(identifier: self.storyboardIdentifier, creator: { coder -> UserDetailViewController in
-                            self.init(coder: coder, cellViewModel: cellViewModel)!
+                            self.init(coder: coder, collectionCellViewModel: cellViewModel)!
+                    })
+        } else {
+            return UIViewController()
+        }
+    }
+    
+    static func instatiate<T: TableCellViewModel>(tableCellViewModel: T) -> UIViewController  {
+        if let cellViewModel = tableCellViewModel as? UserTableCellViewModel {
+            let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+            return storyBoard.instantiateViewController(identifier: self.storyboardIdentifier, creator: { coder -> UserDetailViewController in
+                            self.init(coder: coder, tableCellViewModel: cellViewModel)!
                     })
         } else {
             return UIViewController()

@@ -7,9 +7,9 @@
 
 import UIKit
 
-class CollectionViewDelegate<Type>: NSObject, UICollectionViewDelegate {
+class CollectionViewDelegate<T: CollectionCellViewModel>: NSObject, UICollectionViewDelegate {
     
-    var model = List<Type>()
+    var cellViewModels = Array<T>()
     weak var collectionView: CollectionView!
     var tapResponder: CollectionViewTapResponder!
     var contextMenuConfigurator: CollectionViewContextMenuConfigurator!
@@ -32,12 +32,12 @@ class CollectionViewDelegate<Type>: NSObject, UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: true)
-        let item = model.items[indexPath.row]
+        let item = cellViewModels[indexPath.row]
         tapResponder.respondToTap(with: item)
     }
     
     func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
-        let item = model.items[indexPath.item]
+        let item = cellViewModels[indexPath.item]
         return contextMenuConfigurator.configure(collectionView: collectionView, indexPath: indexPath, with: item)
     }
     

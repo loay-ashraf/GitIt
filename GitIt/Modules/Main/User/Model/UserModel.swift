@@ -9,6 +9,9 @@ import Foundation
 
 struct UserModel: Model {
     
+    typealias T = UserCollectionCellViewModel
+    typealias U = UserTableCellViewModel
+    
     let id: Int
     let login: String
     let avatarURL: URL
@@ -81,11 +84,47 @@ struct UserModel: Model {
         isComplete = false
     }
     
+    init(from collectionCellViewModel: T) {
+        id = 0
+        login = collectionCellViewModel.login
+        avatarURL = collectionCellViewModel.avatarURL
+        htmlURL = collectionCellViewModel.htmlURL
+        name = nil
+        bio = nil
+        company = nil
+        location = nil
+        blogURL = nil
+        email = nil
+        twitter = nil
+        repositories = nil
+        followers = 0
+        following = 0
+        isComplete = false
+    }
+    
+    init(from tableCellViewModel: U) {
+        id = 0
+        login = tableCellViewModel.login
+        avatarURL = tableCellViewModel.avatarURL
+        htmlURL = tableCellViewModel.htmlURL
+        name = nil
+        bio = nil
+        company = nil
+        location = nil
+        blogURL = nil
+        email = nil
+        twitter = nil
+        repositories = nil
+        followers = 0
+        following = 0
+        isComplete = false
+    }
+    
     init(from owner: OwnerModel) {
-        self.id = owner.id
-        self.login = owner.login
-        self.avatarURL = owner.avatarURL
-        self.htmlURL = owner.htmlURL
+        id = owner.id
+        login = owner.login
+        avatarURL = owner.avatarURL
+        htmlURL = owner.htmlURL
         name = nil
         bio = nil
         company = nil
@@ -100,20 +139,20 @@ struct UserModel: Model {
     }
     
     init(from user: User) {
-        self.id = user.id
-        self.login = user.login!
-        self.avatarURL = user.avatarURL
-        self.htmlURL = user.htmlURL
-        self.name = user.name
-        self.bio = user.bio
-        self.company = user.company
-        self.location = user.location
-        self.blogURL = user.blogURL
-        self.email = user.email
-        self.twitter = user.twitter
-        self.repositories = user.repositories
-        self.followers = user.followers
-        self.following = user.following
+        id = user.id
+        login = user.login!
+        avatarURL = user.avatarURL
+        htmlURL = user.htmlURL
+        name = user.name
+        bio = user.bio
+        company = user.company
+        location = user.location
+        blogURL = user.blogURL
+        email = user.email
+        twitter = user.twitter
+        repositories = user.repositories
+        followers = user.followers
+        following = user.following
         isComplete = true
     }
     

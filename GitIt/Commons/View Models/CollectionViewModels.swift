@@ -1,18 +1,18 @@
 //
-//  TableViewModels.swift
+//  CollectionViewModels.swift
 //  GitIt
 //
-//  Created by Loay Ashraf on 04/02/2022.
+//  Created by Loay Ashraf on 05/02/2022.
 //
 
 import Foundation
 
-protocol TableViewModel: AnyObject {
+protocol CollectionViewModel: AnyObject {
     
-    associatedtype TableCellViewModelType: TableCellViewModel
+    associatedtype CollectionCellViewModelType: CollectionCellViewModel
     
-    var cellViewModels: List<TableCellViewModelType> { get set }
-    var items: Array<TableCellViewModelType> { get }
+    var cellViewModels: List<CollectionCellViewModelType> { get set }
+    var items: Array<CollectionCellViewModelType> { get }
     var count: Int { get }
     var isEmpty: Bool { get }
     var currentPage: Int { get }
@@ -23,9 +23,9 @@ protocol TableViewModel: AnyObject {
     
 }
 
-extension TableViewModel {
+extension CollectionViewModel {
     
-    var items: Array<TableCellViewModelType> { return cellViewModels.items }
+    var items: [CollectionCellViewModelType] { return cellViewModels.items }
     var count: Int { return cellViewModels.count }
     var isEmpty: Bool { return cellViewModels.isEmpty }
     var currentPage: Int { return cellViewModels.currentPage }
@@ -33,20 +33,20 @@ extension TableViewModel {
     
 }
 
-protocol TableCellViewModel: AnyObject {
+protocol CollectionCellViewModel: AnyObject {
     
     associatedtype ModelType
-    associatedtype CollectionCellViewModelType: CollectionCellViewModel
+    associatedtype TableCellViewModelType: TableCellViewModel
     
     init()
     init(from model: ModelType)
-    init(from collectionCellViewModel: CollectionCellViewModelType)
+    init(from tableCellViewModel: TableCellViewModelType)
     
-    func collectionCellViewModel() -> CollectionCellViewModelType
+    func tableCellViewModel() -> TableCellViewModelType
     
 }
 
-extension TableCellViewModel {
+extension CollectionCellViewModel {
     
     // MARK: - Initialization
     

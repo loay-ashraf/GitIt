@@ -9,6 +9,9 @@ import Foundation
 
 struct CommitModel: Model {
     
+    typealias T = UserCollectionCellViewModel
+    typealias U = CommitCellViewModel
+    
     let id: Int
     let message: String
     let htmlURL: URL
@@ -53,6 +56,22 @@ struct CommitModel: Model {
         htmlURL = try container.decode(URL.self, forKey: .htmlURL)
         author = try? container.decode(OwnerModel.self, forKey: .author)
         isComplete = true
+    }
+    
+    init(from collectionCellViewModel: T) {
+        id = 0
+        message = ""
+        htmlURL = URL(string: "www.github.com")!
+        author = OwnerModel()
+        isComplete = false
+    }
+    
+    init(from tableCellViewModel: U) {
+        id = 0
+        message = tableCellViewModel.message
+        htmlURL = tableCellViewModel.htmlURL
+        author = tableCellViewModel.author
+        isComplete = false
     }
     
     func encode(to encoder: Encoder) throws {

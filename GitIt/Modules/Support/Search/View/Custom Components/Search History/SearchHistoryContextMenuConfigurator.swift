@@ -9,15 +9,15 @@ import UIKit
 
 class SearchHistoryCollectionViewContextMenuConfigurator: CollectionViewContextMenuConfigurator {
     
-    weak var historyCollectionDelegate: HistoryCollectionDelegate?
+    weak var historyCollectionDelegate: SearchHistoryCollectionDelegate?
     
-    init(delegate: HistoryCollectionDelegate) {
+    init(delegate: SearchHistoryCollectionDelegate) {
         self.historyCollectionDelegate = delegate
     }
     
-    override func configure<Type>(collectionView: UICollectionView, indexPath: IndexPath, with item: Type) -> UIContextMenuConfiguration {
+    override func configure<T: CollectionCellViewModel>(collectionView: UICollectionView, indexPath: IndexPath, with item: T) -> UIContextMenuConfiguration {
         return ContextMenuConfigurationConstants.DeleteConfiguration { [weak self] in
-            self?.historyCollectionDelegate?.delete(model: item)
+            self?.historyCollectionDelegate?.delete(objectCellViewModel: item)
             collectionView.deleteItems(at: [indexPath])
             self?.historyCollectionDelegate?.didUpdateCollection()
         }

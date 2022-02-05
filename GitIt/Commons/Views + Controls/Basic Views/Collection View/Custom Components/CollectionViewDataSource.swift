@@ -7,9 +7,9 @@
 
 import UIKit
 
-class CollectionViewDataSource<Type>: NSObject, UICollectionViewDataSource {
+class CollectionViewDataSource<T: CollectionCellViewModel>: NSObject, UICollectionViewDataSource {
     
-    var model = List<Type>()
+    var cellViewModels = Array<T>()
     weak var collectionView: CollectionView! { didSet { registerCell() } }
     var cellClass: CollectionViewCell.Type!
     var cellConfigurator: CollectionViewCellConfigurator!
@@ -35,13 +35,13 @@ class CollectionViewDataSource<Type>: NSObject, UICollectionViewDataSource {
     // MARK: - Data Source
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return model.count
+        return cellViewModels.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let refreshControl = collectionView.refreshControl, refreshControl.isRefreshing { return UICollectionViewCell() }
         let cell = self.collectionView.dequeue(cellClass: cellClass, for: indexPath)
-        let item = model.items[indexPath.row]
+        let item = cellViewModels[indexPath.row]
                 
         // Configure the cell...
         cellConfigurator.configure(cell, forDisplaying: item)

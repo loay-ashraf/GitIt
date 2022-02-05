@@ -7,15 +7,15 @@
 
 import UIKit
 
-class SearchHistoryViewController<Type: Model>: SFViewController {
+class SearchHistoryViewController<T: SearchHistoryViewModel>: SFViewController {
     
-    override var emptyViewModel: EmptyViewModel { return EmptyConstants.SearchHistory.viewModel }
+    // MARK: - Properties
     
-    weak var delegate: HistoryDelegate!
-    var logicController: SearchHistoryLogicController<Type>!
+    weak var delegate: SearchHistoryDelegate!
+    var viewModel = T()
     
-    var collectionViewDataSource: CollectionViewDataSource<Type>!
-    var collectionViewDelegate: SearchHistoryCollectionViewDelegate<Type>!
+    var collectionViewDataSource: CollectionViewDataSource<T.CollectionCellViewModelType>!
+    var collectionViewDelegate: SearchHistoryCollectionViewDelegate<T.CollectionCellViewModelType>!
     var tableViewDataSource: SearchHistoryTableViewDataSource!
     var tableViewDelegate: SearchHistoryTableViewDelegate!
     
@@ -28,12 +28,12 @@ class SearchHistoryViewController<Type: Model>: SFViewController {
     @IBOutlet weak var collectionContainerHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var tableContainerHeightConstraint: NSLayoutConstraint!
     
-    // MARK: - Initialisation
+    // MARK: - Initialization
     
-    required init?(coder: NSCoder, delegate: HistoryDelegate) {
+    required init?(coder: NSCoder, delegate: SearchHistoryDelegate) {
         super.init(coder: coder)
         self.delegate = delegate
-        logicController = SearchHistoryLogicController()
+        emptyViewModel = EmptyConstants.SearchHistory.viewModel
         subscribeToKeyboardNotifications()
     }
     
@@ -41,10 +41,10 @@ class SearchHistoryViewController<Type: Model>: SFViewController {
         super.init(coder: coder)
     }
     
-    static func instatiateFromStoryboard(with delegate: HistoryDelegate) -> SearchHistoryViewController<Type> {
+    static func instatiateFromStoryboard(with delegate: SearchHistoryDelegate) -> SearchHistoryViewController<T> {
         let storyBoard = UIStoryboard(name: "Search", bundle: nil)
-        return storyBoard.instantiateViewController(identifier: "HistoryVC", creator: {coder -> SearchHistoryViewController<Type> in
-                        self.init(coder: coder, delegate: delegate)!
+        return storyBoard.instantiateViewController(identifier: "HistoryVC", creator: {coder -> SearchHistoryViewController<T> in
+            self.init(coder: coder, delegate: delegate)!
                 })
     }
     
@@ -77,8 +77,8 @@ class SearchHistoryViewController<Type: Model>: SFViewController {
         
         collectionView.cornerRadius = 10.0
         collectionView.cornerCurve = .continuous
-        collectionViewDataSource = SearchHistoryCollectionViewDataSource<Type>.raw()
-        collectionViewDelegate = SearchHistoryCollectionViewDelegate(collectionDelegate: self)
+        collectionViewDataSource = SearchHistoryCollectionViewDataSource<T.CollectionCellViewModelType>.raw()
+        collectionViewDelegate = SearchHistoryCollectionViewDelegate<T.CollectionCellViewModelType>(collectionDelegate: self)
         collectionView.setDataSource(collectionViewDataSource)
         collectionView.setDelegate(collectionViewDelegate)
     
@@ -91,7 +91,7 @@ class SearchHistoryViewController<Type: Model>: SFViewController {
     }
     
     func layoutView() {
-        let headerShouldBeHidden = logicController.history.models.isEmpty && logicController.history.keywords.isEmpty
+        let headerShouldBeHidden = viewModel.objectCellViewModels.isEmpty && viewModel.queryCellViewModels.isEmpty
         switch headerShouldBeHidden {
         case true: headerTitleStackView.isHidden = true
                    xView.transition(to: .empty(emptyViewModel))
@@ -103,7 +103,7 @@ class SearchHistoryViewController<Type: Model>: SFViewController {
     }
     
     func layoutCollectionView() {
-        let collectionShouldBeHidden = logicController.history.models.isEmpty
+        let collectionShouldBeHidden = viewModel.objectCellViewModels.isEmpty
         let collectionContentHeight = collectionView.collectionViewLayout.collectionViewContentSize.height
         switch collectionShouldBeHidden {
         case true: collectionView.isHidden = true
@@ -114,7 +114,7 @@ class SearchHistoryViewController<Type: Model>: SFViewController {
     }
     
     func layoutTableView() {
-        let tableShouldBeHidden = logicController.history.keywords.isEmpty
+        let tableShouldBeHidden = viewModel.queryCellViewModels.isEmpty
         let tableContentHeight = tableView.contentSize.height
         switch tableShouldBeHidden {
         case true: tableView.isHidden = true
@@ -142,20 +142,20 @@ class SearchHistoryViewController<Type: Model>: SFViewController {
     // MARK: - View Synchronization Methods
     
     func synchronizeCollectionView() {
-        collectionViewDataSource.model = List<Type>(with: logicController.history.models)
-        collectionViewDelegate.model = List<Type>(with: logicController.history.models)
+        collectionViewDataSource.cellViewModels = viewModel.objectCellViewModels
+        collectionViewDelegate.cellViewModels = viewModel.objectCellViewModels
     }
     
     func synchronizeTableView() {
-        tableViewDataSource.model = List<String>(with: logicController.history.keywords)
-        tableViewDelegate.model = List<String>(with: logicController.history.keywords)
+        tableViewDataSource.cellViewModels = viewModel.queryCellViewModels
+        tableViewDelegate.cellViewModels = viewModel.queryCellViewModels
     }
     
     // MARK: - View Actions
     
     @IBAction func clear(_ sender: UIButton) {
         AlertHelper.showAlert(alert: .clearSearchHistory({ [weak self] in
-            self?.logicController.clear()
+            self?.viewModel.clear()
             self?.updateView()
             self?.layoutView()
         }))
@@ -165,7 +165,7 @@ class SearchHistoryViewController<Type: Model>: SFViewController {
     
     override func load() {
         super.load()
-        logicController.load { [weak self] error in self?.loadHandler(error: error) }
+        viewModel.load { [weak self] error in self?.loadHandler(error: error) }
     }
     
     func reset() {

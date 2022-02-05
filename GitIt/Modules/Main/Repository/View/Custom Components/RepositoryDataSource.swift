@@ -7,7 +7,7 @@
 
 import UIKit
 
-class RepositoryTableViewDataSource: TableViewDataSource<RepositoryModel> {
+class RepositoryTableViewDataSource: TableViewDataSource<RepositoryTableCellViewModel> {
     
     override init() {
         let cellClass = RepositoryTableViewCell.self
@@ -17,17 +17,7 @@ class RepositoryTableViewDataSource: TableViewDataSource<RepositoryModel> {
     
 }
 
-class yz: TableViewDataSource<RepositoryCellViewModel> {
-    
-    override init() {
-        let cellClass = RepositoryTableViewCell.self
-        let cellConfigurator = RepositoryTableViewCellConfigurator()
-        super.init(cellClass: cellClass, cellConfigurator: cellConfigurator, swipeResponder: nil)
-    }
-    
-}
-
-class RepositoryCollectionViewDataSource: CollectionViewDataSource<RepositoryModel> {
+class RepositoryCollectionViewDataSource: CollectionViewDataSource<RepositoryCollectionCellViewModel> {
     
     override init() {
         let cellClass = RoundedImageCollectionViewCell.self

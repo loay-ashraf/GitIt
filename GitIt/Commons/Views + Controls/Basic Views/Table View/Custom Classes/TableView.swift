@@ -11,12 +11,12 @@ class TableView: UITableView {
     
     var registeredCells = [TableViewCell.Type]()
     
-    func setDataSource<Type>(_ dataSource: TableViewDataSource<Type>) {
+    func setDataSource<T: TableCellViewModel>(_ dataSource: TableViewDataSource<T>) {
         self.dataSource = dataSource
         dataSource.tableView = self
     }
     
-    func setDelegate<Type>(_ delegate: TableViewDelegate<Type>) {
+    func setDelegate<T: TableCellViewModel>(_ delegate: TableViewDelegate<T>) {
         self.delegate = delegate
         delegate.tableView = self
     }

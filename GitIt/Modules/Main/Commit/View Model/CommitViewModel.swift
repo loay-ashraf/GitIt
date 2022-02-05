@@ -7,11 +7,14 @@
 
 import Foundation
 
-class CommitViewModel: TableViewModel<CommitCellViewModel> {
+class CommitViewModel: TableViewModel {
     
     // MARK: - Properties
     
+    typealias TableCellViewModelType = CommitCellViewModel
+    
     var logicController: CommitLogicController
+    var cellViewModels = List<TableCellViewModelType>()
     
     // MARK: - Initialization
     
@@ -21,7 +24,7 @@ class CommitViewModel: TableViewModel<CommitCellViewModel> {
     
     // MARK: - Loading Methods
     
-    override func load(then handler: @escaping LoadingHandler) {
+    func load(then handler: @escaping LoadingHandler) {
         logicController.load { [weak self] error in
             if let error = error {
                 handler(error)
@@ -32,7 +35,7 @@ class CommitViewModel: TableViewModel<CommitCellViewModel> {
         }
     }
     
-    override func refresh(then handler: @escaping LoadingHandler) {
+    func refresh(then handler: @escaping LoadingHandler) {
         logicController.refresh { [weak self] error in
             if let error = error {
                 handler(error)
@@ -47,27 +50,40 @@ class CommitViewModel: TableViewModel<CommitCellViewModel> {
     
     private func synchronizeModel() {
         let modelItems = logicController.model.items
-        cellViewModels.items = modelItems.map { return CommitCellViewModel(from: $0) }
+        cellViewModels.items = modelItems.map { return TableCellViewModelType(from: $0) }
         cellViewModels.currentPage = logicController.model.currentPage
         cellViewModels.isPaginable = logicController.model.isPaginable
     }
     
 }
 
-class CommitCellViewModel: CellViewModel {
-    
+final class CommitCellViewModel: TableCellViewModel {
+   
     // MARK: - Properties
+    
+    typealias ModelType = CommitModel
+    typealias CollectionCellViewModelType = UserCollectionCellViewModel
     
     var author: OwnerModel?
     var htmlURL: URL
     var message: String
     
-    // MARK: - Loading Methods
+    // MARK: - Initialization
     
-    init(from commitModel: CommitModel) {
-        author = commitModel.author
-        htmlURL = commitModel.htmlURL
-        message = commitModel.message
+    init(from model: ModelType) {
+        author = model.author
+        htmlURL = model.htmlURL
+        message = model.message
+    }
+    
+    init(from collectionCellViewModel: CollectionCellViewModelType) {
+        author = OwnerModel()
+        htmlURL = URL(string: "www.github.com")!
+        message = ""
+    }
+    
+    func collectionCellViewModel() -> CollectionCellViewModelType {
+        return CollectionCellViewModelType()
     }
     
 }

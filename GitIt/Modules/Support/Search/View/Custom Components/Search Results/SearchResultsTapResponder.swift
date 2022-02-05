@@ -7,24 +7,24 @@
 
 import UIKit
 
-class SearchResultsTapResponder<Type>: TableViewTapResponder {
+class SearchResultsTapResponder<T: TableCellViewModel>: TableViewTapResponder {
     
     var rawTapResponder: TableViewTapResponder?
-    weak var resultsDelegate: ResultsDelegate?
+    weak var resultsDelegate: SearchResultsDelegate?
     
-    init(delegate: ResultsDelegate) {
+    init(delegate: SearchResultsDelegate) {
         self.resultsDelegate = delegate
-        switch Type.self {
-        case is UserModel.Type: rawTapResponder = UserTableViewTapResponder()
-        case is RepositoryModel.Type: rawTapResponder = RepositoryTableViewTapResponder()
-        case is OrganizationModel.Type: rawTapResponder = OrganizationTableViewTapResponder()
+        switch T.self {
+        case is UserTableCellViewModel.Type: rawTapResponder = UserTableViewTapResponder()
+        case is RepositoryTableCellViewModel.Type: rawTapResponder = RepositoryTableViewTapResponder()
+        case is OrganizationTableCellViewModel.Type: rawTapResponder = OrganizationTableViewTapResponder()
         default: break
         }
     }
     
-    override func respondToTap<Type>(with item: Type) {
+    override func respondToTap<T: TableCellViewModel>(with item: T) {
         resultsDelegate?.dismissResultsKeyboard()
-        resultsDelegate?.addModel(with: item)
+        resultsDelegate?.addObject(with: item)
         rawTapResponder?.respondToTap(with: item)
     }
     

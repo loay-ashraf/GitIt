@@ -7,14 +7,14 @@
 
 import UIKit
 
-class SearchResultsDataSource<Type: Model>: TableViewDataSource<Type> {
+class SearchResultsTableViewDataSource<T: TableCellViewModel>: TableViewDataSource<T> {
     
-    class func raw() -> TableViewDataSource<Type> {
-        switch Type.self {
-        case is UserModel.Type: return TableViewDataSourceConstants.userDataSource as! TableViewDataSource<Type>
-        case is RepositoryModel.Type: return TableViewDataSourceConstants.repositoryDataSource as! TableViewDataSource<Type>
-        case is OrganizationModel.Type: return TableViewDataSourceConstants.organizationDataSource as! TableViewDataSource<Type>
-        default: return TableViewDataSource<Type>()
+    class func raw() -> TableViewDataSource<T> {
+        switch T.self {
+        case is UserTableCellViewModel.Type: return TableViewDataSourceConstants.userDataSource as! TableViewDataSource<T>
+        case is RepositoryTableCellViewModel.Type: return TableViewDataSourceConstants.repositoryDataSource as! TableViewDataSource<T>
+        case is OrganizationTableCellViewModel.Type: return TableViewDataSourceConstants.organizationDataSource as! TableViewDataSource<T>
+        default: return TableViewDataSource<T>()
         }
     }
     

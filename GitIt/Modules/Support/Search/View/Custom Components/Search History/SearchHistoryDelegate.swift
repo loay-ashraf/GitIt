@@ -7,19 +7,19 @@
 
 import UIKit
 
-class SearchHistoryTableViewDelegate: TableViewDelegate<String> {
+class SearchHistoryTableViewDelegate: TableViewDelegate<QueryCellViewModel> {
     
-    init(tableDelegate: HistoryTableDelegate) {
+    init(tableDelegate: SearchHistoryTableDelegate) {
         let tapResponder = SearchHistoryTableViewTapResponder(delegate: tableDelegate)
         super.init(tapResponder: tapResponder, contextMenuConfigurator: nil, scrollViewAction: nil)
     }
     
 }
 
-class SearchHistoryCollectionViewDelegate<Type>: CollectionViewDelegate<Type> {
+class SearchHistoryCollectionViewDelegate<T: CollectionCellViewModel>: CollectionViewDelegate<T> {
     
-    init(collectionDelegate: HistoryCollectionDelegate) {
-        let tapResponder = SearchHistoryCollectionViewTapResponder<Type>(delegate: collectionDelegate)
+    init(collectionDelegate: SearchHistoryCollectionDelegate) {
+        let tapResponder = SearchHistoryCollectionViewTapResponder<T>(delegate: collectionDelegate)
         let contextMenuConfigurator = SearchHistoryCollectionViewContextMenuConfigurator(delegate: collectionDelegate)
         super.init(tapResponder: tapResponder, contextMenuConfigurator: contextMenuConfigurator, scrollViewAction: nil)
     }

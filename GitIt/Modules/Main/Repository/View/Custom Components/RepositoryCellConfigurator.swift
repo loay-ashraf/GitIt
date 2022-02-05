@@ -21,7 +21,7 @@ class RepositoryTableViewCellConfigurator: TableViewCellConfigurator {
     }
     
     override func configure<Type>(_ cell: UITableViewCell, forDisplaying item: Type) {
-        if let cell = cell as? RepositoryTableViewCell, let item = item as? RepositoryCellViewModel {
+        if let cell = cell as? RepositoryTableViewCell, let item = item as? RepositoryTableCellViewModel {
             cell.ownerTextView.loadIcon(at: item.owner.avatarURL)
             cell.ownerTextView.text = item.owner.login
             cell.nameLabel.text = item.name
@@ -49,7 +49,7 @@ class RepositoryTableViewCellConfigurator: TableViewCellConfigurator {
 class RepositoryCollectionViewCellConfigurator: CollectionViewCellConfigurator {
     
     override func configure<Type>(_ cell: UICollectionViewCell, forDisplaying item: Type) {
-        if let cell = cell as? RoundedImageCollectionViewCell, let item = item as? RepositoryModel {
+        if let cell = cell as? RoundedImageCollectionViewCell, let item = item as? RepositoryCollectionCellViewModel {
             cell.nameLabel.text = item.name
             cell.iconImageView.load(at: item.owner.avatarURL)
             cell.setNeedsLayout()

@@ -48,12 +48,39 @@ extension SearchCoordinator {
     
 }
 
-extension SearchCoordinator: HistoryDelegate {
+extension SearchCoordinator: SearchControllerDelegate {
+    
+    // MARK: - Search Controller Delegate Methods
+    
+    func didBeginSearchingSession() {
+        render(.idle)
+    }
+    
+    func didEndSearchingSession() {
+        query = ""
+        render(.idle)
+        resetControllers()
+    }
+    
+    func willSearch() {
+        render(.searching)
+        historyController.addQuery(with: query)
+        resultsController.loadResults(with: query)
+    }
+    
+    func didSearch() {
+        render(.idle)
+        resetControllers()
+    }
+    
+}
+
+extension SearchCoordinator: SearchHistoryDelegate {
     
     // MARK: - History Delegate Methods
     
     func historySearch(with keyword: String) {
-        self.keyword = keyword
+        self.query = keyword
         render(.searching)
         resultsController.loadResults(with: keyword)
     }
@@ -64,12 +91,13 @@ extension SearchCoordinator: HistoryDelegate {
     
 }
 
-extension SearchCoordinator: ResultsDelegate {
+extension SearchCoordinator: SearchResultsDelegate {
     
     // MARK: - Results Delegate Methods
     
-    func addModel(with model: Any) {
-        historyController.addModel(with: model)
+    func addObject<T: TableCellViewModel>(with cellViewModel: T) {
+        let collectionCellViewModel = cellViewModel.collectionCellViewModel()
+        historyController.addObject(with: collectionCellViewModel)
     }
     
     func dismissResultsKeyboard() {

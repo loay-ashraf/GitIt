@@ -40,8 +40,13 @@ class RepositoryDetailViewController: SFStaticTableViewController, Storyboardabl
         super.init(coder: coder)
     }
     
-    required init?(coder: NSCoder, cellViewModel: RepositoryCellViewModel) {
-        viewModel = RepositoryDetailViewModel(cellViewModel: cellViewModel)
+    required init?(coder: NSCoder, collectionCellViewModel: RepositoryCollectionCellViewModel) {
+        viewModel = RepositoryDetailViewModel(collectionCellViewModel: collectionCellViewModel)
+        super.init(coder: coder)
+    }
+    
+    required init?(coder: NSCoder, tableCellViewModel: RepositoryTableCellViewModel) {
+        viewModel = RepositoryDetailViewModel(tableCellViewModel: tableCellViewModel)
         super.init(coder: coder)
     }
     
@@ -53,11 +58,7 @@ class RepositoryDetailViewController: SFStaticTableViewController, Storyboardabl
     required init?(coder: NSCoder) {
         fatalError("Fatal Error, this view controller shouldn't be instantiated via storyboard segue.")
     }
-    
-    static func instatiate<T: ViewControllerContext>(context: T) -> UIViewController {
-        fatalError("Fatal Error, This View controller is instaniated only using paramter, cellViewModel or model")
-    }
-    
+
     static func instatiate(parameter: String) -> UIViewController {
         let storyBoard = UIStoryboard(name: "Main", bundle: nil)
         return storyBoard.instantiateViewController(identifier: self.storyboardIdentifier, creator: { coder -> RepositoryDetailViewController in
@@ -65,11 +66,22 @@ class RepositoryDetailViewController: SFStaticTableViewController, Storyboardabl
                 })
     }
     
-    static func instatiate<T: CellViewModel>(cellViewModel: T) -> UIViewController  {
-        if let cellViewModel = cellViewModel as? RepositoryCellViewModel {
+    static func instatiate<T: CollectionCellViewModel>(collectionCellViewModel: T) -> UIViewController  {
+        if let cellViewModel = collectionCellViewModel as? RepositoryCollectionCellViewModel {
             let storyBoard = UIStoryboard(name: "Main", bundle: nil)
             return storyBoard.instantiateViewController(identifier: self.storyboardIdentifier, creator: { coder -> RepositoryDetailViewController in
-                            self.init(coder: coder, cellViewModel: cellViewModel)!
+                            self.init(coder: coder, collectionCellViewModel: cellViewModel)!
+                    })
+        } else {
+            return UIViewController()
+        }
+    }
+    
+    static func instatiate<T: TableCellViewModel>(tableCellViewModel: T) -> UIViewController  {
+        if let cellViewModel = tableCellViewModel as? RepositoryTableCellViewModel {
+            let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+            return storyBoard.instantiateViewController(identifier: self.storyboardIdentifier, creator: { coder -> RepositoryDetailViewController in
+                            self.init(coder: coder, tableCellViewModel: cellViewModel)!
                     })
         } else {
             return UIViewController()

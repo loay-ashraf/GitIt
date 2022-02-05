@@ -7,82 +7,59 @@
 
 import Foundation
 
-class SearchResultsLogicController<Type: Model> {
+final class UserSearchResultsLogicController: SearchResultsLogicController {
     
-    var model = List<Type>()
-    var keyword = String()
+    // MARK: - Properties
     
-    private var handler: LoadingHandler?
+    typealias ModelType = UserModel
     
-    // MARK: - Load, Refresh and Reset Methods
+    var model = List<ModelType>()
+    var query = String()
+    var handler: LoadingHandler?
+    
+    // MARK: - Loading Methods
     
     func load(then handler: @escaping LoadingHandler) {
         self.handler = handler
-        switch Type.self {
-        case is UserModel.Type: searchUsers(then: handler)
-        case is RepositoryModel.Type: searchRepositories(then: handler)
-        case is OrganizationModel.Type: searchOrganizations(then: handler)
-        default: return
-        }
+        GitHubClient.searchUsers(keyword: query, page: model.currentPage, completionHandler: processResult(result:))
     }
     
-    func refresh(then handler: @escaping LoadingHandler) {
-        model.reset()
-        load(then: handler)
-    }
-    
-    func reset() {
-        model.reset()
-    }
-    
-    // MARK: - Load Helper Methods
-    
-    private func searchUsers(then handler: @escaping LoadingHandler) {
-        GitHubClient.searchUsers(keyword: keyword, page: model.currentPage, completionHandler: processUserResult(result:))
-    }
+}
 
-    private func searchRepositories(then handler: @escaping LoadingHandler) {
-        GitHubClient.searchRepositories(keyword: keyword, page: model.currentPage, completionHandler: processRepositoryResult(result:))
+final class RepositorySearchResultsLogicController: SearchResultsLogicController {
+    
+    // MARK: - Properties
+    
+    typealias ModelType = RepositoryModel
+    
+    var model = List<ModelType>()
+    var query = String()
+    var handler: LoadingHandler?
+    
+    // MARK: - Loading Methods
+    
+    func load(then handler: @escaping LoadingHandler) {
+        self.handler = handler
+        GitHubClient.searchRepositories(keyword: query, page: model.currentPage, completionHandler: processResult(result:))
     }
     
-    private func searchOrganizations(then handler: @escaping LoadingHandler) {
-        GitHubClient.searchOrganizations(keyword: keyword, page: model.currentPage, completionHandler: processOrganizationResult(result:))
+}
+
+final class OrganizationSearchResultsLogicController: SearchResultsLogicController {
+    
+    // MARK: - Properties
+    
+    typealias ModelType = OrganizationModel
+    
+    var model = List<ModelType>()
+    var query = String()
+    var handler: LoadingHandler?
+    
+    // MARK: - Loading Methods
+    
+    func load(then handler: @escaping LoadingHandler) {
+        self.handler = handler
+        GitHubClient.searchOrganizations(keyword: query, page: model.currentPage, completionHandler: processResult(result:))
     }
     
-    private func processUserResult(result: Result<BatchResponse<UserModel>,NetworkError>) {
-        switch result {
-        case .success(let response): model.append(contentsOf: response.items as! [Type])
-                                     updateModelParameters(count: response.count)
-                                     handler?(nil)
-        case .failure(let networkError): handler?(networkError)
-        }
-    }
-                                                         
-    private func processRepositoryResult(result: Result<BatchResponse<RepositoryModel>,NetworkError>) {
-        switch result {
-        case .success(let response): model.append(contentsOf: response.items as! [Type])
-                                     updateModelParameters(count: response.count)
-                                     handler?(nil)
-        case .failure(let networkError): handler?(networkError)
-        }
-    }
-    
-    private func processOrganizationResult(result: Result<BatchResponse<OrganizationModel>,NetworkError>) {
-        switch result {
-        case .success(let response): model.append(contentsOf: response.items as! [Type])
-                                     updateModelParameters(count: response.count)
-                                     handler?(nil)
-        case .failure(let networkError): handler?(networkError)
-        }
-    }
-                                                         
-    private func updateModelParameters(count: Int) {
-        model.currentPage += 1
-        if !model.isPaginable {
-            model.isPaginable = count > 10 ? true : false
-        } else {
-            model.isPaginable = model.items.count == count ? false : true
-        }
-    }
-                                                         
 }

@@ -21,15 +21,15 @@ class BookmarksViewController: UIViewController {
     
     // MARK: - Table View Data Sources
     
-    var userDataSource: TableViewDataSource<UserModel> = TableViewDataSourceConstants.userDataSource
-    var repositoryDataSource: TableViewDataSource<RepositoryModel> = TableViewDataSourceConstants.repositoryDataSource
-    var organizationDataSource: TableViewDataSource<OrganizationModel> = TableViewDataSourceConstants.organizationDataSource
+    var userDataSource: TableViewDataSource<UserTableCellViewModel> = TableViewDataSourceConstants.userDataSource
+    var repositoryDataSource: TableViewDataSource<RepositoryTableCellViewModel> = TableViewDataSourceConstants.repositoryDataSource
+    var organizationDataSource: TableViewDataSource<OrganizationTableCellViewModel> = TableViewDataSourceConstants.organizationDataSource
     
     // MARK: - Table View Delegates
     
-    var userDelegate: TableViewDelegate<UserModel> = TableViewDelegateConstants.userDelegate
-    var repositoryDelegate: TableViewDelegate<RepositoryModel> = TableViewDelegateConstants.repositoryDelegate
-    var organizationDelegate: TableViewDelegate<OrganizationModel> = TableViewDelegateConstants.organizationDelegate
+    var userDelegate: TableViewDelegate<UserTableCellViewModel> = TableViewDelegateConstants.userDelegate
+    var repositoryDelegate: TableViewDelegate<RepositoryTableCellViewModel> = TableViewDelegateConstants.repositoryDelegate
+    var organizationDelegate: TableViewDelegate<OrganizationTableCellViewModel> = TableViewDelegateConstants.organizationDelegate
     
     // MARK: - View Outlets
     
@@ -70,15 +70,15 @@ class BookmarksViewController: UIViewController {
     // MARK: - View Synchronization Methods
     
     func synchronizeTableView() {
-        switch context {
-        case .users: userDataSource.model = userModel
-                     userDelegate.model = userModel
-        case .repositories: repositoryDataSource.model = repositoryModel
-                            repositoryDelegate.model = repositoryModel
-        case .organizations: organizationDataSource.model = organizationModel
-                             organizationDelegate.model = organizationModel
-        default: break
-        }
+//        switch context {
+//        case .users: userDataSource.model = userModel
+//                     userDelegate.model = userModel
+//        case .repositories: repositoryDataSource.model = repositoryModel
+//                            repositoryDelegate.model = repositoryModel
+//        case .organizations: organizationDataSource.model = organizationModel
+//                             organizationDelegate.model = organizationModel
+//        default: break
+//        }
     }
     
     // MARK: - View Actions

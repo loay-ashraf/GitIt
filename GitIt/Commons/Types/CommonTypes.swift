@@ -104,57 +104,6 @@ enum FailedViewState {
     
 }
 
-enum SearchUIState {
-    
-    case idle
-    case searching
-    
-}
-
-enum SearchContext {
-    
-    case general
-    case users
-    case repositories
-    case organizations
-    
-    var barPlaceholder: String {
-        switch self {
-        case .general: return Constants.View.SearchBar.general
-        case .users: return Constants.View.SearchBar.users
-        case .repositories: return Constants.View.SearchBar.repositories
-        case .organizations: return Constants.View.SearchBar.organizations
-        }
-    }
-    
-    init?<Type: Model>(from modelType: Type.Type) {
-        switch Type.self {
-        case is UserModel.Type: self = .users
-        case is RepositoryModel.Type: self = .repositories
-        case is OrganizationModel.Type: self = .organizations
-        default: self = .general
-        }
-    }
-    
-}
-
-struct SearchHistory<Type: Model>: Codable {
-    
-    var models: [Type]
-    var keywords: [String]
-    
-    mutating func clear() {
-        models.removeAll()
-        keywords.removeAll()
-    }
-    
-    init() {
-        models = []
-        keywords = []
-    }
-    
-}
-
 enum BookmarksContext {
     
     case general

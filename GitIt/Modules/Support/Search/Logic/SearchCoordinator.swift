@@ -8,26 +8,28 @@
 import Foundation
 import UIKit
 
-class SearchCoordinator<Type: Model> {
+class SearchCoordinator<T: SearchStackType> {
     
-    var keyword: String {
-        get { return searchController.keyword }
-        set { searchController.keyword = newValue }
+    // MARK: - Properties
+    
+    var query: String {
+        get { return searchController.query }
+        set { searchController.query = newValue }
     }
     
-    var searchController: SearchController<Type>!
-    var resultsController: SearchResultsViewController<Type>!
-    var historyController: SearchHistoryViewController<Type>!
+    var searchController: SearchController!
+    var historyController: SearchHistoryViewController<T.SearchHistoryViewModelType>!
+    var resultsController: SearchResultsViewController<T.SearchResultsViewModelType>!
     
     var navigationController: UINavigationController!
     
-    // MARK: - Initialisation
+    // MARK: - Initialization
     
-    init(_ parentTableViewController: SFDynamicTableViewController<Type>) {
+    init(_ parentTableViewController: UITableViewController) {
         historyController = SearchHistoryViewController.instatiateFromStoryboard(with: self)
-        resultsController = SearchResultsViewController.instatiateFromStoryboard(with:self)
+        resultsController = SearchResultsViewController.instatiateFromStoryboard(with: self)
         navigationController = UINavigationController(rootViewController: historyController)
-        searchController = SearchController(self, searchResultsController: navigationController)
+        searchController = SearchController(self, searchContext: T.context, searchResultsController: navigationController)
         parentTableViewController.navigationItem.searchController = searchController
         parentTableViewController.navigationItem.hidesSearchBarWhenScrolling = false
         parentTableViewController.definesPresentationContext = true
@@ -37,27 +39,31 @@ class SearchCoordinator<Type: Model> {
         debugPrint(String(describing: self) + " deallocated")
     }
     
-    // MARK: - Search Controller Outlet Methods
+}
+
+final class UserSearchStack: SearchStackType {
     
-    func didBeginSearchingSession() {
-        render(.idle)
-    }
+    typealias SearchResultsViewModelType = UserSearchResultsViewModel
+    typealias SearchHistoryViewModelType = UserSearchHistoryViewModel
     
-    func didEndSearchingSession() {
-        keyword = ""
-        render(.idle)
-        resetControllers()
-    }
+    static var context = SearchContext.users
     
-    func willSearch() {
-        render(.searching)
-        historyController.addKeyword(with: keyword)
-        resultsController.loadResults(with: keyword)
-    }
+}
+
+final class RepositorySearchStack: SearchStackType {
     
-    func didSearch() {
-        render(.idle)
-        resetControllers()
-    }
+    typealias SearchResultsViewModelType = RepositorySearchResultsViewModel
+    typealias SearchHistoryViewModelType = RepositorySearchHistoryViewModel
+    
+    static var context = SearchContext.repositories
+    
+}
+
+final class OrganizationSearchStack: SearchStackType {
+    
+    typealias SearchResultsViewModelType = OrganizationSearchResultsViewModel
+    typealias SearchHistoryViewModelType = OrganizationSearchHistoryViewModel
+    
+    static var context = SearchContext.organizations
     
 }

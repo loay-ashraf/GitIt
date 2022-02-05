@@ -7,11 +7,10 @@
 
 import UIKit
 
-class TableViewDelegate<Type>: NSObject, UITableViewDelegate {
+class TableViewDelegate<T: TableCellViewModel>: NSObject, UITableViewDelegate {
     
-    var model = List<Type>()
-    var viewModels = List<Type>()
     weak var tableView: TableView!
+    var cellViewModels = Array<T>()
     var tapResponder: TableViewTapResponder!
     var contextMenuConfigurator: TableViewContextMenuConfigurator!
     var scrollViewAction: (() -> Void)!
@@ -33,14 +32,12 @@ class TableViewDelegate<Type>: NSObject, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        //let item = model.items[indexPath.row]
-        let item = viewModels.items[indexPath.row]
+        let item = cellViewModels[indexPath.row]
         tapResponder.respondToTap(with: item)
     }
     
     func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
-        //let item = model.items[indexPath.row]
-        let item = viewModels.items[indexPath.row]
+        let item = cellViewModels[indexPath.row]
         return contextMenuConfigurator?.configure(with: item)
     }
     

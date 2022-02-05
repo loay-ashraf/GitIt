@@ -7,11 +7,11 @@
 
 import UIKit
 
-class SearchResultsDelegate<Type>: TableViewDelegate<Type> {
+class SearchResultsTableViewDelegate<T: TableCellViewModel>: TableViewDelegate<T> {
     
-    init(delegate: ResultsDelegate) {
-        let tapResponder = SearchResultsTapResponder<Type>(delegate: delegate)
-        let contextMenuConfigurator = SearchResultsContextMenuConfigurator<Type>()
+    init(delegate: SearchResultsDelegate) {
+        let tapResponder = SearchResultsTapResponder<T>(delegate: delegate)
+        let contextMenuConfigurator = SearchResultsContextMenuConfigurator<T>()
         super.init(tapResponder: tapResponder, contextMenuConfigurator: contextMenuConfigurator, scrollViewAction: nil)
     }
     

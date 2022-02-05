@@ -9,7 +9,7 @@ import UIKit
 
 class TableViewContextMenuConfigurator {
     
-    func configure<Type>(with item: Type) -> UIContextMenuConfiguration {
+    func configure<T: TableCellViewModel>(with item: T) -> UIContextMenuConfiguration {
         return UIContextMenuConfiguration()
     }
     

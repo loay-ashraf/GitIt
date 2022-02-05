@@ -11,32 +11,32 @@ extension SearchHistoryViewController {
     
     // MARK: - Search Coordinator Outlet Methods
     
-    func addModel(with model: Any) {
-        logicController.add(model: model as! Type)
+    func addObject<X: CollectionCellViewModel>(with cellViewModel: X) {
+        viewModel.add(objectCellViewModel: cellViewModel as! T.CollectionCellViewModelType)
         updateCollectionView()
         layoutView()
     }
     
-    func addKeyword(with keyword: String) {
-        logicController.add(keyword: keyword)
+    func addQuery(with query: String) {
+        viewModel.add(queryCellViewModel: QueryCellViewModel(from: query))
         updateTableView()
         layoutView()
     }
     
 }
 
-extension SearchHistoryViewController: HistoryCollectionDelegate {
+extension SearchHistoryViewController: SearchHistoryCollectionDelegate {
     
     // MARK: - Collection View Controller Delegate Methods
     
-    var models: List<Any> { return List<Any>(with: logicController.history.models) }
+    var objectCellViewModels: Array<AnyObject> { return viewModel.objectCellViewModels as Array<AnyObject> }
     
-    func add(model: Any) {
-        logicController.add(model: model as! Type)
+    func add(objectCellViewModel: AnyObject) {
+        viewModel.add(objectCellViewModel: objectCellViewModel as! T.CollectionCellViewModelType)
     }
     
-    func delete(model: Any) {
-        logicController.delete(model: model as! Type)
+    func delete(objectCellViewModel: AnyObject) {
+        viewModel.delete(objectCellViewModel: objectCellViewModel as! T.CollectionCellViewModelType)
         synchronizeCollectionView()
     }
     
@@ -54,19 +54,19 @@ extension SearchHistoryViewController: HistoryCollectionDelegate {
     
 }
 
-extension SearchHistoryViewController: HistoryTableDelegate {
+extension SearchHistoryViewController: SearchHistoryTableDelegate {
     
     // MARK: - Table View Controller Delegate Methods
     
-    var keywords: List<String> { return List<String>(with: logicController.history.keywords) }
+    var queryCellViewModels: Array<QueryCellViewModel> { return viewModel.queryCellViewModels }
     
-    func add(keyWord: String) {
-        logicController.add(keyword: keyWord)
-        delegate.historySearch(with: keyWord)
+    func add(queryCellViewModel: QueryCellViewModel) {
+        viewModel.add(queryCellViewModel: queryCellViewModel)
+        delegate.historySearch(with: queryCellViewModel.query)
     }
     
-    func delete(keyWord: String) {
-        logicController.delete(keyword: keyWord)
+    func delete(queryCellViewModel: QueryCellViewModel) {
+        viewModel.delete(queryCellViewModel: queryCellViewModel)
         synchronizeTableView()
     }
     

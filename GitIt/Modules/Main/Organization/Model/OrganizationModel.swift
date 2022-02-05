@@ -9,6 +9,9 @@ import Foundation
 
 struct OrganizationModel: Model {
     
+    typealias T = OrganizationCollectionCellViewModel
+    typealias U = OrganizationTableCellViewModel
+    
     let id: Int
     let login: String
     let avatarURL: URL
@@ -66,6 +69,36 @@ struct OrganizationModel: Model {
         email = try container.decodeIfPresent(String.self, forKey: .email)
         twitter = try container.decodeIfPresent(String.self, forKey: .twitter)
         repositories = try container.decodeIfPresent(Int.self, forKey: .repositories)
+        isComplete = false
+    }
+    
+    init(from collectionCellViewModel: T) {
+        id = 0
+        login = collectionCellViewModel.login
+        avatarURL = collectionCellViewModel.avatarURL
+        htmlURL = collectionCellViewModel.htmlURL
+        name = nil
+        description = nil
+        location = nil
+        blogURL = nil
+        email = nil
+        twitter = nil
+        repositories = nil
+        isComplete = false
+    }
+    
+    init(from tableCellViewModel: U) {
+        id = 0
+        login = tableCellViewModel.login
+        avatarURL = tableCellViewModel.avatarURL
+        htmlURL = tableCellViewModel.htmlURL
+        name = nil
+        description = nil
+        location = nil
+        blogURL = nil
+        email = nil
+        twitter = nil
+        repositories = nil
         isComplete = false
     }
     

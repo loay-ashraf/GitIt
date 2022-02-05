@@ -36,8 +36,12 @@ class UserDetailViewModel {
         logicController = UserDetailLogicController(login: login)
     }
     
-    init(cellViewModel: UserCellViewModel) {
-        logicController = UserDetailLogicController(login: cellViewModel.login)
+    init(collectionCellViewModel: UserCollectionCellViewModel) {
+        logicController = UserDetailLogicController(login: collectionCellViewModel.login)
+    }
+    
+    init(tableCellViewModel: UserTableCellViewModel) {
+        logicController = UserDetailLogicController(login: tableCellViewModel.login)
     }
     
     init(model: UserModel) {

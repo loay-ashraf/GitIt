@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CommitViewController: SFDynamicTableViewController<CommitCellViewModel>, StoryboardableViewController {
+class CommitViewController: SFDynamicTableViewController<CommitViewModel>, StoryboardableViewController {
     
     // MARK: - Properties
     
@@ -24,24 +24,12 @@ class CommitViewController: SFDynamicTableViewController<CommitCellViewModel>, S
     required init?(coder: NSCoder) {
         fatalError("Fatal Error, coder initializer not implemented.")
     }
-    
-    static func instatiate<T: ViewControllerContext>(context: T) -> UIViewController {
-        fatalError("Fatal Error, This View controller is instaniated only using parameter")
-    }
-    
+
     static func instatiate(parameter: String) -> UIViewController {
         let storyBoard = UIStoryboard(name: "Main", bundle: nil)
         return storyBoard.instantiateViewController(identifier: self.storyboardIdentifier, creator: { coder -> CommitViewController in
                     self.init(coder: coder, repositoryFullName: parameter)!
                 })
-    }
-    
-    static func instatiate<T: CellViewModel>(cellViewModel: T) -> UIViewController  {
-        fatalError("Fatal Error, This View controller is instaniated only using parameter")
-    }
-    
-    static func instatiate<T: Model>(model: T) -> UIViewController  {
-        fatalError("Fatal Error, This View controller is instaniated only using parameter")
     }
     
     deinit {

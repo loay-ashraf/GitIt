@@ -10,7 +10,7 @@ import UIKit
 class UserTableViewCellConfigurator: TableViewCellConfigurator {
     
     override func configure<Type>(_ cell: UITableViewCell, forDisplaying item: Type) {
-        if let cell = cell as? RoundedImageTableViewCell, let item = item as? UserCellViewModel {
+        if let cell = cell as? RoundedImageTableViewCell, let item = item as? UserTableCellViewModel {
             cell.nameLabel.text = item.login
             cell.iconImageView.load(at: item.avatarURL)
             cell.setNeedsLayout()
@@ -22,7 +22,7 @@ class UserTableViewCellConfigurator: TableViewCellConfigurator {
 class UserCollectionViewCellConfigurator: CollectionViewCellConfigurator {
     
     override func configure<Type>(_ cell: UICollectionViewCell, forDisplaying item: Type) {
-        if let cell = cell as? RoundedImageCollectionViewCell, let item = item as? UserModel {
+        if let cell = cell as? RoundedImageCollectionViewCell, let item = item as? UserCollectionCellViewModel {
             cell.nameLabel.text = item.login
             cell.iconImageView.load(at: item.avatarURL)
             cell.setNeedsLayout()

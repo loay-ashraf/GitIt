@@ -9,6 +9,9 @@ import Foundation
 
 struct RepositoryModel: Model {
     
+    typealias T = RepositoryCollectionCellViewModel
+    typealias U = RepositoryTableCellViewModel
+    
     let id: Int
     let name: String
     let fullName: String
@@ -75,20 +78,52 @@ struct RepositoryModel: Model {
         isComplete = false
     }
     
+    init(from collectionCellViewModel: T) {
+        id = 0
+        name = collectionCellViewModel.name
+        fullName = ""
+        owner = collectionCellViewModel.owner
+        htmlURL = collectionCellViewModel.htmlURL
+        description = nil
+        homepageURL = nil
+        language = nil
+        stars = 0
+        forks = 0
+        defaultBranch = ""
+        license = nil
+        isComplete = false
+    }
+    
+    init(from tableCellViewModel: U) {
+        id = 0
+        name = tableCellViewModel.name
+        fullName = ""
+        owner = tableCellViewModel.owner
+        htmlURL = tableCellViewModel.htmlURL
+        description = tableCellViewModel.description
+        homepageURL = nil
+        language = tableCellViewModel.language
+        stars = tableCellViewModel.stargazers
+        forks = 0
+        defaultBranch = ""
+        license = nil
+        isComplete = false
+    }
+    
     init(from repository: Repository) {
-        self.id = repository.id
-        self.name = repository.name
-        self.fullName = repository.fullName
-        self.owner = OwnerModel(from: repository.owner)
-        self.htmlURL = repository.htmlURL
-        self.description = repository.overview
-        self.homepageURL = repository.homepageURL
-        self.language = repository.language
-        self.stars = repository.stars
-        self.forks = repository.forks
-        self.defaultBranch = repository.defaultBranch
-        self.license = LicenseModel(from: repository.license)
-        self.READMEString = repository.readmeString
+        id = repository.id
+        name = repository.name
+        fullName = repository.fullName
+        owner = OwnerModel(from: repository.owner)
+        htmlURL = repository.htmlURL
+        description = repository.overview
+        homepageURL = repository.homepageURL
+        language = repository.language
+        stars = repository.stars
+        forks = repository.forks
+        defaultBranch = repository.defaultBranch
+        license = LicenseModel(from: repository.license)
+        READMEString = repository.readmeString
         isComplete = true
     }
     

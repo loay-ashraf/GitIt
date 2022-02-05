@@ -6,81 +6,72 @@
 //
 
 import Foundation
-import UIKit
 
-class SearchHistoryLogicController<Type: Model> {
+final class UserSearchHistoryLogicController: SearchHistoryLogicController {
     
-    var history = SearchHistory<Type>()
-    var historyManager = SearchHistoryManager.standard
+    // MARK: - Properties
     
-    private var handler: LoadingHandler?
+    typealias ModelType = UserModel
+    
+    var model = SearchHistory<ModelType>()
+    var modelManager = SearchHistoryManager.standard
+    
+    // MARK: - Initialization
     
     init() {
-        let searchContext = SearchContext(from: Type.self)
-        historyManager.activeSearchContext = searchContext
+        modelManager.activeSearchContext = .users
     }
     
-    // MARK: - Load Methods
-    
-    func load(handler: @escaping LoadingHandler) {
-        self.handler = handler
-        switch Type.self {
-        case is UserModel.Type: loadUserSearchHistory()
-        case is RepositoryModel.Type: loadRepositorySearchHistory()
-        case is OrganizationModel.Type: loadOrganizationSearchHistory()
-        default: return
-        }
+    // MARK: - Model Synchronization Methods
+
+    func synchronize() {
+        model = modelManager.userHistory
     }
     
-    private func loadUserSearchHistory() {
-        history = historyManager.userHistory as! SearchHistory<Type>
-        handler?(nil)
+}
+
+final class RepositorySearchHistoryLogicController: SearchHistoryLogicController {
+    
+    // MARK: - Properties
+    
+    typealias ModelType = RepositoryModel
+    
+    var model = SearchHistory<ModelType>()
+    var modelManager = SearchHistoryManager.standard
+    
+    // MARK: - Initialization
+    
+    init() {
+        modelManager.activeSearchContext = .repositories
     }
     
-    private func loadRepositorySearchHistory() {
-        history = historyManager.repositoryHistory as! SearchHistory<Type>
-        handler?(nil)
+    // MARK: - Model Synchronization Methods
+
+    func synchronize() {
+        model = modelManager.repositoryHistory
     }
     
-    private func loadOrganizationSearchHistory() {
-        history = historyManager.organizationHistory as! SearchHistory<Type>
-        handler?(nil)
+}
+
+final class OrganizationSearchHistoryLogicController: SearchHistoryLogicController {
+    
+    // MARK: - Properties
+    
+    typealias ModelType = OrganizationModel
+    
+    var model = SearchHistory<ModelType>()
+    var modelManager = SearchHistoryManager.standard
+    
+    // MARK: - Initialization
+    
+    init() {
+        modelManager.activeSearchContext = .organizations
     }
     
-    private func synchronize() {
-        switch Type.self {
-        case is UserModel.Type: history = historyManager.userHistory as! SearchHistory<Type>
-        case is RepositoryModel.Type: history = historyManager.repositoryHistory as! SearchHistory<Type>
-        case is OrganizationModel.Type: history = historyManager.organizationHistory as! SearchHistory<Type>
-        default: return
-        }
-    }
-    
-    // MARK: - History Manipulationn Methods
-    
-    func add(model: Type) {
-        historyManager.add(model: model)
-        synchronize()
-    }
-    
-    func add(keyword: String) {
-        historyManager.add(keyword: keyword, for: Type.self)
-        synchronize()
-    }
-    
-    func delete(model: Type) {
-        historyManager.delete(model: model)
-        synchronize()
-    }
-    
-    func delete(keyword: String) {
-        historyManager.delete(keyword: keyword, for: Type.self)
-        synchronize()
-    }
-    
-    func clear() {
-        historyManager.clear(for: Type.self)
-        synchronize()
+    // MARK: - Model Synchronization Methods
+
+    func synchronize() {
+        model = modelManager.organizationHistory
     }
     
 }

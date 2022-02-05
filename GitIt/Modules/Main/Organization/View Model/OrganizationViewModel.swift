@@ -7,11 +7,14 @@
 
 import Foundation
 
-class OrganizationViewModel: TableViewModel<OrganizationCellViewModel> {
+class OrganizationViewModel: TableViewModel {
     
     // MARK: - Properties
     
+    typealias TableCellViewModelType = OrganizationTableCellViewModel
+    
     var logicController: OrganizationLogicController
+    var cellViewModels = List<TableCellViewModelType>()
     
     // MARK: - Initialization
     
@@ -21,7 +24,7 @@ class OrganizationViewModel: TableViewModel<OrganizationCellViewModel> {
     
     // MARK: - Loading Methods
     
-    override func load(then handler: @escaping LoadingHandler) {
+    func load(then handler: @escaping LoadingHandler) {
         logicController.load { [weak self] error in
             if let error = error {
                 handler(error)
@@ -32,7 +35,7 @@ class OrganizationViewModel: TableViewModel<OrganizationCellViewModel> {
         }
     }
     
-    override func refresh(then handler: @escaping LoadingHandler) {
+    func refresh(then handler: @escaping LoadingHandler) {
         logicController.refresh { [weak self] error in
             if let error = error {
                 handler(error)
@@ -47,16 +50,19 @@ class OrganizationViewModel: TableViewModel<OrganizationCellViewModel> {
     
     private func synchronizeModel() {
         let modelItems = logicController.model.items
-        cellViewModels.items = modelItems.map { return OrganizationCellViewModel(from: $0) }
+        cellViewModels.items = modelItems.map { return TableCellViewModelType(from: $0) }
         cellViewModels.currentPage = logicController.model.currentPage
         cellViewModels.isPaginable = logicController.model.isPaginable
     }
     
 }
 
-class OrganizationCellViewModel: CellViewModel {
+final class OrganizationCollectionCellViewModel: CollectionCellViewModel {
     
     // MARK: - Properties
+    
+    typealias ModelType = OrganizationModel
+    typealias TableCellViewModelType = OrganizationTableCellViewModel
     
     var avatarURL: URL
     var htmlURL: URL
@@ -64,10 +70,55 @@ class OrganizationCellViewModel: CellViewModel {
     
     // MARK: - Initialization
     
-    init(from organizationModel: OrganizationModel) {
-        avatarURL = organizationModel.avatarURL
-        htmlURL = organizationModel.htmlURL
-        login = organizationModel.login
+    init(from model: ModelType) {
+        avatarURL = model.avatarURL
+        htmlURL = model.htmlURL
+        login = model.login
+    }
+    
+    init(from tableCellViewModel: TableCellViewModelType) {
+        avatarURL = tableCellViewModel.avatarURL
+        htmlURL = tableCellViewModel.htmlURL
+        login = tableCellViewModel.login
+    }
+    
+    // MARK: - View Model Adapter Methods
+    
+    func tableCellViewModel() -> TableCellViewModelType {
+        return TableCellViewModelType(from: self)
+    }
+    
+}
+
+final class OrganizationTableCellViewModel: TableCellViewModel {
+    
+    // MARK: - Properties
+    
+    typealias ModelType = OrganizationModel
+    typealias CollectionCellViewModelType = OrganizationCollectionCellViewModel
+    
+    var avatarURL: URL
+    var htmlURL: URL
+    var login: String
+    
+    // MARK: - Initialization
+    
+    init(from model: ModelType) {
+        avatarURL = model.avatarURL
+        htmlURL = model.htmlURL
+        login = model.login
+    }
+    
+    init(from collectionCellViewModel: CollectionCellViewModelType) {
+        avatarURL = collectionCellViewModel.avatarURL
+        htmlURL = collectionCellViewModel.htmlURL
+        login = collectionCellViewModel.login
+    }
+    
+    // MARK: - View Model Adapter Methods
+    
+    func collectionCellViewModel() -> CollectionCellViewModelType {
+        return CollectionCellViewModelType(from: self)
     }
     
 }

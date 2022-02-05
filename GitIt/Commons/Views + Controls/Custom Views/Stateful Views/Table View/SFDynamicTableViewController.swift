@@ -7,25 +7,25 @@
 
 import UIKit
 
-class SFDynamicTableViewController<Type>: UITableViewController {
+class SFDynamicTableViewController<T: TableViewModel>: UITableViewController {
     
     var xTableView: SFDynamicTableView! { return tableView as? SFDynamicTableView }
 
-    var tableViewDataSource: TableViewDataSource<Type>!
-    var tableViewDelegate: TableViewDelegate<Type>!
+    var tableViewDataSource: TableViewDataSource<T.TableCellViewModelType>!
+    var tableViewDelegate: TableViewDelegate<T.TableCellViewModelType>!
     
-    var viewModel: TableViewModel<Type>!
+    var viewModel: T!
     var emptyViewModel: EmptyViewModel = EmptyConstants.General.viewModel
     
-    // MARK: - Initialisation
+    // MARK: - Initialization
     
-    init(tableViewDataSource: TableViewDataSource<Type>, tableViewDelegate: TableViewDelegate<Type>) {
+    init(tableViewDataSource: TableViewDataSource<T.TableCellViewModelType>, tableViewDelegate: TableViewDelegate<T.TableCellViewModelType>) {
         super.init(nibName: nil, bundle: nil)
         self.tableViewDataSource = tableViewDataSource
         self.tableViewDelegate = tableViewDelegate
     }
     
-    init?(coder: NSCoder, tableViewDataSource: TableViewDataSource<Type>, tableViewDelegate: TableViewDelegate<Type>) {
+    init?(coder: NSCoder, tableViewDataSource: TableViewDataSource<T.TableCellViewModelType>, tableViewDelegate: TableViewDelegate<T.TableCellViewModelType>) {
         super.init(coder: coder)
         self.tableViewDataSource = tableViewDataSource
         self.tableViewDelegate = tableViewDelegate
@@ -186,8 +186,8 @@ class SFDynamicTableViewController<Type>: UITableViewController {
     }
     
     func synchronizeTableView() {
-        tableViewDataSource.viewModels = viewModel.cellViewModels
-        tableViewDelegate.viewModels = viewModel.cellViewModels
+        tableViewDataSource.cellViewModels = viewModel.cellViewModels.items
+        tableViewDelegate.cellViewModels = viewModel.cellViewModels.items
     }
     
 }

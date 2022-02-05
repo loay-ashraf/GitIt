@@ -35,8 +35,13 @@ class RepositoryDetailViewModel {
         logicController = RepositoryDetailLogicController(fullName: fullName)
     }
     
-    init(cellViewModel: RepositoryCellViewModel) {
-        let fullName = cellViewModel.owner.login.appendPathComponent(cellViewModel.name)
+    init(collectionCellViewModel: RepositoryCollectionCellViewModel) {
+        let fullName = collectionCellViewModel.owner.login.appendPathComponent(collectionCellViewModel.name)
+        logicController = RepositoryDetailLogicController(fullName: fullName)
+    }
+    
+    init(tableCellViewModel: RepositoryTableCellViewModel) {
+        let fullName = tableCellViewModel.owner.login.appendPathComponent(tableCellViewModel.name)
         logicController = RepositoryDetailLogicController(fullName: fullName)
     }
     
@@ -138,7 +143,7 @@ class RepositoryDetailViewModel {
     
     private func synchronizeModel() {
         let model = logicController.model
-        name = model.fullName
+        name = model.name
         fullName = model.fullName
         owner = model.owner
         htmlURL = model.htmlURL
