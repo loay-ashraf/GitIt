@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import UIKit
 
 class OrganizationDetailViewModel {
     
@@ -55,42 +54,33 @@ class OrganizationDetailViewModel {
     }
     
     func openInSafari() {
-        URLHelper.openURL(htmlURL)
+        URLHelper.openWebsite(htmlURL)
     }
     
     func share() {
-        URLHelper.shareURL(htmlURL)
+        URLHelper.shareWebsite(htmlURL)
     }
     
     func goToBlog() {
-        URLHelper.openURL(blogURL!)
+        URLHelper.openWebsite(blogURL!)
     }
     
     func composeMail() {
-        let appURL = URL(string: "mailto://" + email!)!
-        if UIApplication.shared.canOpenURL(appURL) {
-            UIApplication.shared.open(appURL)
-        }
+        URLHelper.openMail(email!)
     }
     
     func goToTwitter() {
-        let appURL = URL(string: "twitter://user?screen_name=" + twitter!)!
-        let webURL = URL(string: "https://twitter.com/" + twitter!)!
-        if UIApplication.shared.canOpenURL(appURL) {
-            UIApplication.shared.open(appURL)
-        } else {
-            URLHelper.openURL(webURL)
-        }
+        URLHelper.openTwitter(twitter!)
     }
     
-    func showMembers(navigationController: UINavigationController?) {
-        let repositoriesVC = UserViewController.instatiate(context: .members(organizationLogin: login) as UserContext)
-        navigationController?.pushViewController(repositoriesVC, animated: true)
+    func showMembers() {
+        let membersVC = UserViewController.instatiate(context: .members(organizationLogin: login) as UserContext)
+        NavigationRouter.push(viewController: membersVC)
     }
     
-    func showRepositories(navigationController: UINavigationController?) {
+    func showRepositories() {
         let repositoriesVC = RepositoryViewController.instatiate(context: .user(userLogin: login, numberOfRepositories: repositories) as RepositoryContext)
-        navigationController?.pushViewController(repositoriesVC, animated: true)
+        NavigationRouter.push(viewController: repositoriesVC)
     }
     
     // MARK: - Loading Methods

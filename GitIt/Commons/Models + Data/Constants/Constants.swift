@@ -329,7 +329,7 @@ struct Constants {
                     static let title = "Open In Safari".localized()
                     static func action<Type: GitIt.Model>(item: Type) -> UIAction {
                         return UIAction(title: title, image: image, attributes: []) { action in
-                            URLHelper.openURL(item.htmlURL)
+                            URLHelper.openWebsite(item.htmlURL)
                         }
                     }
                     
@@ -342,7 +342,7 @@ struct Constants {
                     static let title = "Share".localized()
                     static func action<Type: GitIt.Model>(item: Type) -> UIAction {
                         return UIAction(title: title, image: image, attributes: []) { action in
-                            URLHelper.shareURL(item.htmlURL)
+                            URLHelper.shareWebsite(item.htmlURL)
                         }
                     }
                     

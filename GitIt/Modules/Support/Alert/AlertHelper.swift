@@ -10,8 +10,14 @@ import NotificationBannerSwift
 
 class AlertHelper {
     
+    // MARK: - Properties
+    
     static var presentedStatusBarBanner: StatusBarNotificationBanner!
     static var presentedAlertController: UIAlertController!
+    
+    // MARK: - Initialization
+    
+    private init() { }
     
     // MARK: - Show Methods
     
@@ -22,37 +28,29 @@ class AlertHelper {
     }
     
     class func showAlert(title: String, message: String, style: UIAlertController.Style, actions: [UIAlertAction]) {
-        let topViewController = UIApplication.topViewController()
-        
         let alertController = UIAlertController(title: title, message: message, preferredStyle: style)
         for action in actions { alertController.addAction(action) }
         
         presentedAlertController = alertController
-        topViewController?.present(alertController, animated: true, completion: nil)
+        NavigationRouter.present(viewController: alertController)
     }
     
     class func showAlert(with alertController: UIAlertController, actions: [UIAlertAction]) {
-        let topViewController = UIApplication.topViewController()
-        
         for action in actions { alertController.addAction(action) }
         
         presentedAlertController = alertController
-        topViewController?.present(alertController, animated: true, completion: nil)
+        NavigationRouter.present(viewController: alertController)
     }
     
     class func showAlert(with alertController: UIAlertController) {
-        let topViewController = UIApplication.topViewController()
-        
         presentedAlertController = alertController
-        topViewController?.present(alertController, animated: true, completion: nil)
+        NavigationRouter.present(viewController: alertController)
     }
     
     class func showAlert(alert: Alert) {
-        let topViewController = UIApplication.topViewController()
-        
         let alertController = alert.controller
         presentedAlertController = alertController
-        topViewController?.present(alertController, animated: true, completion: nil)
+        NavigationRouter.present(viewController: alertController)
     }
     
     // MARK: - Dismiss Methods

@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import UIKit
 
 class RepositoryDetailViewModel {
     
@@ -68,52 +67,52 @@ class RepositoryDetailViewModel {
     }
     
     func openInSafari() {
-        URLHelper.openURL(htmlURL)
+        URLHelper.openWebsite(htmlURL)
     }
     
     func share() {
-        URLHelper.shareURL(htmlURL)
+        URLHelper.shareWebsite(htmlURL)
     }
     
-    func showOwner(navigationController: UINavigationController?) {
+    func showOwner() {
         if owner.type == .user {
             let userLogin = owner.login
             let userDetailVC = UserDetailViewController.instatiate(parameter: userLogin)
-            navigationController?.pushViewController(userDetailVC, animated: true)
+            NavigationRouter.push(viewController: userDetailVC)
         } else if owner.type == .organization {
             let organizationLogin = owner.login
             let organizationDetailVC = OrganizationDetailViewController.instatiate(parameter: organizationLogin)
-            navigationController?.pushViewController(organizationDetailVC, animated: true)
+            NavigationRouter.push(viewController: organizationDetailVC)
         }
     }
     
     func goToHomepage() {
-        URLHelper.openURL(homepageURL!)
+        URLHelper.openWebsite(homepageURL!)
     }
     
-    func showStars(navigationController: UINavigationController?) {
+    func showStars() {
         let starsVC = UserViewController.instatiate(context: .stargazers(repositoryFullName: fullName, numberOfStargazers: stars) as UserContext)
-        navigationController?.pushViewController(starsVC, animated: true)
+        NavigationRouter.push(viewController: starsVC)
     }
     
-    func showForks(navigationController: UINavigationController?) {
+    func showForks() {
         let forksVC = RepositoryViewController.instatiate(context: .forks(repositoryFullName: fullName, numberOfForks: forks) as RepositoryContext)
-        navigationController?.pushViewController(forksVC, animated: true)
+        NavigationRouter.push(viewController: forksVC)
     }
     
-    func showContributors(navigationController: UINavigationController?) {
+    func showContributors() {
         let contributorsVC = UserViewController.instatiate(context: .contributors(repositoryFullName: fullName) as UserContext)
-        navigationController?.pushViewController(contributorsVC, animated: true)
+        NavigationRouter.push(viewController: contributorsVC)
     }
     
-    func showCommits(navigationController: UINavigationController?) {
+    func showCommits() {
         let commitsVC = CommitViewController.instatiate(parameter: fullName)
-        navigationController?.pushViewController(commitsVC, animated: true)
+        NavigationRouter.push(viewController: commitsVC)
     }
     
-    func showLicense(navigationController: UINavigationController?) {
+    func showLicense() {
         let licenseVC = LicenseViewController.instatiate(parameters: [fullName,defaultBranch])
-        navigationController?.pushViewController(licenseVC, animated: true)
+        NavigationRouter.push(viewController: licenseVC)
     }
     
     // MARK: - Loading Methods

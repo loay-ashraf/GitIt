@@ -117,10 +117,10 @@ class RepositoryDetailViewController: SFStaticTableViewController, Storyboardabl
         
         navigationItem.largeTitleDisplayMode = .never
         
-        ownerTextView.action = { [weak self] in self?.viewModel.showOwner(navigationController: self?.navigationController) }
+        ownerTextView.action = { [weak self] in self?.viewModel.showOwner() }
         homepageTextView.action = { [weak self] in self?.viewModel.goToHomepage() }
-        starsNumericView.actions = [ { [weak self] in self?.viewModel.showStars(navigationController: self?.navigationController) } ]
-        forksNumericView.actions = [ { [weak self] in self?.viewModel.showForks(navigationController: self?.navigationController) } ]
+        starsNumericView.actions = [ { [weak self] in self?.viewModel.showStars() } ]
+        forksNumericView.actions = [ { [weak self] in self?.viewModel.showForks() } ]
         
         switch UIApplication.shared.userInterfaceLayoutDirection {
         case .leftToRight: starButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 15.0)
@@ -144,10 +144,8 @@ class RepositoryDetailViewController: SFStaticTableViewController, Storyboardabl
         READMEView.isScrollEnabled = false
         READMEView.onTouchLink = { request in
             guard let url = request.url else { return false }
-            if url.scheme == "https" || url.scheme == "http"  {
-                URLHelper.openURL(url)
-                return false
-            } else { return false }
+            URLHelper.openWebsite(url)
+            return false
         }
     }
     
@@ -197,11 +195,11 @@ class RepositoryDetailViewController: SFStaticTableViewController, Storyboardabl
     override func showViewController(forRowAt indexPath: IndexPath) {
         super.showViewController(forRowAt: indexPath)
         if indexPath.row == 0 {
-            viewModel.showContributors(navigationController: navigationController)
+            viewModel.showContributors()
         } else if indexPath.row == 1 {
-            viewModel.showCommits(navigationController: navigationController)
+            viewModel.showCommits()
         } else if indexPath.row == 2 {
-            viewModel.showLicense(navigationController: navigationController)
+            viewModel.showLicense()
         }
     }
     

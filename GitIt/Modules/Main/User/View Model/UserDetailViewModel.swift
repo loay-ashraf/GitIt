@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import UIKit
 
 class UserDetailViewModel {
     
@@ -67,57 +66,48 @@ class UserDetailViewModel {
     }
     
     func openInSafari() {
-        URLHelper.openURL(htmlURL)
+        URLHelper.openWebsite(htmlURL)
     }
     
     func share() {
-        URLHelper.shareURL(htmlURL)
+        URLHelper.shareWebsite(htmlURL)
     }
     
     func goToBlog() {
-        URLHelper.openURL(blogURL!)
+        URLHelper.openWebsite(blogURL!)
     }
     
     func composeMail() {
-        let appURL = URL(string: "mailto://" + email!)!
-        if UIApplication.shared.canOpenURL(appURL) {
-            UIApplication.shared.open(appURL)
-        }
+        URLHelper.openMail(email!)
     }
     
     func goToTwitter() {
-        let appURL = URL(string: "twitter://user?screen_name=" + twitter!)!
-        let webURL = URL(string: "https://twitter.com/" + twitter!)!
-        if UIApplication.shared.canOpenURL(appURL) {
-            UIApplication.shared.open(appURL)
-        } else {
-            URLHelper.openURL(webURL)
-        }
+        URLHelper.openTwitter(twitter!)
     }
     
-    func showFollowers(navigationController: UINavigationController?) {
+    func showFollowers() {
         let followersVC = UserViewController.instatiate(context: .followers(userLogin: login, numberOfFollowers: followers) as UserContext)
-        navigationController?.pushViewController(followersVC, animated: true)
+        NavigationRouter.push(viewController: followersVC)
     }
     
-    func showFollowing(navigationController: UINavigationController?) {
+    func showFollowing() {
         let followingVC = UserViewController.instatiate(context: .following(userLogin: login, numberOfFollowing: following) as UserContext)
-        navigationController?.pushViewController(followingVC, animated: true)
+        NavigationRouter.push(viewController: followingVC)
     }
     
-    func showRepositories(navigationController: UINavigationController?) {
+    func showRepositories() {
         let repositoriesVC = RepositoryViewController.instatiate(context: .user(userLogin: login, numberOfRepositories: repositories) as RepositoryContext)
-        navigationController?.pushViewController(repositoriesVC, animated: true)
+        NavigationRouter.push(viewController: repositoriesVC)
     }
     
-    func showOrganizations(navigationController: UINavigationController?) {
+    func showOrganizations() {
         let organizationsVC = OrganizationViewController.instatiate(context: .user(userLogin: login) as OrganizationContext)
-        navigationController?.pushViewController(organizationsVC, animated: true)
+        NavigationRouter.push(viewController: organizationsVC)
     }
     
-    func showStarred(navigationController: UINavigationController?) {
+    func showStarred() {
         let repositoriesVC = RepositoryViewController.instatiate(context: .starred(userLogin: login) as RepositoryContext)
-        navigationController?.pushViewController(repositoriesVC, animated: true)
+        NavigationRouter.push(viewController: repositoriesVC)
     }
     
     // MARK: - Loading Methods

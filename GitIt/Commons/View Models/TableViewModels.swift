@@ -25,6 +25,8 @@ protocol TableViewModel: AnyObject {
 
 extension TableViewModel {
     
+    // MARK: - Properties
+    
     var items: Array<TableCellViewModelType> { return cellViewModels.items }
     var count: Int { return cellViewModels.count }
     var isEmpty: Bool { return cellViewModels.isEmpty }

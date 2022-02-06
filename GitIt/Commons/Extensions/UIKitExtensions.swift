@@ -13,7 +13,7 @@ extension UIApplication {
         return UIApplication.shared.windows.first(where: { $0.isKeyWindow })
     }
     
-    class func topViewController(controller: UIViewController? = UIApplication.shared.windows.first(where: { $0.isKeyWindow })?.rootViewController) -> UIViewController? {
+    class func topViewController(controller: UIViewController? = UIApplication.keyWindow()?.rootViewController) -> UIViewController? {
         if let navigationController = controller as? UINavigationController {
             return topViewController(controller: navigationController.visibleViewController)
         }
@@ -37,6 +37,10 @@ extension UIApplication {
             return alert.presentingViewController
         }
         return controller
+    }
+    
+    class func topNavigationController() -> UINavigationController? {
+        return topViewController()?.navigationController
     }
 
 }

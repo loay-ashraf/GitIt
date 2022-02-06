@@ -105,7 +105,7 @@ class CommitDetailViewController: SFStaticTableViewController, StoryboardableVie
     }
     
     func showAuthor() {
-        viewModel.showAuthor(navigationController: navigationController)
+        viewModel.showAuthor()
     }
     
     // MARK: - Loading Methods

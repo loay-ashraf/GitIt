@@ -108,7 +108,7 @@ class ProfileViewController: SFStaticTableViewController {
     @IBAction func share(_ sender: UIBarButtonItem) {
         if let model = SessionManager.standard.sessionUser {
             let htmlURL = model.htmlURL
-            URLHelper.shareURL(htmlURL)
+            URLHelper.shareWebsite(htmlURL)
         }
     }
     
@@ -120,7 +120,7 @@ class ProfileViewController: SFStaticTableViewController {
     func goToBlog() {
         if let model = SessionManager.standard.sessionUser {
             let webURL = model.blogURL
-            URLHelper.openURL(webURL!)
+            URLHelper.openWebsite(webURL!)
         }
     }
     
@@ -135,13 +135,7 @@ class ProfileViewController: SFStaticTableViewController {
     
     func goToTwitter() {
         if let model = SessionManager.standard.sessionUser {
-            let appURL = URL(string: "twitter://user?screen_name=" + model.twitter!)!
-            let webURL = URL(string: "https://twitter.com/" + model.twitter!)!
-            if UIApplication.shared.canOpenURL(appURL) {
-                UIApplication.shared.open(appURL)
-            } else {
-                URLHelper.openURL(webURL)
-            }
+            URLHelper.openTwitter(model.twitter!)
         }
     }
     

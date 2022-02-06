@@ -166,9 +166,9 @@ class OrganizationDetailViewController: SFStaticTableViewController, Storyboarda
     override func showViewController(forRowAt indexPath: IndexPath) {
         super.showViewController(forRowAt: indexPath)
         if indexPath.row == 0 {
-            viewModel.showMembers(navigationController: navigationController)
+            viewModel.showMembers()
         } else if indexPath.row == 1 {
-            viewModel.showRepositories(navigationController: navigationController)
+            viewModel.showRepositories()
         }
     }
     

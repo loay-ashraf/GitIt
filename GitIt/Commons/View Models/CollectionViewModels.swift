@@ -25,6 +25,8 @@ protocol CollectionViewModel: AnyObject {
 
 extension CollectionViewModel {
     
+    // MARK: - Properties
+    
     var items: [CollectionCellViewModelType] { return cellViewModels.items }
     var count: Int { return cellViewModels.count }
     var isEmpty: Bool { return cellViewModels.isEmpty }

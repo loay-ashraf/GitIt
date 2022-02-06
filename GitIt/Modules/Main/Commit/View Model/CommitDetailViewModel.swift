@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import UIKit
 
 class CommitDetailViewModel {
     
@@ -32,18 +31,18 @@ class CommitDetailViewModel {
     // MARK: - View Actions
     
     func openInSafari() {
-        URLHelper.openURL(htmlURL)
+        URLHelper.openWebsite(htmlURL)
     }
     
     func share() {
-        URLHelper.shareURL(htmlURL)
+        URLHelper.shareWebsite(htmlURL)
     }
     
-    func showAuthor(navigationController: UINavigationController?) {
+    func showAuthor() {
         if let author = author, author.type == .user {
             let authorLogin = author.login
             let authorDetailVC = UserDetailViewController.instatiate(parameter: authorLogin)
-            navigationController?.pushViewController(authorDetailVC, animated: true)
+            NavigationRouter.push(viewController: authorDetailVC)
         }
     }
     

@@ -125,7 +125,7 @@ class UserDetailViewController: SFStaticTableViewController, StoryboardableViewC
         blogTextView.action = { [weak self] in self?.viewModel.goToBlog() }
         emailTextView.action = { [weak self] in self?.viewModel.composeMail() }
         twitterTextView.action = { [weak self] in self?.viewModel.goToTwitter() }
-        socialStatusNumericView.actions = [{ [weak self] in self?.viewModel.showFollowers(navigationController: self?.navigationController) },{ [weak self] in self?.viewModel.showFollowing(navigationController: self?.navigationController) }]
+        socialStatusNumericView.actions = [{ [weak self] in self?.viewModel.showFollowers() },{ [weak self] in self?.viewModel.showFollowing() }]
         
         switch UIApplication.shared.userInterfaceLayoutDirection {
         case .leftToRight: followButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 15.0)
@@ -196,11 +196,11 @@ class UserDetailViewController: SFStaticTableViewController, StoryboardableViewC
     override func showViewController(forRowAt indexPath: IndexPath) {
         super.showViewController(forRowAt: indexPath)
         if indexPath.row == 0 {
-            viewModel.showRepositories(navigationController: navigationController)
+            viewModel.showRepositories()
         } else if indexPath.row == 1 {
-            viewModel.showOrganizations(navigationController: navigationController)
+            viewModel.showOrganizations()
         } else if indexPath.row == 2 {
-            viewModel.showStarred(navigationController: navigationController)
+            viewModel.showStarred()
         }
     }
     
