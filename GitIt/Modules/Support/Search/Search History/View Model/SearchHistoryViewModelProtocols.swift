@@ -80,9 +80,9 @@ extension SearchHistoryViewModel {
     // MARK: - View Model Synchronization Methods
     
     func synchronize() {
-        let modelItems = logicController.model.models
-        let queryItems = logicController.model.keywords
-        objectCellViewModels = modelItems.map { return CollectionCellViewModelType(from: $0 as! CollectionCellViewModelType.ModelType) }
+        let objectItems = logicController.model.objects
+        let queryItems = logicController.model.queries
+        objectCellViewModels = objectItems.map { return CollectionCellViewModelType(from: $0 as! CollectionCellViewModelType.ModelType) }
         queryCellViewModels = queryItems.map { return QueryCellViewModel(from: $0) }
     }
     

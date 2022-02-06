@@ -47,24 +47,24 @@ class SearchHistoryManager {
     
     func add<Type: Model>(model: Type) {
         switch model {
-        case let model as UserModel: userHistory.models.removeAll() { value in return value == model }
-                                     userHistory.models.insert(model, at: 0)
-        case let model as RepositoryModel: repositoryHistory.models.removeAll() { value in return value == model }
-                                           repositoryHistory.models.insert(model, at: 0)
-        case let model as OrganizationModel: organizationHistory.models.removeAll() { value in return value == model }
-                                             organizationHistory.models.insert(model, at: 0)
+        case let model as UserModel: userHistory.objects.removeAll() { value in return value == model }
+                                     userHistory.objects.insert(model, at: 0)
+        case let model as RepositoryModel: repositoryHistory.objects.removeAll() { value in return value == model }
+                                           repositoryHistory.objects.insert(model, at: 0)
+        case let model as OrganizationModel: organizationHistory.objects.removeAll() { value in return value == model }
+                                             organizationHistory.objects.insert(model, at: 0)
         default: break
         }
     }
     
     func add<Type: Model>(keyword: String, for modelType: Type.Type) {
         switch modelType.self {
-        case is UserModel.Type: userHistory.keywords.removeAll() { value in return value == keyword }
-                                userHistory.keywords.insert(keyword, at: 0)
-        case is RepositoryModel.Type: repositoryHistory.keywords.removeAll() { value in return value == keyword }
-                                      repositoryHistory.keywords.insert(keyword, at: 0)
-        case is OrganizationModel.Type: organizationHistory.keywords.removeAll() { value in return value == keyword }
-                                        organizationHistory.keywords.insert(keyword, at: 0)
+        case is UserModel.Type: userHistory.queries.removeAll() { value in return value == keyword }
+                                userHistory.queries.insert(keyword, at: 0)
+        case is RepositoryModel.Type: repositoryHistory.queries.removeAll() { value in return value == keyword }
+                                      repositoryHistory.queries.insert(keyword, at: 0)
+        case is OrganizationModel.Type: organizationHistory.queries.removeAll() { value in return value == keyword }
+                                        organizationHistory.queries.insert(keyword, at: 0)
         default: break
         }
     }
@@ -73,18 +73,18 @@ class SearchHistoryManager {
     
     func delete<Type: Model>(model: Type) {
         switch model {
-        case let model as UserModel: userHistory.models.removeAll() { value in return value == model }
-        case let model as RepositoryModel: repositoryHistory.models.removeAll() { value in return value == model }
-        case let model as OrganizationModel: organizationHistory.models.removeAll() { value in return value == model }
+        case let model as UserModel: userHistory.objects.removeAll() { value in return value == model }
+        case let model as RepositoryModel: repositoryHistory.objects.removeAll() { value in return value == model }
+        case let model as OrganizationModel: organizationHistory.objects.removeAll() { value in return value == model }
         default: break
         }
     }
     
     func delete<Type: Model>(keyword: String, for modelType: Type.Type) {
         switch modelType.self {
-        case is UserModel.Type: userHistory.keywords.removeAll() { value in return value == keyword }
-        case is RepositoryModel.Type: repositoryHistory.keywords.removeAll() { value in return value == keyword }
-        case is OrganizationModel.Type: organizationHistory.keywords.removeAll() { value in return value == keyword }
+        case is UserModel.Type: userHistory.queries.removeAll() { value in return value == keyword }
+        case is RepositoryModel.Type: repositoryHistory.queries.removeAll() { value in return value == keyword }
+        case is OrganizationModel.Type: organizationHistory.queries.removeAll() { value in return value == keyword }
         default: break
         }
     }

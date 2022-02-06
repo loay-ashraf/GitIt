@@ -79,10 +79,10 @@ extension SearchCoordinator: SearchHistoryDelegate {
     
     // MARK: - History Delegate Methods
     
-    func historySearch(with keyword: String) {
-        self.query = keyword
+    func historySearch(with query: String) {
+        self.query = query
         render(.searching)
-        searchResultsController.loadResults(with: keyword)
+        searchResultsController.loadResults(with: query)
     }
     
     func dismissHistoryKeyboard() {

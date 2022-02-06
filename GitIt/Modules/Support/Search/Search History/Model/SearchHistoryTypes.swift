@@ -9,17 +9,17 @@ import Foundation
 
 struct SearchHistory<T: Model>: Codable {
     
-    var models: [T]
-    var keywords: [String]
+    var objects: Array<T>
+    var queries: Array<String>
     
     mutating func clear() {
-        models.removeAll()
-        keywords.removeAll()
+        objects.removeAll()
+        queries.removeAll()
     }
     
     init() {
-        models = []
-        keywords = []
+        objects = Array<T>()
+        queries = Array<String>()
     }
     
 }

@@ -12,6 +12,12 @@ protocol SearchModule: AnyObject {
     associatedtype SearchHistoryViewModelType: SearchHistoryViewModel
     associatedtype SearchResultsViewModelType: SearchResultsViewModel
     
-    static var context: SearchContext { get }
+    static var searchBarPlaceholder: String { get }
+    
+}
+
+extension SearchModule {
+    
+    static var searchBarPlaceholder: String { return ViewConstants.SearchBar.general }
     
 }

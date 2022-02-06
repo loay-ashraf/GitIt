@@ -29,7 +29,7 @@ class SearchCoordinator<T: SearchModule> {
         searchHistoryController = SearchHistoryViewController.instatiateFromStoryboard(with: self)
         searchResultsController = SearchResultsViewController.instatiateFromStoryboard(with: self)
         navigationController = UINavigationController(rootViewController: searchHistoryController)
-        searchController = SearchController(self, searchContext: T.context, searchResultsController: navigationController)
+        searchController = SearchController(self, searchBarPlaceholder: T.searchBarPlaceholder, searchResultsController: navigationController)
         parentTableViewController.navigationItem.searchController = searchController
         parentTableViewController.navigationItem.hidesSearchBarWhenScrolling = false
         parentTableViewController.definesPresentationContext = true
@@ -46,7 +46,7 @@ final class UserSearchModule: SearchModule {
     typealias SearchHistoryViewModelType = UserSearchHistoryViewModel
     typealias SearchResultsViewModelType = UserSearchResultsViewModel
     
-    static var context = SearchContext.users
+    static var searchBarPlaceholder = ViewConstants.SearchBar.users
     
 }
 
@@ -55,7 +55,7 @@ final class RepositorySearchModule: SearchModule {
     typealias SearchHistoryViewModelType = RepositorySearchHistoryViewModel
     typealias SearchResultsViewModelType = RepositorySearchResultsViewModel
     
-    static var context = SearchContext.repositories
+    static var searchBarPlaceholder = ViewConstants.SearchBar.repositories
     
 }
 
@@ -64,6 +64,6 @@ final class OrganizationSearchModule: SearchModule {
     typealias SearchHistoryViewModelType = OrganizationSearchHistoryViewModel
     typealias SearchResultsViewModelType = OrganizationSearchResultsViewModel
     
-    static var context = SearchContext.organizations
+    static var searchBarPlaceholder = ViewConstants.SearchBar.organizations
     
 }

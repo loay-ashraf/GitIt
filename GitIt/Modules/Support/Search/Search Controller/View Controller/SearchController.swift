@@ -12,8 +12,8 @@ class SearchController: UISearchController, UISearchControllerDelegate, UISearch
     // MARK: - Properties
     
     private weak var controllerDelegate: SearchControllerDelegate!
-    private var searchContext: SearchContext!
-    private lazy var timer = SearchTimer { [weak self] in self?.timerSearch() }
+    private var searchBarPlaceholder: String!
+    private lazy var searchTimer = SearchTimer { [weak self] in self?.timerSearch() }
     var query: String {
         get { return searchBar.text! }
         set { searchBar.text = newValue }
@@ -21,10 +21,10 @@ class SearchController: UISearchController, UISearchControllerDelegate, UISearch
     
     // MARK: - Initialization
 
-    init(_ controllerDelegate: SearchControllerDelegate, searchContext: SearchContext, searchResultsController: UIViewController) {
+    init(_ controllerDelegate: SearchControllerDelegate, searchBarPlaceholder: String, searchResultsController: UIViewController) {
         super.init(searchResultsController: searchResultsController)
         self.controllerDelegate = controllerDelegate
-        self.searchContext = searchContext
+        self.searchBarPlaceholder = searchBarPlaceholder
         self.configure()
     }
     
@@ -41,7 +41,7 @@ class SearchController: UISearchController, UISearchControllerDelegate, UISearch
     private func configure() {
         delegate = self
         searchBar.delegate = self
-        searchBar.placeholder = searchContext.barPlaceholder
+        searchBar.placeholder = searchBarPlaceholder
         searchBar.autocapitalizationType = .none
         searchBar.returnKeyType = .done
         searchBar.enablesReturnKeyAutomatically = false
@@ -51,7 +51,7 @@ class SearchController: UISearchController, UISearchControllerDelegate, UISearch
     }
     
     private func timerSearch() {
-        timer.cancel()
+        searchTimer.cancel()
         controllerDelegate.willSearch()
     }
 
@@ -69,9 +69,9 @@ class SearchController: UISearchController, UISearchControllerDelegate, UISearch
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchText != "" {
-            timer.activate()
+            searchTimer.activate()
         } else {
-            timer.cancel()
+            searchTimer.cancel()
             controllerDelegate.didSearch()
         }
     }
