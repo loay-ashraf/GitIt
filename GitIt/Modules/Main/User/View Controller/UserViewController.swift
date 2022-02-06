@@ -15,7 +15,7 @@ class UserViewController: SFDynamicTableViewController<UserViewModel>, Storyboar
     
     private var context: UserContext
     
-    private var searchCoordinator: SearchCoordinator<UserSearchStack>!
+    private var searchCoordinator: SearchCoordinator<UserSearchModule>!
     
     // MARK: - Initialization
     

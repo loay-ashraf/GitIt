@@ -15,7 +15,7 @@ class OrganizationViewController: SFDynamicTableViewController<OrganizationViewM
     
     private var context: OrganizationContext
     
-    private var searchCoordinator: SearchCoordinator<OrganizationSearchStack>!
+    private var searchCoordinator: SearchCoordinator<OrganizationSearchModule>!
     
     // MARK: - Initialisation
     

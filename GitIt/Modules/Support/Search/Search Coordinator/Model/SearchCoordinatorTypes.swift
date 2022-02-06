@@ -1,8 +1,8 @@
 //
-//  SearchTypes.swift
+//  SearchCoordinatorTypes.swift
 //  GitIt
 //
-//  Created by Loay Ashraf on 05/02/2022.
+//  Created by Loay Ashraf on 06/02/2022.
 //
 
 import Foundation
@@ -34,26 +34,9 @@ enum SearchContext {
     
 }
 
-enum SearchUIState {
+enum SearchViewState {
     
     case idle
     case searching
-    
-}
-
-struct SearchHistory<T: Model>: Codable {
-    
-    var models: [T]
-    var keywords: [String]
-    
-    mutating func clear() {
-        models.removeAll()
-        keywords.removeAll()
-    }
-    
-    init() {
-        models = []
-        keywords = []
-    }
     
 }

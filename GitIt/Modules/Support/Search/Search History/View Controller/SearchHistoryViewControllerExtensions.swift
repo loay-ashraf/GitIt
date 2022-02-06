@@ -1,11 +1,11 @@
 //
-//  SearchHistoryExtensions.swift
+//  SearchHistoryViewControllerExtensions.swift
 //  GitIt
 //
-//  Created by Loay Ashraf on 01/01/2022.
+//  Created by Loay Ashraf on 06/02/2022.
 //
 
-import UIKit
+import Foundation
 
 extension SearchHistoryViewController {
     

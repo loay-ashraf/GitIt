@@ -15,7 +15,7 @@ class RepositoryViewController: SFDynamicTableViewController<RepositoryViewModel
     
     private var context: RepositoryContext
     
-    private var searchCoordinator: SearchCoordinator<RepositorySearchStack>!
+    private var searchCoordinator: SearchCoordinator<RepositorySearchModule>!
     
     // MARK: - Initialization
     

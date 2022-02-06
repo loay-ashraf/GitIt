@@ -10,6 +10,7 @@ import Foundation
 enum RepositoryContext: ViewControllerContext {
     
     case main
+    case trending
     case user(userLogin: String,numberOfRepositories: Int)
     case organization(organizationLogin: String,numberOfRepositories: Int)
     case forks(repositoryFullName: String,numberOfForks: Int)
@@ -18,6 +19,7 @@ enum RepositoryContext: ViewControllerContext {
     var logicController: RepositoryLogicController {
         switch self {
         case .main: return RepositoryLogicController()
+        case .trending: return TrendingRepositoriesLogicController()
         case .user(let userLogin, let numberOfRepositories): return UserOwnedLogicController(userLogin: userLogin, numberOfRepositories: numberOfRepositories)
         case .organization(let organizationLogin, let numberOfRepositories): return OrganizationOwnedLogicController(organizationLogin: organizationLogin, numberOfRepositories: numberOfRepositories)
         case .forks(let repositoryFullName, let numberOfForks): return ForksLogicController(repositoryFullName: repositoryFullName, numberOfForks: numberOfForks)

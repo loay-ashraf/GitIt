@@ -13,7 +13,7 @@ class TrendingViewController: SFDynamicTableViewController<RepositoryViewModel> 
     
     required init?(coder: NSCoder) {
         super.init(coder: coder, tableViewDataSource: RepositoryTableViewDataSource(), tableViewDelegate: RepositoryTableViewDelegate())
-        viewModel = RepositoryViewModel(context: .main)
+        viewModel = RepositoryViewModel(context: .trending)
         emptyViewModel = Constants.View.Empty.Repositories.viewModel
     }
     

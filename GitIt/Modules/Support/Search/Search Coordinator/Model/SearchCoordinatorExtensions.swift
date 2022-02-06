@@ -11,7 +11,7 @@ extension SearchCoordinator {
     
     // MARK: - View Helper Methods
     
-    func render(_ state: SearchUIState) {
+    func render(_ state: SearchViewState) {
         switch state {
         case .searching: showResults()
                          resetNavigationController()
@@ -25,24 +25,24 @@ extension SearchCoordinator {
     }
     
     func resetControllers() {
-        historyController.reset()
-        resultsController.reset()
+        searchHistoryController.reset()
+        searchResultsController.reset()
     }
     
     func showResults() {
-        UIView.transition(with: historyController.view, duration: 0.3, options: .transitionCrossDissolve, animations: {
-            self.historyController.addChild(self.resultsController)
-            self.historyController.view.addSubview(self.resultsController.view)
-            self.resultsController.didMove(toParent: self.historyController!)
-            self.resultsController.view.frame = self.historyController.view.frame
+        UIView.transition(with: searchHistoryController.view, duration: 0.3, options: .transitionCrossDissolve, animations: {
+            self.searchHistoryController.addChild(self.searchResultsController)
+            self.searchHistoryController.view.addSubview(self.searchResultsController.view)
+            self.searchResultsController.didMove(toParent: self.searchHistoryController!)
+            self.searchResultsController.view.frame = self.searchHistoryController.view.frame
         }, completion: nil)
     }
     
     func hideResults() {
-        UIView.transition(with: historyController.view, duration: 0.3, options: .transitionCrossDissolve, animations: {
-            self.resultsController.willMove(toParent: nil)
-            self.resultsController.removeFromParent()
-            self.resultsController.view.removeFromSuperview()
+        UIView.transition(with: searchHistoryController.view, duration: 0.3, options: .transitionCrossDissolve, animations: {
+            self.searchResultsController.willMove(toParent: nil)
+            self.searchResultsController.removeFromParent()
+            self.searchResultsController.view.removeFromSuperview()
         }, completion: nil)
     }
     
@@ -64,8 +64,8 @@ extension SearchCoordinator: SearchControllerDelegate {
     
     func willSearch() {
         render(.searching)
-        historyController.addQuery(with: query)
-        resultsController.loadResults(with: query)
+        searchHistoryController.addQuery(with: query)
+        searchResultsController.loadResults(with: query)
     }
     
     func didSearch() {
@@ -82,7 +82,7 @@ extension SearchCoordinator: SearchHistoryDelegate {
     func historySearch(with keyword: String) {
         self.query = keyword
         render(.searching)
-        resultsController.loadResults(with: keyword)
+        searchResultsController.loadResults(with: keyword)
     }
     
     func dismissHistoryKeyboard() {
@@ -97,7 +97,7 @@ extension SearchCoordinator: SearchResultsDelegate {
     
     func addObject<T: TableCellViewModel>(with cellViewModel: T) {
         let collectionCellViewModel = cellViewModel.collectionCellViewModel()
-        historyController.addObject(with: collectionCellViewModel)
+        searchHistoryController.addObject(with: collectionCellViewModel)
     }
     
     func dismissResultsKeyboard() {

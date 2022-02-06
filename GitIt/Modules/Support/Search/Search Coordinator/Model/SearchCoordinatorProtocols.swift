@@ -7,10 +7,10 @@
 
 import Foundation
 
-protocol SearchStackType: AnyObject {
+protocol SearchModule: AnyObject {
     
-    associatedtype SearchResultsViewModelType: SearchResultsViewModel
     associatedtype SearchHistoryViewModelType: SearchHistoryViewModel
+    associatedtype SearchResultsViewModelType: SearchResultsViewModel
     
     static var context: SearchContext { get }
     

@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class SearchCoordinator<T: SearchStackType> {
+class SearchCoordinator<T: SearchModule> {
     
     // MARK: - Properties
     
@@ -18,17 +18,17 @@ class SearchCoordinator<T: SearchStackType> {
     }
     
     var searchController: SearchController!
-    var historyController: SearchHistoryViewController<T.SearchHistoryViewModelType>!
-    var resultsController: SearchResultsViewController<T.SearchResultsViewModelType>!
+    var searchHistoryController: SearchHistoryViewController<T.SearchHistoryViewModelType>!
+    var searchResultsController: SearchResultsViewController<T.SearchResultsViewModelType>!
     
     var navigationController: UINavigationController!
     
     // MARK: - Initialization
     
     init(_ parentTableViewController: UITableViewController) {
-        historyController = SearchHistoryViewController.instatiateFromStoryboard(with: self)
-        resultsController = SearchResultsViewController.instatiateFromStoryboard(with: self)
-        navigationController = UINavigationController(rootViewController: historyController)
+        searchHistoryController = SearchHistoryViewController.instatiateFromStoryboard(with: self)
+        searchResultsController = SearchResultsViewController.instatiateFromStoryboard(with: self)
+        navigationController = UINavigationController(rootViewController: searchHistoryController)
         searchController = SearchController(self, searchContext: T.context, searchResultsController: navigationController)
         parentTableViewController.navigationItem.searchController = searchController
         parentTableViewController.navigationItem.hidesSearchBarWhenScrolling = false
@@ -41,28 +41,28 @@ class SearchCoordinator<T: SearchStackType> {
     
 }
 
-final class UserSearchStack: SearchStackType {
+final class UserSearchModule: SearchModule {
     
-    typealias SearchResultsViewModelType = UserSearchResultsViewModel
     typealias SearchHistoryViewModelType = UserSearchHistoryViewModel
+    typealias SearchResultsViewModelType = UserSearchResultsViewModel
     
     static var context = SearchContext.users
     
 }
 
-final class RepositorySearchStack: SearchStackType {
+final class RepositorySearchModule: SearchModule {
     
-    typealias SearchResultsViewModelType = RepositorySearchResultsViewModel
     typealias SearchHistoryViewModelType = RepositorySearchHistoryViewModel
+    typealias SearchResultsViewModelType = RepositorySearchResultsViewModel
     
     static var context = SearchContext.repositories
     
 }
 
-final class OrganizationSearchStack: SearchStackType {
+final class OrganizationSearchModule: SearchModule {
     
-    typealias SearchResultsViewModelType = OrganizationSearchResultsViewModel
     typealias SearchHistoryViewModelType = OrganizationSearchHistoryViewModel
+    typealias SearchResultsViewModelType = OrganizationSearchResultsViewModel
     
     static var context = SearchContext.organizations
     

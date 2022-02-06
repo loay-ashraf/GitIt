@@ -1,68 +1,11 @@
 //
-//  SearchHistoryDelegates.swift
+//  SearchHistoryViewModelProtocols.swift
 //  GitIt
 //
-//  Created by Loay Ashraf on 01/01/2022.
+//  Created by Loay Ashraf on 06/02/2022.
 //
 
 import Foundation
-
-protocol SearchHistoryLogicController: AnyObject {
-    
-    associatedtype ModelType: Model
-    
-    var model: SearchHistory<ModelType> { get set }
-    var modelManager: SearchHistoryManager { get set }
-    
-    init()
-    
-    func load(handler: @escaping LoadingHandler)
-    func add(model: ModelType)
-    func add(keyword: String)
-    func delete(model: ModelType)
-    func delete(keyword: String)
-    func clear()
-    func synchronize()
-    
-}
-
-extension SearchHistoryLogicController {
-    
-    // MARK: - Loading Methods
-    
-    func load(handler: @escaping LoadingHandler) {
-        synchronize()
-        handler(nil)
-    }
-    
-    // MARK: - Model Manipulationn Methods
-    
-    func add(model: ModelType) {
-        modelManager.add(model: model)
-        synchronize()
-    }
-    
-    func add(keyword: String) {
-        modelManager.add(keyword: keyword, for: ModelType.self)
-        synchronize()
-    }
-    
-    func delete(model: ModelType) {
-        modelManager.delete(model: model)
-        synchronize()
-    }
-    
-    func delete(keyword: String) {
-        modelManager.delete(keyword: keyword, for: ModelType.self)
-        synchronize()
-    }
-    
-    func clear() {
-        modelManager.clear(for: ModelType.self)
-        synchronize()
-    }
-    
-}
 
 protocol SearchHistoryViewModel: AnyObject {
     
@@ -142,35 +85,5 @@ extension SearchHistoryViewModel {
         objectCellViewModels = modelItems.map { return CollectionCellViewModelType(from: $0 as! CollectionCellViewModelType.ModelType) }
         queryCellViewModels = queryItems.map { return QueryCellViewModel(from: $0) }
     }
-    
-}
-
-protocol SearchHistoryDelegate: AnyObject {
-    
-    func historySearch(with query: String)
-    func dismissHistoryKeyboard()
-    
-}
-
-protocol SearchHistoryCollectionDelegate: AnyObject {
-    
-    var objectCellViewModels: Array<AnyObject> { get }
-    
-    func add(objectCellViewModel: AnyObject)
-    func delete(objectCellViewModel: AnyObject)
-    func updateCollection()
-    func didUpdateCollection()
-    func dismissHistoryKeyboard()
-    
-}
-
-protocol SearchHistoryTableDelegate: AnyObject {
-    
-    var queryCellViewModels: Array<QueryCellViewModel> { get }
-    
-    func add(queryCellViewModel: QueryCellViewModel)
-    func delete(queryCellViewModel: QueryCellViewModel)
-    func updateTable()
-    func didUpdateTable()
     
 }
