@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import Kingfisher
+import SVProgressHUD
 
 class SearchResultsViewController<T: SearchResultsViewModel>: SFDynamicTableViewController<T> {
     
@@ -16,8 +18,10 @@ class SearchResultsViewController<T: SearchResultsViewModel>: SFDynamicTableView
     // MARK: - Initialization
     
     required init?(coder: NSCoder, delegate: SearchResultsDelegate) {
-        super.init(coder: coder, tableViewDataSource: SearchResultsTableViewDataSource<T.TableCellViewModelType>.raw(), tableViewDelegate: SearchResultsTableViewDelegate<T.TableCellViewModelType>(delegate: delegate))
+        super.init(coder: coder)
         self.delegate = delegate
+        tableViewDataSource = SearchResultsTableViewDataSource<T>()
+        tableViewDelegate = SearchResultsTableViewDelegate<T>(self)
         viewModel = T()
         emptyViewModel = EmptyConstants.SearchResults.viewModel
     }
@@ -35,6 +39,69 @@ class SearchResultsViewController<T: SearchResultsViewModel>: SFDynamicTableView
     
     deinit {
         debugPrint(String(describing: self) + " deallocated")
+    }
+    
+    // MARK: - View Actions
+    
+    func showDetail(atRow row: Int) {
+        if let cellViewModelItem = viewModel.items[row] as? UserTableCellViewModel {
+            delegate.dismissResultsKeyboard()
+            delegate.addObject(with: cellViewModelItem)
+            let detailVC = UserDetailViewController.instatiate(tableCellViewModel: cellViewModelItem)
+            NavigationRouter.push(viewController: detailVC)
+        } else if let cellViewModelItem = viewModel.items[row] as? RepositoryTableCellViewModel {
+            delegate.dismissResultsKeyboard()
+            delegate.addObject(with: cellViewModelItem)
+            let detailVC = RepositoryDetailViewController.instatiate(tableCellViewModel: cellViewModelItem)
+            NavigationRouter.push(viewController: detailVC)
+        } else if let cellViewModelItem = viewModel.items[row] as? OrganizationTableCellViewModel {
+            delegate.dismissResultsKeyboard()
+            delegate.addObject(with: cellViewModelItem)
+            let detailVC = OrganizationDetailViewController.instatiate(tableCellViewModel: cellViewModelItem)
+            NavigationRouter.push(viewController: detailVC)
+        }
+    }
+    
+    func toggleBookmark(atRow row: Int) {
+        viewModel.toggleBookmark(atRow: row)
+    }
+    
+    func saveImage(atRow row: Int) {
+        if let cellViewModelItem = viewModel.items[row] as? UserTableCellViewModel {
+            KingfisherManager.shared.retrieveImage(with: cellViewModelItem.avatarURL) { result in
+                if let retreiveResult = try? result.get() {
+                    UIImageWriteToSavedPhotosAlbum(retreiveResult.image, self, nil, nil)
+                    SVProgressHUD.showSuccess(withStatus: "Image Saved".localized())
+                }
+            }
+        } else if let cellViewModelItem = viewModel.items[row] as? OrganizationTableCellViewModel {
+            KingfisherManager.shared.retrieveImage(with: cellViewModelItem.avatarURL) { result in
+                if let retreiveResult = try? result.get() {
+                    UIImageWriteToSavedPhotosAlbum(retreiveResult.image, self, nil, nil)
+                    SVProgressHUD.showSuccess(withStatus: "Image Saved".localized())
+                }
+            }
+        }
+    }
+    
+    func openInSafari(atRow row: Int) {
+        if let cellViewModelItem = viewModel.items[row] as? UserTableCellViewModel {
+            URLHelper.openWebsite(cellViewModelItem.htmlURL)
+        } else if let cellViewModelItem = viewModel.items[row] as? RepositoryTableCellViewModel {
+            URLHelper.openWebsite(cellViewModelItem.htmlURL)
+        } else if let cellViewModelItem = viewModel.items[row] as? OrganizationTableCellViewModel {
+            URLHelper.openWebsite(cellViewModelItem.htmlURL)
+        }
+    }
+    
+    func share(atRow row: Int) {
+        if let cellViewModelItem = viewModel.items[row] as? UserTableCellViewModel {
+            URLHelper.shareWebsite(cellViewModelItem.htmlURL)
+        } else if let cellViewModelItem = viewModel.items[row] as? RepositoryTableCellViewModel {
+            URLHelper.shareWebsite(cellViewModelItem.htmlURL)
+        } else if let cellViewModelItem = viewModel.items[row] as? OrganizationTableCellViewModel {
+            URLHelper.shareWebsite(cellViewModelItem.htmlURL)
+        }
     }
     
     // MARK: - Loading Methods

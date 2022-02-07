@@ -7,18 +7,12 @@
 
 import UIKit
 
-class SearchHistoryTableViewSwipeResponder: TableViewSwipeResponder {
+class SearchHistoryTableViewSwipeResponder<T: SearchHistoryViewModel>: TableViewSwipeResponder {
     
-    weak var historyTableDelegate: SearchHistoryTableDelegate?
-    
-    init(delegate: SearchHistoryTableDelegate) {
-        self.historyTableDelegate = delegate
-    }
-    
-    override func respondToSwipe(tableView: UITableView, editingStyle: UITableViewCell.EditingStyle, indexPath: IndexPath, with item: Any) {
-        historyTableDelegate?.delete(queryCellViewModel: item as! QueryCellViewModel)
-        tableView.deleteRows(at: [indexPath], with: .bottom)
-        historyTableDelegate?.didUpdateTable()
+    override func respondToSwipe(editingStyle: UITableViewCell.EditingStyle, atRow row: Int) {
+        if let viewController = viewController as? SearchHistoryViewController<T>, editingStyle == .delete {
+            viewController.deleteQuery(atRow: row)
+        }
     }
     
 }

@@ -61,6 +61,10 @@ class SFDynamicCollectionView: CollectionView, StatefulView {
         emptyView.show(on: self, with: model)
     }
     
+    func hideEmpty() {
+        emptyView.hide()
+    }
+    
     func showActivityIndicator(for loadingViewState: LoadingViewState) {
         switch loadingViewState {
         case .initial: activityIndicatorView.show(on: self); self.isScrollEnabled = false

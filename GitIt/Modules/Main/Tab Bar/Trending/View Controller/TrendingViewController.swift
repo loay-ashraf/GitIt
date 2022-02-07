@@ -7,40 +7,23 @@
 
 import UIKit
 
-class TrendingViewController: SFDynamicTableViewController<RepositoryViewModel> {
+class TrendingViewController: RepositoryViewController {
 
     // MARK: - Initialization
     
-    required init?(coder: NSCoder) {
-        super.init(coder: coder, tableViewDataSource: RepositoryTableViewDataSource(), tableViewDelegate: RepositoryTableViewDelegate())
-        viewModel = RepositoryViewModel(context: .trending)
-        emptyViewModel = Constants.View.Empty.Repositories.viewModel
+    required init?(coder: NSCoder, context: RepositoryContext) {
+        fatalError("init(coder:context:) has not been implemented")
     }
     
-    // MARK: - Lifecycle
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        load(with: .initial)
+    required init?(coder: NSCoder) {
+        super.init(coder: coder, context: .trending)
     }
     
     // MARK: - View Helper Methods
     
     override func configureView() {
         super.configureView()
-        xTableView.contentInset = UIEdgeInsets(top: 20, left: 0, bottom: 0, right: 0)
         NavigayionBarConstants.configureAppearance(for: navigationController?.navigationBar)
-    }
-    
-    // MARK: - Loading Methods
-    
-    override func load(with loadingViewState: LoadingViewState) {
-        super.load(with: loadingViewState)
-        switch loadingViewState {
-        case .initial: viewModel.load { [weak self] error in self?.loadHandler(error: error) }
-        case .refresh: viewModel.refresh { [weak self] error in self?.refreshHandler(error: error) }
-        case .paginate: viewModel.load { [weak self] error in self?.paginateHandler(error: error) }
-        }
     }
 
 }

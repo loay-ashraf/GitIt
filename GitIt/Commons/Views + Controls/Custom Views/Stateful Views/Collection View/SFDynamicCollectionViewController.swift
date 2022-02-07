@@ -9,30 +9,20 @@ import UIKit
 
 class SFDynamicCollectionViewController<T: CollectionViewModel>: UICollectionViewController {
     
+    // MARK: - Properties
+    
     var xCollectionView: SFDynamicCollectionView! { return collectionView as? SFDynamicCollectionView }
     
     var collectionViewDataSource: CollectionViewDataSource<T.CollectionCellViewModelType>!
-    var collectionViewDelegate: CollectionViewDelegate<T.CollectionCellViewModelType>!
+    var collectionViewDelegate: CollectionViewDelegate!
     
     var viewModel: T!
     var emptyViewModel: EmptyViewModel = Constants.View.Empty.General.viewModel
     
     // MARK: - Initialization
     
-    init(collectionViewDataSource: CollectionViewDataSource<T.CollectionCellViewModelType>, collectionViewDelegate: CollectionViewDelegate<T.CollectionCellViewModelType>) {
+    init() {
         super.init(nibName: nil, bundle: nil)
-        self.collectionViewDataSource = collectionViewDataSource
-        self.collectionViewDelegate = collectionViewDelegate
-    }
-    
-    init?(coder: NSCoder, collectionViewDataSource: CollectionViewDataSource<T.CollectionCellViewModelType>, collectionViewDelegate: CollectionViewDelegate<T.CollectionCellViewModelType>) {
-        super.init(coder: coder)
-        self.collectionViewDataSource = collectionViewDataSource
-        self.collectionViewDelegate = collectionViewDelegate
-    }
-    
-    override init(nibName: String?, bundle: Bundle?) {
-        super.init(nibName: nibName, bundle: bundle)
     }
     
     required init?(coder: NSCoder) {
@@ -156,9 +146,10 @@ class SFDynamicCollectionViewController<T: CollectionViewModel>: UICollectionVie
         enableSearchBar()
     }
     
+    // MARK: - Collection View Synchronization Methods
+    
     func synchronizeCollectionView() {
-        collectionViewDataSource.cellViewModels = viewModel.cellViewModels.items
-        collectionViewDelegate.cellViewModels = viewModel.cellViewModels.items
+        collectionViewDataSource.cellViewModels = viewModel.items
     }
 
 }

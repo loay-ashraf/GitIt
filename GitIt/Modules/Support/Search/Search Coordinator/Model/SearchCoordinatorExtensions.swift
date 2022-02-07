@@ -79,7 +79,7 @@ extension SearchCoordinator: SearchHistoryDelegate {
     
     // MARK: - History Delegate Methods
     
-    func historySearch(with query: String) {
+    func reloadQuery(with query: String) {
         self.query = query
         render(.searching)
         searchResultsController.loadResults(with: query)

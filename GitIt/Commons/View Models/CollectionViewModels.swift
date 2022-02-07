@@ -40,11 +40,15 @@ protocol CollectionCellViewModel: AnyObject {
     associatedtype ModelType
     associatedtype TableCellViewModelType: TableCellViewModel
     
+    var model: ModelType { get }
+    
     init()
     init(from model: ModelType)
     init(from tableCellViewModel: TableCellViewModelType)
     
     func tableCellViewModel() -> TableCellViewModelType
+    
+    func toggleBookmark()
     
 }
 
@@ -54,6 +58,12 @@ extension CollectionCellViewModel {
     
     init() {
         self.init()
+    }
+    
+    // MARK: - View Actions
+    
+    func toggleBookmark() {
+        fatalError("This Action cannot be performed on this cell type")
     }
     
 }

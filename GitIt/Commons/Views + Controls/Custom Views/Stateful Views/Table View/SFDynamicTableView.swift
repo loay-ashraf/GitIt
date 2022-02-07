@@ -10,6 +10,8 @@ import SVProgressHUD
 
 class SFDynamicTableView: TableView, StatefulView {
     
+    // MARK: - Properties
+    
     var state: ViewState = .presenting
 
     var isSuperView: Bool = false
@@ -24,7 +26,7 @@ class SFDynamicTableView: TableView, StatefulView {
     private var errorView: ErrorView!
     private var footerErrorView: FooterErrorView!
     
-    // MARK: - Initialisation
+    // MARK: - Initialization
     
     override init(frame: CGRect, style: UITableView.Style) {
         super.init(frame: frame, style: style)
@@ -129,3 +131,4 @@ class SFDynamicTableView: TableView, StatefulView {
     }
     
 }
+

@@ -7,20 +7,46 @@
 
 import UIKit
 
-class SearchHistoryCollectionViewContextMenuConfigurator: CollectionViewContextMenuConfigurator {
+class SearchHistoryContextMenuConfigurator: CollectionViewContextMenuConfigurator {
     
-    weak var historyCollectionDelegate: SearchHistoryCollectionDelegate?
-    
-    init(delegate: SearchHistoryCollectionDelegate) {
-        self.historyCollectionDelegate = delegate
-    }
-    
-    override func configure<T: CollectionCellViewModel>(collectionView: UICollectionView, indexPath: IndexPath, with item: T) -> UIContextMenuConfiguration {
-        return ContextMenuConfigurationConstants.DeleteConfiguration { [weak self] in
-            self?.historyCollectionDelegate?.delete(objectCellViewModel: item)
-            collectionView.deleteItems(at: [indexPath])
-            self?.historyCollectionDelegate?.didUpdateCollection()
+    override func configure(atItem item: Int) -> UIContextMenuConfiguration? {
+        if let viewController = viewController as? SearchHistoryViewController<UserSearchHistoryViewModel> {
+            let actionProvider = SearchHistoryCollectionCellActionProvider(isBookmarked: viewController.viewModel.objectCellViewModels[item].isBookmarked,
+                                                                           toggleBookmark: { viewController.toggleBookmark(atItem: item) },
+                                                                           saveImage: { viewController.saveImage(atItem: item) },
+                                                                           openInSafari: { viewController.openInSafari(atItem: item) },
+                                                                           share: { viewController.share(atItem: item) },
+                                                                           delete: { viewController.deleteObject(atItem: item) })
+            return ContextMenuConfigurationConstants.SearchHistoryCollectionCellConfiguration(with: actionProvider)
+        } else if let viewController = viewController as? SearchHistoryViewController<RepositorySearchHistoryViewModel> {
+            let actionProvider = SearchHistoryCollectionCellActionProvider(isBookmarked: viewController.viewModel.objectCellViewModels[item].isBookmarked,
+                                                                           toggleBookmark: { viewController.toggleBookmark(atItem: item) },
+                                                                           saveImage: { viewController.saveImage(atItem: item) },
+                                                                           openInSafari: { viewController.openInSafari(atItem: item) },
+                                                                           share: { viewController.share(atItem: item) },
+                                                                           delete: { viewController.deleteObject(atItem: item) })
+            return ContextMenuConfigurationConstants.SearchHistoryCollectionCellConfiguration(with: actionProvider)
+        } else if let viewController = viewController as? SearchHistoryViewController<OrganizationSearchHistoryViewModel> {
+            let actionProvider = SearchHistoryCollectionCellActionProvider(isBookmarked: viewController.viewModel.objectCellViewModels[item].isBookmarked,
+                                                                           toggleBookmark: { viewController.toggleBookmark(atItem: item) },
+                                                                           saveImage: { viewController.saveImage(atItem: item) },
+                                                                           openInSafari: { viewController.openInSafari(atItem: item) },
+                                                                           share: { viewController.share(atItem: item) },
+                                                                           delete: { viewController.deleteObject(atItem: item) })
+            return ContextMenuConfigurationConstants.SearchHistoryCollectionCellConfiguration(with: actionProvider)
         }
+        return nil
     }
+    
+}
+
+struct SearchHistoryCollectionCellActionProvider {
+    
+    var isBookmarked: Bool
+    var toggleBookmark: () -> Void
+    var saveImage: () -> Void
+    var openInSafari: () -> Void
+    var share: () -> Void
+    var delete: () -> Void
     
 }

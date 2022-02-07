@@ -7,38 +7,22 @@
 
 import UIKit
 
-class TableViewDelegate<T: TableCellViewModel>: NSObject, UITableViewDelegate {
+class TableViewDelegate: NSObject, UITableViewDelegate {
     
-    weak var tableView: TableView!
-    var cellViewModels = Array<T>()
-    var tapResponder: TableViewTapResponder!
-    var contextMenuConfigurator: TableViewContextMenuConfigurator!
-    var scrollViewAction: (() -> Void)!
-    
-    override init() {
-        super.init()
-        self.tapResponder = TableViewTapResponder()
-        self.contextMenuConfigurator = TableViewContextMenuConfigurator()
-    }
-    
-    init(tapResponder: TableViewTapResponder, contextMenuConfigurator: TableViewContextMenuConfigurator?, scrollViewAction: (() -> Void)?) {
-        super.init()
-        self.tapResponder = tapResponder
-        self.contextMenuConfigurator = contextMenuConfigurator
-        self.scrollViewAction = scrollViewAction
-    }
+    weak var tableView: TableView?
+    var tapResponder: TableViewTapResponder?
+    var contextMenuConfigurator: TableViewContextMenuConfigurator?
+    var scrollViewAction: (() -> Void)?
     
     // MARK: - Delegate
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        let item = cellViewModels[indexPath.row]
-        tapResponder.respondToTap(with: item)
+        tapResponder?.respondToTap(atRow: indexPath.row)
     }
     
     func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
-        let item = cellViewModels[indexPath.row]
-        return contextMenuConfigurator?.configure(with: item)
+        return contextMenuConfigurator?.configure(atRow: indexPath.row)
     }
     
     // MARK: - Scroll View Delegate

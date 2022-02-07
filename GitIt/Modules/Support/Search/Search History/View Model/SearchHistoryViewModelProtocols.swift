@@ -19,13 +19,19 @@ protocol SearchHistoryViewModel: AnyObject {
     
     init()
     
+    func reloadObject(atItem item: Int) -> CollectionCellViewModelType
+    func toggleBookmark(atItem item: Int)
+    func deleteObject(atItem item: Int)
+    func reloadQuery(atRow row: Int) -> String
+    func deleteQuery(atRow row: Int)
     func load(handler: @escaping LoadingHandler)
     func add(objectCellViewModel: CollectionCellViewModelType)
     func add(queryCellViewModel: QueryCellViewModel)
     func delete(objectCellViewModel: CollectionCellViewModelType)
     func delete(queryCellViewModel: QueryCellViewModel)
     func clear()
-    func synchronize()
+    func synchronizeObjects()
+    func synchronizeQueries()
     
 }
 
@@ -37,11 +43,40 @@ extension SearchHistoryViewModel {
         self.init()
     }
     
+    // MARK: - View Actions
+    
+    func reloadObject(atItem item: Int) -> CollectionCellViewModelType {
+        let objectCellViewModelItem = objectCellViewModels[item]
+        add(objectCellViewModel: objectCellViewModelItem)
+        return objectCellViewModelItem
+    }
+    
+    func toggleBookmark(atItem item: Int) {
+        objectCellViewModels[item].toggleBookmark()
+    }
+    
+    func deleteObject(atItem item: Int) {
+        let objectCellViewModelItem = objectCellViewModels[item]
+        delete(objectCellViewModel: objectCellViewModelItem)
+    }
+    
+    func reloadQuery(atRow row: Int) -> String {
+        let queryCellViewModelItem = queryCellViewModels[row]
+        add(queryCellViewModel: queryCellViewModelItem)
+        return queryCellViewModelItem.query
+    }
+    
+    func deleteQuery(atRow row: Int) {
+        let queryCellViewModelItem = queryCellViewModels[row]
+        delete(queryCellViewModel: queryCellViewModelItem)
+    }
+    
     // MARK: - Loading Methods
     
     func load(handler: @escaping LoadingHandler) {
         logicController.load { [weak self] error in
-            self?.synchronize()
+            self?.synchronizeObjects()
+            self?.synchronizeQueries()
             handler(error)
         }
     }
@@ -49,40 +84,44 @@ extension SearchHistoryViewModel {
     // MARK: - View Model Manipulationn Methods
     
     func add(objectCellViewModel: CollectionCellViewModelType) {
-        let model = ModelType(from: objectCellViewModel as! ModelType.T)
+        let model = ModelType(from: objectCellViewModel as! ModelType.CollectionCellViewModelType)
         logicController.add(model: model as! LogicControllerType.ModelType)
-        synchronize()
+        synchronizeObjects()
     }
     
     func add(queryCellViewModel: QueryCellViewModel) {
         let query = queryCellViewModel.query
         logicController.add(keyword: query)
-        synchronize()
+        synchronizeQueries()
     }
     
     func delete(objectCellViewModel: CollectionCellViewModelType) {
-        let model = ModelType(from: objectCellViewModel as! ModelType.T)
+        let model = ModelType(from: objectCellViewModel as! ModelType.CollectionCellViewModelType)
         logicController.delete(model: model as! LogicControllerType.ModelType)
-        synchronize()
+        synchronizeObjects()
     }
     
     func delete(queryCellViewModel: QueryCellViewModel) {
         let query = queryCellViewModel.query
         logicController.delete(keyword: query)
-        synchronize()
+        synchronizeQueries()
     }
     
     func clear() {
         logicController.clear()
-        synchronize()
+        synchronizeObjects()
+        synchronizeQueries()
     }
     
     // MARK: - View Model Synchronization Methods
     
-    func synchronize() {
+    func synchronizeObjects() {
         let objectItems = logicController.model.objects
-        let queryItems = logicController.model.queries
         objectCellViewModels = objectItems.map { return CollectionCellViewModelType(from: $0 as! CollectionCellViewModelType.ModelType) }
+    }
+    
+    func synchronizeQueries() {
+        let queryItems = logicController.model.queries
         queryCellViewModels = queryItems.map { return QueryCellViewModel(from: $0) }
     }
     

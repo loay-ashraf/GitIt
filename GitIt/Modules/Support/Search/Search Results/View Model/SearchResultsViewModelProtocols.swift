@@ -15,6 +15,7 @@ protocol SearchResultsViewModel: TableViewModel {
     
     init()
     
+    func toggleBookmark(atRow row: Int)
     func reset()
     func setQuery(query: String)
     func synchronize()
@@ -27,6 +28,12 @@ extension SearchResultsViewModel {
     
     init() {
         self.init()
+    }
+    
+    // MARK: - View Actions
+    
+    func toggleBookmark(atRow row: Int) {
+        items[row].toggleBookmark()
     }
     
     // MARK: - Loading Methods

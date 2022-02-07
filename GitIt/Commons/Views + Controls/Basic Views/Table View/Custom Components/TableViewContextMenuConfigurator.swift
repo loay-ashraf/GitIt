@@ -9,8 +9,14 @@ import UIKit
 
 class TableViewContextMenuConfigurator {
     
-    func configure<T: TableCellViewModel>(with item: T) -> UIContextMenuConfiguration {
-        return UIContextMenuConfiguration()
+    weak var viewController: UIViewController?
+    
+    init(_ viewController: UIViewController) {
+        self.viewController = viewController
+    }
+    
+    func configure(atRow row: Int) -> UIContextMenuConfiguration? {
+        return nil
     }
     
 }

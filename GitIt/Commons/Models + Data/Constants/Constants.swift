@@ -13,6 +13,16 @@ import Kingfisher
 import CoreData
 import Network
 
+struct BasicCellActionProvider {
+    
+    var isBookmarked: Bool
+    var toggleBookmark: () -> Void
+    var saveImage: () -> Void
+    var openInSafari: () -> Void
+    var share: () -> Void
+    
+}
+
 // MARK: - Constants Shortcuts
 
 // Model Shortcuts
@@ -189,6 +199,7 @@ struct Constants {
                 
                 // Repositories title strings
                 static let main = "Repositories".localized()
+                static let trending = "Trending".localized()
                 static let forks = "Forks".localized()
                 static let starred = "Starred".localized()
                 
@@ -254,7 +265,7 @@ struct Constants {
         
                     static let image = UIImage(systemName: "trash")
                     static let title = "Delete".localized()
-                    static func action(deleteAction: @escaping () -> Void) -> UIAction {
+                    static func action(with deleteAction: @escaping () -> Void) -> UIAction {
                         return UIAction(title: title, image: image, attributes: [.destructive]) { action in
                             deleteAction()
                         }
@@ -267,9 +278,9 @@ struct Constants {
                     
                     static let image = UIImage(systemName: "bookmark")
                     static let title = "Bookmark".localized()
-                    static func action<Type: GitIt.Model>(item: Type) -> UIAction {
+                    static func action(with bookamrkAction: @escaping () -> Void) -> UIAction {
                         return UIAction(title: title, image: image, attributes: []) { action in
-                            try? BookmarksManager.standard.add(model: item)
+                            bookamrkAction()
                         }
                     }
                     
@@ -280,9 +291,9 @@ struct Constants {
                     
                     static let image = UIImage(systemName: "bookmark.fill")
                     static let title = "Unbookmark".localized()
-                    static func action<Type: GitIt.Model>(item: Type) -> UIAction {
+                    static func action(with unBookamrkAction: @escaping () -> Void) -> UIAction {
                         return UIAction(title: title, image: image, attributes: []) { action in
-                            try? BookmarksManager.standard.delete(model: item)
+                            unBookamrkAction()
                         }
                     }
                     
@@ -293,30 +304,9 @@ struct Constants {
         
                     static let image = UIImage(systemName: "square.and.arrow.down")
                     static let title = "Save Image".localized()
-                    static func action<Type: GitIt.Model>(item: Type) -> UIAction {
+                    static func action(with saveImageAction: @escaping () -> Void) -> UIAction {
                         return UIAction(title: title, image: image, attributes: []) { action in
-                            if let item = item as? UserModel {
-                                KingfisherManager.shared.retrieveImage(with: item.avatarURL) { result in
-                                    if let retreiveResult = try? result.get() {
-                                        UIImageWriteToSavedPhotosAlbum(retreiveResult.image, self, nil, nil)
-                                        SVProgressHUD.showSuccess(withStatus: "Image Saved".localized())
-                                    }
-                                }
-                            } else if let item = item as? OrganizationModel {
-                                KingfisherManager.shared.retrieveImage(with: item.avatarURL) { result in
-                                    if let retreiveResult = try? result.get() {
-                                        UIImageWriteToSavedPhotosAlbum(retreiveResult.image, self, nil, nil)
-                                        SVProgressHUD.showSuccess(withStatus: "Image Saved".localized())
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    
-                    static func action(image: UIImage) -> UIAction {
-                        return UIAction(title: title, image: self.image, attributes: []) { action in
-                            UIImageWriteToSavedPhotosAlbum(image, self, nil, nil)
-                            SVProgressHUD.showSuccess(withStatus: "Image Saved".localized())
+                            saveImageAction()
                         }
                     }
                     
@@ -327,9 +317,9 @@ struct Constants {
         
                     static let image = UIImage(systemName: "safari")
                     static let title = "Open In Safari".localized()
-                    static func action<Type: GitIt.Model>(item: Type) -> UIAction {
+                    static func action(with openInSafariAction: @escaping () -> Void) -> UIAction {
                         return UIAction(title: title, image: image, attributes: []) { action in
-                            URLHelper.openWebsite(item.htmlURL)
+                            openInSafariAction()
                         }
                     }
                     
@@ -340,9 +330,9 @@ struct Constants {
                     
                     static let image = UIImage(systemName: "square.and.arrow.up")
                     static let title = "Share".localized()
-                    static func action<Type: GitIt.Model>(item: Type) -> UIAction {
+                    static func action(with shareAction: @escaping () -> Void) -> UIAction {
                         return UIAction(title: title, image: image, attributes: []) { action in
-                            URLHelper.shareWebsite(item.htmlURL)
+                            shareAction()
                         }
                     }
                     
@@ -356,25 +346,25 @@ struct Constants {
                 
                 static func DeleteConfiguration(deleteAction: @escaping () -> Void) -> UIContextMenuConfiguration {
                     let actionProvider: UIContextMenuActionProvider = { actions -> UIMenu? in
-                        let delete = ContextMenuActionConstants.Delete.action(deleteAction: deleteAction)
+                        let delete = ContextMenuActionConstants.Delete.action(with: deleteAction)
                         return UIMenu(title: "", children: [delete])
                     }
                     return UIContextMenuConfiguration(identifier: nil, previewProvider: nil, actionProvider: actionProvider)
                 }
                 
-                static func SaveImageConfiguration(for image: UIImage) -> UIContextMenuConfiguration {
+                static func SaveImageConfiguration(with actionProvider: ImageActionProvider) -> UIContextMenuConfiguration {
                     let actionProvider: UIContextMenuActionProvider = { actions -> UIMenu? in
-                        let saveImage = ContextMenuActionConstants.SaveImage.action(image: image)
+                        let saveImage = ContextMenuActionConstants.SaveImage.action(with: actionProvider.saveImage)
                         return UIMenu(title: "", children: [saveImage])
                     }
                     return UIContextMenuConfiguration(identifier: nil, previewProvider: nil, actionProvider: actionProvider)
                 }
                 
-                static func CommitCellConfiguration<Type: GitIt.Model>(for item: Type) -> UIContextMenuConfiguration {
+                static func CommitCellConfiguration(with actionProvider: CommitCellActionProvider) -> UIContextMenuConfiguration {
                     let actionProvider: UIContextMenuActionProvider = { actions -> UIMenu? in
                         var menuChildren: [UIAction] = []
-                        let openInSafari = ContextMenuActionConstants.OpenInSafari.action(item: item)
-                        let share = ContextMenuActionConstants.Share.action(item: item)
+                        let openInSafari = ContextMenuActionConstants.OpenInSafari.action(with: actionProvider.openInSafari)
+                        let share = ContextMenuActionConstants.Share.action(with: actionProvider.share)
                         menuChildren.append(openInSafari)
                         menuChildren.append(share)
                         return UIMenu(title: "", children: menuChildren)
@@ -382,18 +372,18 @@ struct Constants {
                     return UIContextMenuConfiguration(identifier: nil, previewProvider: nil, actionProvider: actionProvider)
                 }
                 
-                static func RepositoryCellConfiguration<Type: GitIt.Model>(for item: Type) -> UIContextMenuConfiguration {
+                static func RepositoryCellConfiguration(with actionProvider: RepositoryCellActionProvider) -> UIContextMenuConfiguration {
                     let actionProvider: UIContextMenuActionProvider = { actions -> UIMenu? in
                         var menuChildren: [UIAction] = []
-                        if let exists = BookmarksManager.standard.check(model: item), exists == true {
-                            let bookmark = ContextMenuActionConstants.UnBookmark.action(item: item)
-                            menuChildren.append(bookmark)
+                        if actionProvider.isBookmarked {
+                            let unBookmark = ContextMenuActionConstants.UnBookmark.action(with: actionProvider.toggleBookmark)
+                            menuChildren.append(unBookmark)
                         } else {
-                            let bookmark = ContextMenuActionConstants.Bookmark.action(item: item)
+                            let bookmark = ContextMenuActionConstants.Bookmark.action(with: actionProvider.toggleBookmark)
                             menuChildren.append(bookmark)
                         }
-                        let openInSafari = ContextMenuActionConstants.OpenInSafari.action(item: item)
-                        let share = ContextMenuActionConstants.Share.action(item: item)
+                        let openInSafari = ContextMenuActionConstants.OpenInSafari.action(with: actionProvider.openInSafari)
+                        let share = ContextMenuActionConstants.Share.action(with: actionProvider.share)
                         menuChildren.append(openInSafari)
                         menuChildren.append(share)
                         return UIMenu(title: "", children: menuChildren)
@@ -401,22 +391,45 @@ struct Constants {
                     return UIContextMenuConfiguration(identifier: nil, previewProvider: nil, actionProvider: actionProvider)
                 }
                 
-                static func RoundedImageCellConfiguration<Type: GitIt.Model>(for item: Type) -> UIContextMenuConfiguration {
+                static func BasicCellConfiguration(with actionProvider: BasicCellActionProvider) -> UIContextMenuConfiguration {
                     let actionProvider: UIContextMenuActionProvider = { actions -> UIMenu? in
                         var menuChildren: [UIAction] = []
-                        if let exists = BookmarksManager.standard.check(model: item), exists == true {
-                            let bookmark = ContextMenuActionConstants.UnBookmark.action(item: item)
-                            menuChildren.append(bookmark)
+                        if actionProvider.isBookmarked {
+                            let unBookmark = ContextMenuActionConstants.UnBookmark.action(with: actionProvider.toggleBookmark)
+                            menuChildren.append(unBookmark)
                         } else {
-                            let bookmark = ContextMenuActionConstants.Bookmark.action(item: item)
+                            let bookmark = ContextMenuActionConstants.Bookmark.action(with: actionProvider.toggleBookmark)
                             menuChildren.append(bookmark)
                         }
-                        let saveImage = ContextMenuActionConstants.SaveImage.action(item: item)
-                        let openInSafari = ContextMenuActionConstants.OpenInSafari.action(item: item)
-                        let share = ContextMenuActionConstants.Share.action(item: item)
+                        let saveImage = ContextMenuActionConstants.SaveImage.action(with: actionProvider.saveImage)
+                        let openInSafari = ContextMenuActionConstants.OpenInSafari.action(with: actionProvider.openInSafari)
+                        let share = ContextMenuActionConstants.Share.action(with: actionProvider.share)
                         menuChildren.append(saveImage)
                         menuChildren.append(openInSafari)
                         menuChildren.append(share)
+                        return UIMenu(title: "", children: menuChildren)
+                    }
+                    return UIContextMenuConfiguration(identifier: nil, previewProvider: nil, actionProvider: actionProvider)
+                }
+                
+                static func SearchHistoryCollectionCellConfiguration(with actionProvider: SearchHistoryCollectionCellActionProvider) -> UIContextMenuConfiguration {
+                    let actionProvider: UIContextMenuActionProvider = { actions -> UIMenu? in
+                        var menuChildren: [UIAction] = []
+                        if actionProvider.isBookmarked {
+                            let unBookmark = ContextMenuActionConstants.UnBookmark.action(with: actionProvider.toggleBookmark)
+                            menuChildren.append(unBookmark)
+                        } else {
+                            let bookmark = ContextMenuActionConstants.Bookmark.action(with: actionProvider.toggleBookmark)
+                            menuChildren.append(bookmark)
+                        }
+                        let saveImage = ContextMenuActionConstants.SaveImage.action(with: actionProvider.saveImage)
+                        let openInSafari = ContextMenuActionConstants.OpenInSafari.action(with: actionProvider.openInSafari)
+                        let share = ContextMenuActionConstants.Share.action(with: actionProvider.share)
+                        let delete = ContextMenuActionConstants.Delete.action(with: actionProvider.delete)
+                        menuChildren.append(saveImage)
+                        menuChildren.append(openInSafari)
+                        menuChildren.append(share)
+                        menuChildren.append(delete)
                         return UIMenu(title: "", children: menuChildren)
                     }
                     return UIContextMenuConfiguration(identifier: nil, previewProvider: nil, actionProvider: actionProvider)
@@ -767,10 +780,10 @@ struct Constants {
                 
                 struct Delegate {
                     
-                    static let userDelegate = UserTableViewDelegate()
-                    static let repositoryDelegate = RepositoryTableViewDelegate()
-                    static let organizationDelegate = OrganizationTableViewDelegate()
-                    static let commitDelegate = CommitTableViewDelegate()
+//                    static let userDelegate = UserTableViewDelegate()
+//                    static let repositoryDelegate = RepositoryTableViewDelegate()
+//                    static let organizationDelegate = OrganizationTableViewDelegate()
+//                    static let commitDelegate = CommitTableViewDelegate()
                     
                 }
                 
@@ -785,19 +798,19 @@ struct Constants {
                 
                 struct ContextMenuConfigurator {
                     
-                    static let userContextMenuConfigurator = UserTableViewContextMenuConfigurator()
-                    static let repositoryDelegate = RepositoryTableViewContextMenuConfigurator()
-                    static let organizationDelegate = OrganizationTableViewContextMenuConfigurator()
-                    static let commitDelegate = CommitTableViewContextMenuConfigurator()
+//                    static let userContextMenuConfigurator = UserTableViewContextMenuConfigurator()
+//                    static let repositoryDelegate = RepositoryTableViewContextMenuConfigurator()
+//                    static let organizationDelegate = OrganizationTableViewContextMenuConfigurator()
+//                    static let commitDelegate = CommitTableViewContextMenuConfigurator()
                     
                 }
                 
                 struct TapResponder {
                     
-                    static let userTapResponder = UserTableViewTapResponder()
-                    static let repositoryTapResponder = RepositoryTableViewTapResponder()
-                    static let organizationTapResponder = OrganizationTableViewTapResponder()
-                    static let commitTapResponder = CommitTableViewTapResponder()
+//                    static let userTapResponder = UserTableViewTapResponder()
+//                    static let repositoryTapResponder = RepositoryTableViewTapResponder()
+//                    static let organizationTapResponder = OrganizationTableViewTapResponder()
+//                    static let commitTapResponder = CommitTableViewTapResponder()
                     
                 }
                 
@@ -827,9 +840,9 @@ struct Constants {
                 
                 struct Delegate {
                     
-                    static let userDelegate = UserCollectionViewDelegate()
-                    static let repositoryDelegate = RepositoryCollectionViewDelegate()
-                    static let organizationDelegate = OrganizationCollectionViewDelegate()
+//                    static let userDelegate = UserCollectionViewDelegate()
+//                    static let repositoryDelegate = RepositoryCollectionViewDelegate()
+//                    static let organizationDelegate = OrganizationCollectionViewDelegate()
                     
                 }
                 
@@ -843,17 +856,17 @@ struct Constants {
                 
                 struct ContextMenuConfigurator {
                     
-                    static let userContextMenuConfigurator = UserCollectionViewContextMenuConfigurator()
-                    static let repositoryDelegate = RepositoryCollectionViewContextMenuConfigurator()
-                    static let organizationDelegate = OrganizationCollectionViewContextMenuConfigurator()
+//                    static let userContextMenuConfigurator = UserCollectionViewContextMenuConfigurator()
+//                    static let repositoryDelegate = RepositoryCollectionViewContextMenuConfigurator()
+//                    static let organizationDelegate = OrganizationCollectionViewContextMenuConfigurator()
                     
                 }
                 
                 struct TapResponder {
                     
-                    static let userTapResponder = UserCollectionViewTapResponder()
-                    static let repositoryTapResponder = RepositoryCollectionViewTapResponder()
-                    static let organizationTapResponder = OrganizationCollectionViewTapResponder()
+//                    static let userTapResponder = UserCollectionViewTapResponder()
+//                    static let repositoryTapResponder = RepositoryCollectionViewTapResponder()
+//                    static let organizationTapResponder = OrganizationCollectionViewTapResponder()
                     
                 }
                 

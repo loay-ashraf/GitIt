@@ -56,17 +56,22 @@ final class QueryCellViewModel: TableCellViewModel {
     typealias ModelType = String
     typealias CollectionCellViewModelType = UserCollectionCellViewModel
     
+    var model: ModelType
     var query: String
     
     // MARK: - Initialization
     
     init(from model: ModelType) {
+        self.model = model
         query = model
     }
     
     init(from collectionCellViewModel: CollectionCellViewModelType) {
+        model = ""
         query = ""
     }
+    
+    // MARK: - View Model Adapter Methods
     
     func collectionCellViewModel() -> CollectionCellViewModelType {
         return CollectionCellViewModelType()

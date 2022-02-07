@@ -9,8 +9,8 @@ import Foundation
 
 struct OwnerModel: Model {
     
-    typealias T = UserCollectionCellViewModel
-    typealias U = UserTableCellViewModel
+    typealias CollectionCellViewModelType = UserCollectionCellViewModel
+    typealias TableCellViewModelType = UserTableCellViewModel
     
     let id: Int
     let login: String
@@ -64,7 +64,7 @@ struct OwnerModel: Model {
         isComplete = true
     }
     
-    init(from collectionCellViewModel: T) {
+    init(from collectionCellViewModel: CollectionCellViewModelType) {
         id = 0
         login = ""
         avatarURL = URL(string: "www.github.com")!
@@ -73,7 +73,7 @@ struct OwnerModel: Model {
         isComplete = false
     }
     
-    init(from tableCellViewModel: U) {
+    init(from tableCellViewModel: TableCellViewModelType) {
         id = 0
         login = ""
         avatarURL = URL(string: "www.github.com")!

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SearchHistoryTableViewCell: TableViewCell, IBTableViewCell {
+class SearchHistoryTableViewCell: TableViewCell, InterfaceBuilderTableViewCell {
     
     override class var reuseIdentifier: String { return String(describing: SearchHistoryTableViewCell.self) }
     override class var nib: UINib { return UINib(nibName: String(describing: SearchHistoryTableViewCell.self), bundle: nil) }

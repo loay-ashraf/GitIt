@@ -9,17 +9,23 @@ import UIKit
 
 class CollectionView: UICollectionView {
     
+    // MARK: - Properties
+    
     var registeredCells = [CollectionViewCell.Type]()
+    
+    // MARK: - Data Source and Delegate Methods
     
     func setDataSource<T: CollectionCellViewModel>(_ dataSource: CollectionViewDataSource<T>) {
         self.dataSource = dataSource
         dataSource.collectionView = self
     }
     
-    func setDelegate<T: CollectionCellViewModel>(_ delegate: CollectionViewDelegate<T>) {
+    func setDelegate(_ delegate: CollectionViewDelegate) {
         self.delegate = delegate
         delegate.collectionView = self
     }
+    
+    // MARK: - Cell Methods
     
     func registerClass<T: CollectionViewCell>(cellClass: T.Type) {
         if !registeredCells.contains(where: { $0 == cellClass }) {

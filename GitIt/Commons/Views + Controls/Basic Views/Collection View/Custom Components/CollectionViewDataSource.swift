@@ -9,27 +9,19 @@ import UIKit
 
 class CollectionViewDataSource<T: CollectionCellViewModel>: NSObject, UICollectionViewDataSource {
     
+    // MARK: - Properties
+    
     var cellViewModels = Array<T>()
-    weak var collectionView: CollectionView! { didSet { registerCell() } }
-    var cellClass: CollectionViewCell.Type!
-    var cellConfigurator: CollectionViewCellConfigurator!
+    weak var collectionView: CollectionView? { didSet { registerCell() } }
+    var cellClass: CollectionViewCell.Type?
+    var cellConfigurator: CollectionViewCellConfigurator?
     
-    // MARK: - Initialisation
-    
-    override init() {
-        super.init()
-        self.cellClass = CollectionViewCell.self
-        self.cellConfigurator = CollectionViewCellConfigurator()
-    }
-    
-    init(cellClass: CollectionViewCell.Type, cellConfigurator: CollectionViewCellConfigurator) {
-        super.init()
-        self.cellClass = cellClass
-        self.cellConfigurator = cellConfigurator
-    }
+    // MARK: - Cell Registeration Methods
     
     func registerCell() {
-        collectionView.registerNib(cellClass: cellClass)
+        if let collectionView = collectionView, let cellClass = cellClass {
+            collectionView.registerNib(cellClass: cellClass)
+        }
     }
     
     // MARK: - Data Source
@@ -40,13 +32,16 @@ class CollectionViewDataSource<T: CollectionCellViewModel>: NSObject, UICollecti
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let refreshControl = collectionView.refreshControl, refreshControl.isRefreshing { return UICollectionViewCell() }
-        let cell = self.collectionView.dequeue(cellClass: cellClass, for: indexPath)
-        let item = cellViewModels[indexPath.row]
-                
-        // Configure the cell...
-        cellConfigurator.configure(cell, forDisplaying: item)
+        if let collectionView = self.collectionView, let cellClass = cellClass, let cellConfigurator = cellConfigurator {
+            let cell = collectionView.dequeue(cellClass: cellClass, for: indexPath)
+            let item = cellViewModels[indexPath.row]
+                    
+            // Configure the cell...
+            cellConfigurator.configure(cell, forDisplaying: item)
 
-        return cell
+            return cell
+        }
+        return CollectionViewCell()
     }
 
 }

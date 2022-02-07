@@ -9,17 +9,23 @@ import UIKit
 
 class TableView: UITableView {
     
+    // MARK: - Properties
+    
     var registeredCells = [TableViewCell.Type]()
+    
+    // MARK: - Data Source and Delegate Methods
     
     func setDataSource<T: TableCellViewModel>(_ dataSource: TableViewDataSource<T>) {
         self.dataSource = dataSource
         dataSource.tableView = self
     }
     
-    func setDelegate<T: TableCellViewModel>(_ delegate: TableViewDelegate<T>) {
+    func setDelegate(_ delegate: TableViewDelegate) {
         self.delegate = delegate
         delegate.tableView = self
     }
+    
+    // MARK: - Cell Methods
     
     func registerClass<T: TableViewCell>(cellClass: T.Type) {
         if !registeredCells.contains(where: { $0 == cellClass }) {
@@ -50,3 +56,4 @@ class TableView: UITableView {
     }
     
 }
+

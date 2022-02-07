@@ -9,8 +9,14 @@ import UIKit
 
 class CollectionViewContextMenuConfigurator {
     
-    func configure<T: CollectionCellViewModel>(collectionView: UICollectionView, indexPath: IndexPath, with item: T) -> UIContextMenuConfiguration {
-        return UIContextMenuConfiguration()
+    weak var viewController: UIViewController?
+    
+    init(_ viewController: UIViewController) {
+        self.viewController = viewController
+    }
+    
+    func configure(atItem item: Int) -> UIContextMenuConfiguration? {
+        return nil
     }
     
 }

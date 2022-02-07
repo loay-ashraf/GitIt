@@ -9,26 +9,20 @@ import UIKit
 
 class SFDynamicTableViewController<T: TableViewModel>: UITableViewController {
     
+    // MARK: - Properties
+    
     var xTableView: SFDynamicTableView! { return tableView as? SFDynamicTableView }
 
     var tableViewDataSource: TableViewDataSource<T.TableCellViewModelType>!
-    var tableViewDelegate: TableViewDelegate<T.TableCellViewModelType>!
+    var tableViewDelegate: TableViewDelegate!
     
     var viewModel: T!
     var emptyViewModel: EmptyViewModel = EmptyConstants.General.viewModel
     
     // MARK: - Initialization
     
-    init(tableViewDataSource: TableViewDataSource<T.TableCellViewModelType>, tableViewDelegate: TableViewDelegate<T.TableCellViewModelType>) {
+    init() {
         super.init(nibName: nil, bundle: nil)
-        self.tableViewDataSource = tableViewDataSource
-        self.tableViewDelegate = tableViewDelegate
-    }
-    
-    init?(coder: NSCoder, tableViewDataSource: TableViewDataSource<T.TableCellViewModelType>, tableViewDelegate: TableViewDelegate<T.TableCellViewModelType>) {
-        super.init(coder: coder)
-        self.tableViewDataSource = tableViewDataSource
-        self.tableViewDelegate = tableViewDelegate
     }
     
     required init?(coder: NSCoder) {
@@ -129,11 +123,8 @@ class SFDynamicTableViewController<T: TableViewModel>: UITableViewController {
     func paginate() {
         let lastRowIndex = tableView.indexPathsForVisibleRows?.last?.row
         if let lastRowIndex = lastRowIndex {
-            if viewModel.isPaginable, lastRowIndex + 1 == viewModel.count {
-                switch self.xTableView.state {
-                case .presenting: load(with: .paginate)
-                default: break
-                }
+            if viewModel.isPaginable, xTableView.state == .presenting, lastRowIndex + 1 == viewModel.count {
+                load(with: .paginate)
             }
         }
     }
@@ -185,9 +176,10 @@ class SFDynamicTableViewController<T: TableViewModel>: UITableViewController {
         enableSearchBar()
     }
     
+    // MARK: - Table View Synchronization Methods
+    
     func synchronizeTableView() {
-        tableViewDataSource.cellViewModels = viewModel.cellViewModels.items
-        tableViewDelegate.cellViewModels = viewModel.cellViewModels.items
+        tableViewDataSource.cellViewModels = viewModel.items
     }
     
 }

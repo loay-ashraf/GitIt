@@ -7,13 +7,13 @@
 
 import UIKit
 
-class SearchHistoryTableViewDataSource: TableViewDataSource<QueryCellViewModel> {
+class SearchHistoryTableViewDataSource<T: SearchHistoryViewModel>: TableViewDataSource<QueryCellViewModel> {
     
-    init(tableDelegate: SearchHistoryTableDelegate) {
-        let cellClass = SearchHistoryTableViewCell.self
-        let cellConfigurator = SearchHistoryTableViewCellConfigurator()
-        let swipeResponder = SearchHistoryTableViewSwipeResponder(delegate: tableDelegate)
-        super.init(cellClass: cellClass, cellConfigurator: cellConfigurator, swipeResponder: swipeResponder)
+    init(_ viewController: UIViewController) {
+        super.init()
+        cellClass = SearchHistoryTableViewCell.self
+        cellConfigurator = SearchHistoryTableViewCellConfigurator()
+        swipeResponder = SearchHistoryTableViewSwipeResponder<T>(viewController)
     }
     
 }

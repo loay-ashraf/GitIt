@@ -9,6 +9,8 @@ import UIKit
 
 class BookmarksViewController: UIViewController {
     
+    // MARK: - Properties
+    
     var userModel: List<UserModel> { return List<UserModel>(with: logicController.userModel) }
     var repositoryModel: List<RepositoryModel> { return List<RepositoryModel>(with: logicController.repositoryModel) }
     var organizationModel: List<OrganizationModel> { return List<OrganizationModel>(with: logicController.organizationModel) }
@@ -27,9 +29,9 @@ class BookmarksViewController: UIViewController {
     
     // MARK: - Table View Delegates
     
-    var userDelegate: TableViewDelegate<UserTableCellViewModel> = TableViewDelegateConstants.userDelegate
-    var repositoryDelegate: TableViewDelegate<RepositoryTableCellViewModel> = TableViewDelegateConstants.repositoryDelegate
-    var organizationDelegate: TableViewDelegate<OrganizationTableCellViewModel> = TableViewDelegateConstants.organizationDelegate
+//    var userDelegate: TableViewDelegate<UserTableCellViewModel> = TableViewDelegateConstants.userDelegate
+//    var repositoryDelegate: TableViewDelegate<RepositoryTableCellViewModel> = TableViewDelegateConstants.repositoryDelegate
+//    var organizationDelegate: TableViewDelegate<OrganizationTableCellViewModel> = TableViewDelegateConstants.organizationDelegate
     
     // MARK: - View Outlets
     
@@ -139,15 +141,15 @@ class BookmarksViewController: UIViewController {
     
     func switchContext(to context: BookmarksContext) {
         logicController.bookmarksContext = context
-        switch context {
-        case .users: tableView.setDataSource(userDataSource)
-                     tableView.setDelegate(userDelegate)
-        case .repositories: tableView.setDataSource(repositoryDataSource)
-                            tableView.setDelegate(repositoryDelegate)
-        case .organizations: tableView.setDataSource(organizationDataSource)
-                             tableView.setDelegate(organizationDelegate)
-        default: break
-        }
+//        switch context {
+//        case .users: tableView.setDataSource(userDataSource)
+//                     tableView.setDelegate(userDelegate)
+//        case .repositories: tableView.setDataSource(repositoryDataSource)
+//                            tableView.setDelegate(repositoryDelegate)
+//        case .organizations: tableView.setDataSource(organizationDataSource)
+//                             tableView.setDelegate(organizationDelegate)
+//        default: break
+//        }
     }
 
 }

@@ -201,7 +201,7 @@
                             </constraints>
                         </view>
                         <view key="tableFooterView" contentMode="scaleToFill" id="KSv-gy-qoj" userLabel="Footer">
-                            <rect key="frame" x="0.0" y="502" width="414" height="212"/>
+                            <rect key="frame" x="0.0" y="502.00000000000011" width="414" height="212"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YHQ-yV-hqU" userLabel="Separator">

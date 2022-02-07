@@ -208,7 +208,8 @@ extension ProfileViewController: UIContextMenuInteractionDelegate {
     
     func contextMenuInteraction(_ interaction: UIContextMenuInteraction, configurationForMenuAtLocation location: CGPoint) -> UIContextMenuConfiguration? {
         if let image = avatarImageView.image {
-            return ContextMenuConfigurationConstants.SaveImageConfiguration(for: image)
+            let actionProvider = ImageActionProvider(saveImage: { UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil) })
+            return ContextMenuConfigurationConstants.SaveImageConfiguration(with: actionProvider)
         } else {
             return UIContextMenuConfiguration()
         }

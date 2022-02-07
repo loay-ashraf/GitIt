@@ -9,14 +9,13 @@ import UIKit
 
 class TableViewSwipeResponder {
     
-    var customResponse: ((UITableView,UITableViewCell.EditingStyle,IndexPath,Any) -> Void)!
+    weak var viewController: UIViewController?
     
-    init(customResponse: ((UITableView,UITableViewCell.EditingStyle,IndexPath,Any) -> Void)? = nil) {
-        self.customResponse = customResponse
+    init(_ viewController: UIViewController) {
+        self.viewController = viewController
     }
     
-    func respondToSwipe(tableView: UITableView, editingStyle: UITableViewCell.EditingStyle, indexPath: IndexPath, with item: Any) {
-        customResponse(tableView,editingStyle,indexPath,item)
-    }
+    func respondToSwipe(editingStyle: UITableViewCell.EditingStyle, atRow row: Int) { }
     
 }
+

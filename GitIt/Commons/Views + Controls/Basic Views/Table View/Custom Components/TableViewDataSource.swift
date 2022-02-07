@@ -9,30 +9,20 @@ import UIKit
 
 class TableViewDataSource<T: TableCellViewModel>: NSObject, UITableViewDataSource {
     
-    weak var tableView: TableView! { didSet { registerCell() } }
+    // MARK: - Properties
+    
+    weak var tableView: TableView? { didSet { registerCell() } }
     var cellViewModels = Array<T>()
-    var cellClass: TableViewCell.Type!
-    var cellConfigurator: TableViewCellConfigurator!
-    var swipeResponder: TableViewSwipeResponder!
+    var cellClass: TableViewCell.Type?
+    var cellConfigurator: TableViewCellConfigurator?
+    var swipeResponder: TableViewSwipeResponder?
     
-    // MARK: - Initialisation
-    
-    override init() {
-        super.init()
-        self.cellClass = TableViewCell.self
-        self.cellConfigurator = TableViewCellConfigurator()
-        self.swipeResponder = TableViewSwipeResponder()
-    }
-    
-    init(cellClass: TableViewCell.Type, cellConfigurator: TableViewCellConfigurator, swipeResponder: TableViewSwipeResponder?) {
-        super.init()
-        self.cellClass = cellClass
-        self.cellConfigurator = cellConfigurator
-        self.swipeResponder = swipeResponder
-    }
+    // MARK: - Cell Registeration Methods
     
     func registerCell() {
-        tableView.registerNib(cellClass: cellClass)
+        if let tableView = tableView, let cellClass = cellClass {
+            tableView.registerNib(cellClass: cellClass)
+        }
     }
     
     // MARK: - Data Source
@@ -43,13 +33,16 @@ class TableViewDataSource<T: TableCellViewModel>: NSObject, UITableViewDataSourc
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let refreshControl = tableView.refreshControl, refreshControl.isRefreshing { return TableViewCell() }
-        let cell = self.tableView.dequeue(cellClass: cellClass, for: indexPath)
-        let item = cellViewModels[indexPath.row]
-                
-        // Configure the cell...
-        cellConfigurator.configure(cell, forDisplaying: item)
+        if let tableView = self.tableView, let cellClass = cellClass, let cellConfigurator = cellConfigurator {
+            let cell = tableView.dequeue(cellClass: cellClass, for: indexPath)
+            let item = cellViewModels[indexPath.row]
+                    
+            // Configure the cell...
+            cellConfigurator.configure(cell, forDisplaying: item)
 
-        return cell
+            return cell
+        }
+        return TableViewCell()
     }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -57,8 +50,8 @@ class TableViewDataSource<T: TableCellViewModel>: NSObject, UITableViewDataSourc
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        let item = cellViewModels[indexPath.row]
-        swipeResponder.respondToSwipe(tableView: tableView, editingStyle: editingStyle, indexPath: indexPath, with: item)
+        swipeResponder?.respondToSwipe(editingStyle: editingStyle, atRow: indexPath.row)
     }
     
 }
+

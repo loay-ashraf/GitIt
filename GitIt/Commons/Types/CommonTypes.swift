@@ -58,8 +58,8 @@ struct List<Type> {
 
 typealias LoadingHandler = (Error?) -> Void
 
-enum ViewState {
-    
+enum ViewState: Equatable {
+
     case presenting
     case empty(EmptyViewModel)
     case loading(LoadingViewState)
@@ -83,6 +83,16 @@ enum ViewState {
         case (.failed,.presenting): return false
         case (.failed,.empty): return false
         case (.failed,.loading): return true
+        }
+    }
+    
+    static func == (lhs: ViewState, rhs: ViewState) -> Bool {
+        switch (lhs,rhs) {
+        case (.presenting,.presenting): return true
+        case (.empty,.empty): return true
+        case (.loading,.loading): return true
+        case (.failed,.failed): return true
+        default: return false
         }
     }
     
