@@ -1,8 +1,8 @@
 //
-//  Model.swift
+//  ModelProtocols.swift
 //  GitIt
 //
-//  Created by Loay Ashraf on 17/01/2022.
+//  Created by Loay Ashraf on 20/02/2022.
 //
 
 import Foundation

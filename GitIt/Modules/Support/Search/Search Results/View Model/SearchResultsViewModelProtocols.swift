@@ -7,28 +7,13 @@
 
 import Foundation
 
-protocol SearchResultsViewModel: TableViewModel {
-    
-    associatedtype LogicControllerType: SearchResultsLogicController
-    
-    var logicController: LogicControllerType { get set }
-    
-    init()
+protocol SearchResultsViewModel: WebServiceSearchTableViewModel {
     
     func toggleBookmark(atRow row: Int)
-    func reset()
-    func setQuery(query: String)
-    func synchronize()
     
 }
 
 extension SearchResultsViewModel {
-    
-    // MARK: - Initialization
-    
-    init() {
-        self.init()
-    }
     
     // MARK: - View Actions
     
@@ -36,42 +21,7 @@ extension SearchResultsViewModel {
         items[row].toggleBookmark()
     }
     
-    // MARK: - Loading Methods
-    
-    func load(then handler: @escaping LoadingHandler) {
-        logicController.load { [weak self] error in
-            if let error = error {
-                handler(error)
-            } else {
-                self?.synchronize()
-                handler(nil)
-            }
-        }
-    }
-    
-    func refresh(then handler: @escaping LoadingHandler) {
-        logicController.refresh { [weak self] error in
-            if let error = error {
-                handler(error)
-            } else {
-                self?.synchronize()
-                handler(nil)
-            }
-        }
-    }
-    
-    func reset() {
-        logicController.reset()
-        synchronize()
-    }
-    
-    // MARK: - Query Setting Methods
-    
-    func setQuery(query: String) {
-        logicController.query = query
-    }
-    
-    // MARK: - View Model Synchronization Methods
+    // MARK: - Synchronization Method
     
     func synchronize() {
         let modelItems = logicController.model.items

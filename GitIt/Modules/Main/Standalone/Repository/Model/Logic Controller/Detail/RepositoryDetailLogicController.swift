@@ -7,47 +7,42 @@
 
 import Foundation
 
-class RepositoryDetailLogicController {
+final class RepositoryDetailLogicController: WebServiceDetailLogicController {
     
     // MARK: - Properties
     
-    var fullName = String()
+    typealias WebServiceClientType = GitHubClient
+    typealias ModelType = RepositoryModel
+    
+    var webServiceClient = GitHubClient()
     var model = RepositoryModel()
+    var parameter = String()
+    var handler: NetworkLoadingHandler?
     
-    // MARK: - Initialization
+    // MARK: - Fetch Data Methods
     
-    init(fullName: String) {
-        self.fullName = fullName
+    func fetchData() {
+        webServiceClient.fetchRepository(fullName: parameter, completionHandler: processFetchResult(result:))
     }
     
-    init(model: RepositoryModel) {
-        self.model = model
-    }
-    
-    // MARK: - Loading Methods
-    
-    func load(then handler: @escaping LoadingHandler) {
-        if !fullName.isEmpty, !model.isComplete {
-            GitHubClient.fetchRepository(fullName: fullName) { result in
-                switch result {
-                case .success(let response): self.model = response
-                                             self.loadREADME(then: handler)
-                case .failure(let networkError): handler(networkError)
-                }
-            }
-        } else {
-            handler(nil)
-        }
-    }
-    
-    func loadREADME(then handler: @escaping LoadingHandler) {
-        GitHubClient.downloadRepositoryREADME(fullName: model.fullName, branch: model.defaultBranch) { result in
+    func fetchREADME() {
+        webServiceClient.downloadRepositoryREADME(fullName: model.fullName, branch: model.defaultBranch) { result in
             switch result {
             case .success(let response): self.model.READMEString = String(data: response, encoding: .utf8)
                                          self.model.isComplete = true
-                                         handler(nil)
-            case .failure(let networkError): handler(networkError)
+                                         self.handler?(nil)
+            case .failure(let networkError): self.handler?(networkError)
             }
+        }
+    }
+    
+    // MARK: - Fetch Result Processing Method
+    
+    func processFetchResult(result: Result<ModelType, NetworkError>) {
+        switch result {
+        case .success(let response): self.model = response
+                                     self.fetchREADME()
+        case .failure(let networkError): handler?(networkError)
         }
     }
     
@@ -68,7 +63,7 @@ class RepositoryDetailLogicController {
     // MARK: - (Un)Star Methods
     
     func star(then handler: @escaping () -> Void) {
-        GitHubClient.starRepository(fullName: model.fullName) { error in
+        webServiceClient.starRepository(fullName: model.fullName) { error in
             guard error != nil else {
                 handler()
                 return
@@ -77,7 +72,7 @@ class RepositoryDetailLogicController {
     }
     
     func unStar(then handler: @escaping () -> Void) {
-        GitHubClient.unStarRepository(fullName: model.fullName) { error in
+        webServiceClient.unStarRepository(fullName: model.fullName) { error in
             guard error != nil else {
                 handler()
                 return
@@ -85,20 +80,20 @@ class RepositoryDetailLogicController {
         }
     }
     
-    // MARK: - Status Checking Methods
+    // MARK: - Check For Status Methods
     
-    func checkIfBookmarkedOrStarred(then handler: @escaping (Bool,Bool) -> Void) {
+    func checkForStatus(then handler: @escaping ([Bool]) -> Void) {
         if NetworkManager.standard.isReachable, SessionManager.standard.sessionType == .authenticated {
             checkIfStarred { isStarred in
                 let isBookmarked = self.checkIfBookmarked()
-                handler(isBookmarked,isStarred)
+                handler([isBookmarked,isStarred])
             }
         } else {
             let isBookmarked = self.checkIfBookmarked()
-            handler(isBookmarked,false)
+            handler([isBookmarked,false])
         }
     }
-    
+
     func checkIfBookmarked() -> Bool {
         let fetchResult = BookmarksManager.standard.check(model: model)
         switch fetchResult {
@@ -109,7 +104,7 @@ class RepositoryDetailLogicController {
     }
     
     func checkIfStarred(then handler: @escaping (Bool) -> Void) {
-        GitHubClient.checkIfStarredRepository(fullName: model.fullName) { error in
+        webServiceClient.checkIfStarredRepository(fullName: model.fullName) { error in
             guard error != nil else {
                 handler(true)
                 return

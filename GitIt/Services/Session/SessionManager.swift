@@ -11,6 +11,7 @@ import Alamofire
 class SessionManager {
     
     static let standard = SessionManager()
+    let webServiceClient = GitHubClient()
     let userDefaultsHelper = DataManager.standard.userDefaultsHelper
     
     var sessionType: SessionType!
@@ -116,7 +117,7 @@ class SessionManager {
     // MARK: - Authenticated Session Methods
 
     private func fetchAuthenticatedUser(completion: @escaping (NetworkError?) -> Void) {
-        GitHubClient.fetchAuthenticatedUser() { result in
+        webServiceClient.fetchAuthenticatedUser() { result in
             switch result {
             case .success(let response): self.sessionUser = response
                                          completion(nil)
@@ -126,9 +127,9 @@ class SessionManager {
     }
     
     private func validateAuthenticatedSession(completion: @escaping (NetworkError?) -> Void) {
-        GitHubClient.starRepository(fullName: "loay-ashraf/GitIt") { networkError in
+        webServiceClient.starRepository(fullName: "loay-ashraf/GitIt") { networkError in
             if networkError == nil {
-                GitHubClient.unStarRepository(fullName: "loay-ashraf/GitIt", completionHandler: completion)
+                self.webServiceClient.unStarRepository(fullName: "loay-ashraf/GitIt", completionHandler: completion)
             } else {
                 completion(networkError)
             }

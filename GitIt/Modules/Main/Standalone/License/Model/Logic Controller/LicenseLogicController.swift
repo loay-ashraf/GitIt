@@ -7,31 +7,46 @@
 
 import Foundation
 
-class LicenseLogicController {
+class LicenseLogicController: WebServiceDetailLogicController {
 
     // MARK: - Properties
     
+    typealias WebServiceClientType = GitHubClient
+    typealias ModelType = String
+    
+    var webServiceClient = GitHubClient()
     var model = String()
-    var repositoryFullName: String
-    var defaultBranch: String
+    var parameter = String()
+    var defaultBranch = String()
+    var handler: NetworkLoadingHandler?
 
     // MARK: - Initialization
 
-    init(repositoryFullName: String, defaultBranch: String) {
-        self.repositoryFullName = repositoryFullName
+    init(parameter: String, defaultBranch: String) {
+        self.parameter = parameter
         self.defaultBranch = defaultBranch
     }
-
-    // MARK: - Loading Methods
-
-    func load(then handler: @escaping LoadingHandler) {
-        GitHubClient.downloadRepositoryLicense(fullName: repositoryFullName, branch: defaultBranch) { result in
-            switch result {
-            case .success(let response): self.model = String(data: response, encoding: .utf8) ?? "Error loading license"
-                                         handler(nil)
-            case .failure(let networkError): handler(networkError)
-            }
+    
+    // MARK: - Fetch Data Method
+    
+    func fetchData() {
+        webServiceClient.downloadRepositoryLicense(fullName: parameter, branch: defaultBranch, completionHandler: processFetchResult(result:))
+    }
+    
+    // MARK: - Fetch Result Processing Method
+    
+    func processFetchResult(result: Result<Data, NetworkError>) {
+        switch result {
+        case .success(let response): self.model = String(data: response, encoding: .utf8) ?? "Error loading license"
+                                     self.handler?(nil)
+        case .failure(let networkError): handler?(networkError)
         }
+    }
+    
+    // MARK: - Check For Status Method
+    
+    func checkForStatus(then handler: @escaping ([Bool]) -> Void) {
+        return
     }
     
 }

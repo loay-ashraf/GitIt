@@ -19,9 +19,9 @@ enum UserContext: ViewControllerContext {
     var logicController: UserLogicController {
         switch self {
         case .main: return UserLogicController()
-        case .followers(let userLogin, let numberOfFollowers): return FollowersLogicController(userLogin: userLogin, numberofFollowers: numberOfFollowers)
-        case .following(let userLogin, let numberOfFollowing): return FollowingLogicController(userLogin: userLogin, numberofFollowing: numberOfFollowing)
-        case .stargazers(let repositoryFullName, let numberOfStargazers): return StargazersLogicController(repositoryFullName: repositoryFullName, numberofStargazers: numberOfStargazers)
+        case .followers(let userLogin, let numberOfFollowers): return FollowersLogicController(userLogin: userLogin, numberOfFollowers: numberOfFollowers)
+        case .following(let userLogin, let numberOfFollowing): return FollowingLogicController(userLogin: userLogin, numberOfFollowing: numberOfFollowing)
+        case .stargazers(let repositoryFullName, let numberOfStargazers): return StargazersLogicController(repositoryFullName: repositoryFullName, numberOfStargazers: numberOfStargazers)
         case .contributors(let repositoryFullName): return ContributorsLogicController(repositoryFullName: repositoryFullName)
         case .members(let organizationLogin): return MembersLogicController(organizationLogin: organizationLogin)
         }

@@ -7,11 +7,14 @@
 
 import Foundation
 
-class OrganizationDetailViewModel {
-    
+final class OrganizationDetailViewModel: WebServiceDetailViewModel {
+
     // MARK: - Properties
     
+    typealias WebServiceLogicControllerType = OrganizationDetailLogicController
+    
     var logicController: OrganizationDetailLogicController
+    var handler: NetworkLoadingHandler?
     
     var login: String = ""
     var avatarURL: URL = URL(string: "www.github.com")!
@@ -27,20 +30,16 @@ class OrganizationDetailViewModel {
     
     // MARK: - Initialization
     
-    init(login: String) {
-        logicController = OrganizationDetailLogicController(login: login)
+    init(withParameter parameter: String) {
+        logicController = OrganizationDetailLogicController(withParameter: parameter)
     }
     
     init(collectionCellViewModel: OrganizationCollectionCellViewModel) {
-        logicController = OrganizationDetailLogicController(login: collectionCellViewModel.login)
+        logicController = OrganizationDetailLogicController(withParameter: collectionCellViewModel.login)
     }
     
     init(tableCellViewModel: OrganizationTableCellViewModel) {
-        logicController = OrganizationDetailLogicController(login: tableCellViewModel.login)
-    }
-    
-    init(model: OrganizationModel) {
-        logicController = OrganizationDetailLogicController(model: model)
+        logicController = OrganizationDetailLogicController(withParameter: tableCellViewModel.login)
     }
     
     // MARK: - View Actions
@@ -59,31 +58,18 @@ class OrganizationDetailViewModel {
         }
     }
     
-    // MARK: - Loading Methods
+    // MARK: - Status Checking Method
     
-    func load(then handler: @escaping LoadingHandler) {
-        logicController.load { [weak self] error in
-            if let error = error {
-                handler(error)
-            } else {
-                self?.checkIfBookmarkedOrFollowed { isBookmarked in
-                    self?.isBookmarked = isBookmarked
-                    self?.synchronizeModel()
-                    handler(nil)
-                }
-            }
+    func checkForStatus() {
+        logicController.checkForStatus { status in
+            self.isBookmarked = status[0]
+            self.handler?(nil)
         }
     }
     
-    // MARK: - Status Checking Methods
+    // MARK: - Synchronize Method
     
-    func checkIfBookmarkedOrFollowed(then handler: @escaping (Bool) -> Void) {
-        logicController.checkIfBookmarked(then: handler)
-    }
-    
-    // MARK: - Model Synchronization Methods
-    
-    private func synchronizeModel() {
+    func synchronize() {
         let model = logicController.model
         login = model.login
         avatarURL = model.avatarURL

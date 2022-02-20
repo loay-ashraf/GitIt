@@ -22,7 +22,7 @@ class LicenseViewController: SFViewController, StoryboardableViewController {
     // MARK: - Initialization
     
     required init?(coder: NSCoder, repositoryFullName: String, defaultBranch: String) {
-        viewModel = LicenseViewModel(repositoryFullName: repositoryFullName, defaultBranch: defaultBranch)
+        viewModel = LicenseViewModel(parameter: repositoryFullName, defaultBranch: defaultBranch)
         super.init(coder: coder)
     }
     

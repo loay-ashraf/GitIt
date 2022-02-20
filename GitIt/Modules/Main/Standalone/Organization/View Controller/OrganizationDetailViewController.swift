@@ -32,7 +32,7 @@ class OrganizationDetailViewController: SFStaticTableViewController, Storyboarda
     // MARK: - Initialization
     
     required init?(coder: NSCoder, login: String) {
-        viewModel = OrganizationDetailViewModel(login: login)
+        viewModel = OrganizationDetailViewModel(withParameter: login)
         super.init(coder: coder)
     }
     
@@ -43,11 +43,6 @@ class OrganizationDetailViewController: SFStaticTableViewController, Storyboarda
     
     required init?(coder: NSCoder, tableCellViewModel: OrganizationTableCellViewModel) {
         viewModel = OrganizationDetailViewModel(tableCellViewModel: tableCellViewModel)
-        super.init(coder: coder)
-    }
-    
-    required init?(coder: NSCoder, model: OrganizationModel) {
-        viewModel = OrganizationDetailViewModel(model: model)
         super.init(coder: coder)
     }
     
@@ -78,17 +73,6 @@ class OrganizationDetailViewController: SFStaticTableViewController, Storyboarda
             let storyBoard = UIStoryboard(name: "Main", bundle: nil)
             return storyBoard.instantiateViewController(identifier: self.storyboardIdentifier, creator: { coder -> OrganizationDetailViewController in
                             self.init(coder: coder, tableCellViewModel: cellViewModel)!
-                    })
-        } else {
-            return UIViewController()
-        }
-    }
-    
-    static func instatiate<T: Model>(model: T) -> UIViewController  {
-        if let model = model as? OrganizationModel {
-            let storyBoard = UIStoryboard(name: "Main", bundle: nil)
-            return storyBoard.instantiateViewController(identifier: self.storyboardIdentifier, creator: { coder -> OrganizationDetailViewController in
-                            self.init(coder: coder, model: model)!
                     })
         } else {
             return UIViewController()

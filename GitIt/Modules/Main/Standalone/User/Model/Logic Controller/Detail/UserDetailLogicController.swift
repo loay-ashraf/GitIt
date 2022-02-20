@@ -7,38 +7,22 @@
 
 import Foundation
 
-class UserDetailLogicController {
-    
+final class UserDetailLogicController: WebServiceDetailLogicController {
+   
     // MARK: - Properties
     
-    var login = String()
+    typealias WebServiceClientType = GitHubClient
+    typealias ModelType = UserModel
+    
+    var webServiceClient = GitHubClient()
     var model = UserModel()
+    var parameter = String()
+    var handler: NetworkLoadingHandler?
     
-    // MARK: - Initialization
-
-    init(login: String) {
-        self.login = login
-    }
+    // MARK: - Fetch Data Method
     
-    init(model: UserModel) {
-        self.model = model
-    }
-    
-    // MARK: - Loading Methods
-    
-    func load(then handler: @escaping LoadingHandler) {
-        if !login.isEmpty, !model.isComplete {
-            GitHubClient.fetchUser(userLogin: login) { result in
-                switch result {
-                case .success(let response): self.model = response
-                                             self.model.isComplete = true
-                                             handler(nil)
-                case .failure(let networkError): handler(networkError)
-                }
-            }
-        } else {
-            handler(nil)
-        }
+    func fetchData() {
+        webServiceClient.fetchUser(userLogin: parameter, completion: processFetchResult(result:))
     }
     
     // MARK: - (Un)Bookmark Methods
@@ -58,7 +42,7 @@ class UserDetailLogicController {
     // MARK: - (Un)Follow Methods
     
     func follow(then handler: @escaping () -> Void) {
-        GitHubClient.followUser(userLogin: model.login) { error in
+        webServiceClient.followUser(userLogin: model.login) { error in
             guard error != nil else {
                 handler()
                 return
@@ -67,7 +51,7 @@ class UserDetailLogicController {
     }
     
     func unFollow(then handler: @escaping () -> Void) {
-        GitHubClient.unFollowUser(userLogin: model.login) { error in
+        webServiceClient.unFollowUser(userLogin: model.login) { error in
             guard error != nil else {
                 handler()
                 return
@@ -75,17 +59,17 @@ class UserDetailLogicController {
         }
     }
     
-    // MARK: - Status Checking Methods
+    // MARK: - Check For Status Methods
     
-    func checkIfBookmarkedOrFollowed(then handler: @escaping (Bool,Bool) -> Void) {
+    func checkForStatus(then handler: @escaping ([Bool]) -> Void) {
         if NetworkManager.standard.isReachable, SessionManager.standard.sessionType == .authenticated {
             checkIfFollowed { isFollowed in
                 let isBookmarked = self.checkIfBookmarked()
-                handler(isBookmarked,isFollowed)
+                handler([isBookmarked,isFollowed])
             }
         } else {
             let isBookmarked = self.checkIfBookmarked()
-            handler(isBookmarked,false)
+            handler([isBookmarked,false])
         }
     }
     
@@ -99,7 +83,7 @@ class UserDetailLogicController {
     }
     
     func checkIfFollowed(then handler: @escaping (Bool) -> Void) {
-        GitHubClient.checkIfFollowingUser(userLogin: model.login) { error in
+        webServiceClient.checkIfFollowingUser(userLogin: model.login) { error in
             guard error != nil else {
                 handler(true)
                 return

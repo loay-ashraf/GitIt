@@ -170,45 +170,45 @@ extension GitHubRouter {
         case .searchUsers(let query, let page),
             .searchRepositories(let query, let page): parametersDict[NetworkingConstants.query] = query
                                                       parametersDict[NetworkingConstants.page] = page
-                                                      parametersDict[NetworkingConstants.perPage] = NetworkingConstants.maxPageCapacity
+                                                      parametersDict[NetworkingConstants.perPage] = NetworkingConstants.minimumPageCapacity
         case .fetchTrendingRepositories(let page): parametersDict[NetworkingConstants.query] = [NetworkingConstants.created:Date.dateBefore(numberOfDays: 7)].queryString
                                                    parametersDict[NetworkingConstants.sort] = NetworkingConstants.stars
                                                    parametersDict[NetworkingConstants.order] = NetworkingConstants.descending
                                                    parametersDict[NetworkingConstants.page] = page
-                                                   parametersDict[NetworkingConstants.perPage] = NetworkingConstants.maxPageCapacity
+                                                   parametersDict[NetworkingConstants.perPage] = NetworkingConstants.minimumPageCapacity
         case .searchOrganizations(let query, let page): parametersDict[NetworkingConstants.query] = query.appendQueryComponent([NetworkingConstants.type:NetworkingConstants.organization].queryString)
                                                         parametersDict[NetworkingConstants.page] = page
-                                                        parametersDict[NetworkingConstants.perPage] = NetworkingConstants.maxPageCapacity
+                                                        parametersDict[NetworkingConstants.perPage] = NetworkingConstants.minimumPageCapacity
 
         case .fetchUsers(let page): parametersDict[NetworkingConstants.query] = [NetworkingConstants.followers:">10"].queryString
                                     parametersDict[NetworkingConstants.page] = page
-                                    parametersDict[NetworkingConstants.perPage] = NetworkingConstants.maxPageCapacity
+                                    parametersDict[NetworkingConstants.perPage] = NetworkingConstants.minimumPageCapacity
             
         case .fetchUserFolllowers(_, let page),
             .fetchUserFollowing(_, let page),
             .fetchUserRepositories(_, let page),
             .fetchUserOrganizations(_, let page),
             .fetchUserStarred(_, let page): parametersDict[NetworkingConstants.page] = page
-                                            parametersDict[NetworkingConstants.perPage] = NetworkingConstants.maxPageCapacity
+                                            parametersDict[NetworkingConstants.perPage] = NetworkingConstants.minimumPageCapacity
             
             
         case .fetchRepositories(let page): parametersDict[NetworkingConstants.query] = [NetworkingConstants.stars:">10"].queryString
                                             parametersDict[NetworkingConstants.page] = page
-                                            parametersDict[NetworkingConstants.perPage] = NetworkingConstants.maxPageCapacity
+                                            parametersDict[NetworkingConstants.perPage] = NetworkingConstants.minimumPageCapacity
         
         case .fetchRepositoryStars(_, let page),
              .fetchRepositoryForks(_, let page),
              .fetchRepositoryContributors(_, let page),
              .fetchRepositoryCommits(_, let page): parametersDict[NetworkingConstants.page] = page
-                                                   parametersDict[NetworkingConstants.perPage] = NetworkingConstants.maxPageCapacity
+                                                   parametersDict[NetworkingConstants.perPage] = NetworkingConstants.minimumPageCapacity
             
         case .fetchOrganizations(let page): parametersDict[NetworkingConstants.query] = [NetworkingConstants.type:NetworkingConstants.organization,NetworkingConstants.repositories:">10"].queryString
                                             parametersDict[NetworkingConstants.page] = page
-                                            parametersDict[NetworkingConstants.perPage] = NetworkingConstants.maxPageCapacity
+                                            parametersDict[NetworkingConstants.perPage] = NetworkingConstants.minimumPageCapacity
             
         case .fetchOrganizationMembers(_, let page),
             .fetchOrganizationRepositories(_, let page): parametersDict[NetworkingConstants.page] = page
-                                                         parametersDict[NetworkingConstants.perPage] = NetworkingConstants.maxPageCapacity
+                                                         parametersDict[NetworkingConstants.perPage] = NetworkingConstants.minimumPageCapacity
             
         default: break
         }

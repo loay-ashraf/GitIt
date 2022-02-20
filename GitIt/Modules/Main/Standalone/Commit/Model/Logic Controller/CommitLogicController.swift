@@ -7,45 +7,37 @@
 
 import Foundation
 
-class CommitLogicController {
+final class CommitLogicController: WebServicePlainLogicController {
     
     // MARK: - Properties
     
+    typealias WebServiceClientType = GitHubClient
+    typealias ModelType = CommitModel
+    
+    var webServiceClient = GitHubClient()
     var model = List<CommitModel>()
-    private var repositoryFullName: String
-    private var handler: LoadingHandler?
+    var repositoryFullName = String()
+    var handler: NetworkLoadingHandler?
+    var maxItemCount: Int?
+    var maxPageCount: Int
 
     // MARK: - Initialization
     
     init(repositoryFullName: String) {
         self.repositoryFullName = repositoryFullName
+        self.maxPageCount = NetworkingConstants.maxPageCount
+        self.model.isPaginable = true
     }
     
-    // MARK: - Loading Methods
-
-    func load(then handler: @escaping LoadingHandler) {
-        self.handler = handler
-        GitHubClient.fetchRepositoryCommits(fullName: repositoryFullName, page: model.currentPage, completionHandler: processResult(result:))
+    init(maxItemCount: Int?, maxPageCount: Int = NetworkingConstants.maxPageCount) {
+        self.maxItemCount = maxItemCount
+        self.maxPageCount = maxPageCount
     }
     
-    func refresh(then handler: @escaping LoadingHandler) {
-        model.reset()
-        load(then: handler)
-    }
+    // MARK: - Fetch Data Method
     
-    // MARK: - Result Processing Methods
-    
-    private func processResult(result: Result<[CommitModel],NetworkError>) {
-        switch result {
-        case .success(let response): model.append(contentsOf: response)
-                                     updateModelParameters(newItemsCount: response.count)
-                                     handler?(nil)
-        case .failure(let networkError): handler?(networkError)
-        }
-    }
-
-    private func updateModelParameters(newItemsCount: Int = 0) {
-        model.isPaginable = newItemsCount == 0 ? false : true
+    func fetchData() {
+        webServiceClient.fetchRepositoryCommits(fullName: repositoryFullName, page: model.currentPage, completionHandler: processFetchResult(result:))
     }
 
 }

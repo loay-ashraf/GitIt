@@ -13,6 +13,11 @@ class SearchResultsViewController<T: SearchResultsViewModel>: SFDynamicTableView
     
     // MARK: - Properties
     
+    var query: String = "" {
+        didSet {
+            load(with: .initial)
+        }
+    }
     private weak var delegate: SearchResultsDelegate!
     
     // MARK: - Initialization
@@ -104,20 +109,21 @@ class SearchResultsViewController<T: SearchResultsViewModel>: SFDynamicTableView
         }
     }
     
-    // MARK: - Loading Methods
+    // MARK: - Search Method
     
-    func loadResults(with keyword: String) {
+    func search(with query: String) {
         reset()
-        viewModel.setQuery(query: keyword)
-        load(with: .initial)
+        self.query = query
     }
+    
+    // MARK: - Load Method
     
     override func load(with loadingViewState: LoadingViewState) {
         super.load(with: loadingViewState)
         switch loadingViewState {
-        case .initial: viewModel.load { [weak self] error in self?.loadHandler(error: error) }
+        case .initial: viewModel.search(withQuery: query) { [weak self] error in self?.loadHandler(error: error) }
         case .refresh: viewModel.refresh { [weak self] error in self?.refreshHandler(error: error) }
-        case .paginate: viewModel.load { [weak self] error in self?.paginateHandler(error: error) }
+        case .paginate: viewModel.paginate { [weak self] error in self?.paginateHandler(error: error) }
         }
     }
     

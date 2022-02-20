@@ -15,7 +15,7 @@ protocol BookmarksViewModel: AnyObject {
     var count: Int { get }
     var isEmpty: Bool { get }
     
-    func load(then handler: @escaping LoadingHandler)
+    func load(then handler: @escaping NetworkLoadingHandler)
     func unBookmarkAction()
 
 }

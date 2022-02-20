@@ -36,6 +36,28 @@ extension String {
     
 }
 
+extension String: Model {
+   
+    typealias CollectionCellViewModelType = UserCollectionCellViewModel
+    typealias TableCellViewModelType = UserTableCellViewModel
+    
+    var id: Int { return 0 }
+    var htmlURL: URL { return URL(string: "www.github.com")! }
+    var isComplete: Bool {
+        get { return true }
+        set {  }
+    }
+    
+    init(from collectionCellViewModel: UserCollectionCellViewModel) {
+        self.init()
+    }
+    
+    init(from tableCellViewModel: UserTableCellViewModel) {
+        self.init()
+    }
+    
+}
+
 extension Dictionary where Key: StringProtocol, Value: StringProtocol {
     
     var queryString: String {
@@ -53,6 +75,38 @@ extension Date {
         dateFormatter.locale = Locale(identifier: "en_us")
         let previousDate = Calendar.current.date(byAdding: .day, value: -numberOfDays, to: Self())!
         return dateFormatter.string(from: previousDate)
+    }
+    
+}
+
+extension Mirror {
+    
+    func childValue(forLabel label: String) -> Any? {
+        for child in children {
+            if child.label == label {
+                return child.value
+            }
+        }
+        return nil
+    }
+    
+}
+
+extension Array {
+    
+    mutating func trim(toSize size: Int) {
+        removeSubrange(size...count-1)
+    }
+    
+    mutating func append<S: Sequence>(contentsOf newElements: S, withSizeLimit sizeLimit: Int) where Element == S.Element {
+        if count >= sizeLimit {
+            return
+        } else {
+            for newElement in newElements {
+                append(newElement)
+                if count == sizeLimit { break }
+            }
+        }
     }
     
 }

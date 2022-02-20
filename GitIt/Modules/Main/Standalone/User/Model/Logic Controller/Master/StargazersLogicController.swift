@@ -7,33 +7,27 @@
 
 import Foundation
 
-class StargazersLogicController: UserLogicController {
+final class StargazersLogicController: UserLogicController {
     
     // MARK: - Properties
     
-    var repositoryFullName: String
-    var numberofStargazers: Int
+    var repositoryFullName = String()
     
     // MARK: - Initialization
     
-    init(repositoryFullName: String, numberofStargazers: Int) {
+    init(repositoryFullName: String, numberOfStargazers: Int) {
         self.repositoryFullName = repositoryFullName
-        self.numberofStargazers = numberofStargazers
-        super.init()
+        super.init(maxItemCount: numberOfStargazers)
     }
     
-    // MARK: - Loading Methods
-    
-    override func load(then handler: @escaping LoadingHandler) {
-        self.handler = handler
-        GitHubClient.fetchRepositoryStars(fullName: repositoryFullName, page: model.currentPage, completionHandler: processResult(result:))
+    required init(maxItemCount: Int?, maxPageCount: Int = NetworkingConstants.maxPageCount) {
+        super.init(maxItemCount: maxItemCount, maxPageCount: maxPageCount)
     }
     
-    // MARK: - Result Processing Methods
+    // MARK: - Fetch Data Method
     
-    override func updateModelParameters(newItemsCount: Int = 0) {
-        super.updateModelParameters(newItemsCount: newItemsCount)
-        model.isPaginable = model.items.count == numberofStargazers ? false : true
+    override func fetchData() {
+        webServiceClient.fetchRepositoryStars(fullName: repositoryFullName, page: model.currentPage, completionHandler: processFetchResult(result:))
     }
     
 }

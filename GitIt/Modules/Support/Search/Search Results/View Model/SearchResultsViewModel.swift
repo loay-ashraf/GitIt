@@ -16,6 +16,7 @@ final class UserSearchResultsViewModel: SearchResultsViewModel {
     
     var logicController = LogicControllerType()
     var cellViewModels = List<TableCellViewModelType>()
+    var handler: NetworkLoadingHandler?
     
 }
 
@@ -28,6 +29,7 @@ final class RepositorySearchResultsViewModel: SearchResultsViewModel {
     
     var logicController = LogicControllerType()
     var cellViewModels = List<TableCellViewModelType>()
+    var handler: NetworkLoadingHandler?
     
 }
 
@@ -40,5 +42,6 @@ final class OrganizationSearchResultsViewModel: SearchResultsViewModel {
     
     var logicController = LogicControllerType()
     var cellViewModels = List<TableCellViewModelType>()
+    var handler: NetworkLoadingHandler?
     
 }

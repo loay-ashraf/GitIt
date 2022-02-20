@@ -7,7 +7,7 @@
 
 import Foundation
 
-class UserViewModel: TableViewModel {
+class UserViewModel: WebServicePlainTableViewModel {
     
     // MARK: - Properties
     
@@ -15,6 +15,7 @@ class UserViewModel: TableViewModel {
     
     var logicController: UserLogicController
     var cellViewModels = List<TableCellViewModelType>()
+    var handler: NetworkLoadingHandler?
     
     // MARK: - Initialization
     
@@ -28,33 +29,9 @@ class UserViewModel: TableViewModel {
         items[row].toggleBookmark()
     }
     
-    // MARK: - Loading Methods
+    // MARK: - Synchronize Method
     
-    func load(then handler: @escaping LoadingHandler) {
-        logicController.load { [weak self] error in
-            if let error = error {
-                handler(error)
-            } else {
-                self?.synchronizeModel()
-                handler(nil)
-            }
-        }
-    }
-    
-    func refresh(then handler: @escaping LoadingHandler) {
-        logicController.refresh { [weak self] error in
-            if let error = error {
-                handler(error)
-            } else {
-                self?.synchronizeModel()
-                handler(nil)
-            }
-        }
-    }
-    
-    // MARK: - Model Synchronization Methods
-    
-    private func synchronizeModel() {
+    func synchronize() {
         let modelItems = logicController.model.items
         cellViewModels.items = modelItems.map { return TableCellViewModelType(from: $0) }
         cellViewModels.currentPage = logicController.model.currentPage

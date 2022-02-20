@@ -35,7 +35,7 @@ class UserDetailViewController: SFStaticTableViewController, StoryboardableViewC
     // MARK: - Initialization
     
     required init?(coder: NSCoder, login: String) {
-        viewModel = UserDetailViewModel(login: login)
+        viewModel = UserDetailViewModel(withParameter: login)
         super.init(coder: coder)
     }
     
@@ -46,11 +46,6 @@ class UserDetailViewController: SFStaticTableViewController, StoryboardableViewC
     
     required init?(coder: NSCoder, tableCellViewModel: UserTableCellViewModel) {
         viewModel = UserDetailViewModel(tableCellViewModel: tableCellViewModel)
-        super.init(coder: coder)
-    }
-    
-    required init?(coder: NSCoder, model: UserModel) {
-        viewModel = UserDetailViewModel(model: model)
         super.init(coder: coder)
     }
     
@@ -81,17 +76,6 @@ class UserDetailViewController: SFStaticTableViewController, StoryboardableViewC
             let storyBoard = UIStoryboard(name: "Main", bundle: nil)
             return storyBoard.instantiateViewController(identifier: self.storyboardIdentifier, creator: { coder -> UserDetailViewController in
                             self.init(coder: coder, tableCellViewModel: cellViewModel)!
-                    })
-        } else {
-            return UIViewController()
-        }
-    }
-    
-    static func instatiate<T: Model>(model: T) -> UIViewController  {
-        if let model = model as? UserModel {
-            let storyBoard = UIStoryboard(name: "Main", bundle: nil)
-            return storyBoard.instantiateViewController(identifier: self.storyboardIdentifier, creator: { coder -> UserDetailViewController in
-                            self.init(coder: coder, model: model)!
                     })
         } else {
             return UIViewController()

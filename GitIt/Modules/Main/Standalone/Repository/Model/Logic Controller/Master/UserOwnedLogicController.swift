@@ -7,33 +7,27 @@
 
 import Foundation
 
-class UserOwnedLogicController: RepositoryLogicController {
+final class UserOwnedLogicController: RepositoryLogicController {
     
     // MARK: - Properties
     
-    var userLogin: String
-    var numberOfRepositories: Int
+    var userLogin = String()
     
     // MARK: - Initialization
     
     init(userLogin: String, numberOfRepositories: Int) {
         self.userLogin = userLogin
-        self.numberOfRepositories = numberOfRepositories
-        super.init()
+        super.init(maxItemCount: numberOfRepositories)
     }
     
-    // MARK: - Loading Methods
-    
-    override func load(then handler: @escaping LoadingHandler) {
-        self.handler  = handler
-        GitHubClient.fetchUserRepositories(userLogin: userLogin, page: model.currentPage, completion: processResult(result:))
+    required init(maxItemCount: Int?, maxPageCount: Int = NetworkingConstants.maxPageCount) {
+        super.init(maxItemCount: maxItemCount, maxPageCount: maxPageCount)
     }
     
-    // MARK: - Result Processing Methods
+    // MARK: - Fetch Data Method
     
-    override func updateModelParameters(newItemsCount: Int = 0) {
-        super.updateModelParameters(newItemsCount: newItemsCount)
-        model.isPaginable = model.items.count == numberOfRepositories ? false : true
+    override func fetchData() {
+        webServiceClient.fetchUserRepositories(userLogin: userLogin, page: model.currentPage, completion: processFetchResult(result:))
     }
     
 }

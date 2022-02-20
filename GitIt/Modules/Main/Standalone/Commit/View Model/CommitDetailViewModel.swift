@@ -7,11 +7,14 @@
 
 import Foundation
 
-class CommitDetailViewModel {
+final class CommitDetailViewModel: WebServiceDetailViewModel {
     
     // MARK: - Properties
     
+    typealias WebServiceLogicControllerType = CommitDetailLogicController
+    
     var logicController: CommitDetailLogicController
+    var handler: NetworkLoadingHandler?
     
     var message: String = ""
     var htmlURL: URL = URL(string: "www.github.com")!
@@ -28,22 +31,19 @@ class CommitDetailViewModel {
         logicController = CommitDetailLogicController(model: model)
     }
     
-    // MARK: - Loading Methods
-    
-    func load(then handler: @escaping LoadingHandler) {
-        logicController.load { [weak self] error in
-            if let error = error {
-                handler(error)
-            } else {
-                self?.synchronizeModel()
-                handler(nil)
-            }
-        }
+    init(withParameter parameter: String) {
+        logicController = CommitDetailLogicController(withParameter: parameter)
     }
     
-    // MARK: - Model Synchronization Methods
+    // MARK: - Status Checking Method
     
-    private func synchronizeModel() {
+    func checkForStatus() {
+        handler?(nil)
+    }
+    
+    // MARK: - Synchronize Method
+    
+    func synchronize() {
         let model = logicController.model
         message = model.message
         htmlURL = model.htmlURL

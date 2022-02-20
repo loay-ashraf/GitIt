@@ -106,20 +106,6 @@ extension UIColor {
     
 }
 
-/*extension UITableView {
-
-    var registeredNibs: [String: UINib] {
-        let dict = value(forKey: "_nibMap") as? [String: UINib]
-        return dict ?? [:]
-    }
-
-    var registeredCells: [String: Any] {
-        let dict = value(forKey: "_cellClassDict") as? [String: Any]
-        return dict ?? [:]
-    }
-    
-}*/
-
 extension UIView {
     
     var cornerRadius: CGFloat {

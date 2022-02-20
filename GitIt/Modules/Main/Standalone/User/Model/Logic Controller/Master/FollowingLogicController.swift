@@ -7,33 +7,27 @@
 
 import Foundation
 
-class FollowingLogicController: UserLogicController {
+final class FollowingLogicController: UserLogicController {
     
     // MARK: - Properties
     
-    var userLogin: String
-    var numberofFollowing: Int
+    var userLogin = String()
     
     // MARK: - Initialization
     
-    init(userLogin: String, numberofFollowing: Int) {
+    init(userLogin: String, numberOfFollowing: Int) {
         self.userLogin = userLogin
-        self.numberofFollowing = numberofFollowing
-        super.init()
+        super.init(maxItemCount: numberOfFollowing)
+    }
+
+    required init(maxItemCount: Int?, maxPageCount: Int = NetworkingConstants.maxPageCount) {
+        super.init(maxItemCount: maxItemCount, maxPageCount: maxPageCount)
     }
     
-    // MARK: - Loading Methods
+    // MARK: - Fetch Data Method
     
-    override func load(then handler: @escaping LoadingHandler) {
-        self.handler = handler
-        GitHubClient.fetchUserFollowing(userLogin: userLogin, page: model.currentPage, completion: processResult(result:))
-    }
-    
-    // MARK: - Result Processing Methods
-    
-    override func updateModelParameters(newItemsCount: Int = 0) {
-        super.updateModelParameters(newItemsCount: newItemsCount)
-        model.isPaginable = model.items.count == numberofFollowing ? false : true
+    override func fetchData() {
+        webServiceClient.fetchUserFollowing(userLogin: userLogin, page: model.currentPage, completion: processFetchResult(result:))
     }
     
 }

@@ -10,6 +10,7 @@ import Alamofire
 
 // MARK: - Common Types
 
+typealias NetworkLoadingHandler = (NetworkError?) -> Void
 typealias DataResult = Result<Data,NetworkError>
 typealias ResponseResult<T> = Result<T,NetworkError> where T: Decodable
 

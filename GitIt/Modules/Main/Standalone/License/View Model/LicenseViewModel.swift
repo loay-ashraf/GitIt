@@ -7,37 +7,36 @@
 
 import Foundation
 
-class LicenseViewModel {
-    
+final class LicenseViewModel: WebServiceDetailViewModel {
+   
     // MARK: - Properties
     
-    var logicController: LicenseLogicController
+    typealias WebServiceLogicControllerType = LicenseLogicController
     
-    var licenseText: String
+    var logicController: LicenseLogicController
+    var handler: NetworkLoadingHandler?
+    
+    var licenseText = String()
     
     // MARK: - Initialization
     
-    init(repositoryFullName: String, defaultBranch: String) {
-        logicController = LicenseLogicController(repositoryFullName: repositoryFullName, defaultBranch: defaultBranch)
-        licenseText = String()
+    init(parameter: String, defaultBranch: String) {
+        logicController = LicenseLogicController(parameter: parameter, defaultBranch: defaultBranch)
     }
     
-    // MARK: - Loading Methods
-    
-    func load(then handler: @escaping LoadingHandler) {
-        logicController.load { [weak self] error in
-            if let error = error {
-                handler(error)
-            } else {
-                self?.synchronizeModel()
-                handler(nil)
-            }
-        }
+    init(withParameter parameter: String) {
+        logicController = LicenseLogicController(withParameter: parameter)
     }
     
-    // MARK: - Model Synchronization Methods
+    // MARK: - Status Checking Method
     
-    private func synchronizeModel() {
+    func checkForStatus() {
+        handler?(nil)
+    }
+    
+    // MARK: - Synchronize Method
+    
+    func synchronize() {
         licenseText = logicController.model
     }
     

@@ -1,33 +1,33 @@
 //
-//  CollectionViewModels.swift
+//  TableViewModels.swift
 //  GitIt
 //
-//  Created by Loay Ashraf on 05/02/2022.
+//  Created by Loay Ashraf on 04/02/2022.
 //
 
 import Foundation
 
-protocol CollectionViewModel: AnyObject {
+typealias WebServicePlainTableViewModel = WebServicePlainViewModel & TableViewModel
+typealias WebServiceSearchTableViewModel = WebServiceSearchViewModel & TableViewModel
+
+protocol TableViewModel: AnyObject {
     
-    associatedtype CollectionCellViewModelType: CollectionCellViewModel
+    associatedtype TableCellViewModelType: TableCellViewModel
     
-    var cellViewModels: List<CollectionCellViewModelType> { get set }
-    var items: Array<CollectionCellViewModelType> { get }
+    var cellViewModels: List<TableCellViewModelType> { get set }
+    var items: Array<TableCellViewModelType> { get }
     var count: Int { get }
     var isEmpty: Bool { get }
     var currentPage: Int { get }
     var isPaginable: Bool { get }
     
-    func load(then handler: @escaping LoadingHandler)
-    func refresh(then handler: @escaping LoadingHandler)
-    
 }
 
-extension CollectionViewModel {
+extension TableViewModel {
     
     // MARK: - Properties
     
-    var items: [CollectionCellViewModelType] { return cellViewModels.items }
+    var items: Array<TableCellViewModelType> { return cellViewModels.items }
     var count: Int { return cellViewModels.count }
     var isEmpty: Bool { return cellViewModels.isEmpty }
     var currentPage: Int { return cellViewModels.currentPage }
@@ -35,24 +35,24 @@ extension CollectionViewModel {
     
 }
 
-protocol CollectionCellViewModel: AnyObject {
+protocol TableCellViewModel: AnyObject {
     
     associatedtype ModelType
-    associatedtype TableCellViewModelType: TableCellViewModel
+    associatedtype CollectionCellViewModelType: CollectionCellViewModel
     
     var model: ModelType { get }
     
     init()
     init(from model: ModelType)
-    init(from tableCellViewModel: TableCellViewModelType)
+    init(from collectionCellViewModel: CollectionCellViewModelType)
     
-    func tableCellViewModel() -> TableCellViewModelType
+    func collectionCellViewModel() -> CollectionCellViewModelType
     
     func toggleBookmark()
     
 }
 
-extension CollectionCellViewModel {
+extension TableCellViewModel {
     
     // MARK: - Initialization
     

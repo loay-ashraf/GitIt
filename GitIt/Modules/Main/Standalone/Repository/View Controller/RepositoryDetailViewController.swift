@@ -32,11 +32,10 @@ class RepositoryDetailViewController: SFStaticTableViewController, Storyboardabl
     @IBOutlet weak var openInSafariButton: UIBarButtonItem!
     @IBOutlet weak var shareButton: UIBarButtonItem!
     
-    
     // MARK: - Initialization
     
     required init?(coder: NSCoder, fullName: String) {
-        viewModel = RepositoryDetailViewModel(fullName: fullName)
+        viewModel = RepositoryDetailViewModel(withParameter: fullName)
         super.init(coder: coder)
     }
     
@@ -49,12 +48,7 @@ class RepositoryDetailViewController: SFStaticTableViewController, Storyboardabl
         viewModel = RepositoryDetailViewModel(tableCellViewModel: tableCellViewModel)
         super.init(coder: coder)
     }
-    
-    required init?(coder: NSCoder, model: RepositoryModel) {
-        viewModel = RepositoryDetailViewModel(model: model)
-        super.init(coder: coder)
-    }
-    
+
     required init?(coder: NSCoder) {
         fatalError("Fatal Error, this view controller shouldn't be instantiated via storyboard segue.")
     }
@@ -82,17 +76,6 @@ class RepositoryDetailViewController: SFStaticTableViewController, Storyboardabl
             let storyBoard = UIStoryboard(name: "Main", bundle: nil)
             return storyBoard.instantiateViewController(identifier: self.storyboardIdentifier, creator: { coder -> RepositoryDetailViewController in
                             self.init(coder: coder, tableCellViewModel: cellViewModel)!
-                    })
-        } else {
-            return UIViewController()
-        }
-    }
-    
-    static func instatiate<T: Model>(model: T) -> UIViewController  {
-        if let model = model as? RepositoryModel {
-            let storyBoard = UIStoryboard(name: "Main", bundle: nil)
-            return storyBoard.instantiateViewController(identifier: self.storyboardIdentifier, creator: { coder -> RepositoryDetailViewController in
-                            self.init(coder: coder, model: model)!
                     })
         } else {
             return UIViewController()

@@ -19,7 +19,7 @@ class BookmarksLogicController {
         set { bookmarksManager.activeBookmarksContext = newValue }
     }
     
-    func load(then handler: LoadingHandler) {
+    func load(then handler: NetworkLoadingHandler) {
         switch bookmarksContext {
         case .users: loadUser(then: handler)
         case .repositories: loadRepository(then: handler)
@@ -28,7 +28,7 @@ class BookmarksLogicController {
         }
     }
     
-    private func loadUser(then handler: LoadingHandler) {
+    private func loadUser(then handler: NetworkLoadingHandler) {
         let userBookmarks = bookmarksManager.getUsers()!
         userModel.removeAll()
         for bookmark in userBookmarks {
@@ -37,7 +37,7 @@ class BookmarksLogicController {
         handler(nil)
     }
     
-    private func loadRepository(then handler: LoadingHandler) {
+    private func loadRepository(then handler: NetworkLoadingHandler) {
         let repositoryBookmarks = bookmarksManager.getRepositories()!
         repositoryModel.removeAll()
         for bookmark in repositoryBookmarks {
@@ -46,7 +46,7 @@ class BookmarksLogicController {
         handler(nil)
     }
     
-    private func loadOrganization(then handler: LoadingHandler) {
+    private func loadOrganization(then handler: NetworkLoadingHandler) {
         let organizationBookmarks = bookmarksManager.getOrganizations()!
         organizationModel.removeAll()
         for bookmark in organizationBookmarks {

@@ -11,17 +11,32 @@ final class UserSearchResultsLogicController: SearchResultsLogicController {
     
     // MARK: - Properties
     
+    typealias WebServiceClientType = GitHubClient
     typealias ModelType = UserModel
     
-    var model = List<ModelType>()
+    var webServiceClient = GitHubClient()
+    var model = List<UserModel>()
     var query = String()
-    var handler: LoadingHandler?
+    var handler: NetworkLoadingHandler?
+    var maxItemCount: Int?
+    var maxPageCount: Int
     
-    // MARK: - Loading Methods
+    // MARK: - Initialization
     
-    func load(then handler: @escaping LoadingHandler) {
-        self.handler = handler
-        GitHubClient.searchUsers(keyword: query, page: model.currentPage, completionHandler: processResult(result:))
+    init() {
+        self.maxItemCount = nil
+        self.maxPageCount = NetworkingConstants.maxPageCount
+    }
+    
+    init(maxItemCount: Int?, maxPageCount: Int = NetworkingConstants.maxPageCount) {
+        self.maxItemCount = maxItemCount
+        self.maxPageCount = maxPageCount
+    }
+    
+    // MARK: - Fetch Data Method
+    
+    func fetchData() {
+        webServiceClient.searchUsers(keyword: query, page: model.currentPage, completionHandler: processFetchResult(result:))
     }
     
 }
@@ -30,17 +45,32 @@ final class RepositorySearchResultsLogicController: SearchResultsLogicController
     
     // MARK: - Properties
     
+    typealias WebServiceClientType = GitHubClient
     typealias ModelType = RepositoryModel
     
-    var model = List<ModelType>()
+    var webServiceClient = GitHubClient()
+    var model = List<RepositoryModel>()
     var query = String()
-    var handler: LoadingHandler?
+    var handler: NetworkLoadingHandler?
+    var maxItemCount: Int?
+    var maxPageCount: Int
     
-    // MARK: - Loading Methods
+    // MARK: - Initialization
     
-    func load(then handler: @escaping LoadingHandler) {
-        self.handler = handler
-        GitHubClient.searchRepositories(keyword: query, page: model.currentPage, completionHandler: processResult(result:))
+    init() {
+        self.maxItemCount = nil
+        self.maxPageCount = NetworkingConstants.maxPageCount
+    }
+    
+    init(maxItemCount: Int?, maxPageCount: Int = NetworkingConstants.maxPageCount) {
+        self.maxItemCount = maxItemCount
+        self.maxPageCount = maxPageCount
+    }
+    
+    // MARK: - Fetch Data Method
+    
+    func fetchData() {
+        webServiceClient.searchRepositories(keyword: query, page: model.currentPage, completionHandler: processFetchResult(result:))
     }
     
 }
@@ -49,17 +79,32 @@ final class OrganizationSearchResultsLogicController: SearchResultsLogicControll
     
     // MARK: - Properties
     
+    typealias WebServiceClientType = GitHubClient
     typealias ModelType = OrganizationModel
     
-    var model = List<ModelType>()
+    var webServiceClient = GitHubClient()
+    var model = List<OrganizationModel>()
     var query = String()
-    var handler: LoadingHandler?
+    var handler: NetworkLoadingHandler?
+    var maxItemCount: Int?
+    var maxPageCount: Int
     
-    // MARK: - Loading Methods
+    // MARK: - Initialization
     
-    func load(then handler: @escaping LoadingHandler) {
-        self.handler = handler
-        GitHubClient.searchOrganizations(keyword: query, page: model.currentPage, completionHandler: processResult(result:))
+    init() {
+        self.maxItemCount = nil
+        self.maxPageCount = NetworkingConstants.maxPageCount
+    }
+    
+    init(maxItemCount: Int?, maxPageCount: Int = NetworkingConstants.maxPageCount) {
+        self.maxItemCount = maxItemCount
+        self.maxPageCount = maxPageCount
+    }
+    
+    // MARK: - Fetch Data Method
+    
+    func fetchData() {
+        webServiceClient.searchOrganizations(keyword: query, page: model.currentPage, completionHandler: processFetchResult(result:))
     }
     
 }

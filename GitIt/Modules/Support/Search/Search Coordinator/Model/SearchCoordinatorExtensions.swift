@@ -65,7 +65,7 @@ extension SearchCoordinator: SearchControllerDelegate {
     func willSearch() {
         render(.searching)
         searchHistoryController.addQuery(with: query)
-        searchResultsController.loadResults(with: query)
+        searchResultsController.search(with: query)
     }
     
     func didSearch() {
@@ -82,7 +82,7 @@ extension SearchCoordinator: SearchHistoryDelegate {
     func reloadQuery(with query: String) {
         self.query = query
         render(.searching)
-        searchResultsController.loadResults(with: query)
+        searchResultsController.search(with: query)
     }
     
     func dismissHistoryKeyboard() {

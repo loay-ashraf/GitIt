@@ -7,11 +7,17 @@
 
 import Foundation
 
-class CommitDetailLogicController {
+class CommitDetailLogicController: WebServiceDetailLogicController {
     
     // MARK: - Properties
     
+    typealias WebServiceClientType = GitHubClient
+    typealias ModelType = CommitModel
+    
+    var webServiceClient = GitHubClient()
     var model = CommitModel()
+    var parameter = String()
+    var handler: NetworkLoadingHandler?
     
     // MARK: - Initialization
 
@@ -19,10 +25,16 @@ class CommitDetailLogicController {
         self.model = model
     }
     
-    // MARK: - Loading Methods
+    // MARK: - Fetch Data Method
     
-    func load(then handler: @escaping LoadingHandler) {
-        handler(nil)
+    func fetchData() {
+        handler?(nil)
+    }
+    
+    // MARK: - Check For Status Method
+    
+    func checkForStatus(then handler: @escaping ([Bool]) -> Void) {
+        handler([])
     }
     
 }

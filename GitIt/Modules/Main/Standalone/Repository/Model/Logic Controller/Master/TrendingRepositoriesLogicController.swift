@@ -7,13 +7,12 @@
 
 import Foundation
 
-class TrendingRepositoriesLogicController: RepositoryLogicController {
+final class TrendingRepositoriesLogicController: RepositoryLogicController {
     
-    // MARK: - Loading Methods
+    // MARK: - Fetch Data Method
     
-    override func load(then handler: @escaping LoadingHandler) {
-        self.handler = handler
-        GitHubClient.fetchTrendingRepositories(page: model.currentPage, completionHandler: processResult(result:))
+    override func fetchData() {
+        webServiceClient.fetchTrendingRepositories(page: model.currentPage, completionHandler: processFetchResult(result:))
     }
     
 }

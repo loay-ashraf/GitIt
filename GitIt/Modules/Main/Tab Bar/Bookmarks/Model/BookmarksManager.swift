@@ -11,6 +11,7 @@ import CoreData
 class BookmarksManager {
     
     static let standard = BookmarksManager()
+    let webServiceClient = GitHubClient()
     let coreDataHelper = DataManager.standard.coreDataHelper
     
     private var userBookmarks: [User]?
@@ -154,7 +155,7 @@ class BookmarksManager {
     // MARK: - Completing Models Methods
     
     func getCompleteUser(with userModel: UserModel, then handler: @escaping (UserModel?) -> Void) {
-        GitHubClient.fetchUser(userLogin: userModel.login) { result in
+        webServiceClient.fetchUser(userLogin: userModel.login) { result in
             switch result {
             case .success(var response): response.isComplete = true
                                          handler(response)
@@ -164,9 +165,9 @@ class BookmarksManager {
     }
     
     func getCompleteRepository(with repositoryModel: RepositoryModel, then handler: @escaping (RepositoryModel?) -> Void) {
-        GitHubClient.fetchRepository(fullName: repositoryModel.fullName) { result in
+        webServiceClient.fetchRepository(fullName: repositoryModel.fullName) { result in
             switch result {
-            case .success(var response): GitHubClient.downloadRepositoryREADME(fullName: response.fullName, branch: response.defaultBranch) { result in
+            case .success(var response): self.webServiceClient.downloadRepositoryREADME(fullName: response.fullName, branch: response.defaultBranch) { result in
                 switch result {
                 case .success(let readMeString): response.READMEString = String(data: readMeString, encoding: .utf8)
                                                  response.isComplete = true
@@ -180,7 +181,7 @@ class BookmarksManager {
     }
     
     func getCompleteOrganization(with organizationModel: OrganizationModel, then handler: @escaping (OrganizationModel?) -> Void) {
-        GitHubClient.fetchOrganization(organizationLogin: organizationModel.login) { result in
+        webServiceClient.fetchOrganization(organizationLogin: organizationModel.login) { result in
             switch result {
             case .success(var response): response.isComplete = true
                                          handler(response)

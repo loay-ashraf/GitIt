@@ -16,7 +16,7 @@ protocol SearchHistoryLogicController: AnyObject {
     
     init()
     
-    func load(handler: @escaping LoadingHandler)
+    func load(handler: @escaping NetworkLoadingHandler)
     func add(model: ModelType)
     func add(keyword: String)
     func delete(model: ModelType)
@@ -30,7 +30,7 @@ extension SearchHistoryLogicController {
     
     // MARK: - Loading Methods
     
-    func load(handler: @escaping LoadingHandler) {
+    func load(handler: @escaping NetworkLoadingHandler) {
         synchronize()
         handler(nil)
     }

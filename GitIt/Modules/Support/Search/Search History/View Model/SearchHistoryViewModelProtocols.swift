@@ -24,7 +24,7 @@ protocol SearchHistoryViewModel: AnyObject {
     func deleteObject(atItem item: Int)
     func reloadQuery(atRow row: Int) -> String
     func deleteQuery(atRow row: Int)
-    func load(handler: @escaping LoadingHandler)
+    func load(handler: @escaping NetworkLoadingHandler)
     func add(objectCellViewModel: CollectionCellViewModelType)
     func add(queryCellViewModel: QueryCellViewModel)
     func delete(objectCellViewModel: CollectionCellViewModelType)
@@ -73,7 +73,7 @@ extension SearchHistoryViewModel {
     
     // MARK: - Loading Methods
     
-    func load(handler: @escaping LoadingHandler) {
+    func load(handler: @escaping NetworkLoadingHandler) {
         logicController.load { [weak self] error in
             self?.synchronizeObjects()
             self?.synchronizeQueries()

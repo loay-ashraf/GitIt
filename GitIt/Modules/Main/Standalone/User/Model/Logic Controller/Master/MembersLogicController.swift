@@ -7,31 +7,27 @@
 
 import Foundation
 
-class MembersLogicController: UserLogicController {
+final class MembersLogicController: UserLogicController {
     
     // MARK: - Properties
     
-    var organizationLogin: String
+    var organizationLogin = String()
     
     // MARK: - Initialization
     
     init(organizationLogin: String) {
         self.organizationLogin = organizationLogin
-        super.init()
+        super.init(maxItemCount: nil)
     }
     
-    // MARK: - Loading Methods
-    
-    override func load(then handler: @escaping LoadingHandler) {
-        self.handler = handler
-        GitHubClient.fetchOrganizationMemebers(organizationLogin: organizationLogin, page: model.currentPage, completionHandler: processResult(result:))
+    required init(maxItemCount: Int?, maxPageCount: Int = NetworkingConstants.maxPageCount) {
+        super.init(maxItemCount: maxItemCount, maxPageCount: maxPageCount)
     }
     
-    // MARK: - Result Processing Methods
+    // MARK: - Fetch Data Method
     
-    override func updateModelParameters(newItemsCount: Int = 0) {
-        super.updateModelParameters(newItemsCount: newItemsCount)
-        model.isPaginable = newItemsCount == 0 ? false : true
+    override func fetchData() {
+        webServiceClient.fetchOrganizationMemebers(organizationLogin: organizationLogin, page: model.currentPage, completionHandler: processFetchResult(result:))
     }
     
 }

@@ -7,11 +7,14 @@
 
 import Foundation
 
-class RepositoryDetailViewModel {
-    
+final class RepositoryDetailViewModel: WebServiceDetailViewModel {
+
     // MARK: - Properties
     
+    typealias WebServiceLogicControllerType = RepositoryDetailLogicController
+    
     var logicController: RepositoryDetailLogicController
+    var handler: NetworkLoadingHandler?
     
     var name: String = ""
     var fullName: String = ""
@@ -30,24 +33,20 @@ class RepositoryDetailViewModel {
     
     // MARK: - Initialization
     
-    init(fullName: String) {
-        logicController = RepositoryDetailLogicController(fullName: fullName)
+    init(withParameter parameter: String) {
+        logicController = RepositoryDetailLogicController(withParameter: parameter)
     }
     
     init(collectionCellViewModel: RepositoryCollectionCellViewModel) {
         let fullName = collectionCellViewModel.owner.login.appendPathComponent(collectionCellViewModel.name)
-        logicController = RepositoryDetailLogicController(fullName: fullName)
+        logicController = RepositoryDetailLogicController(withParameter: fullName)
     }
     
     init(tableCellViewModel: RepositoryTableCellViewModel) {
         let fullName = tableCellViewModel.owner.login.appendPathComponent(tableCellViewModel.name)
-        logicController = RepositoryDetailLogicController(fullName: fullName)
+        logicController = RepositoryDetailLogicController(withParameter: fullName)
     }
-    
-    init(model: RepositoryModel) {
-        logicController = RepositoryDetailLogicController(model: model)
-    }
-    
+
     // MARK: - View Actions
     
     func toggleBookmark(then handler: @escaping () -> Void) {
@@ -78,32 +77,19 @@ class RepositoryDetailViewModel {
         }
     }
     
-    // MARK: - Loading Methods
+    // MARK: - Status Checking Method
     
-    func load(then handler: @escaping LoadingHandler) {
-        logicController.load { [weak self] error in
-            if let error = error {
-                handler(error)
-            } else {
-                self?.checkIfBookmarkedOrStarred { isBookmarked, isStarred in
-                    self?.isBookmarked = isBookmarked
-                    self?.isStarred = isStarred
-                    self?.synchronizeModel()
-                    handler(nil)
-                }
-            }
+    func checkForStatus() {
+        logicController.checkForStatus { status in
+            self.isBookmarked = status[0]
+            self.isStarred = status[1]
+            self.handler?(nil)
         }
     }
     
-    // MARK: - Status Checking Methods
+    // MARK: - Synchronize Method
     
-    func checkIfBookmarkedOrStarred(then handler: @escaping (Bool,Bool) -> Void) {
-        logicController.checkIfBookmarkedOrStarred(then: handler)
-    }
-    
-    // MARK: - Model Synchronization Methods
-    
-    private func synchronizeModel() {
+    func synchronize() {
         let model = logicController.model
         name = model.name
         fullName = model.fullName
