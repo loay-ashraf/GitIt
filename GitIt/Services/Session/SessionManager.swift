@@ -12,7 +12,7 @@ class SessionManager {
     
     static let standard = SessionManager()
     let webServiceClient = GitHubClient()
-    let userDefaultsHelper = DataManager.standard.userDefaultsHelper
+    let userDefaultsPersistenceProvider = DataManager.standard.userDefaultsPersistenceProvider
     
     var sessionType: SessionType!
     var sessionUser: UserModel!
@@ -83,11 +83,11 @@ class SessionManager {
     
     private func setSessionType(sessionType: SessionType) {
         self.sessionType = sessionType
-        userDefaultsHelper.sessionTypeKey = sessionType 
+        userDefaultsPersistenceProvider.sessionTypeKey = sessionType 
     }
     
     private func getSessionType() {
-        if let sessionType = userDefaultsHelper.sessionTypeKey {
+        if let sessionType = userDefaultsPersistenceProvider.sessionTypeKey {
             self.sessionType = sessionType
         } else {
             setSessionAttributes(sessionType: .signedOut, accessToken: nil)

@@ -9,7 +9,7 @@ import UIKit
 
 class UserTableViewDelegate: TableViewDelegate {
     
-    init(_ viewController: UserViewController) {
+    init(_ viewController: UIViewController) {
         super.init()
         tapResponder = UserTableViewTapResponder(viewController)
         contextMenuConfigurator = UserTableViewContextMenuConfigurator(viewController)
@@ -19,7 +19,7 @@ class UserTableViewDelegate: TableViewDelegate {
 
 class UserCollectionViewDelegate: CollectionViewDelegate {
     
-    init(_ viewController: UserViewController) {
+    init(_ viewController: UIViewController) {
         super.init()
         tapResponder = UserCollectionViewTapResponder(viewController)
         contextMenuConfigurator = UserCollectionViewContextMenuConfigurator(viewController)

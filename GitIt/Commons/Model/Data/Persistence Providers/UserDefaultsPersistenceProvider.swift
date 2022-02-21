@@ -1,5 +1,5 @@
 //
-//  UserDefaultsHelper.swift
+//  UserDefaultsPersistenceProvider.swift
 //  GitIt
 //
 //  Created by Loay Ashraf on 14/01/2022.
@@ -8,7 +8,7 @@
 import Foundation
 import InAppSettingsKit
 
-class UserDefaultsHelper {
+class UserDefaultsPersistenceProvider: DataPersistenceProvider {
     
     private let userDefaults = UserDefaults.standard
     
@@ -17,12 +17,12 @@ class UserDefaultsHelper {
     func setup() {
         let settingsReader = IASKSettingsReader()
         let defaultDict = settingsReader.gatherDefaultsLimited(toEditableFields: true)
-        userDefaults.register(defaults: defaultDict)
+        register(defaults: defaultDict)
     }
     
     // MARK: - Defaults Registeration Methods
     
-    func register(defaults: [String : Any]) {
+    func register(defaults: [String:Any]) {
         userDefaults.register(defaults: defaults)
     }
     
@@ -58,7 +58,7 @@ class UserDefaultsHelper {
     
 }
 
-extension UserDefaultsHelper {
+extension UserDefaultsPersistenceProvider {
     
     var sessionTypeKey: SessionType? {
         get {

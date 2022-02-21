@@ -9,7 +9,7 @@ import UIKit
 
 class RepositoryTableViewDelegate: TableViewDelegate {
     
-    init(_ viewController: RepositoryViewController) {
+    init(_ viewController: UIViewController) {
         super.init()
         tapResponder = RepositoryTableViewTapResponder(viewController)
         contextMenuConfigurator = RepositoryTableViewContextMenuConfigurator(viewController)
@@ -19,7 +19,7 @@ class RepositoryTableViewDelegate: TableViewDelegate {
 
 class RepositoryCollectionViewDelegate: CollectionViewDelegate {
     
-    init(_ viewController: RepositoryViewController) {
+    init(_ viewController: UIViewController) {
         super.init()
         tapResponder = RepositoryCollectionViewTapResponder(viewController)
         contextMenuConfigurator = RepositoryCollectionViewContextMenuConfigurator(viewController)

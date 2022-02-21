@@ -9,7 +9,7 @@ import UIKit
 
 class OrganizationTableViewDelegate: TableViewDelegate {
     
-    init(_ viewController: OrganizationViewController) {
+    init(_ viewController: UIViewController) {
         super.init()
         tapResponder = OrganizationTableViewTapResponder(viewController)
         contextMenuConfigurator = OrganizationTableViewContextMenuConfigurator(viewController)
@@ -19,7 +19,7 @@ class OrganizationTableViewDelegate: TableViewDelegate {
 
 class OrganizationCollectionViewDelegate: CollectionViewDelegate {
     
-    init(_ viewController: OrganizationViewController) {
+    init(_ viewController: UIViewController) {
         super.init()
         tapResponder = OrganizationCollectionViewTapResponder(viewController)
         contextMenuConfigurator = OrganizationCollectionViewContextMenuConfigurator(viewController)

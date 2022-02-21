@@ -1,5 +1,5 @@
 //
-//  ViewModel.swift
+//  WebServiceViewModel.swift
 //  GitIt
 //
 //  Created by Loay Ashraf on 20/02/2022.

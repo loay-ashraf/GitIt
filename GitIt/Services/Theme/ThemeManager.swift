@@ -11,7 +11,7 @@ import SVProgressHUD
 class ThemeManager: NSObject {
     
     static let standard = ThemeManager()
-    let userDefaultsHelper = DataManager.standard.userDefaultsHelper
+    let userDefaultsPersistenceProvider = DataManager.standard.userDefaultsPersistenceProvider
     var isSetup: Bool = false
     
     // MARK: - Initialisation
@@ -21,14 +21,14 @@ class ThemeManager: NSObject {
     }
     
     deinit {
-        userDefaultsHelper.removeValueObserver(observer: self, for: "theme")
+        userDefaultsPersistenceProvider.removeValueObserver(observer: self, for: "theme")
     }
     
     // MARK: - Setup Methods
     
     func setup() {
         isSetup = true
-        userDefaultsHelper.addValueObserver(observer: self, for: "theme", options: [.new])
+        userDefaultsPersistenceProvider.addValueObserver(observer: self, for: "theme", options: [.new])
         setupProgressHUD()
     }
     
@@ -52,7 +52,7 @@ class ThemeManager: NSObject {
     }
     
     func applyPreferedTheme() {
-        if let value = try? userDefaultsHelper.getValue(for: "theme").get() as? String, let theme = Theme(rawValue: value) {
+        if let value = try? userDefaultsPersistenceProvider.getValue(for: "theme").get() as? String, let theme = Theme(rawValue: value) {
             switch theme {
             case .followSystem: applySystemTheme()
             case .light: applyLightTheme()

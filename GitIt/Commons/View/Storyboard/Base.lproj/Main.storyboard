@@ -201,7 +201,7 @@
                             </constraints>
                         </view>
                         <view key="tableFooterView" contentMode="scaleToFill" id="KSv-gy-qoj" userLabel="Footer">
-                            <rect key="frame" x="0.0" y="502.00000000000011" width="414" height="212"/>
+                            <rect key="frame" x="0.0" y="502" width="414" height="212"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YHQ-yV-hqU" userLabel="Separator">
@@ -393,6 +393,90 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GEj-1v-OIn" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="5041" y="753"/>
+        </scene>
+        <!--User Bookmarks View Controller-->
+        <scene sceneID="41P-fi-iqo">
+            <objects>
+                <tableViewController id="ttQ-8r-dUZ" customClass="UserBookmarksViewController" customModule="GitIt" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="eEZ-ow-vJK" customClass="SFDynamicTableView" customModule="GitIt" customModuleProvider="target">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="530"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" name="Background Color"/>
+                        <view key="tableHeaderView" contentMode="scaleToFill" id="ygx-I8-GgB" userLabel="Header">
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="5"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        </view>
+                        <view key="tableFooterView" contentMode="scaleToFill" id="ski-rk-gPg" userLabel="Footer">
+                            <rect key="frame" x="0.0" y="5" width="414" height="5"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        </view>
+                        <connections>
+                            <outlet property="dataSource" destination="ttQ-8r-dUZ" id="CbT-E5-djS"/>
+                            <outlet property="delegate" destination="ttQ-8r-dUZ" id="gQJ-u7-YuT"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="uIA-8v-Abf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3441" y="-779"/>
+        </scene>
+        <!--Repository Bookmarks View Controller-->
+        <scene sceneID="Ebl-IA-Gnz">
+            <objects>
+                <tableViewController id="Kuy-ee-g74" customClass="RepositoryBookmarksViewController" customModule="GitIt" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="t1N-Mu-uWf" customClass="SFDynamicTableView" customModule="GitIt" customModuleProvider="target">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="530"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" name="Background Color"/>
+                        <view key="tableHeaderView" contentMode="scaleToFill" id="IKP-5m-ptK" userLabel="Header">
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="5"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        </view>
+                        <view key="tableFooterView" contentMode="scaleToFill" id="A5c-cQ-WxN" userLabel="Footer">
+                            <rect key="frame" x="0.0" y="5" width="414" height="5"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        </view>
+                        <connections>
+                            <outlet property="dataSource" destination="Kuy-ee-g74" id="L4y-vX-Ng2"/>
+                            <outlet property="delegate" destination="Kuy-ee-g74" id="OCn-TB-58Z"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8lp-sQ-zi2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4290" y="-779"/>
+        </scene>
+        <!--Organization Bookmarks View Controller-->
+        <scene sceneID="bbl-sE-AjM">
+            <objects>
+                <tableViewController id="vKU-DN-ZpG" customClass="OrganizationBookmarksViewController" customModule="GitIt" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="fSo-wU-jkf" customClass="SFDynamicTableView" customModule="GitIt" customModuleProvider="target">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="530"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" name="Background Color"/>
+                        <view key="tableHeaderView" contentMode="scaleToFill" id="jJG-GJ-o2W" userLabel="Header">
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="5"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        </view>
+                        <view key="tableFooterView" contentMode="scaleToFill" id="z7e-7o-RYm" userLabel="Footer">
+                            <rect key="frame" x="0.0" y="5" width="414" height="5"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        </view>
+                        <connections>
+                            <outlet property="dataSource" destination="vKU-DN-ZpG" id="ZDy-g7-djZ"/>
+                            <outlet property="delegate" destination="vKU-DN-ZpG" id="T8e-uw-fxJ"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Jtm-vK-SFe" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5041" y="-779"/>
         </scene>
         <!--License View Controller-->
         <scene sceneID="h8p-lq-ZcU">
@@ -1742,31 +1826,43 @@
                                     <action selector="selectorChanged:" destination="o9K-IH-Fbn" eventType="valueChanged" id="TVn-Pu-BSd"/>
                                 </connections>
                             </segmentedControl>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="4OO-3x-Uxn" customClass="SFDynamicTableView" customModule="GitIt" customModuleProvider="target">
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="T4h-b4-KRV">
                                 <rect key="frame" x="0.0" y="157" width="414" height="530"/>
-                                <color key="backgroundColor" name="Background Color"/>
-                                <view key="tableHeaderView" contentMode="scaleToFill" id="QNJ-AS-nkp" userLabel="Header">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="5"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <color key="backgroundColor" name="Background Color"/>
-                                </view>
-                                <view key="tableFooterView" contentMode="scaleToFill" id="xA8-Fx-ysJ" userLabel="Footer">
-                                    <rect key="frame" x="0.0" y="5" width="414" height="5"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <color key="backgroundColor" name="Background Color"/>
-                                </view>
-                            </tableView>
+                                <connections>
+                                    <segue destination="ttQ-8r-dUZ" kind="embed" id="W22-1m-uVz"/>
+                                </connections>
+                            </containerView>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a9R-IU-tQA">
+                                <rect key="frame" x="0.0" y="157" width="414" height="530"/>
+                                <connections>
+                                    <segue destination="Kuy-ee-g74" kind="embed" id="rnt-pX-WK6"/>
+                                </connections>
+                            </containerView>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6aw-Pb-YHz">
+                                <rect key="frame" x="0.0" y="157" width="414" height="530"/>
+                                <connections>
+                                    <segue destination="vKU-DN-ZpG" kind="embed" id="4Wj-1g-qEl"/>
+                                </connections>
+                            </containerView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="G5u-T0-IS4"/>
                         <color key="backgroundColor" name="Background Color"/>
                         <constraints>
                             <constraint firstItem="WQV-MN-gB4" firstAttribute="top" secondItem="G5u-T0-IS4" secondAttribute="top" constant="15" id="177-U2-IYv"/>
-                            <constraint firstItem="G5u-T0-IS4" firstAttribute="trailing" secondItem="4OO-3x-Uxn" secondAttribute="trailing" id="2Yi-Gd-wxf"/>
+                            <constraint firstItem="a9R-IU-tQA" firstAttribute="top" secondItem="WQV-MN-gB4" secondAttribute="bottom" constant="15" id="3M8-dI-VKA"/>
+                            <constraint firstItem="G5u-T0-IS4" firstAttribute="trailing" secondItem="T4h-b4-KRV" secondAttribute="trailing" id="7dC-qU-8SM"/>
+                            <constraint firstItem="G5u-T0-IS4" firstAttribute="trailing" secondItem="6aw-Pb-YHz" secondAttribute="trailing" id="7zO-5a-4Ry"/>
+                            <constraint firstItem="G5u-T0-IS4" firstAttribute="trailing" secondItem="a9R-IU-tQA" secondAttribute="trailing" id="CYT-yA-OAY"/>
                             <constraint firstItem="G5u-T0-IS4" firstAttribute="trailing" secondItem="WQV-MN-gB4" secondAttribute="trailing" constant="60" id="D0u-Bs-7WA"/>
-                            <constraint firstItem="4OO-3x-Uxn" firstAttribute="top" secondItem="WQV-MN-gB4" secondAttribute="bottom" constant="15" id="QKS-QP-pCt"/>
+                            <constraint firstItem="a9R-IU-tQA" firstAttribute="leading" secondItem="G5u-T0-IS4" secondAttribute="leading" id="DoP-3T-Ak2"/>
+                            <constraint firstItem="G5u-T0-IS4" firstAttribute="bottom" secondItem="6aw-Pb-YHz" secondAttribute="bottom" id="Huk-mn-iXk"/>
                             <constraint firstItem="WQV-MN-gB4" firstAttribute="leading" secondItem="G5u-T0-IS4" secondAttribute="leading" constant="60" id="RDf-Qc-aqy"/>
-                            <constraint firstItem="G5u-T0-IS4" firstAttribute="bottom" secondItem="4OO-3x-Uxn" secondAttribute="bottom" id="V57-HB-6jZ"/>
-                            <constraint firstItem="4OO-3x-Uxn" firstAttribute="leading" secondItem="G5u-T0-IS4" secondAttribute="leading" id="xD0-yI-KMk"/>
+                            <constraint firstItem="G5u-T0-IS4" firstAttribute="bottom" secondItem="T4h-b4-KRV" secondAttribute="bottom" id="SeE-NS-7EY"/>
+                            <constraint firstItem="G5u-T0-IS4" firstAttribute="bottom" secondItem="a9R-IU-tQA" secondAttribute="bottom" id="n1I-9x-bGg"/>
+                            <constraint firstItem="T4h-b4-KRV" firstAttribute="leading" secondItem="G5u-T0-IS4" secondAttribute="leading" id="qqU-3n-R2g"/>
+                            <constraint firstItem="6aw-Pb-YHz" firstAttribute="top" secondItem="WQV-MN-gB4" secondAttribute="bottom" constant="15" id="sYk-pc-odj"/>
+                            <constraint firstItem="T4h-b4-KRV" firstAttribute="top" secondItem="WQV-MN-gB4" secondAttribute="bottom" constant="15" id="ywF-Cw-7wu"/>
+                            <constraint firstItem="6aw-Pb-YHz" firstAttribute="leading" secondItem="G5u-T0-IS4" secondAttribute="leading" id="z2z-VG-V0r"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Bookmarks" largeTitleDisplayMode="always" id="VLR-xD-p64">
@@ -1778,8 +1874,10 @@
                     </navigationItem>
                     <connections>
                         <outlet property="clearButton" destination="Npv-lO-aaI" id="i11-uY-0PX"/>
+                        <outlet property="organizationBookmarksContainerView" destination="6aw-Pb-YHz" id="tIM-8A-SHp"/>
+                        <outlet property="repositoryBookmarksContainerView" destination="a9R-IU-tQA" id="AP1-Ne-fPS"/>
                         <outlet property="segmentedControl" destination="WQV-MN-gB4" id="3lX-bZ-zJ9"/>
-                        <outlet property="tableView" destination="4OO-3x-Uxn" id="Jdm-JD-Lb9"/>
+                        <outlet property="userBookmarksContainerView" destination="T4h-b4-KRV" id="lxM-Nb-anP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IR4-cx-FuM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

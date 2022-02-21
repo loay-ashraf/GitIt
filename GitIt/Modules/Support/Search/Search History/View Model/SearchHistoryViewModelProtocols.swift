@@ -7,29 +7,18 @@
 
 import Foundation
 
-protocol SearchHistoryViewModel: AnyObject {
+protocol SearchHistoryViewModel: DataPersistenceViewModel where CellViewModelType: CollectionCellViewModel, LogicControllerType: SearchHistoryLogicController {
     
-    associatedtype LogicControllerType: SearchHistoryLogicController
-    associatedtype CollectionCellViewModelType: CollectionCellViewModel
-    associatedtype ModelType: Model
-    
-    var logicController: LogicControllerType { get set }
-    var objectCellViewModels: Array<CollectionCellViewModelType> { get set }
     var queryCellViewModels: Array<QueryCellViewModel> { get set }
     
-    init()
-    
-    func reloadObject(atItem item: Int) -> CollectionCellViewModelType
+    func reloadObject(atItem item: Int) -> CellViewModelType
     func toggleBookmark(atItem item: Int)
     func deleteObject(atItem item: Int)
     func reloadQuery(atRow row: Int) -> String
     func deleteQuery(atRow row: Int)
-    func load(handler: @escaping NetworkLoadingHandler)
-    func add(objectCellViewModel: CollectionCellViewModelType)
+    
     func add(queryCellViewModel: QueryCellViewModel)
-    func delete(objectCellViewModel: CollectionCellViewModelType)
     func delete(queryCellViewModel: QueryCellViewModel)
-    func clear()
     func synchronizeObjects()
     func synchronizeQueries()
     
@@ -37,27 +26,21 @@ protocol SearchHistoryViewModel: AnyObject {
 
 extension SearchHistoryViewModel {
     
-    // MARK: - Initialization
-    
-    init() {
-        self.init()
-    }
-    
     // MARK: - View Actions
     
-    func reloadObject(atItem item: Int) -> CollectionCellViewModelType {
-        let objectCellViewModelItem = objectCellViewModels[item]
-        add(objectCellViewModel: objectCellViewModelItem)
+    func reloadObject(atItem item: Int) -> CellViewModelType {
+        let objectCellViewModelItem = cellViewModels[item]
+        add(cellViewModel: objectCellViewModelItem)
         return objectCellViewModelItem
     }
     
     func toggleBookmark(atItem item: Int) {
-        objectCellViewModels[item].toggleBookmark()
+        cellViewModels[item].toggleBookmark()
     }
     
     func deleteObject(atItem item: Int) {
-        let objectCellViewModelItem = objectCellViewModels[item]
-        delete(objectCellViewModel: objectCellViewModelItem)
+        let objectCellViewModelItem = cellViewModels[item]
+        delete(cellViewModel: objectCellViewModelItem)
     }
     
     func reloadQuery(atRow row: Int) -> String {
@@ -71,57 +54,51 @@ extension SearchHistoryViewModel {
         delete(queryCellViewModel: queryCellViewModelItem)
     }
     
-    // MARK: - Loading Methods
-    
-    func load(handler: @escaping NetworkLoadingHandler) {
-        logicController.load { [weak self] error in
-            self?.synchronizeObjects()
-            self?.synchronizeQueries()
-            handler(error)
-        }
-    }
-    
     // MARK: - View Model Manipulationn Methods
     
-    func add(objectCellViewModel: CollectionCellViewModelType) {
-        let model = ModelType(from: objectCellViewModel as! ModelType.CollectionCellViewModelType)
+    func add(cellViewModel: CellViewModelType) {
+        let model = ModelType(from: cellViewModel as! ModelType.CollectionCellViewModelType)
         logicController.add(model: model as! LogicControllerType.ModelType)
         synchronizeObjects()
     }
     
     func add(queryCellViewModel: QueryCellViewModel) {
         let query = queryCellViewModel.query
-        logicController.add(keyword: query)
+        logicController.add(query: query)
         synchronizeQueries()
     }
     
-    func delete(objectCellViewModel: CollectionCellViewModelType) {
-        let model = ModelType(from: objectCellViewModel as! ModelType.CollectionCellViewModelType)
+    func delete(cellViewModel: CellViewModelType) {
+        let model = ModelType(from: cellViewModel as! ModelType.CollectionCellViewModelType)
         logicController.delete(model: model as! LogicControllerType.ModelType)
         synchronizeObjects()
     }
     
     func delete(queryCellViewModel: QueryCellViewModel) {
         let query = queryCellViewModel.query
-        logicController.delete(keyword: query)
+        logicController.delete(query: query)
         synchronizeQueries()
     }
     
     func clear() {
         logicController.clear()
-        synchronizeObjects()
-        synchronizeQueries()
+        synchronize()
     }
     
     // MARK: - View Model Synchronization Methods
     
+    func synchronize() {
+        synchronizeObjects()
+        synchronizeQueries()
+    }
+    
     func synchronizeObjects() {
-        let objectItems = logicController.model.objects
-        objectCellViewModels = objectItems.map { return CollectionCellViewModelType(from: $0 as! CollectionCellViewModelType.ModelType) }
+        let objectItems = logicController.model
+        cellViewModels = objectItems.map { return CellViewModelType(from: $0 as! CellViewModelType.ModelType) }
     }
     
     func synchronizeQueries() {
-        let queryItems = logicController.model.queries
+        let queryItems = logicController.queryModel
         queryCellViewModels = queryItems.map { return QueryCellViewModel(from: $0) }
     }
     

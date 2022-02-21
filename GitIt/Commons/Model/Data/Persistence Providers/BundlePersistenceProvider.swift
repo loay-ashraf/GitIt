@@ -1,5 +1,5 @@
 //
-//  BundleHelper.swift
+//  BundlePersistenceProvider.swift
 //  GitIt
 //
 //  Created by Loay Ashraf on 14/01/2022.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-class BundleHelper {
+class BundlePersistenceProvider: DataPersistenceProvider {
     
     private let bundle = Bundle.main
     

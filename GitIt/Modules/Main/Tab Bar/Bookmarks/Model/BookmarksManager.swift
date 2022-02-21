@@ -8,11 +8,15 @@
 import Foundation
 import CoreData
 
-class BookmarksManager {
+class BookmarksManager: DataPersistenceManager {
+    
+    // MARK: - Properties
+    
+    typealias DataPersistenceProviderType = CoreDataPersistenceProvider
     
     static let standard = BookmarksManager()
     let webServiceClient = GitHubClient()
-    let coreDataHelper = DataManager.standard.coreDataHelper
+    let dataPersistenceProvider = DataManager.standard.coreDataPersistenceProvider
     
     private var userBookmarks: [User]?
     private var repositoryBookmarks: [Repository]?
@@ -20,20 +24,20 @@ class BookmarksManager {
     
     var activeBookmarksContext: BookmarksContext!
     
-    // MARK: - Initialisation
+    // MARK: - Initialization
     
     private init() {}
     
     // MARK: - Save and Load Methods
     
     func save() throws {
-        try coreDataHelper.saveContexts()
+        try dataPersistenceProvider.saveContexts()
     }
     
     func load() throws {
-        userBookmarks = try coreDataHelper.fetchSync(entity: User.self, sortKey: nil, ascending: true).get()
-        repositoryBookmarks = try coreDataHelper.fetchSync(entity: Repository.self, sortKey: nil, ascending: true).get()
-        organizationBookmarks = try coreDataHelper.fetchSync(entity: Organization.self, sortKey: nil, ascending: true).get()
+        userBookmarks = try dataPersistenceProvider.fetchSync(entity: User.self, sortKey: nil, ascending: true).get()
+        repositoryBookmarks = try dataPersistenceProvider.fetchSync(entity: Repository.self, sortKey: nil, ascending: true).get()
+        organizationBookmarks = try dataPersistenceProvider.fetchSync(entity: Organization.self, sortKey: nil, ascending: true).get()
     }
     
     // MARK: - Write Methods
@@ -44,7 +48,7 @@ class BookmarksManager {
                 getCompleteUser(with: userModel) { completeUserModel in
                     var result: Result<NSManagedObject,CoreDataError>?
                     if let completeUserModel = completeUserModel {
-                        result = self.coreDataHelper.insert(completeUserModel)
+                        result = self.dataPersistenceProvider.insert(completeUserModel)
                     }
                     switch result {
                     case .success(let managedObject): self.userBookmarks?.append(managedObject as! User)
@@ -56,7 +60,7 @@ class BookmarksManager {
                 getCompleteRepository(with: repositoryModel) { completeRepositoryModel in
                     var result: Result<NSManagedObject,CoreDataError>?
                     if let completeRepositoryModel = completeRepositoryModel {
-                        result = self.coreDataHelper.insert(completeRepositoryModel)
+                        result = self.dataPersistenceProvider.insert(completeRepositoryModel)
                     }
                     switch result {
                     case .success(let managedObject): self.repositoryBookmarks?.append(managedObject as! Repository)
@@ -68,7 +72,7 @@ class BookmarksManager {
                 getCompleteOrganization(with: organizationModel) { completeOrganizationModel in
                     var result: Result<NSManagedObject,CoreDataError>?
                     if let completeOrganizationModel = completeOrganizationModel {
-                        result = self.coreDataHelper.insert(completeOrganizationModel)
+                        result = self.dataPersistenceProvider.insert(completeOrganizationModel)
                     }
                     switch result {
                     case .success(let managedObject): self.organizationBookmarks?.append(managedObject as! Organization)
@@ -78,7 +82,7 @@ class BookmarksManager {
                 }
             }
         } else {
-            let result = coreDataHelper.insert(model)
+            let result = dataPersistenceProvider.insert(model)
             switch result {
             case let .success(managedObject) where managedObject.self is User: userBookmarks?.append(managedObject as! User)
             case let .success(managedObject) where managedObject.self is Repository: repositoryBookmarks?.append(managedObject as! Repository)
@@ -96,17 +100,17 @@ class BookmarksManager {
         case is OrganizationModel.Type: organizationBookmarks?.removeAll() { return $0.id == model.id }
         default: break
         }
-        try coreDataHelper.delete(model)
+        try dataPersistenceProvider.delete(model)
     }
     
     func clear<Type: Model>(for modelType: Type.Type) throws {
         switch modelType {
         case is UserModel.Type: userBookmarks?.removeAll()
-                                try coreDataHelper.deleteAll(User.self)
+                                try dataPersistenceProvider.deleteAll(User.self)
         case is RepositoryModel.Type: repositoryBookmarks?.removeAll()
-                                      try coreDataHelper.deleteAll(Repository.self)
+                                      try dataPersistenceProvider.deleteAll(Repository.self)
         case is OrganizationModel.Type: organizationBookmarks?.removeAll()
-                                        try coreDataHelper.deleteAll(Organization.self)
+                                        try dataPersistenceProvider.deleteAll(Organization.self)
         default: break
         }
     }
@@ -114,11 +118,11 @@ class BookmarksManager {
     func clearActive() throws {
         switch activeBookmarksContext {
         case .users: userBookmarks?.removeAll()
-                     try coreDataHelper.deleteAll(User.self)
+                     try dataPersistenceProvider.deleteAll(User.self)
         case .repositories: repositoryBookmarks?.removeAll()
-                            try coreDataHelper.deleteAll(Repository.self)
+                            try dataPersistenceProvider.deleteAll(Repository.self)
         case .organizations: organizationBookmarks?.removeAll()
-                             try coreDataHelper.deleteAll(Organization.self)
+                             try dataPersistenceProvider.deleteAll(Organization.self)
         default: break
         }
     }

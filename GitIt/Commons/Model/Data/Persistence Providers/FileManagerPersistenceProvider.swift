@@ -1,5 +1,5 @@
 //
-//  FileManagerHelper.swift
+//  FileManagerPersistenceProvider.swift
 //  GitIt
 //
 //  Created by Loay Ashraf on 14/01/2022.
@@ -7,9 +7,9 @@
 
 import Foundation
 
-class FileManagerHelper {
+class FileManagerPersistenceProvider: DataPersistenceProvider {
     
-    let fileManager = FileManager.default
+    private let fileManager = FileManager.default
     
     // MARK: - Writing Methods
     

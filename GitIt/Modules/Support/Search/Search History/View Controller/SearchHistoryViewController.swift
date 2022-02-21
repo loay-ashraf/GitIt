@@ -16,7 +16,7 @@ class SearchHistoryViewController<T: SearchHistoryViewModel>: SFViewController {
     weak var delegate: SearchHistoryDelegate!
     var viewModel = T()
     
-    var collectionViewDataSource: CollectionViewDataSource<T.CollectionCellViewModelType>!
+    var collectionViewDataSource: CollectionViewDataSource<T.CellViewModelType>!
     var collectionViewDelegate: SearchHistoryCollectionViewDelegate<T>!
     var tableViewDataSource: SearchHistoryTableViewDataSource<T>!
     var tableViewDelegate: SearchHistoryTableViewDelegate<T>!
@@ -79,7 +79,7 @@ class SearchHistoryViewController<T: SearchHistoryViewModel>: SFViewController {
         
         collectionView.cornerRadius = 10.0
         collectionView.cornerCurve = .continuous
-        collectionViewDataSource = SearchHistoryCollectionViewDataSource<T.CollectionCellViewModelType>.raw()
+        collectionViewDataSource = SearchHistoryCollectionViewDataSource<T.CellViewModelType>.raw()
         collectionViewDelegate = SearchHistoryCollectionViewDelegate<T>(self)
         collectionView.setDataSource(collectionViewDataSource)
         collectionView.setDelegate(collectionViewDelegate)
@@ -93,7 +93,7 @@ class SearchHistoryViewController<T: SearchHistoryViewModel>: SFViewController {
     }
     
     func layoutView() {
-        let headerShouldBeHidden = viewModel.objectCellViewModels.isEmpty && viewModel.queryCellViewModels.isEmpty
+        let headerShouldBeHidden = viewModel.cellViewModels.isEmpty && viewModel.queryCellViewModels.isEmpty
         switch headerShouldBeHidden {
         case true: headerTitleStackView.isHidden = true
                    xView.transition(to: .empty(emptyViewModel))
@@ -105,7 +105,7 @@ class SearchHistoryViewController<T: SearchHistoryViewModel>: SFViewController {
     }
     
     func layoutCollectionView() {
-        let collectionShouldBeHidden = viewModel.objectCellViewModels.isEmpty
+        let collectionShouldBeHidden = viewModel.cellViewModels.isEmpty
         let collectionContentHeight = collectionView.collectionViewLayout.collectionViewContentSize.height
         switch collectionShouldBeHidden {
         case true: collectionView.isHidden = true
@@ -144,7 +144,7 @@ class SearchHistoryViewController<T: SearchHistoryViewModel>: SFViewController {
     // MARK: - View Synchronization Methods
     
     func synchronizeCollectionView() {
-        collectionViewDataSource.cellViewModels = viewModel.objectCellViewModels
+        collectionViewDataSource.cellViewModels = viewModel.cellViewModels
     }
     
     func synchronizeTableView() {
@@ -184,21 +184,21 @@ class SearchHistoryViewController<T: SearchHistoryViewModel>: SFViewController {
     }
     
     func saveImage(atItem item: Int) {
-        if let cellViewModelItem = viewModel.objectCellViewModels[item] as? UserCollectionCellViewModel {
+        if let cellViewModelItem = viewModel.cellViewModels[item] as? UserCollectionCellViewModel {
             KingfisherManager.shared.retrieveImage(with: cellViewModelItem.avatarURL) { result in
                 if let retreiveResult = try? result.get() {
                     UIImageWriteToSavedPhotosAlbum(retreiveResult.image, self, nil, nil)
                     SVProgressHUD.showSuccess(withStatus: "Image Saved".localized())
                 }
             }
-        } else if let cellViewModelItem = viewModel.objectCellViewModels[item] as? RepositoryCollectionCellViewModel {
+        } else if let cellViewModelItem = viewModel.cellViewModels[item] as? RepositoryCollectionCellViewModel {
             KingfisherManager.shared.retrieveImage(with: cellViewModelItem.owner.avatarURL) { result in
                 if let retreiveResult = try? result.get() {
                     UIImageWriteToSavedPhotosAlbum(retreiveResult.image, self, nil, nil)
                     SVProgressHUD.showSuccess(withStatus: "Image Saved".localized())
                 }
             }
-        } else if let cellViewModelItem = viewModel.objectCellViewModels[item] as? OrganizationCollectionCellViewModel {
+        } else if let cellViewModelItem = viewModel.cellViewModels[item] as? OrganizationCollectionCellViewModel {
             KingfisherManager.shared.retrieveImage(with: cellViewModelItem.avatarURL) { result in
                 if let retreiveResult = try? result.get() {
                     UIImageWriteToSavedPhotosAlbum(retreiveResult.image, self, nil, nil)
@@ -209,21 +209,21 @@ class SearchHistoryViewController<T: SearchHistoryViewModel>: SFViewController {
     }
     
     func openInSafari(atItem item: Int) {
-        if let cellViewModelItem = viewModel.objectCellViewModels[item] as? UserCollectionCellViewModel {
+        if let cellViewModelItem = viewModel.cellViewModels[item] as? UserCollectionCellViewModel {
             URLHelper.openWebsite(cellViewModelItem.htmlURL)
-        } else if let cellViewModelItem = viewModel.objectCellViewModels[item] as? RepositoryCollectionCellViewModel {
+        } else if let cellViewModelItem = viewModel.cellViewModels[item] as? RepositoryCollectionCellViewModel {
             URLHelper.openWebsite(cellViewModelItem.htmlURL)
-        } else if let cellViewModelItem = viewModel.objectCellViewModels[item] as? OrganizationCollectionCellViewModel {
+        } else if let cellViewModelItem = viewModel.cellViewModels[item] as? OrganizationCollectionCellViewModel {
             URLHelper.openWebsite(cellViewModelItem.htmlURL)
         }
     }
     
     func share(atItem item: Int) {
-        if let cellViewModelItem = viewModel.objectCellViewModels[item] as? UserCollectionCellViewModel {
+        if let cellViewModelItem = viewModel.cellViewModels[item] as? UserCollectionCellViewModel {
             URLHelper.shareWebsite(cellViewModelItem.htmlURL)
-        } else if let cellViewModelItem = viewModel.objectCellViewModels[item] as? RepositoryCollectionCellViewModel {
+        } else if let cellViewModelItem = viewModel.cellViewModels[item] as? RepositoryCollectionCellViewModel {
             URLHelper.shareWebsite(cellViewModelItem.htmlURL)
-        } else if let cellViewModelItem = viewModel.objectCellViewModels[item] as? OrganizationCollectionCellViewModel {
+        } else if let cellViewModelItem = viewModel.cellViewModels[item] as? OrganizationCollectionCellViewModel {
             URLHelper.shareWebsite(cellViewModelItem.htmlURL)
         }
     }
@@ -253,7 +253,7 @@ class SearchHistoryViewController<T: SearchHistoryViewModel>: SFViewController {
     
     override func load() {
         super.load()
-        viewModel.load { [weak self] error in self?.loadHandler(error: error) }
+        loadHandler(error: nil)
     }
     
     func reset() {

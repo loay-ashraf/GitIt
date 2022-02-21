@@ -9,16 +9,14 @@ import UIKit
 
 class RepositoryTableViewCellConfigurator: TableViewCellConfigurator {
     
-    let bundleHelper = DataManager.standard.bundleHelper
-    var languageColors: [String:String]? {
-        get {
-            if let languageColors = try? bundleHelper.loadResource(title: "LanguageColors", withExtension: "json").get() {
-                let dict = try? JSONSerialization.jsonObject(with: languageColors, options: [])
-                return dict as? [String:String]
-            }
-           return nil
+    var languageColors: [String:String]? = {
+        let bundlePersistenceProvider = DataManager.standard.bundlePersistenceProvider
+        if let languageColors = try? bundlePersistenceProvider.loadResource(title: "LanguageColors", withExtension: "json").get() {
+            let dict = try? JSONSerialization.jsonObject(with: languageColors, options: [])
+            return dict as? [String:String]
         }
-    }
+        return nil
+    }()
     
     override func configure<Type>(_ cell: UITableViewCell, forDisplaying item: Type) {
         if let cell = cell as? RepositoryTableViewCell, let item = item as? RepositoryTableCellViewModel {

@@ -12,12 +12,18 @@ final class UserSearchHistoryViewModel: SearchHistoryViewModel {
     // MARK: - Properties
     
     typealias LogicControllerType = UserSearchHistoryLogicController
-    typealias CollectionCellViewModelType = UserCollectionCellViewModel
+    typealias CellViewModelType = UserCollectionCellViewModel
     typealias ModelType = UserModel
     
-    var logicController = LogicControllerType()
-    var objectCellViewModels = Array<CollectionCellViewModelType>()
+    var logicController = UserSearchHistoryLogicController()
+    var cellViewModels = Array<UserCollectionCellViewModel>()
     var queryCellViewModels = Array<QueryCellViewModel>()
+    
+    // MARK: - Initialization
+    
+    init() {
+        synchronize()
+    }
     
 }
 
@@ -26,12 +32,18 @@ final class RepositorySearchHistoryViewModel: SearchHistoryViewModel {
     // MARK: - Properties
     
     typealias LogicControllerType = RepositorySearchHistoryLogicController
-    typealias CollectionCellViewModelType = RepositoryCollectionCellViewModel
+    typealias CellViewModelType = RepositoryCollectionCellViewModel
     typealias ModelType = RepositoryModel
     
-    var logicController = LogicControllerType()
-    var objectCellViewModels = Array<CollectionCellViewModelType>()
+    var logicController = RepositorySearchHistoryLogicController()
+    var cellViewModels = Array<RepositoryCollectionCellViewModel>()
     var queryCellViewModels = Array<QueryCellViewModel>()
+    
+    // MARK: - Initialization
+    
+    init() {
+        synchronize()
+    }
     
 }
 
@@ -40,12 +52,18 @@ final class OrganizationSearchHistoryViewModel: SearchHistoryViewModel {
     // MARK: - Properties
     
     typealias LogicControllerType = OrganizationSearchHistoryLogicController
-    typealias CollectionCellViewModelType = OrganizationCollectionCellViewModel
+    typealias CellViewModelType = OrganizationCollectionCellViewModel
     typealias ModelType = OrganizationModel
     
-    var logicController = LogicControllerType()
-    var objectCellViewModels = Array<CollectionCellViewModelType>()
+    var logicController = OrganizationSearchHistoryLogicController()
+    var cellViewModels = Array<OrganizationCollectionCellViewModel>()
     var queryCellViewModels = Array<QueryCellViewModel>()
+    
+    // MARK: - Initialization
+    
+    init() {
+        synchronize()
+    }
     
 }
 
@@ -56,19 +74,20 @@ final class QueryCellViewModel: TableCellViewModel {
     typealias ModelType = String
     typealias CollectionCellViewModelType = UserCollectionCellViewModel
     
-    var model: ModelType
-    var query: String
+    var model = String()
+    var query: String {
+        get { return model }
+        set { model = newValue }
+    }
     
     // MARK: - Initialization
     
     init(from model: ModelType) {
         self.model = model
-        query = model
     }
     
     init(from collectionCellViewModel: CollectionCellViewModelType) {
         model = ""
-        query = ""
     }
     
     // MARK: - View Model Adapter Methods

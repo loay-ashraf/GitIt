@@ -14,10 +14,10 @@ class DataManager {
     
     // MARK: - Manager Helpers
     
-    let bundleHelper = BundleHelper()
-    let coreDataHelper = CoreDataHelper()
-    let fileManagerHelper = FileManagerHelper()
-    let userDefaultsHelper = UserDefaultsHelper()
+    let bundlePersistenceProvider = BundlePersistenceProvider()
+    let coreDataPersistenceProvider = CoreDataPersistenceProvider()
+    let fileManagerPersistenceProvider = FileManagerPersistenceProvider()
+    let userDefaultsPersistenceProvider = UserDefaultsPersistenceProvider()
     
     // MARK: Initialisation
     
@@ -27,14 +27,14 @@ class DataManager {
     
     func setup(completionHandler: @escaping ((DataError?) -> Void)) {
         isSetup = true
-        coreDataHelper.setup() { coreDataError in
+        coreDataPersistenceProvider.setup() { coreDataError in
             if let error = coreDataError {
                 completionHandler(.coreData(error))
             } else {
                 completionHandler(nil)
             }
         }
-        userDefaultsHelper.setup()
+        userDefaultsPersistenceProvider.setup()
     }
     
     // MARK: - Save and Load Methods
@@ -76,8 +76,8 @@ class DataManager {
             SearchHistoryManager.standard.clearAll()
             
             // Clear data stored in Storage
-            try coreDataHelper.clear()
-            fileManagerHelper.clear()
+            try coreDataPersistenceProvider.clear()
+            fileManagerPersistenceProvider.clear()
         } catch let error as CoreDataError {
             throw DataError.coreData(error)
         }
@@ -92,9 +92,9 @@ class DataManager {
             SearchHistoryManager.standard.clearAll()
             
             // Clear data stored in Storage
-            try coreDataHelper.clear()
-            fileManagerHelper.clear()
-            userDefaultsHelper.clear()
+            try coreDataPersistenceProvider.clear()
+            fileManagerPersistenceProvider.clear()
+            userDefaultsPersistenceProvider.clear()
         } catch let error as CoreDataError {
             throw DataError.coreData(error)
         }

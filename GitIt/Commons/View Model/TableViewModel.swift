@@ -34,36 +34,3 @@ extension TableViewModel {
     var isPaginable: Bool { return cellViewModels.isPaginable }
     
 }
-
-protocol TableCellViewModel: AnyObject {
-    
-    associatedtype ModelType
-    associatedtype CollectionCellViewModelType: CollectionCellViewModel
-    
-    var model: ModelType { get }
-    
-    init()
-    init(from model: ModelType)
-    init(from collectionCellViewModel: CollectionCellViewModelType)
-    
-    func collectionCellViewModel() -> CollectionCellViewModelType
-    
-    func toggleBookmark()
-    
-}
-
-extension TableCellViewModel {
-    
-    // MARK: - Initialization
-    
-    init() {
-        self.init()
-    }
-    
-    // MARK: - View Actions
-    
-    func toggleBookmark() {
-        fatalError("This Action cannot be performed on this cell type")
-    }
-    
-}

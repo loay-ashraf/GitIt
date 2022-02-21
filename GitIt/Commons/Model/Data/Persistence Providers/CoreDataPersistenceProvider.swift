@@ -1,5 +1,5 @@
 //
-//  CoreDataHelper.swift
+//  CoreDataPersistenceProvider.swift
 //  GitIt
 //
 //  Created by Loay Ashraf on 20/10/2021.
@@ -8,7 +8,7 @@
 import Foundation
 import CoreData
 
-class CoreDataHelper {
+class CoreDataPersistenceProvider: DataPersistenceProvider {
     
     private var persistentContainer: NSPersistentContainer!
     private var viewContext: NSManagedObjectContext! { return persistentContainer?.viewContext }
@@ -145,7 +145,7 @@ class CoreDataHelper {
     
 }
 
-extension CoreDataHelper {
+extension CoreDataPersistenceProvider {
     
     // MARK: - Fetch Request Helper Methods
     

@@ -7,10 +7,14 @@
 
 import Foundation
 
-class SearchHistoryManager {
+class SearchHistoryManager: DataPersistenceManager {
+    
+    // MARK: - Properties
+    
+    typealias DataPersistenceProviderType = FileManagerPersistenceProvider
     
     static let standard = SearchHistoryManager()
-    let fileManagerHelper = DataManager.standard.fileManagerHelper
+    let dataPersistenceProvider = DataManager.standard.fileManagerPersistenceProvider
     
     var userHistory = SearchHistory<UserModel>()
     var repositoryHistory = SearchHistory<RepositoryModel>()
@@ -18,23 +22,23 @@ class SearchHistoryManager {
     
     var activeSearchContext: SearchContext!
     
-    // MARK: - Initialisation
+    // MARK: - Initialization
     
     private init() {}
     
     // MARK: - Save and Load Methods
     
     func save() throws {
-        try fileManagerHelper.writeJSONFile(with: userHistory, at: Constants.Model.SearchHistory.userURL)
-        try fileManagerHelper.writeJSONFile(with: repositoryHistory, at: Constants.Model.SearchHistory.repositoryURL)
-        try fileManagerHelper.writeJSONFile(with: organizationHistory, at: Constants.Model.SearchHistory.organizationURL)
+        try dataPersistenceProvider.writeJSONFile(with: userHistory, at: Constants.Model.SearchHistory.userURL)
+        try dataPersistenceProvider.writeJSONFile(with: repositoryHistory, at: Constants.Model.SearchHistory.repositoryURL)
+        try dataPersistenceProvider.writeJSONFile(with: organizationHistory, at: Constants.Model.SearchHistory.organizationURL)
     }
     
     func load() throws {
         do {
-            userHistory = try fileManagerHelper.readJSONFile(at: Constants.Model.SearchHistory.userURL).get()
-            repositoryHistory = try fileManagerHelper.readJSONFile(at: Constants.Model.SearchHistory.repositoryURL).get()
-            organizationHistory = try fileManagerHelper.readJSONFile(at: Constants.Model.SearchHistory.organizationURL).get()
+            userHistory = try dataPersistenceProvider.readJSONFile(at: Constants.Model.SearchHistory.userURL).get()
+            repositoryHistory = try dataPersistenceProvider.readJSONFile(at: Constants.Model.SearchHistory.repositoryURL).get()
+            organizationHistory = try dataPersistenceProvider.readJSONFile(at: Constants.Model.SearchHistory.organizationURL).get()
         } catch let error as FileManagerError {
             switch error {
             case FileManagerError.fileDoesNotExist: break
