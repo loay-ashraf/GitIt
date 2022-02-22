@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol StatefulView: UIView {
+protocol WSStatefulView: UIView {
     
     var state: ViewState { get set }
     
@@ -22,7 +22,30 @@ protocol StatefulView: UIView {
     
 }
 
-extension StatefulView {
+extension WSStatefulView {
+    
+    func showEmpty(for model: EmptyViewModel) {
+        fatalError("This View cannot show empty state")
+    }
+    
+    func hideEmpty() {
+        fatalError("This View cannot show empty state, hence cannot hide it.")
+    }
+    
+}
+
+protocol DPStatefulView: UIView {
+    
+    var state: ViewState { get set }
+    
+    func transition(to viewState: ViewState)
+    func render(_ viewState: ViewState)
+    func showEmpty(for model: EmptyViewModel)
+    func hideEmpty()
+    
+}
+
+extension DPStatefulView {
     
     func showEmpty(for model: EmptyViewModel) {
         fatalError("This View cannot show empty state")

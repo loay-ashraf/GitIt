@@ -7,7 +7,7 @@
 
 import UIKit
 
-class RepositoryViewController: SFDynamicTableViewController<RepositoryViewModel>, StoryboardableViewController {
+class RepositoryViewController: WSSFDynamicTableViewController<RepositoryViewModel>, StoryboardableViewController {
     
     // MARK: - Properties
     

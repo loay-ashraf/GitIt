@@ -12,11 +12,11 @@ final class UserSearchHistoryViewModel: SearchHistoryViewModel {
     // MARK: - Properties
     
     typealias LogicControllerType = UserSearchHistoryLogicController
-    typealias CellViewModelType = UserCollectionCellViewModel
+    typealias ObjectCellViewModelType = UserCollectionCellViewModel
     typealias ModelType = UserModel
     
     var logicController = UserSearchHistoryLogicController()
-    var cellViewModels = Array<UserCollectionCellViewModel>()
+    var objectCellViewModels = Array<UserCollectionCellViewModel>()
     var queryCellViewModels = Array<QueryCellViewModel>()
     
     // MARK: - Initialization
@@ -32,11 +32,11 @@ final class RepositorySearchHistoryViewModel: SearchHistoryViewModel {
     // MARK: - Properties
     
     typealias LogicControllerType = RepositorySearchHistoryLogicController
-    typealias CellViewModelType = RepositoryCollectionCellViewModel
+    typealias ObjectCellViewModelType = RepositoryCollectionCellViewModel
     typealias ModelType = RepositoryModel
     
     var logicController = RepositorySearchHistoryLogicController()
-    var cellViewModels = Array<RepositoryCollectionCellViewModel>()
+    var objectCellViewModels = Array<RepositoryCollectionCellViewModel>()
     var queryCellViewModels = Array<QueryCellViewModel>()
     
     // MARK: - Initialization
@@ -52,11 +52,11 @@ final class OrganizationSearchHistoryViewModel: SearchHistoryViewModel {
     // MARK: - Properties
     
     typealias LogicControllerType = OrganizationSearchHistoryLogicController
-    typealias CellViewModelType = OrganizationCollectionCellViewModel
+    typealias ObjectCellViewModelType = OrganizationCollectionCellViewModel
     typealias ModelType = OrganizationModel
     
     var logicController = OrganizationSearchHistoryLogicController()
-    var cellViewModels = Array<OrganizationCollectionCellViewModel>()
+    var objectCellViewModels = Array<OrganizationCollectionCellViewModel>()
     var queryCellViewModels = Array<QueryCellViewModel>()
     
     // MARK: - Initialization

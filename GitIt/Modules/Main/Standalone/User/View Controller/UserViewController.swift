@@ -9,7 +9,7 @@ import UIKit
 import Kingfisher
 import SVProgressHUD
 
-class UserViewController: SFDynamicTableViewController<UserViewModel>, StoryboardableViewController {
+class UserViewController: WSSFDynamicTableViewController<UserViewModel>, StoryboardableViewController {
 
     // MARK: - Properties
     

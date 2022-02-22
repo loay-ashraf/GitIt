@@ -7,7 +7,7 @@
 
 import UIKit
 
-class OrganizationDetailViewController: SFStaticTableViewController, StoryboardableViewController {
+class OrganizationDetailViewController: WSSFStaticTableViewController, StoryboardableViewController {
 
     // MARK: - Properties
     

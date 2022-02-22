@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ProfileViewController: SFStaticTableViewController {
+class ProfileViewController: WSSFStaticTableViewController {
     
     // MARK: - View Outlets
     

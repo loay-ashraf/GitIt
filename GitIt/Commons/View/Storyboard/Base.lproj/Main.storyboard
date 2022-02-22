@@ -71,7 +71,7 @@
         <scene sceneID="JBj-bv-7Mo">
             <objects>
                 <tableViewController storyboardIdentifier="RepositoryDetailVC" hidesBottomBarWhenPushed="YES" id="mXo-Ji-rNn" customClass="RepositoryDetailViewController" customModule="GitIt" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="static" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="1" sectionFooterHeight="1" id="IRs-2D-YdW" customClass="SFStaticTableView" customModule="GitIt" customModuleProvider="target">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="static" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="1" sectionFooterHeight="1" id="IRs-2D-YdW" customClass="WSSFStaticTableView" customModule="GitIt" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" name="Background Color"/>
@@ -127,7 +127,7 @@
                                             </userDefinedRuntimeAttributes>
                                         </view>
                                         <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="lve-Ok-SsP">
-                                            <rect key="frame" x="0.0" y="190.33333333333334" width="181.33333333333334" height="20"/>
+                                            <rect key="frame" x="0.0" y="190.33333333333334" width="181.66666666666666" height="20"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4e0-tK-y3D" customClass="IconicNumericView" customModule="GitIt" customModuleProvider="target">
                                                     <rect key="frame" x="0.0" y="0.0" width="83" height="20"/>
@@ -145,7 +145,7 @@
                                                     </userDefinedRuntimeAttributes>
                                                 </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hls-Ca-fgn" customClass="IconicNumericView" customModule="GitIt" customModuleProvider="target">
-                                                    <rect key="frame" x="98" y="0.0" width="83.333333333333314" height="20"/>
+                                                    <rect key="frame" x="98" y="0.0" width="83.666666666666686" height="20"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="20" id="0ro-qm-iXY"/>
@@ -201,7 +201,7 @@
                             </constraints>
                         </view>
                         <view key="tableFooterView" contentMode="scaleToFill" id="KSv-gy-qoj" userLabel="Footer">
-                            <rect key="frame" x="0.0" y="502.00000000000011" width="414" height="212"/>
+                            <rect key="frame" x="0.0" y="502" width="414" height="212"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YHQ-yV-hqU" userLabel="Separator">
@@ -398,7 +398,7 @@
         <scene sceneID="41P-fi-iqo">
             <objects>
                 <tableViewController id="ttQ-8r-dUZ" customClass="UserBookmarksViewController" customModule="GitIt" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="eEZ-ow-vJK" customClass="SFDynamicTableView" customModule="GitIt" customModuleProvider="target">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="eEZ-ow-vJK" customClass="DPSFDynamicTableView" customModule="GitIt" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="530"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" name="Background Color"/>
@@ -426,7 +426,7 @@
         <scene sceneID="Ebl-IA-Gnz">
             <objects>
                 <tableViewController id="Kuy-ee-g74" customClass="RepositoryBookmarksViewController" customModule="GitIt" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="t1N-Mu-uWf" customClass="SFDynamicTableView" customModule="GitIt" customModuleProvider="target">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="t1N-Mu-uWf" customClass="DPSFDynamicTableView" customModule="GitIt" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="530"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" name="Background Color"/>
@@ -454,7 +454,7 @@
         <scene sceneID="bbl-sE-AjM">
             <objects>
                 <tableViewController id="vKU-DN-ZpG" customClass="OrganizationBookmarksViewController" customModule="GitIt" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="fSo-wU-jkf" customClass="SFDynamicTableView" customModule="GitIt" customModuleProvider="target">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="fSo-wU-jkf" customClass="DPSFDynamicTableView" customModule="GitIt" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="530"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" name="Background Color"/>
@@ -482,7 +482,7 @@
         <scene sceneID="h8p-lq-ZcU">
             <objects>
                 <viewController storyboardIdentifier="LicenseVC" id="Zmt-ox-2jq" userLabel="License View Controller" customClass="LicenseViewController" customModule="GitIt" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="JXj-oq-XYW" customClass="SFView" customModule="GitIt" customModuleProvider="target">
+                    <view key="view" contentMode="scaleToFill" id="JXj-oq-XYW" customClass="WSSFView" customModule="GitIt" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -518,7 +518,7 @@
         <scene sceneID="VKW-mo-Bqf">
             <objects>
                 <tableViewController storyboardIdentifier="CommitDetailVC" id="nd6-67-8Af" customClass="CommitDetailViewController" customModule="GitIt" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" alwaysBounceVertical="YES" bouncesZoom="NO" dataMode="static" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="vvk-6X-nph" customClass="SFStaticTableView" customModule="GitIt" customModuleProvider="target">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" alwaysBounceVertical="YES" bouncesZoom="NO" dataMode="static" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="vvk-6X-nph" customClass="WSSFStaticTableView" customModule="GitIt" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" name="Background Color"/>
@@ -769,7 +769,7 @@
         <scene sceneID="rNT-5Q-hnw">
             <objects>
                 <tableViewController storyboardIdentifier="UserDetailVC" hidesBottomBarWhenPushed="YES" id="lW3-KA-tFE" customClass="UserDetailViewController" customModule="GitIt" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="static" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="1" sectionFooterHeight="1" id="a3e-CF-TGq" customClass="SFStaticTableView" customModule="GitIt" customModuleProvider="target">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="static" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="1" sectionFooterHeight="1" id="a3e-CF-TGq" customClass="WSSFStaticTableView" customModule="GitIt" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" name="Background Color"/>
@@ -835,7 +835,7 @@
                                             <rect key="frame" x="0.0" y="194.66666666666666" width="199" height="20"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YjQ-CY-fKu" customClass="IconicTextView" customModule="GitIt" customModuleProvider="target">
-                                                    <rect key="frame" x="0.0" y="0.0" width="95.333333333333329" height="20"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="95.666666666666671" height="20"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="20" id="ySe-l8-meh"/>
@@ -846,7 +846,7 @@
                                                     </userDefinedRuntimeAttributes>
                                                 </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="U0H-ob-Nhq" customClass="IconicTextView" customModule="GitIt" customModuleProvider="target">
-                                                    <rect key="frame" x="110.33333333333331" y="0.0" width="88.666666666666686" height="20"/>
+                                                    <rect key="frame" x="110.66666666666669" y="0.0" width="88.333333333333314" height="20"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="20" id="Yfn-RP-6s0"/>
@@ -859,7 +859,7 @@
                                             </subviews>
                                         </stackView>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pxC-1W-z7A" customClass="IconicTextView" customModule="GitIt" customModuleProvider="target">
-                                            <rect key="frame" x="0.0" y="238" width="62.333333333333336" height="20"/>
+                                            <rect key="frame" x="0.0" y="238" width="62.666666666666664" height="20"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="20" id="HKE-yZ-n5C"/>
@@ -1082,7 +1082,7 @@
         <scene sceneID="riL-j3-AkV">
             <objects>
                 <tableViewController storyboardIdentifier="OrganizationDetailVC" hidesBottomBarWhenPushed="YES" id="XOx-6P-JXo" customClass="OrganizationDetailViewController" customModule="GitIt" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" bouncesZoom="NO" dataMode="static" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="1" sectionFooterHeight="1" id="rjE-Gw-Z3G" customClass="SFStaticTableView" customModule="GitIt" customModuleProvider="target">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" bouncesZoom="NO" dataMode="static" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="1" sectionFooterHeight="1" id="rjE-Gw-Z3G" customClass="WSSFStaticTableView" customModule="GitIt" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" name="Background Color"/>
@@ -1153,7 +1153,7 @@
                                             </userDefinedRuntimeAttributes>
                                         </view>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GP3-mr-LL1" customClass="IconicTextView" customModule="GitIt" customModuleProvider="target">
-                                            <rect key="frame" x="0.0" y="225" width="62.333333333333336" height="20"/>
+                                            <rect key="frame" x="0.0" y="225" width="62.666666666666664" height="20"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="20" id="HnJ-1k-W31"/>
@@ -1319,7 +1319,7 @@
         <scene sceneID="36V-L1-m5f">
             <objects>
                 <tableViewController storyboardIdentifier="UserVC" hidesBottomBarWhenPushed="YES" id="DLM-eG-u9V" customClass="UserViewController" customModule="GitIt" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="84" sectionHeaderHeight="28" estimatedSectionHeaderHeight="-1" sectionFooterHeight="28" estimatedSectionFooterHeight="-1" id="F1Q-LM-NtG" customClass="SFDynamicTableView" customModule="GitIt" customModuleProvider="target">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="84" sectionHeaderHeight="28" estimatedSectionHeaderHeight="-1" sectionFooterHeight="28" estimatedSectionFooterHeight="-1" id="F1Q-LM-NtG" customClass="WSSFDynamicTableView" customModule="GitIt" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" name="Background Color"/>
@@ -1340,7 +1340,7 @@
         <scene sceneID="Wqb-e3-8PV">
             <objects>
                 <tableViewController storyboardIdentifier="RepositoryVC" hidesBottomBarWhenPushed="YES" id="u0o-r0-FBU" customClass="RepositoryViewController" customModule="GitIt" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="150" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="SCq-ws-DcC" customClass="SFDynamicTableView" customModule="GitIt" customModuleProvider="target">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="150" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="SCq-ws-DcC" customClass="WSSFDynamicTableView" customModule="GitIt" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" name="Background Color"/>
@@ -1361,7 +1361,7 @@
         <scene sceneID="pMo-Rn-568">
             <objects>
                 <tableViewController storyboardIdentifier="OrganizationVC" hidesBottomBarWhenPushed="YES" id="kZa-P7-owq" customClass="OrganizationViewController" customModule="GitIt" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="84" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="CZe-EM-wxg" customClass="SFDynamicTableView" customModule="GitIt" customModuleProvider="target">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="84" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="CZe-EM-wxg" customClass="WSSFDynamicTableView" customModule="GitIt" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" name="Background Color"/>
@@ -1382,7 +1382,7 @@
         <scene sceneID="QsE-ff-eCN">
             <objects>
                 <tableViewController storyboardIdentifier="CommitVC" hidesBottomBarWhenPushed="YES" id="kJp-Ap-301" customClass="CommitViewController" customModule="GitIt" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="82" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="0ko-yS-2Ti" customClass="SFDynamicTableView" customModule="GitIt" customModuleProvider="target">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="82" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="0ko-yS-2Ti" customClass="WSSFDynamicTableView" customModule="GitIt" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" name="Background Color"/>
@@ -1403,7 +1403,7 @@
         <scene sceneID="1al-50-Dlq">
             <objects>
                 <tableViewController id="Ni7-tH-Oq0" customClass="TrendingViewController" customModule="GitIt" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="Plc-g8-MeU" customClass="SFDynamicTableView" customModule="GitIt" customModuleProvider="target">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="Plc-g8-MeU" customClass="WSSFDynamicTableView" customModule="GitIt" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -1514,7 +1514,7 @@
                                             <rect key="frame" x="0.0" y="178.33333333333334" width="194" height="20"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9ui-Qc-dt4" customClass="IconicTextView" customModule="GitIt" customModuleProvider="target">
-                                                    <rect key="frame" x="0.0" y="0.0" width="95.333333333333329" height="20"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="95.666666666666671" height="20"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="20" id="6V7-hT-RE8"/>
@@ -1525,7 +1525,7 @@
                                                     </userDefinedRuntimeAttributes>
                                                 </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="S7a-eP-rOD" customClass="IconicTextView" customModule="GitIt" customModuleProvider="target">
-                                                    <rect key="frame" x="105.33333333333331" y="0.0" width="88.666666666666686" height="20"/>
+                                                    <rect key="frame" x="105.66666666666669" y="0.0" width="88.333333333333314" height="20"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="20" id="Rci-cV-Q0r"/>
@@ -1538,7 +1538,7 @@
                                             </subviews>
                                         </stackView>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Y4V-Vb-jnO" customClass="IconicTextView" customModule="GitIt" customModuleProvider="target">
-                                            <rect key="frame" x="0.0" y="213.33333333333334" width="62.333333333333336" height="20"/>
+                                            <rect key="frame" x="0.0" y="213.33333333333334" width="62.666666666666664" height="20"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="20" id="e4S-Cb-0og"/>

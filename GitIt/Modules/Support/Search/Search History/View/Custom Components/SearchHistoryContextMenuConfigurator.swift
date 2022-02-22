@@ -11,7 +11,7 @@ class SearchHistoryContextMenuConfigurator: CollectionViewContextMenuConfigurato
     
     override func configure(atItem item: Int) -> UIContextMenuConfiguration? {
         if let viewController = viewController as? SearchHistoryViewController<UserSearchHistoryViewModel> {
-            let actionProvider = SearchHistoryCollectionCellActionProvider(isBookmarked: viewController.viewModel.cellViewModels[item].isBookmarked,
+            let actionProvider = SearchHistoryCollectionCellActionProvider(isBookmarked: viewController.viewModel.objectCellViewModels[item].isBookmarked,
                                                                            toggleBookmark: { viewController.toggleBookmark(atItem: item) },
                                                                            saveImage: { viewController.saveImage(atItem: item) },
                                                                            openInSafari: { viewController.openInSafari(atItem: item) },
@@ -19,7 +19,7 @@ class SearchHistoryContextMenuConfigurator: CollectionViewContextMenuConfigurato
                                                                            delete: { viewController.deleteObject(atItem: item) })
             return ContextMenuConfigurationConstants.SearchHistoryCollectionCellConfiguration(with: actionProvider)
         } else if let viewController = viewController as? SearchHistoryViewController<RepositorySearchHistoryViewModel> {
-            let actionProvider = SearchHistoryCollectionCellActionProvider(isBookmarked: viewController.viewModel.cellViewModels[item].isBookmarked,
+            let actionProvider = SearchHistoryCollectionCellActionProvider(isBookmarked: viewController.viewModel.objectCellViewModels[item].isBookmarked,
                                                                            toggleBookmark: { viewController.toggleBookmark(atItem: item) },
                                                                            saveImage: { viewController.saveImage(atItem: item) },
                                                                            openInSafari: { viewController.openInSafari(atItem: item) },
@@ -27,7 +27,7 @@ class SearchHistoryContextMenuConfigurator: CollectionViewContextMenuConfigurato
                                                                            delete: { viewController.deleteObject(atItem: item) })
             return ContextMenuConfigurationConstants.SearchHistoryCollectionCellConfiguration(with: actionProvider)
         } else if let viewController = viewController as? SearchHistoryViewController<OrganizationSearchHistoryViewModel> {
-            let actionProvider = SearchHistoryCollectionCellActionProvider(isBookmarked: viewController.viewModel.cellViewModels[item].isBookmarked,
+            let actionProvider = SearchHistoryCollectionCellActionProvider(isBookmarked: viewController.viewModel.objectCellViewModels[item].isBookmarked,
                                                                            toggleBookmark: { viewController.toggleBookmark(atItem: item) },
                                                                            saveImage: { viewController.saveImage(atItem: item) },
                                                                            openInSafari: { viewController.openInSafari(atItem: item) },

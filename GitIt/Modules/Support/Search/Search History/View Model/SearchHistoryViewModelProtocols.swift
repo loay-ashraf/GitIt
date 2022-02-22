@@ -7,17 +7,23 @@
 
 import Foundation
 
-protocol SearchHistoryViewModel: DataPersistenceViewModel where CellViewModelType: CollectionCellViewModel, LogicControllerType: SearchHistoryLogicController {
+protocol SearchHistoryViewModel: DataPersistenceViewModel where LogicControllerType: SearchHistoryLogicController {
     
+    associatedtype ObjectCellViewModelType: CollectionCellViewModel
+    associatedtype ModelType: Model
+    
+    var objectCellViewModels: Array<ObjectCellViewModelType> { get set }
     var queryCellViewModels: Array<QueryCellViewModel> { get set }
     
-    func reloadObject(atItem item: Int) -> CellViewModelType
+    func reloadObject(atItem item: Int) -> ObjectCellViewModelType
     func toggleBookmark(atItem item: Int)
     func deleteObject(atItem item: Int)
     func reloadQuery(atRow row: Int) -> String
     func deleteQuery(atRow row: Int)
     
+    func add(cellViewModel: ObjectCellViewModelType)
     func add(queryCellViewModel: QueryCellViewModel)
+    func delete(cellViewModel: ObjectCellViewModelType)
     func delete(queryCellViewModel: QueryCellViewModel)
     func synchronizeObjects()
     func synchronizeQueries()
@@ -28,18 +34,18 @@ extension SearchHistoryViewModel {
     
     // MARK: - View Actions
     
-    func reloadObject(atItem item: Int) -> CellViewModelType {
-        let objectCellViewModelItem = cellViewModels[item]
+    func reloadObject(atItem item: Int) -> ObjectCellViewModelType {
+        let objectCellViewModelItem = objectCellViewModels[item]
         add(cellViewModel: objectCellViewModelItem)
         return objectCellViewModelItem
     }
     
     func toggleBookmark(atItem item: Int) {
-        cellViewModels[item].toggleBookmark()
+        objectCellViewModels[item].toggleBookmark()
     }
     
     func deleteObject(atItem item: Int) {
-        let objectCellViewModelItem = cellViewModels[item]
+        let objectCellViewModelItem = objectCellViewModels[item]
         delete(cellViewModel: objectCellViewModelItem)
     }
     
@@ -56,7 +62,7 @@ extension SearchHistoryViewModel {
     
     // MARK: - View Model Manipulationn Methods
     
-    func add(cellViewModel: CellViewModelType) {
+    func add(cellViewModel: ObjectCellViewModelType) {
         let model = ModelType(from: cellViewModel as! ModelType.CollectionCellViewModelType)
         logicController.add(model: model as! LogicControllerType.ModelType)
         synchronizeObjects()
@@ -68,7 +74,7 @@ extension SearchHistoryViewModel {
         synchronizeQueries()
     }
     
-    func delete(cellViewModel: CellViewModelType) {
+    func delete(cellViewModel: ObjectCellViewModelType) {
         let model = ModelType(from: cellViewModel as! ModelType.CollectionCellViewModelType)
         logicController.delete(model: model as! LogicControllerType.ModelType)
         synchronizeObjects()
@@ -94,7 +100,7 @@ extension SearchHistoryViewModel {
     
     func synchronizeObjects() {
         let objectItems = logicController.model
-        cellViewModels = objectItems.map { return CellViewModelType(from: $0 as! CellViewModelType.ModelType) }
+        objectCellViewModels = objectItems.map { return ObjectCellViewModelType(from: $0 as! ObjectCellViewModelType.ModelType) }
     }
     
     func synchronizeQueries() {

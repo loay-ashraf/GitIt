@@ -1,5 +1,5 @@
 //
-//  SFDynamicTableViewController.swift
+//  WSSFDynamicTableViewController.swift
 //  GitIt
 //
 //  Created by Loay Ashraf on 27/12/2021.
@@ -7,11 +7,11 @@
 
 import UIKit
 
-class SFDynamicTableViewController<T: TableViewModel>: UITableViewController {
+class WSSFDynamicTableViewController<T: WebServiceTableViewModel>: UITableViewController {
     
     // MARK: - Properties
     
-    var xTableView: SFDynamicTableView! { return tableView as? SFDynamicTableView }
+    var xTableView: WSSFDynamicTableView! { return tableView as? WSSFDynamicTableView }
 
     var tableViewDataSource: TableViewDataSource<T.TableCellViewModelType>!
     var tableViewDelegate: TableViewDelegate!
@@ -21,16 +21,6 @@ class SFDynamicTableViewController<T: TableViewModel>: UITableViewController {
     
     var didLoadInitial: Bool = false
     
-    // MARK: - Initialization
-    
-    init() {
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-    }
-    
     // MARK: - Lifecycle
     
     override func loadView() {
@@ -38,7 +28,7 @@ class SFDynamicTableViewController<T: TableViewModel>: UITableViewController {
         if xTableView == nil {
             // re-initialize table view with SFDynamic table view initializer
             let window = UIApplication.shared.windows.filter({$0.isKeyWindow}).first
-            tableView = SFDynamicTableView(frame: window!.bounds, style: .plain)
+            tableView = WSSFDynamicTableView(frame: window!.bounds, style: .plain)
         }
     }
     

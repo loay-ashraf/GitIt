@@ -1,5 +1,5 @@
 //
-//  SFStaticTableViewController.swift
+//  WSSFStaticTableViewController.swift
 //  GitIt
 //
 //  Created by Loay Ashraf on 28/12/2021.
@@ -7,19 +7,11 @@
 
 import UIKit
 
-class SFStaticTableViewController: UITableViewController {
+class WSSFStaticTableViewController: UITableViewController {
     
-    var xTableView: SFStaticTableView! { return tableView as? SFStaticTableView }
+    // MARK: - Properties
     
-    // MARK: - Initialisation
-    
-    override init(nibName: String?, bundle: Bundle?) {
-        super.init(nibName: nibName, bundle: bundle)
-    }
-    
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-    }
+    var xTableView: WSSFStaticTableView! { return tableView as? WSSFStaticTableView }
     
     // MARK: - Lifecycle
     

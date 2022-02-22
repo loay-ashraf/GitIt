@@ -1,5 +1,5 @@
 //
-//  TableViewModels.swift
+//  WebServiceTableViewModels.swift
 //  GitIt
 //
 //  Created by Loay Ashraf on 04/02/2022.
@@ -7,10 +7,10 @@
 
 import Foundation
 
-typealias WebServicePlainTableViewModel = WebServicePlainViewModel & TableViewModel
-typealias WebServiceSearchTableViewModel = WebServiceSearchViewModel & TableViewModel
+typealias WebServicePlainTableViewModel = WebServicePlainViewModel & WebServiceTableViewModel
+typealias WebServiceSearchTableViewModel = WebServiceSearchViewModel & WebServiceTableViewModel
 
-protocol TableViewModel: AnyObject {
+protocol WebServiceTableViewModel: AnyObject {
     
     associatedtype TableCellViewModelType: TableCellViewModel
     
@@ -23,7 +23,7 @@ protocol TableViewModel: AnyObject {
     
 }
 
-extension TableViewModel {
+extension WebServiceTableViewModel {
     
     // MARK: - Properties
     

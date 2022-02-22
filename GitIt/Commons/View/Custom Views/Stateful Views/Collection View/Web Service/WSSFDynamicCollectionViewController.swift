@@ -1,5 +1,5 @@
 //
-//  SFDynamicCollectionViewController.swift
+//  WSSFDynamicCollectionViewController.swift
 //  GitIt
 //
 //  Created by Loay Ashraf on 29/12/2021.
@@ -7,27 +7,17 @@
 
 import UIKit
 
-class SFDynamicCollectionViewController<T: CollectionViewModel>: UICollectionViewController {
+class WSSFDynamicCollectionViewController<T: WebServiceCollectionViewModel>: UICollectionViewController {
     
     // MARK: - Properties
     
-    var xCollectionView: SFDynamicCollectionView! { return collectionView as? SFDynamicCollectionView }
+    var xCollectionView: WSSFDynamicCollectionView! { return collectionView as? WSSFDynamicCollectionView }
     
     var collectionViewDataSource: CollectionViewDataSource<T.CollectionCellViewModelType>!
     var collectionViewDelegate: CollectionViewDelegate!
     
     var viewModel: T!
     var emptyViewModel: EmptyViewModel = Constants.View.Empty.General.viewModel
-    
-    // MARK: - Initialization
-    
-    init() {
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-    }
     
     // MARK: - Lifecycle
     
@@ -36,7 +26,7 @@ class SFDynamicCollectionViewController<T: CollectionViewModel>: UICollectionVie
         if xCollectionView == nil {
             // re-initialize table view with SFDynamic table view initializer
             let window = UIApplication.shared.windows.filter({$0.isKeyWindow}).first
-            collectionView = SFDynamicCollectionView(frame: window!.bounds, collectionViewLayout: UICollectionViewLayout())
+            collectionView = WSSFDynamicCollectionView(frame: window!.bounds, collectionViewLayout: UICollectionViewLayout())
         }
     }
     

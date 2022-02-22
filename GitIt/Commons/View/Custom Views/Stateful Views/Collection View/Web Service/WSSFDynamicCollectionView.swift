@@ -1,31 +1,29 @@
 //
-//  SFStaticTableView.swift
+//  WSSFDynamicCollectionView.swift
 //  GitIt
 //
-//  Created by Loay Ashraf on 28/12/2021.
+//  Created by Loay Ashraf on 29/12/2021.
 //
 
 import UIKit
-import SVProgressHUD
+import SkeletonView
 
-class SFStaticTableView: UITableView, StatefulView {
+class WSSFDynamicCollectionView: CollectionView, WSStatefulView {
+
+    // MARK: - Properties
     
     var state: ViewState = .presenting
     
-    var isSuperView: Bool = false
-    
-    var updateView: (() -> Void)?
-    
     var errorAction: (() -> Void)?
     
-    private var curtainView: UIView!
+    private var emptyView: EmptyView!
     private var activityIndicatorView: ActivityIndicatorView!
     private var errorView: ErrorView!
     
-    // MARK: - Initialisation
+    // MARK: - Initialization
     
-    override init(frame: CGRect, style: UITableView.Style) {
-        super.init(frame: frame, style: style)
+    override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
+        super.init(frame: frame, collectionViewLayout: layout)
         initializeSubviews()
     }
     
@@ -35,12 +33,7 @@ class SFStaticTableView: UITableView, StatefulView {
     }
     
     private func initializeSubviews() {
-        curtainView = {
-            let view = UIView(frame: frame)
-            view.backgroundColor = .systemBackground
-            return view
-        }()
-        curtainView.backgroundColor = .systemBackground
+        emptyView = EmptyView.instanceFromNib()
         activityIndicatorView = ActivityIndicatorView.instanceFromNib()
         errorView = ErrorView.instanceFromNib()
         errorView.configureAction { [ weak self ] in self?.errorAction!() }
@@ -60,52 +53,50 @@ class SFStaticTableView: UITableView, StatefulView {
     func render(_ viewState: ViewState) {
         state = viewState
         switch viewState {
-        case .presenting: updateView?()
+        case .presenting: reloadData()
+        case .empty(let emptyContext): showEmpty(for: emptyContext)
         case .loading(let loadingViewState): showActivityIndicator(for: loadingViewState)
         case .failed(let failedViewState): showError(for: failedViewState)
-        default: return
         }
+    }
+    
+    func showEmpty(for model: EmptyViewModel) {
+        emptyView.show(on: self, with: model)
+    }
+    
+    func hideEmpty() {
+        emptyView.hide()
     }
     
     func showActivityIndicator(for loadingViewState: LoadingViewState) {
         switch loadingViewState {
-        case .initial: if isSuperView == false, !SVProgressHUD.isVisible() {
-                            activityIndicatorView.show(on: self)
-                        } else if isSuperView {
-                            addSubview(curtainView)
-                            SVProgressHUD.show()
-                        }
-                        isScrollEnabled = false
+        case .initial: showAnimatedSkeleton()
+                       self.isScrollEnabled = false
         default: return
         }
     }
     
     func hideActivityIndicator(for loadingViewState: LoadingViewState) {
         switch loadingViewState {
-        case .initial: if isSuperView == false, !SVProgressHUD.isVisible() {
-                            activityIndicatorView.hide()
-                        } else if isSuperView {
-                            curtainView.removeFromSuperview()
-                            SVProgressHUD.dismiss(withDelay: 0.5)
-                        }
-                        isScrollEnabled = true
+        case .initial: hideSkeleton()
+                       self.isScrollEnabled = true
+        case .refresh: refreshControl?.endRefreshing()
         default: return
         }
     }
     
     func showError(for failedViewState: FailedViewState) {
         switch failedViewState {
-        case .initial(let error): errorView.show(on: self, with: ErrorViewModel(from: error)); isScrollEnabled = false
+        case .initial(let error),.refresh(let error): errorView.show(on: self, with: ErrorViewModel(from: error)); self.isScrollEnabled = false
         default: return
         }
     }
     
     func hideError(for failedViewState: FailedViewState) {
         switch failedViewState {
-        case .initial: errorView.hide(); isScrollEnabled = true
+        case .initial,.refresh: errorView.hide(); self.isScrollEnabled = true
         default: return
         }
     }
-    
-}
 
+}

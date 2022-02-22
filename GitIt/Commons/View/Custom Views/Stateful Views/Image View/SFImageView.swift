@@ -8,7 +8,7 @@
 import UIKit
 import Kingfisher
 
-class SFImageView: UIImageView, StatefulView {
+class SFImageView: UIImageView, WSStatefulView {
     
     var state: ViewState = .presenting
     var processor: ImageProcessor!

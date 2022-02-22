@@ -15,6 +15,16 @@
 		C6110AED275522F70078D7E8 /* LanguageColors.json in Resources */ = {isa = PBXBuildFile; fileRef = C6110AEC275522F70078D7E8 /* LanguageColors.json */; };
 		C6110AEF275545730078D7E8 /* RepositoryDetailLogicController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6110AEE275545730078D7E8 /* RepositoryDetailLogicController.swift */; };
 		C6216FAC2791AED100C9ABC2 /* BundlePersistenceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6216FAB2791AED100C9ABC2 /* BundlePersistenceProvider.swift */; };
+		C625B2F627C5361600EB8E88 /* DataPersistenceTableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C625B2F527C5361600EB8E88 /* DataPersistenceTableViewModel.swift */; };
+		C625B2F827C53B3700EB8E88 /* DataPersistenceCollectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C625B2F727C53B3700EB8E88 /* DataPersistenceCollectionViewModel.swift */; };
+		C625B30127C540FC00EB8E88 /* DPSFDynamicTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C625B30027C540FC00EB8E88 /* DPSFDynamicTableView.swift */; };
+		C625B30427C5413400EB8E88 /* DPSFDynamicTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C625B30327C5413400EB8E88 /* DPSFDynamicTableViewController.swift */; };
+		C625B30927C5443100EB8E88 /* DPSFStaticTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C625B30827C5443100EB8E88 /* DPSFStaticTableView.swift */; };
+		C625B30D27C544A800EB8E88 /* DPSFStaticTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C625B30C27C544A800EB8E88 /* DPSFStaticTableViewController.swift */; };
+		C625B31127C5482A00EB8E88 /* DPSFDynamicCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C625B31027C5482A00EB8E88 /* DPSFDynamicCollectionView.swift */; };
+		C625B31327C5489D00EB8E88 /* DPSFDynamicCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C625B31227C5489D00EB8E88 /* DPSFDynamicCollectionViewController.swift */; };
+		C625B31727C549E600EB8E88 /* DPSFView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C625B31627C549E600EB8E88 /* DPSFView.swift */; };
+		C625B31927C54AB100EB8E88 /* DPSFViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C625B31827C54AB100EB8E88 /* DPSFViewController.swift */; };
 		C62899E12783EA8D007155E8 /* Owner+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = C62899E02783EA8D007155E8 /* Owner+CoreDataClass.swift */; };
 		C62899E22783EA8D007155E8 /* Owner+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C62899DF2783EA8D007155E8 /* Owner+CoreDataProperties.swift */; };
 		C62899E7278400EE007155E8 /* BookmarksLogicControllerProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = C62899E6278400EE007155E8 /* BookmarksLogicControllerProtocols.swift */; };
@@ -49,9 +59,9 @@
 		C64F6F082736DCF900E2E727 /* UserLogicController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C64F6F072736DCF900E2E727 /* UserLogicController.swift */; };
 		C64F6F0A2736F33700E2E727 /* NetworkReachabilityHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C64F6F092736F33700E2E727 /* NetworkReachabilityHelper.swift */; };
 		C64F6F0C27374F0300E2E727 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C64F6F0B27374F0300E2E727 /* ProfileViewController.swift */; };
-		C64FE5A6277B4646002E5FC0 /* SFStaticTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C64FE5A5277B4646002E5FC0 /* SFStaticTableViewController.swift */; };
-		C64FE5A8277B4670002E5FC0 /* SFStaticTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C64FE5A7277B4670002E5FC0 /* SFStaticTableView.swift */; };
-		C650D99527AE595C008206D8 /* CollectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C650D99427AE595C008206D8 /* CollectionViewModel.swift */; };
+		C64FE5A6277B4646002E5FC0 /* WSSFStaticTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C64FE5A5277B4646002E5FC0 /* WSSFStaticTableViewController.swift */; };
+		C64FE5A8277B4670002E5FC0 /* WSSFStaticTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C64FE5A7277B4670002E5FC0 /* WSSFStaticTableView.swift */; };
+		C650D99527AE595C008206D8 /* WebServiceCollectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C650D99427AE595C008206D8 /* WebServiceCollectionViewModel.swift */; };
 		C650D99A27AE6178008206D8 /* SearchResultsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C650D99927AE6178008206D8 /* SearchResultsViewModel.swift */; };
 		C650D99C27AE7250008206D8 /* SearchHistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C650D99B27AE7250008206D8 /* SearchHistoryViewModel.swift */; };
 		C650D99E27AED59A008206D8 /* SearchCoordinatorProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = C650D99D27AED59A008206D8 /* SearchCoordinatorProtocols.swift */; };
@@ -62,8 +72,8 @@
 		C652691E27C40C4800DC450E /* OrganizationSearchHistoryLogicController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C652691D27C40C4800DC450E /* OrganizationSearchHistoryLogicController.swift */; };
 		C652692027C4129A00DC450E /* DataPersistenceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C652691F27C4129A00DC450E /* DataPersistenceViewModel.swift */; };
 		C652692227C414F400DC450E /* CellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C652692127C414F400DC450E /* CellViewModel.swift */; };
-		C6564235277F3BFF00FBCE2F /* SFViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6564234277F3BFF00FBCE2F /* SFViewController.swift */; };
-		C6564237277F3CBD00FBCE2F /* SFView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6564236277F3CBD00FBCE2F /* SFView.swift */; };
+		C6564235277F3BFF00FBCE2F /* WSSFViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6564234277F3BFF00FBCE2F /* WSSFViewController.swift */; };
+		C6564237277F3CBD00FBCE2F /* WSSFView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6564236277F3CBD00FBCE2F /* WSSFView.swift */; };
 		C656537B27C422980049D87E /* UserBookmarksLogicController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C656537A27C422980049D87E /* UserBookmarksLogicController.swift */; };
 		C656537D27C422AF0049D87E /* RepositoryBookmarksLogicController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C656537C27C422AF0049D87E /* RepositoryBookmarksLogicController.swift */; };
 		C656537F27C422C40049D87E /* OrganizationBookmarksLogicController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C656537E27C422C40049D87E /* OrganizationBookmarksLogicController.swift */; };
@@ -76,8 +86,8 @@
 		C656538E27C43A850049D87E /* BookmarksDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C656538D27C43A850049D87E /* BookmarksDelegate.swift */; };
 		C656539027C43ACC0049D87E /* BookmarksTapResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C656538F27C43ACC0049D87E /* BookmarksTapResponder.swift */; };
 		C656539227C43B070049D87E /* BookamrksContextMenuConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C656539127C43B070049D87E /* BookamrksContextMenuConfigurator.swift */; };
-		C656EB96277A20B000E39EFC /* SFDynamicTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C656EB95277A20B000E39EFC /* SFDynamicTableViewController.swift */; };
-		C656EB98277A210800E39EFC /* SFDynamicTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C656EB97277A210800E39EFC /* SFDynamicTableView.swift */; };
+		C656EB96277A20B000E39EFC /* WSSFDynamicTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C656EB95277A20B000E39EFC /* WSSFDynamicTableViewController.swift */; };
+		C656EB98277A210800E39EFC /* WSSFDynamicTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C656EB97277A210800E39EFC /* WSSFDynamicTableView.swift */; };
 		C656EB9A277A216B00E39EFC /* StatefulViewProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = C656EB99277A216B00E39EFC /* StatefulViewProtocols.swift */; };
 		C656EB9C277A269300E39EFC /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C656EB9B277A269300E39EFC /* Constants.swift */; };
 		C656EB9F277A3F3D00E39EFC /* StoryboardableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C656EB9E277A3F3D00E39EFC /* StoryboardableViewController.swift */; };
@@ -136,8 +146,8 @@
 		C66005892794BC9600770045 /* TableViewContextMenuConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66005882794BC9600770045 /* TableViewContextMenuConfigurator.swift */; };
 		C66033FE277CDF0400907494 /* SearchHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66033FD277CDF0400907494 /* SearchHistoryViewController.swift */; };
 		C6603402277CE69400907494 /* InterfaceBuilderCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6603401277CE69400907494 /* InterfaceBuilderCollectionViewCell.swift */; };
-		C6603404277CE86700907494 /* SFDynamicCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6603403277CE86700907494 /* SFDynamicCollectionView.swift */; };
-		C6603406277CEA9B00907494 /* SFDynamicCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6603405277CEA9B00907494 /* SFDynamicCollectionViewController.swift */; };
+		C6603404277CE86700907494 /* WSSFDynamicCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6603403277CE86700907494 /* WSSFDynamicCollectionView.swift */; };
+		C6603406277CEA9B00907494 /* WSSFDynamicCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6603405277CEA9B00907494 /* WSSFDynamicCollectionViewController.swift */; };
 		C661C73A27A7970000E02215 /* FollowersLogicController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C661C73927A7970000E02215 /* FollowersLogicController.swift */; };
 		C661C73C27A79B6D00E02215 /* FollowingLogicController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C661C73B27A79B6D00E02215 /* FollowingLogicController.swift */; };
 		C661C73E27A79C1B00E02215 /* StargazersLogicController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C661C73D27A79C1B00E02215 /* StargazersLogicController.swift */; };
@@ -198,7 +208,7 @@
 		C68C3B412799B4F70048F35B /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C68C3B402799B4F70048F35B /* CollectionViewCell.swift */; };
 		C68C3B432799B5160048F35B /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C68C3B422799B5160048F35B /* TableViewCell.swift */; };
 		C68FCBC8273838A50019C932 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C68FCBC7273838A50019C932 /* HomeViewController.swift */; };
-		C691C66227AD10C200E931B6 /* TableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C691C66127AD10C200E931B6 /* TableViewModel.swift */; };
+		C691C66227AD10C200E931B6 /* WebServiceTableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C691C66127AD10C200E931B6 /* WebServiceTableViewModel.swift */; };
 		C693C4A92729BE1D0061ED73 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C693C4A82729BE1D0061ED73 /* SignInViewController.swift */; };
 		C694B49D273F7DF400C6F5A6 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C694B49C273F7DF400C6F5A6 /* SettingsViewController.swift */; };
 		C696BFE92725E49E0078FBF4 /* BasicTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C696BFE82725E49E0078FBF4 /* BasicTableViewCell.swift */; };
@@ -261,6 +271,16 @@
 		C6110AEC275522F70078D7E8 /* LanguageColors.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = LanguageColors.json; sourceTree = "<group>"; };
 		C6110AEE275545730078D7E8 /* RepositoryDetailLogicController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryDetailLogicController.swift; sourceTree = "<group>"; };
 		C6216FAB2791AED100C9ABC2 /* BundlePersistenceProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BundlePersistenceProvider.swift; sourceTree = "<group>"; };
+		C625B2F527C5361600EB8E88 /* DataPersistenceTableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataPersistenceTableViewModel.swift; sourceTree = "<group>"; };
+		C625B2F727C53B3700EB8E88 /* DataPersistenceCollectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataPersistenceCollectionViewModel.swift; sourceTree = "<group>"; };
+		C625B30027C540FC00EB8E88 /* DPSFDynamicTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DPSFDynamicTableView.swift; sourceTree = "<group>"; };
+		C625B30327C5413400EB8E88 /* DPSFDynamicTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DPSFDynamicTableViewController.swift; sourceTree = "<group>"; };
+		C625B30827C5443100EB8E88 /* DPSFStaticTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DPSFStaticTableView.swift; sourceTree = "<group>"; };
+		C625B30C27C544A800EB8E88 /* DPSFStaticTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DPSFStaticTableViewController.swift; sourceTree = "<group>"; };
+		C625B31027C5482A00EB8E88 /* DPSFDynamicCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DPSFDynamicCollectionView.swift; sourceTree = "<group>"; };
+		C625B31227C5489D00EB8E88 /* DPSFDynamicCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DPSFDynamicCollectionViewController.swift; sourceTree = "<group>"; };
+		C625B31627C549E600EB8E88 /* DPSFView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DPSFView.swift; sourceTree = "<group>"; };
+		C625B31827C54AB100EB8E88 /* DPSFViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DPSFViewController.swift; sourceTree = "<group>"; };
 		C62899DF2783EA8D007155E8 /* Owner+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Owner+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		C62899E02783EA8D007155E8 /* Owner+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Owner+CoreDataClass.swift"; sourceTree = "<group>"; };
 		C62899E6278400EE007155E8 /* BookmarksLogicControllerProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksLogicControllerProtocols.swift; sourceTree = "<group>"; };
@@ -298,9 +318,9 @@
 		C64F6F072736DCF900E2E727 /* UserLogicController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLogicController.swift; sourceTree = "<group>"; };
 		C64F6F092736F33700E2E727 /* NetworkReachabilityHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkReachabilityHelper.swift; sourceTree = "<group>"; };
 		C64F6F0B27374F0300E2E727 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
-		C64FE5A5277B4646002E5FC0 /* SFStaticTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFStaticTableViewController.swift; sourceTree = "<group>"; };
-		C64FE5A7277B4670002E5FC0 /* SFStaticTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFStaticTableView.swift; sourceTree = "<group>"; };
-		C650D99427AE595C008206D8 /* CollectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewModel.swift; sourceTree = "<group>"; };
+		C64FE5A5277B4646002E5FC0 /* WSSFStaticTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSSFStaticTableViewController.swift; sourceTree = "<group>"; };
+		C64FE5A7277B4670002E5FC0 /* WSSFStaticTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSSFStaticTableView.swift; sourceTree = "<group>"; };
+		C650D99427AE595C008206D8 /* WebServiceCollectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebServiceCollectionViewModel.swift; sourceTree = "<group>"; };
 		C650D99927AE6178008206D8 /* SearchResultsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsViewModel.swift; sourceTree = "<group>"; };
 		C650D99B27AE7250008206D8 /* SearchHistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistoryViewModel.swift; sourceTree = "<group>"; };
 		C650D99D27AED59A008206D8 /* SearchCoordinatorProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCoordinatorProtocols.swift; sourceTree = "<group>"; };
@@ -311,8 +331,8 @@
 		C652691D27C40C4800DC450E /* OrganizationSearchHistoryLogicController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrganizationSearchHistoryLogicController.swift; sourceTree = "<group>"; };
 		C652691F27C4129A00DC450E /* DataPersistenceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataPersistenceViewModel.swift; sourceTree = "<group>"; };
 		C652692127C414F400DC450E /* CellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellViewModel.swift; sourceTree = "<group>"; };
-		C6564234277F3BFF00FBCE2F /* SFViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFViewController.swift; sourceTree = "<group>"; };
-		C6564236277F3CBD00FBCE2F /* SFView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFView.swift; sourceTree = "<group>"; };
+		C6564234277F3BFF00FBCE2F /* WSSFViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSSFViewController.swift; sourceTree = "<group>"; };
+		C6564236277F3CBD00FBCE2F /* WSSFView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSSFView.swift; sourceTree = "<group>"; };
 		C656537A27C422980049D87E /* UserBookmarksLogicController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserBookmarksLogicController.swift; sourceTree = "<group>"; };
 		C656537C27C422AF0049D87E /* RepositoryBookmarksLogicController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryBookmarksLogicController.swift; sourceTree = "<group>"; };
 		C656537E27C422C40049D87E /* OrganizationBookmarksLogicController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrganizationBookmarksLogicController.swift; sourceTree = "<group>"; };
@@ -325,8 +345,8 @@
 		C656538D27C43A850049D87E /* BookmarksDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksDelegate.swift; sourceTree = "<group>"; };
 		C656538F27C43ACC0049D87E /* BookmarksTapResponder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksTapResponder.swift; sourceTree = "<group>"; };
 		C656539127C43B070049D87E /* BookamrksContextMenuConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookamrksContextMenuConfigurator.swift; sourceTree = "<group>"; };
-		C656EB95277A20B000E39EFC /* SFDynamicTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFDynamicTableViewController.swift; sourceTree = "<group>"; };
-		C656EB97277A210800E39EFC /* SFDynamicTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFDynamicTableView.swift; sourceTree = "<group>"; };
+		C656EB95277A20B000E39EFC /* WSSFDynamicTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSSFDynamicTableViewController.swift; sourceTree = "<group>"; };
+		C656EB97277A210800E39EFC /* WSSFDynamicTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSSFDynamicTableView.swift; sourceTree = "<group>"; };
 		C656EB99277A216B00E39EFC /* StatefulViewProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatefulViewProtocols.swift; sourceTree = "<group>"; };
 		C656EB9B277A269300E39EFC /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		C656EB9E277A3F3D00E39EFC /* StoryboardableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryboardableViewController.swift; sourceTree = "<group>"; };
@@ -385,8 +405,8 @@
 		C66005882794BC9600770045 /* TableViewContextMenuConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewContextMenuConfigurator.swift; sourceTree = "<group>"; };
 		C66033FD277CDF0400907494 /* SearchHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistoryViewController.swift; sourceTree = "<group>"; };
 		C6603401277CE69400907494 /* InterfaceBuilderCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceBuilderCollectionViewCell.swift; sourceTree = "<group>"; };
-		C6603403277CE86700907494 /* SFDynamicCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFDynamicCollectionView.swift; sourceTree = "<group>"; };
-		C6603405277CEA9B00907494 /* SFDynamicCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SFDynamicCollectionViewController.swift; sourceTree = "<group>"; };
+		C6603403277CE86700907494 /* WSSFDynamicCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSSFDynamicCollectionView.swift; sourceTree = "<group>"; };
+		C6603405277CEA9B00907494 /* WSSFDynamicCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSSFDynamicCollectionViewController.swift; sourceTree = "<group>"; };
 		C661C73927A7970000E02215 /* FollowersLogicController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowersLogicController.swift; sourceTree = "<group>"; };
 		C661C73B27A79B6D00E02215 /* FollowingLogicController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowingLogicController.swift; sourceTree = "<group>"; };
 		C661C73D27A79C1B00E02215 /* StargazersLogicController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StargazersLogicController.swift; sourceTree = "<group>"; };
@@ -450,7 +470,7 @@
 		C68C3B402799B4F70048F35B /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
 		C68C3B422799B5160048F35B /* TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		C68FCBC7273838A50019C932 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
-		C691C66127AD10C200E931B6 /* TableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewModel.swift; sourceTree = "<group>"; };
+		C691C66127AD10C200E931B6 /* WebServiceTableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebServiceTableViewModel.swift; sourceTree = "<group>"; };
 		C693C4A82729BE1D0061ED73 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		C694B49C273F7DF400C6F5A6 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		C696BFE82725E49E0078FBF4 /* BasicTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicTableViewCell.swift; sourceTree = "<group>"; };
@@ -891,6 +911,156 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		C625B2F427C535ED00EB8E88 /* Table View */ = {
+			isa = PBXGroup;
+			children = (
+				C625B2F927C53B7B00EB8E88 /* Data Persistence */,
+				C625B2FA27C53B8B00EB8E88 /* Web Service */,
+			);
+			path = "Table View";
+			sourceTree = "<group>";
+		};
+		C625B2F927C53B7B00EB8E88 /* Data Persistence */ = {
+			isa = PBXGroup;
+			children = (
+				C625B2F527C5361600EB8E88 /* DataPersistenceTableViewModel.swift */,
+			);
+			path = "Data Persistence";
+			sourceTree = "<group>";
+		};
+		C625B2FA27C53B8B00EB8E88 /* Web Service */ = {
+			isa = PBXGroup;
+			children = (
+				C691C66127AD10C200E931B6 /* WebServiceTableViewModel.swift */,
+			);
+			path = "Web Service";
+			sourceTree = "<group>";
+		};
+		C625B2FB27C53D1500EB8E88 /* Collection View */ = {
+			isa = PBXGroup;
+			children = (
+				C625B2FC27C53D1F00EB8E88 /* Data Persistence */,
+				C625B2FD27C53D2800EB8E88 /* Web Service */,
+			);
+			path = "Collection View";
+			sourceTree = "<group>";
+		};
+		C625B2FC27C53D1F00EB8E88 /* Data Persistence */ = {
+			isa = PBXGroup;
+			children = (
+				C625B2F727C53B3700EB8E88 /* DataPersistenceCollectionViewModel.swift */,
+			);
+			path = "Data Persistence";
+			sourceTree = "<group>";
+		};
+		C625B2FD27C53D2800EB8E88 /* Web Service */ = {
+			isa = PBXGroup;
+			children = (
+				C650D99427AE595C008206D8 /* WebServiceCollectionViewModel.swift */,
+			);
+			path = "Web Service";
+			sourceTree = "<group>";
+		};
+		C625B2FE27C53D8300EB8E88 /* General */ = {
+			isa = PBXGroup;
+			children = (
+				C652692127C414F400DC450E /* CellViewModel.swift */,
+				C652691F27C4129A00DC450E /* DataPersistenceViewModel.swift */,
+				C6B63E0927C2CB4500373C78 /* WebServiceViewModel.swift */,
+			);
+			path = General;
+			sourceTree = "<group>";
+		};
+		C625B2FF27C540CB00EB8E88 /* Data Persistence */ = {
+			isa = PBXGroup;
+			children = (
+				C625B30627C543ED00EB8E88 /* Dynamic */,
+				C625B30727C543FD00EB8E88 /* Static */,
+			);
+			path = "Data Persistence";
+			sourceTree = "<group>";
+		};
+		C625B30527C542A000EB8E88 /* Web Service */ = {
+			isa = PBXGroup;
+			children = (
+				C625B30A27C5445E00EB8E88 /* Dynamic */,
+				C625B30B27C5446800EB8E88 /* Static */,
+			);
+			path = "Web Service";
+			sourceTree = "<group>";
+		};
+		C625B30627C543ED00EB8E88 /* Dynamic */ = {
+			isa = PBXGroup;
+			children = (
+				C625B30027C540FC00EB8E88 /* DPSFDynamicTableView.swift */,
+				C625B30327C5413400EB8E88 /* DPSFDynamicTableViewController.swift */,
+			);
+			path = Dynamic;
+			sourceTree = "<group>";
+		};
+		C625B30727C543FD00EB8E88 /* Static */ = {
+			isa = PBXGroup;
+			children = (
+				C625B30827C5443100EB8E88 /* DPSFStaticTableView.swift */,
+				C625B30C27C544A800EB8E88 /* DPSFStaticTableViewController.swift */,
+			);
+			path = Static;
+			sourceTree = "<group>";
+		};
+		C625B30A27C5445E00EB8E88 /* Dynamic */ = {
+			isa = PBXGroup;
+			children = (
+				C656EB97277A210800E39EFC /* WSSFDynamicTableView.swift */,
+				C656EB95277A20B000E39EFC /* WSSFDynamicTableViewController.swift */,
+			);
+			path = Dynamic;
+			sourceTree = "<group>";
+		};
+		C625B30B27C5446800EB8E88 /* Static */ = {
+			isa = PBXGroup;
+			children = (
+				C64FE5A7277B4670002E5FC0 /* WSSFStaticTableView.swift */,
+				C64FE5A5277B4646002E5FC0 /* WSSFStaticTableViewController.swift */,
+			);
+			path = Static;
+			sourceTree = "<group>";
+		};
+		C625B30E27C5473000EB8E88 /* Data Persistence */ = {
+			isa = PBXGroup;
+			children = (
+				C625B31027C5482A00EB8E88 /* DPSFDynamicCollectionView.swift */,
+				C625B31227C5489D00EB8E88 /* DPSFDynamicCollectionViewController.swift */,
+			);
+			path = "Data Persistence";
+			sourceTree = "<group>";
+		};
+		C625B30F27C5473B00EB8E88 /* Web Service */ = {
+			isa = PBXGroup;
+			children = (
+				C6603403277CE86700907494 /* WSSFDynamicCollectionView.swift */,
+				C6603405277CEA9B00907494 /* WSSFDynamicCollectionViewController.swift */,
+			);
+			path = "Web Service";
+			sourceTree = "<group>";
+		};
+		C625B31427C549C100EB8E88 /* Data Persistence */ = {
+			isa = PBXGroup;
+			children = (
+				C625B31627C549E600EB8E88 /* DPSFView.swift */,
+				C625B31827C54AB100EB8E88 /* DPSFViewController.swift */,
+			);
+			path = "Data Persistence";
+			sourceTree = "<group>";
+		};
+		C625B31527C549CD00EB8E88 /* Web Service */ = {
+			isa = PBXGroup;
+			children = (
+				C6564236277F3CBD00FBCE2F /* WSSFView.swift */,
+				C6564234277F3BFF00FBCE2F /* WSSFViewController.swift */,
+			);
+			path = "Web Service";
+			sourceTree = "<group>";
+		};
 		C62C11E827ABB9310004D3C4 /* View Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -1321,8 +1491,8 @@
 		C65EA1962795CD1F001C5174 /* Collection View */ = {
 			isa = PBXGroup;
 			children = (
-				C6603405277CEA9B00907494 /* SFDynamicCollectionViewController.swift */,
-				C6603403277CE86700907494 /* SFDynamicCollectionView.swift */,
+				C625B30F27C5473B00EB8E88 /* Web Service */,
+				C625B30E27C5473000EB8E88 /* Data Persistence */,
 			);
 			path = "Collection View";
 			sourceTree = "<group>";
@@ -1330,10 +1500,8 @@
 		C65EA1972795CD3A001C5174 /* Table View */ = {
 			isa = PBXGroup;
 			children = (
-				C656EB95277A20B000E39EFC /* SFDynamicTableViewController.swift */,
-				C64FE5A5277B4646002E5FC0 /* SFStaticTableViewController.swift */,
-				C656EB97277A210800E39EFC /* SFDynamicTableView.swift */,
-				C64FE5A7277B4670002E5FC0 /* SFStaticTableView.swift */,
+				C625B2FF27C540CB00EB8E88 /* Data Persistence */,
+				C625B30527C542A000EB8E88 /* Web Service */,
 			);
 			path = "Table View";
 			sourceTree = "<group>";
@@ -1341,8 +1509,8 @@
 		C65EA1982795CD4E001C5174 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				C6564234277F3BFF00FBCE2F /* SFViewController.swift */,
-				C6564236277F3CBD00FBCE2F /* SFView.swift */,
+				C625B31527C549CD00EB8E88 /* Web Service */,
+				C625B31427C549C100EB8E88 /* Data Persistence */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1846,11 +2014,9 @@
 		C691C66027AD108800E931B6 /* View Model */ = {
 			isa = PBXGroup;
 			children = (
-				C652692127C414F400DC450E /* CellViewModel.swift */,
-				C650D99427AE595C008206D8 /* CollectionViewModel.swift */,
-				C691C66127AD10C200E931B6 /* TableViewModel.swift */,
-				C6B63E0927C2CB4500373C78 /* WebServiceViewModel.swift */,
-				C652691F27C4129A00DC450E /* DataPersistenceViewModel.swift */,
+				C625B2FE27C53D8300EB8E88 /* General */,
+				C625B2FB27C53D1500EB8E88 /* Collection View */,
+				C625B2F427C535ED00EB8E88 /* Table View */,
 			);
 			path = "View Model";
 			sourceTree = "<group>";
@@ -2079,8 +2245,10 @@
 				C65EA1F02795E680001C5174 /* CommitCellConfigurator.swift in Sources */,
 				C650D99E27AED59A008206D8 /* SearchCoordinatorProtocols.swift in Sources */,
 				C68AC80F278340F500FE0C08 /* Repository+CoreDataClass.swift in Sources */,
+				C625B30D27C544A800EB8E88 /* DPSFStaticTableViewController.swift in Sources */,
 				C635C00B2731AF7600ADA247 /* KeychainManager.swift in Sources */,
 				C635701827AFC0E0001E3D69 /* NavigationRouter.swift in Sources */,
+				C625B31927C54AB100EB8E88 /* DPSFViewController.swift in Sources */,
 				C64F6F082736DCF900E2E727 /* UserLogicController.swift in Sources */,
 				C68AC80027831E4000FE0C08 /* BookmarksManager.swift in Sources */,
 				C65EA1EA2795E57D001C5174 /* OrganizationDelegate.swift in Sources */,
@@ -2111,7 +2279,7 @@
 				C650D99A27AE6178008206D8 /* SearchResultsViewModel.swift in Sources */,
 				C6110AEF275545730078D7E8 /* RepositoryDetailLogicController.swift in Sources */,
 				C65EA1C42795D7B0001C5174 /* CollectionViewContextMenuConfigurator.swift in Sources */,
-				C650D99527AE595C008206D8 /* CollectionViewModel.swift in Sources */,
+				C650D99527AE595C008206D8 /* WebServiceCollectionViewModel.swift in Sources */,
 				C64F6F0C27374F0300E2E727 /* ProfileViewController.swift in Sources */,
 				C656538527C42DE50049D87E /* OrganizationBookmarksViewModel.swift in Sources */,
 				C652692027C4129A00DC450E /* DataPersistenceViewModel.swift in Sources */,
@@ -2119,17 +2287,19 @@
 				C6638E38279DF87E00CB680E /* GitHubEncoding.swift in Sources */,
 				C68B64EB271DD34B00A26D05 /* AppDelegate.swift in Sources */,
 				C6B26AE72768B42700ED41F8 /* CommitViewController.swift in Sources */,
-				C64FE5A6277B4646002E5FC0 /* SFStaticTableViewController.swift in Sources */,
+				C64FE5A6277B4646002E5FC0 /* WSSFStaticTableViewController.swift in Sources */,
 				C662BE23279361690018845C /* AdaptableSizeButton.swift in Sources */,
 				C62C11EA27ABB94B0004D3C4 /* RepositoryViewModel.swift in Sources */,
 				C656537F27C422C40049D87E /* OrganizationBookmarksLogicController.swift in Sources */,
 				C696BFE92725E49E0078FBF4 /* BasicTableViewCell.swift in Sources */,
 				C68B650A271E148B00A26D05 /* UserDetailViewController.swift in Sources */,
-				C691C66227AD10C200E931B6 /* TableViewModel.swift in Sources */,
-				C6603406277CEA9B00907494 /* SFDynamicCollectionViewController.swift in Sources */,
+				C691C66227AD10C200E931B6 /* WebServiceTableViewModel.swift in Sources */,
+				C6603406277CEA9B00907494 /* WSSFDynamicCollectionViewController.swift in Sources */,
 				C63CD23F27A1B5CF003B2665 /* TrendingViewController.swift in Sources */,
+				C625B31727C549E600EB8E88 /* DPSFView.swift in Sources */,
+				C625B30427C5413400EB8E88 /* DPSFDynamicTableViewController.swift in Sources */,
 				C6665EE7276F9DFB00178BA6 /* NetworkExtensions.swift in Sources */,
-				C6564237277F3CBD00FBCE2F /* SFView.swift in Sources */,
+				C6564237277F3CBD00FBCE2F /* WSSFView.swift in Sources */,
 				C67AB9942789E30200D7E084 /* IconicNumericView.swift in Sources */,
 				C60FAE872744CD7F00A6CE77 /* URLHelper.swift in Sources */,
 				C65EA1F42795E6A4001C5174 /* CommitDataSource.swift in Sources */,
@@ -2156,7 +2326,9 @@
 				C65EA1FD2795E7D3001C5174 /* SeachHistoryCellConfigurator.swift in Sources */,
 				C6CCED86275D36A00052CC8E /* LicenseLogicController.swift in Sources */,
 				C652691527C3FA8F00DC450E /* DataProtocols.swift in Sources */,
+				C625B31327C5489D00EB8E88 /* DPSFDynamicCollectionViewController.swift in Sources */,
 				C65C0E04276A36DD00ED17CB /* OrganizationViewController.swift in Sources */,
+				C625B31127C5482A00EB8E88 /* DPSFDynamicCollectionView.swift in Sources */,
 				C65EA16E2795C3D5001C5174 /* CommitModel.swift in Sources */,
 				C65C0E0A276A374700ED17CB /* OrganizationDetailLogicController.swift in Sources */,
 				C69ECCE62732819000E158A3 /* SessionManager.swift in Sources */,
@@ -2167,10 +2339,11 @@
 				C68B650C271E152E00A26D05 /* RepositoryDetailViewController.swift in Sources */,
 				C65EA1D02795D99E001C5174 /* UserCellConfigurator.swift in Sources */,
 				C63EEC9A278D44AD009C842A /* FoundationExtensions.swift in Sources */,
-				C6564235277F3BFF00FBCE2F /* SFViewController.swift in Sources */,
+				C6564235277F3BFF00FBCE2F /* WSSFViewController.swift in Sources */,
 				C659EE6427760600001C1E5D /* ActivityIndicatorView.swift in Sources */,
 				C661C74027A79CB200E02215 /* ContributorsLogicController.swift in Sources */,
 				C652691E27C40C4800DC450E /* OrganizationSearchHistoryLogicController.swift in Sources */,
+				C625B2F827C53B3700EB8E88 /* DataPersistenceCollectionViewModel.swift in Sources */,
 				C635700B27AFA8B5001E3D69 /* SearchHistoryLogicControllerProtocols.swift in Sources */,
 				C69C32F02798C26F00AEB64B /* SearchResultsContextMenuConfigurator.swift in Sources */,
 				C656EB9A277A216B00E39EFC /* StatefulViewProtocols.swift in Sources */,
@@ -2199,7 +2372,7 @@
 				C66562C227A079CF002BD64C /* License+CoreDataClass.swift in Sources */,
 				C62C11F027ABBED70004D3C4 /* CommitViewModel.swift in Sources */,
 				C69A5E4927428B5F007054EA /* SearchHistoryTableViewCell.swift in Sources */,
-				C656EB96277A20B000E39EFC /* SFDynamicTableViewController.swift in Sources */,
+				C656EB96277A20B000E39EFC /* WSSFDynamicTableViewController.swift in Sources */,
 				C65EA1D22795DA1E001C5174 /* UserContextMenuConfigurator.swift in Sources */,
 				C629F36427ACE7D600995565 /* OrganizationDetailViewModel.swift in Sources */,
 				C65EA1D42795DA67001C5174 /* UserTapResponder.swift in Sources */,
@@ -2239,26 +2412,29 @@
 				C68AC80C2783404700FE0C08 /* User+CoreDataProperties.swift in Sources */,
 				C6DFF6162791A9DF00A617CB /* FileManagerPersistenceProvider.swift in Sources */,
 				C65EA1702795C45C001C5174 /* OrganizationModel.swift in Sources */,
-				C656EB98277A210800E39EFC /* SFDynamicTableView.swift in Sources */,
+				C656EB98277A210800E39EFC /* WSSFDynamicTableView.swift in Sources */,
 				C635700327AFA791001E3D69 /* SearchResultsViewModelProtocols.swift in Sources */,
+				C625B2F627C5361600EB8E88 /* DataPersistenceTableViewModel.swift in Sources */,
 				C656537D27C422AF0049D87E /* RepositoryBookmarksLogicController.swift in Sources */,
 				C6B63E0A27C2CB4500373C78 /* WebServiceViewModel.swift in Sources */,
 				C6356FEB27AFA4C1001E3D69 /* SearchHistoryTypes.swift in Sources */,
 				C6B63DFC27C2C77B00373C78 /* StatefulViewTypes.swift in Sources */,
-				C6603404277CE86700907494 /* SFDynamicCollectionView.swift in Sources */,
+				C6603404277CE86700907494 /* WSSFDynamicCollectionView.swift in Sources */,
 				C6B63E0827C2CAFC00373C78 /* BookmarksTypes.swift in Sources */,
 				C6B63E0F27C2CD0400373C78 /* NetworkProtocols.swift in Sources */,
 				C685667E274BF7EB00833D6E /* BasicCollectionViewCell.swift in Sources */,
 				C6638E3A279E231000CB680E /* NetworkRequestInterceptor.swift in Sources */,
 				C656538C27C433F90049D87E /* OrganizationBookmarksViewController.swift in Sources */,
+				C625B30927C5443100EB8E88 /* DPSFStaticTableView.swift in Sources */,
 				C661C74F27A7A93300E02215 /* StarredLogicController.swift in Sources */,
 				C664124B2780C63B00D605BF /* AlertHelper.swift in Sources */,
 				C6B26AF32768C76600ED41F8 /* CommitTableViewCell.swift in Sources */,
 				C6856679274BC3E300833D6E /* UserDetailLogicController.swift in Sources */,
 				C6DFF6142791A9AE00A617CB /* UserDefaultsPersistenceProvider.swift in Sources */,
+				C625B30127C540FC00EB8E88 /* DPSFDynamicTableView.swift in Sources */,
 				C693C4A92729BE1D0061ED73 /* SignInViewController.swift in Sources */,
 				C68AC810278340F500FE0C08 /* Repository+CoreDataProperties.swift in Sources */,
-				C64FE5A8277B4670002E5FC0 /* SFStaticTableView.swift in Sources */,
+				C64FE5A8277B4670002E5FC0 /* WSSFStaticTableView.swift in Sources */,
 				C66412452780845900D605BF /* SearchCoordinatorExtensions.swift in Sources */,
 				C68C3B432799B5160048F35B /* TableViewCell.swift in Sources */,
 				C65EA1C22795D794001C5174 /* CollectionViewDataSource.swift in Sources */,

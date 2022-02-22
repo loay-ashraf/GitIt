@@ -16,7 +16,7 @@
         <scene sceneID="XfZ-4s-k34">
             <objects>
                 <viewController storyboardIdentifier="HistoryVC" id="Gvc-BU-OBz" customClass="SearchHistoryViewController" customModule="GitIt" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="4XZ-mC-wjg" customClass="SFView" customModule="GitIt" customModuleProvider="target">
+                    <view key="view" contentMode="scaleToFill" id="4XZ-mC-wjg" customClass="DPSFView" customModule="GitIt" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -159,7 +159,7 @@
         <scene sceneID="lS0-hy-Slx">
             <objects>
                 <tableViewController storyboardIdentifier="ResultsVC" id="T7K-h3-4cx" customClass="SearchResultsViewController" customModule="GitIt" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="gW5-Qp-XI5" customClass="SFDynamicTableView" customModule="GitIt" customModuleProvider="target">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="gW5-Qp-XI5" customClass="WSSFDynamicTableView" customModule="GitIt" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" name="Background Color"/>

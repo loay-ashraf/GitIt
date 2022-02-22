@@ -1,5 +1,5 @@
 //
-//  SFViewController.swift
+//  WSSFViewController.swift
 //  GitIt
 //
 //  Created by Loay Ashraf on 31/12/2021.
@@ -7,21 +7,13 @@
 
 import UIKit
 
-class SFViewController: UIViewController {
+class WSSFViewController: UIViewController {
 
-    var xView: SFView! { return view as? SFView }
+    // MARK: - Properties
+    
+    var xView: WSSFView! { return view as? WSSFView }
     
     var emptyViewModel: EmptyViewModel = EmptyConstants.General.viewModel
-    
-    // MARK: - Initialisation
-    
-    override init(nibName: String?, bundle: Bundle?) {
-        super.init(nibName: nibName, bundle: bundle)
-    }
-    
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-    }
     
     // MARK: - Lifecycle
     
@@ -30,7 +22,7 @@ class SFViewController: UIViewController {
         if xView == nil {
             // re-initialize table view with SFDynamic table view initializer
             let window = UIApplication.shared.windows.filter({$0.isKeyWindow}).first
-            view = SFView(frame: window!.bounds)
+            view = WSSFView(frame: window!.bounds)
         }
     }
     

@@ -9,7 +9,7 @@ import UIKit
 import Kingfisher
 import SVProgressHUD
 
-class OrganizationViewController: SFDynamicTableViewController<OrganizationViewModel>, StoryboardableViewController {
+class OrganizationViewController: WSSFDynamicTableViewController<OrganizationViewModel>, StoryboardableViewController {
     
     // MARK: - Properties
     

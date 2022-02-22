@@ -8,7 +8,7 @@
 import UIKit
 import MarkdownView
 
-class RepositoryDetailViewController: SFStaticTableViewController, StoryboardableViewController {
+class RepositoryDetailViewController: WSSFStaticTableViewController, StoryboardableViewController {
     
     // MARK: - Properties
     

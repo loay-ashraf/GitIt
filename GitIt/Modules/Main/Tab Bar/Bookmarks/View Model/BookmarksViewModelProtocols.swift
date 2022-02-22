@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol BookmarksViewModel: DataPersistenceViewModel where CellViewModelType: TableCellViewModel, LogicControllerType: BookmarksLogicController {
+protocol BookmarksViewModel: DataPersistenceTableViewModel where LogicControllerType: BookmarksLogicController {
     
     var count: Int { get }
     var isEmpty: Bool { get }
@@ -31,11 +31,11 @@ extension BookmarksViewModel {
     
     // MARK: - View Model Manipulationn Methods
     
-    func add(cellViewModel: CellViewModelType) {
+    func add(cellViewModel: TableCellViewModelType) {
         return
     }
     
-    func delete(cellViewModel: CellViewModelType) {
+    func delete(cellViewModel: TableCellViewModelType) {
         let model = ModelType(from: cellViewModel as! ModelType.TableCellViewModelType)
         logicController.delete(model: model as! LogicControllerType.ModelType)
         synchronize()
@@ -51,7 +51,7 @@ extension BookmarksViewModel {
     func synchronize() {
         logicController.synchronize()
         let objectItems = logicController.model
-        cellViewModels = objectItems.map { return CellViewModelType(from: $0 as! CellViewModelType.ModelType) }
+        cellViewModels = objectItems.map { return TableCellViewModelType(from: $0 as! TableCellViewModelType.ModelType) }
     }
     
 }

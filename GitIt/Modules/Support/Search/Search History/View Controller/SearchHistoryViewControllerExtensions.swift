@@ -12,7 +12,7 @@ extension SearchHistoryViewController {
     // MARK: - Search Coordinator Outlet Methods
     
     func addObject<X: CollectionCellViewModel>(with cellViewModel: X) {
-        viewModel.add(cellViewModel: cellViewModel as! T.CellViewModelType)
+        viewModel.add(cellViewModel: cellViewModel as! T.ObjectCellViewModelType)
         updateCollectionView()
         layoutView()
     }

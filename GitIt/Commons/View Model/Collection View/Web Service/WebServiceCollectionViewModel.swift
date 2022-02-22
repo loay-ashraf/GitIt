@@ -1,5 +1,5 @@
 //
-//  CollectionViewModels.swift
+//  WebServiceCollectionViewModels.swift
 //  GitIt
 //
 //  Created by Loay Ashraf on 05/02/2022.
@@ -7,10 +7,10 @@
 
 import Foundation
 
-typealias WebServicePlainCollectionViewModel = WebServicePlainViewModel & CollectionViewModel
-typealias WebServiceSearchCollectionViewModel = WebServiceSearchViewModel & CollectionViewModel
+typealias WebServicePlainCollectionViewModel = WebServicePlainViewModel & WebServiceCollectionViewModel
+typealias WebServiceSearchCollectionViewModel = WebServiceSearchViewModel & WebServiceCollectionViewModel
 
-protocol CollectionViewModel: AnyObject {
+protocol WebServiceCollectionViewModel: AnyObject {
     
     associatedtype CollectionCellViewModelType: CollectionCellViewModel
     
@@ -23,7 +23,7 @@ protocol CollectionViewModel: AnyObject {
     
 }
 
-extension CollectionViewModel {
+extension WebServiceCollectionViewModel {
     
     // MARK: - Properties
     

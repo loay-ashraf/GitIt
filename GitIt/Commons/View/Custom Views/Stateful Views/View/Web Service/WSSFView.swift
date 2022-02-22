@@ -1,5 +1,5 @@
 //
-//  SFView.swift
+//  WSSFView.swift
 //  GitIt
 //
 //  Created by Loay Ashraf on 31/12/2021.
@@ -8,8 +8,10 @@
 import UIKit
 import SVProgressHUD
 
-class SFView: UIView {
+class WSSFView: UIView {
 
+    // MARK: - Properties
+    
     var state: ViewState = .presenting
     
     var isSuperView: Bool = false
@@ -29,7 +31,7 @@ class SFView: UIView {
     private var activityIndicatorView: ActivityIndicatorView!
     private var errorView: ErrorView!
     
-    // MARK: - Initialisation
+    // MARK: - Initialization
     
     override init(frame: CGRect) {
         super.init(frame: frame)

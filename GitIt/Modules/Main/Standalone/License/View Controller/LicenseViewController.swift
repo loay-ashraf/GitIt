@@ -7,7 +7,7 @@
 
 import UIKit
 
-class LicenseViewController: SFViewController, StoryboardableViewController {
+class LicenseViewController: WSSFViewController, StoryboardableViewController {
     
     // MARK: - Properties
     

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CommitViewController: SFDynamicTableViewController<CommitViewModel>, StoryboardableViewController {
+class CommitViewController: WSSFDynamicTableViewController<CommitViewModel>, StoryboardableViewController {
     
     // MARK: - Properties
     

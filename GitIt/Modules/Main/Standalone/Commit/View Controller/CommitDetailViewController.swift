@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CommitDetailViewController: SFStaticTableViewController, StoryboardableViewController {
+class CommitDetailViewController: WSSFStaticTableViewController, StoryboardableViewController {
 
     // MARK: - Properties
     

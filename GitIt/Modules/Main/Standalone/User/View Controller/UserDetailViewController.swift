@@ -7,7 +7,7 @@
 
 import UIKit
 
-class UserDetailViewController: SFStaticTableViewController, StoryboardableViewController {
+class UserDetailViewController: WSSFStaticTableViewController, StoryboardableViewController {
     
     // MARK: - Properties
     

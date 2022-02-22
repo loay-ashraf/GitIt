@@ -9,7 +9,7 @@ import UIKit
 import Kingfisher
 import SVProgressHUD
 
-class SearchResultsViewController<T: SearchResultsViewModel>: SFDynamicTableViewController<T> {
+class SearchResultsViewController<T: SearchResultsViewModel>: WSSFDynamicTableViewController<T> {
     
     // MARK: - Properties
     
@@ -18,6 +18,7 @@ class SearchResultsViewController<T: SearchResultsViewModel>: SFDynamicTableView
             load(with: .initial)
         }
     }
+    
     private weak var delegate: SearchResultsDelegate!
     
     // MARK: - Initialization

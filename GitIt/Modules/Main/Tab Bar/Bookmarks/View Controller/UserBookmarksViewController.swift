@@ -9,34 +9,27 @@ import UIKit
 import Kingfisher
 import SVProgressHUD
 
-class UserBookmarksViewController: UITableViewController {
+class UserBookmarksViewController: DPSFDynamicTableViewController<UserBookmarksViewModel> {
     
     // MARK: - Properties
     
     weak var bookmarksViewController: BookmarksViewController?
     
-    var xTableView: SFDynamicTableView! { return tableView as? SFDynamicTableView }
+    // MARK: - Initialization
     
-    var tableViewDataSource = UserTableViewDataSource()
-    var tableViewDelegate: UserBookmarksDelegate?
-    
-    var viewModel = UserBookmarksViewModel()
-    var emptyViewModel = EmptyConstants.Bookmarks.viewModel
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        tableViewDataSource = UserTableViewDataSource()
+        tableViewDelegate = UserBookmarksDelegate(self)
+        viewModel = UserBookmarksViewModel()
+        emptyViewModel = EmptyConstants.Bookmarks.viewModel
+    }
     
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureView()
         synchronize()
-    }
-    
-    // MARK: - View Helper Methods
-
-    func configureView() {
-        tableViewDelegate = UserBookmarksDelegate(self)
-        xTableView.setDataSource(tableViewDataSource)
-        xTableView.setDelegate(tableViewDelegate!)
     }
     
     // MARK: - View Actions
@@ -77,27 +70,15 @@ class UserBookmarksViewController: UITableViewController {
         URLHelper.shareWebsite(cellViewModelItem.htmlURL)
     }
     
-    // MARK: - Synchronize Methods
+    // MARK: - Synchronize Method
     
-    func synchronize() {
-        viewModel.synchronize()
+    override func synchronize() {
+        super.synchronize()
         if viewModel.isEmpty {
-            xTableView.transition(to: .empty(EmptyConstants.Bookmarks.viewModel))
             bookmarksViewController?.clearButton.isEnabled = false
         } else {
-            synchronizeTableView()
-            switch xTableView.state {
-            case .presenting: xTableView.reloadData()
-            default: xTableView.transition(to: .presenting)
-            }
             bookmarksViewController?.clearButton.isEnabled = true
         }
-    }
-    
-    // MARK: - Synchronize Table View Method
-    
-    func synchronizeTableView() {
-        tableViewDataSource.cellViewModels = viewModel.cellViewModels
     }
     
 }
