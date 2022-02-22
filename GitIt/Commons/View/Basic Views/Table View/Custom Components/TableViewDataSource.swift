@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SkeletonView
 
 class TableViewDataSource<T: TableCellViewModel>: NSObject, UITableViewDataSource {
     
@@ -55,3 +56,12 @@ class TableViewDataSource<T: TableCellViewModel>: NSObject, UITableViewDataSourc
     
 }
 
+class SKTableViewDataSource<T: TableCellViewModel>: TableViewDataSource<T>, SkeletonTableViewDataSource {
+    
+    // MARK: - Data Source
+    
+    func collectionSkeletonView(_ skeletonView: UITableView, cellIdentifierForRowAt indexPath: IndexPath) -> ReusableCellIdentifier {
+        return cellClass?.reuseIdentifier ?? "TableViewCell"
+    }
+    
+}

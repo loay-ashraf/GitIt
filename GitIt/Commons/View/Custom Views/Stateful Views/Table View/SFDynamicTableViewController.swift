@@ -19,6 +19,8 @@ class SFDynamicTableViewController<T: TableViewModel>: UITableViewController {
     var viewModel: T!
     var emptyViewModel: EmptyViewModel = EmptyConstants.General.viewModel
     
+    var didLoadInitial: Bool = false
+    
     // MARK: - Initialization
     
     init() {
@@ -61,8 +63,6 @@ class SFDynamicTableViewController<T: TableViewModel>: UITableViewController {
     // MARK: - View Helper Methods
     
     func configureView() {
-        // Setup table view as super view
-        xTableView.isSuperView = true
         // Setup table view data source and delegates
         xTableView.setDataSource(tableViewDataSource)
         xTableView.setDelegate(tableViewDelegate)
@@ -113,6 +113,7 @@ class SFDynamicTableViewController<T: TableViewModel>: UITableViewController {
     // MARK: - Load, Refresh, Paginate and Reset Methods
     
     func load(with loadingViewState: LoadingViewState) {
+        if loadingViewState == .initial, didLoadInitial { return }
         xTableView.transition(to: .loading(loadingViewState))
     }
     

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class RepositoryTableViewDataSource: TableViewDataSource<RepositoryTableCellViewModel> {
+class RepositoryTableViewDataSource: SKTableViewDataSource<RepositoryTableCellViewModel> {
     
     override init() {
         super.init()

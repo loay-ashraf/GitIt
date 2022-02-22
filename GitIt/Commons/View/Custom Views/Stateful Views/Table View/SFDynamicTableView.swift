@@ -6,15 +6,13 @@
 //
 
 import UIKit
-import SVProgressHUD
+import SkeletonView
 
 class SFDynamicTableView: TableView, StatefulView {
     
     // MARK: - Properties
     
     var state: ViewState = .presenting
-
-    var isSuperView: Bool = false
     
     var errorAction: (() -> Void)?
     var footerErrorAction: (() -> Void)?
@@ -90,12 +88,7 @@ class SFDynamicTableView: TableView, StatefulView {
     
     func showActivityIndicator(for loadingViewState: LoadingViewState) {
         switch loadingViewState {
-        case .initial: if isSuperView == false, !SVProgressHUD.isVisible() {
-                            activityIndicatorView.show(on: self)
-                        } else if isSuperView {
-                            addSubview(curtainView)
-                            SVProgressHUD.show()
-                        }
+        case .initial:  showAnimatedSkeleton(transition: .crossDissolve(0.5))
                         isScrollEnabled = false
         case .refresh: return
         case .paginate: footerActivityIndicatorView.show()
@@ -104,13 +97,10 @@ class SFDynamicTableView: TableView, StatefulView {
     
     func hideActivityIndicator(for loadingViewState: LoadingViewState) {
         switch loadingViewState {
-        case .initial: if isSuperView == false, !SVProgressHUD.isVisible() {
-                            activityIndicatorView.hide()
-                        } else if isSuperView {
-                            curtainView.removeFromSuperview()
-                            SVProgressHUD.dismiss(withDelay: 0.5)
+        case .initial:  DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                            self.hideSkeleton(transition: .crossDissolve(0.5))
+                            self.isScrollEnabled = true
                         }
-                        isScrollEnabled = true
         case .refresh: refreshControl?.endRefreshing()
         case .paginate: footerActivityIndicatorView.hide()
         }

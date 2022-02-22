@@ -30,6 +30,9 @@
                             <constraints>
                                 <constraint firstAttribute="width" secondItem="qPf-sm-V9g" secondAttribute="height" multiplier="1:1" id="xHW-de-EtK"/>
                             </constraints>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
+                            </userDefinedRuntimeAttributes>
                         </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Text" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P9j-5S-1uy" userLabel="Text Label">
                             <rect key="frame" x="60" y="0.0" width="29" height="50"/>
@@ -37,9 +40,15 @@
                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
+                            </userDefinedRuntimeAttributes>
                         </label>
                     </subviews>
                     <gestureRecognizers/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
+                    </userDefinedRuntimeAttributes>
                     <connections>
                         <outletCollection property="gestureRecognizers" destination="E2i-k2-YHb" appends="YES" id="GrH-2F-Dqm"/>
                     </connections>
@@ -57,6 +66,9 @@
                 <constraint firstItem="P9j-5S-1uy" firstAttribute="height" secondItem="iN0-l3-epB" secondAttribute="height" id="cuW-6l-Axq"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
+            </userDefinedRuntimeAttributes>
             <point key="canvasLocation" x="-103.62318840579711" y="-167.11956521739131"/>
         </view>
         <tapGestureRecognizer id="E2i-k2-YHb">

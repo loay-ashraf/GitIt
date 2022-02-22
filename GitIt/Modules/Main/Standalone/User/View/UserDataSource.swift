@@ -7,7 +7,7 @@
 
 import UIKit
 
-class UserTableViewDataSource: TableViewDataSource<UserTableCellViewModel> {
+class UserTableViewDataSource: SKTableViewDataSource<UserTableCellViewModel> {
     
     override init() {
         super.init()

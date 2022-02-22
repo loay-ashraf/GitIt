@@ -19,10 +19,10 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="top" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="FSy-ky-1L6">
-                        <rect key="frame" x="10" y="10" width="275.33333333333331" height="72"/>
+                        <rect key="frame" x="10" y="10" width="200" height="72"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wO8-cb-Whg" customClass="IconicTextView" customModule="GitIt" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="240" height="32"/>
+                                <rect key="frame" x="0.0" y="0.0" width="200" height="32"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="32" id="9Uh-GI-Em6"/>
@@ -32,18 +32,26 @@
                                     <userDefinedRuntimeAttribute type="number" keyPath="iconCornerRadius">
                                         <real key="value" value="16"/>
                                     </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Message" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cse-kp-6Bn">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Message" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cse-kp-6Bn">
                                 <rect key="frame" x="0.0" y="52" width="65.666666666666671" height="20"/>
                                 <constraints>
+                                    <constraint firstAttribute="width" constant="400" id="UFl-xn-UcI"/>
                                     <constraint firstAttribute="height" constant="20" id="tiA-5p-TSI"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
+                                </userDefinedRuntimeAttributes>
                             </label>
                         </subviews>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
+                        </userDefinedRuntimeAttributes>
                     </stackView>
                 </subviews>
                 <constraints>
@@ -52,9 +60,15 @@
                     <constraint firstAttribute="trailing" secondItem="FSy-ky-1L6" secondAttribute="trailing" constant="10" id="3Fj-hb-L3B"/>
                     <constraint firstItem="FSy-ky-1L6" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="pGa-2L-Fq0"/>
                 </constraints>
+                <userDefinedRuntimeAttributes>
+                    <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
+                </userDefinedRuntimeAttributes>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <color key="backgroundColor" name="Foreground Color"/>
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
+            </userDefinedRuntimeAttributes>
             <connections>
                 <outlet property="authorTextView" destination="wO8-cb-Whg" id="nYR-Ru-lTl"/>
                 <outlet property="messageLabel" destination="Cse-kp-6Bn" id="mLv-W3-OBi"/>

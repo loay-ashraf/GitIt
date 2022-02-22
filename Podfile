@@ -13,6 +13,7 @@ target 'GitIt' do
   pod 'Kingfisher', '~> 7.0'
   pod 'NotificationBannerSwift', '~> 3.0.0'
   pod 'SVProgressHUD'
+  pod 'SkeletonView'
   pod 'IQKeyboardManager'
   pod 'InAppSettingsKit'
   pod 'MarkdownView'

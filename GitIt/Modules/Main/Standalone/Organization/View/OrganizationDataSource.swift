@@ -7,7 +7,7 @@
 
 import UIKit
 
-class OrganizationTableViewDataSource: TableViewDataSource<OrganizationTableCellViewModel> {
+class OrganizationTableViewDataSource: SKTableViewDataSource<OrganizationTableCellViewModel> {
     
     override init() {
         super.init()

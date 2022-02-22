@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CommitTableViewDataSource: TableViewDataSource<CommitCellViewModel> {
+class CommitTableViewDataSource: SKTableViewDataSource<CommitCellViewModel> {
     
     override init() {
         super.init()

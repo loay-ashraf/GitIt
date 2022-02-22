@@ -49,8 +49,8 @@ class RepositoryViewController: SFDynamicTableViewController<RepositoryViewModel
 
     // MARK: - Lifecycle
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         load(with: .initial)
     }
     
@@ -98,10 +98,12 @@ class RepositoryViewController: SFDynamicTableViewController<RepositoryViewModel
     
     override func load(with loadingViewState: LoadingViewState) {
         super.load(with: loadingViewState)
+        if loadingViewState == .initial, didLoadInitial { return }
+        else { didLoadInitial = true }
         switch loadingViewState {
         case .initial: viewModel.load { [weak self] error in self?.loadHandler(error: error) }
         case .refresh: viewModel.refresh { [weak self] error in self?.refreshHandler(error: error) }
-        case .paginate: viewModel.load { [weak self] error in self?.paginateHandler(error: error) }
+        case .paginate: viewModel.paginate { [weak self] error in self?.paginateHandler(error: error) }
         }
     }
 
