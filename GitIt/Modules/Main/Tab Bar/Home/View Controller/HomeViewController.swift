@@ -17,17 +17,16 @@ class HomeViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let section = indexPath.section
-        let row = indexPath.row
-        if section == 0, row == 0 {
+        if section == 0 {
             let userVC = UserViewController.instatiate(context: .main as UserContext)
             navigationController?.pushViewController(userVC, animated: true)
-        } else if section == 0, row == 1 {
+        } else if section == 1 {
             let repositoryVC = RepositoryViewController.instatiate(context: .main as RepositoryContext)
             navigationController?.pushViewController(repositoryVC, animated: true)
-        } else if section == 0, row == 2 {
+        } else if section == 2 {
             let organizationVC = OrganizationViewController.instatiate(context: .main as OrganizationContext)
             navigationController?.pushViewController(organizationVC, animated: true)
-        } else if section == 1, row == 0 {
+        } else if section == 3 {
             let repositoryVC = RepositoryDetailViewController.instatiate(parameter: "loay-ashraf/GitIt")
             navigationController?.pushViewController(repositoryVC, animated: true)
         }

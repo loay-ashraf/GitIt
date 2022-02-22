@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SearchResultsTableViewDataSource<T: SearchResultsViewModel>: TableViewDataSource<T.TableCellViewModelType> {
+class SearchResultsTableViewDataSource<T: SearchResultsViewModel>: SKTableViewDataSource<T.TableCellViewModelType> {
     
     override init() {
         super.init()

@@ -106,21 +106,97 @@ extension UIColor {
     
 }
 
-extension UIView {
+@IBDesignable extension UIView {
     
-    var cornerRadius: CGFloat {
+    @IBInspectable var cornerRadius: CGFloat {
         get { return layer.cornerRadius }
-        set { layer.cornerRadius = newValue }
+        set { layer.cornerRadius = newValue
+              layer.cornerCurve = .continuous
+              layer.masksToBounds = (newValue > 0)
+        }
     }
     
-    var cornerCurve: CALayerCornerCurve {
+    @IBInspectable var cornerCurve: CALayerCornerCurve {
         get { return layer.cornerCurve }
         set { layer.cornerCurve = newValue }
     }
     
-    var masksToBounds: Bool {
+    @IBInspectable var masksToBounds: Bool {
         get { return layer.masksToBounds }
         set { layer.masksToBounds = newValue }
     }
+    
+    @IBInspectable var shadowRadius: CGFloat {
+        get { return layer.shadowRadius }
+        set { layer.shadowRadius = newValue }
+    }
+
+    @IBInspectable var shadowOpacity: CGFloat {
+        get { return CGFloat(layer.shadowOpacity) }
+        set { layer.shadowOpacity = Float(newValue) }
+    }
+
+    @IBInspectable var shadowOffset: CGSize {
+        get { return layer.shadowOffset }
+        set { layer.shadowOffset = newValue }
+    }
+
+    @IBInspectable var shadowColor: UIColor? {
+        get {
+            guard let cgColor = layer.shadowColor else {
+                return nil
+            }
+            return UIColor(cgColor: cgColor)
+        }
+        set { layer.shadowColor = newValue?.cgColor }
+    }
+    
+    @IBInspectable var borderColor: UIColor? {
+        get {
+            guard let cgColor = layer.borderColor else {
+                return nil
+            }
+            return UIColor(cgColor: cgColor)
+        }
+        set { layer.borderColor = newValue?.cgColor }
+    }
+
+    @IBInspectable var borderWidth: CGFloat {
+        get {
+            return layer.borderWidth
+        }
+        set {
+            layer.borderWidth = newValue
+        }
+    }
+    
+}
+
+@IBDesignable extension UITableView {
+    
+//    @IBInspectable var edgeInsets: UIEdgeInsets {
+//        get { return contentInset }
+//        set { contentInset = newValue }
+//    }
+    
+    @IBInspectable var bottomContentInset: CGFloat {
+        get { return contentInset.bottom }
+        set { contentInset.bottom = newValue }
+      }
+    
+      @IBInspectable var leftContentInset: CGFloat {
+          get { return contentInset.left }
+          set { contentInset.left = newValue }
+      }
+    
+      @IBInspectable var rightContentInset: CGFloat {
+          get { return contentInset.right }
+          set { contentInset.right = newValue }
+      }
+    
+      @IBInspectable var topContentInset: CGFloat {
+          get { return contentInset.top }
+          set { contentInset.top = newValue }
+      }
     
 }

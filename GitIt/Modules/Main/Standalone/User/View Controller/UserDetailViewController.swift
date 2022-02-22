@@ -100,10 +100,6 @@ class UserDetailViewController: WSSFStaticTableViewController, StoryboardableVie
         
         navigationItem.largeTitleDisplayMode = .never
         
-        avatarImageView.cornerRadius = 64.0
-        avatarImageView.cornerCurve = .continuous
-        avatarImageView.masksToBounds = true
-        
         avatarImageView.addInteraction(UIContextMenuInteraction(delegate: self))
         
         blogTextView.action = { [weak self] in self?.goToBlog() }
@@ -116,7 +112,6 @@ class UserDetailViewController: WSSFStaticTableViewController, StoryboardableVie
         case .rightToLeft: followButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 15.0, bottom: 0, right: 0)
         @unknown default: break
         }
-        followButton.cornerRadius = 10
         
         if NetworkManager.standard.isReachable {
             followButton.isEnabled = true

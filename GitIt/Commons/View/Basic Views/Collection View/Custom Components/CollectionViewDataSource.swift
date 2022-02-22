@@ -6,13 +6,14 @@
 //
 
 import UIKit
+import SkeletonView
 
 class CollectionViewDataSource<T: CollectionCellViewModel>: NSObject, UICollectionViewDataSource {
     
     // MARK: - Properties
     
-    var cellViewModels = Array<T>()
     weak var collectionView: CollectionView? { didSet { registerCell() } }
+    var cellViewModels = Array<T>()
     var cellClass: CollectionViewCell.Type?
     var cellConfigurator: CollectionViewCellConfigurator?
     
@@ -42,6 +43,16 @@ class CollectionViewDataSource<T: CollectionCellViewModel>: NSObject, UICollecti
             return cell
         }
         return CollectionViewCell()
+    }
+
+}
+
+class SKCollectionViewDataSource<T: CollectionCellViewModel>: CollectionViewDataSource<T>, SkeletonCollectionViewDataSource {
+    
+    // MARK: - Data Source
+    
+    func collectionSkeletonView(_ skeletonView: UICollectionView, cellIdentifierForItemAt indexPath: IndexPath) -> ReusableCellIdentifier {
+        return cellClass?.reuseIdentifier ?? "CollectionViewCell"
     }
 
 }

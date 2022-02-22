@@ -110,7 +110,6 @@ class RepositoryDetailViewController: WSSFStaticTableViewController, Storyboarda
         case .rightToLeft: starButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 15.0, bottom: 0, right: 0)
         @unknown default: break
         }
-        starButton.cornerRadius = 10
         
         if NetworkManager.standard.isReachable {
             starButton.isEnabled = true

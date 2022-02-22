@@ -17,7 +17,7 @@ class RepositoryTableViewDataSource: SKTableViewDataSource<RepositoryTableCellVi
     
 }
 
-class RepositoryCollectionViewDataSource: CollectionViewDataSource<RepositoryCollectionCellViewModel> {
+class RepositoryCollectionViewDataSource: SKCollectionViewDataSource<RepositoryCollectionCellViewModel> {
     
     override init() {
         super.init()

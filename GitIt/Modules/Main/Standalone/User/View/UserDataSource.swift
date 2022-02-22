@@ -17,7 +17,7 @@ class UserTableViewDataSource: SKTableViewDataSource<UserTableCellViewModel> {
     
 }
 
-class UserCollectionViewDataSource: CollectionViewDataSource<UserCollectionCellViewModel> {
+class UserCollectionViewDataSource: SKCollectionViewDataSource<UserCollectionCellViewModel> {
     
     override init() {
         super.init()

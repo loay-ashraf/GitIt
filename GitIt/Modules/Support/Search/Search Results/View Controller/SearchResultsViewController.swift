@@ -47,6 +47,13 @@ class SearchResultsViewController<T: SearchResultsViewModel>: WSSFDynamicTableVi
         debugPrint(String(describing: self) + " deallocated")
     }
     
+    // MARK: - View Helper Methods
+    
+    override func configureView() {
+        super.configureView()
+        tableView.contentInset = UIEdgeInsets(top: 20, left: 0, bottom: 0, right: 0)
+    }
+    
     // MARK: - View Actions
     
     func showDetail(atRow row: Int) {

@@ -162,7 +162,7 @@ struct Constants {
             static let ascending = "asc"
             static let descending = "desc"
             static let maxPageCount = 1000
-            static let minimumPageCapacity = 10
+            static let minimumPageCapacity = 20
             
         }
         

@@ -43,10 +43,6 @@ class ProfileViewController: WSSFStaticTableViewController {
         navigationItem.largeTitleDisplayMode = .never
         
         if SessionManager.standard.sessionType == .authenticated, SessionManager.standard.sessionUser != nil {
-            avatarImageView.cornerRadius = 64.0
-            avatarImageView.cornerCurve = .continuous
-            avatarImageView.masksToBounds = true
-            
             avatarImageView.addInteraction(UIContextMenuInteraction(delegate: self))
             
             blogTextView.action = { [weak self] in self?.goToBlog() }
@@ -72,9 +68,6 @@ class ProfileViewController: WSSFStaticTableViewController {
             socialStatusNumericView.isHidden = true
             
             signInButton.isHidden = false
-            signInButton.cornerRadius = 10.0
-            signInButton.cornerCurve = .continuous
-            signInButton.masksToBounds = true
             settingsButton.isEnabled = true
             shareButton.isEnabled = false
         }

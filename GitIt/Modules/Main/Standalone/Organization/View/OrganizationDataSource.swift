@@ -17,7 +17,7 @@ class OrganizationTableViewDataSource: SKTableViewDataSource<OrganizationTableCe
     
 }
 
-class OrganizationCollectionViewDataSource: CollectionViewDataSource<OrganizationCollectionCellViewModel> {
+class OrganizationCollectionViewDataSource: SKCollectionViewDataSource<OrganizationCollectionCellViewModel> {
     
     override init() {
         super.init()

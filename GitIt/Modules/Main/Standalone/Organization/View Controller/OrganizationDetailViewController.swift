@@ -97,10 +97,6 @@ class OrganizationDetailViewController: WSSFStaticTableViewController, Storyboar
         
         navigationItem.largeTitleDisplayMode = .never
         
-        avatarImageView.cornerRadius = 64.0
-        avatarImageView.cornerCurve = .continuous
-        avatarImageView.masksToBounds = true
-        
         avatarImageView.addInteraction(UIContextMenuInteraction(delegate: self))
         
         blogTextView.action = { [weak self] in self?.goToBlog() }

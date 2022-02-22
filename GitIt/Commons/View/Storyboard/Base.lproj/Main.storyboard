@@ -172,6 +172,11 @@
                                             <state key="normal" title="Star">
                                                 <imageReference key="image" image="star" catalog="system" symbolScale="large"/>
                                             </state>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                    <real key="value" value="10"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
                                             <connections>
                                                 <action selector="star:" destination="mXo-Ji-rNn" eventType="touchUpInside" id="bv8-hr-3tz"/>
                                             </connections>
@@ -638,17 +643,16 @@
         <scene sceneID="UST-xA-czQ">
             <objects>
                 <tableViewController storyboardIdentifier="exploreVC" id="aKn-b7-1Sw" customClass="HomeViewController" customModule="GitIt" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="static" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="20" sectionFooterHeight="20" id="igY-TJ-LTT">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="static" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="5" sectionFooterHeight="5" id="igY-TJ-LTT">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" name="Background Color"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="4H5-8T-Y7j" userLabel="Header">
                             <rect key="frame" x="0.0" y="0.0" width="414" height="20"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" name="Background Color"/>
                         </view>
                         <view key="tableFooterView" contentMode="scaleToFill" id="CGb-rw-vPv" userLabel="Footer">
-                            <rect key="frame" x="0.0" y="351.66666603088379" width="414" height="20"/>
+                            <rect key="frame" x="0.0" y="326.66666603088379" width="414" height="20"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" name="Background Color"/>
                         </view>
@@ -656,14 +660,14 @@
                             <tableViewSection id="nQv-fa-vJI">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="YdF-3V-vH4" imageView="aIM-es-Vah" rowHeight="60" style="IBUITableViewCellStyleDefault" id="4RZ-BU-nZH">
-                                        <rect key="frame" x="0.0" y="40" width="414" height="60"/>
+                                        <rect key="frame" x="20" y="25" width="374" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="4RZ-BU-nZH" id="Sz8-ge-8QW">
-                                            <rect key="frame" x="0.0" y="0.0" width="385.33333333333331" height="60"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="345.33333333333331" height="60"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Users" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="YdF-3V-vH4">
-                                                    <rect key="frame" x="63" y="0.0" width="314.33333333333331" height="60"/>
+                                                    <rect key="frame" x="63" y="0.0" width="274.33333333333331" height="60"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                     <nil key="textColor"/>
@@ -677,16 +681,25 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" name="Foreground Color"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
+                                                <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
                                     </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection id="hJr-1O-fiW">
+                                <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="LsM-lV-FTw" imageView="vr9-aN-bf1" rowHeight="60" style="IBUITableViewCellStyleDefault" id="3zR-IP-oZB">
-                                        <rect key="frame" x="0.0" y="100" width="414" height="60"/>
+                                        <rect key="frame" x="20" y="95" width="374" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="3zR-IP-oZB" id="I4p-LP-gYF">
-                                            <rect key="frame" x="0.0" y="0.0" width="385.33333333333331" height="60"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="345.33333333333331" height="60"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Repositories" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="LsM-lV-FTw">
-                                                    <rect key="frame" x="57" y="0.0" width="320.33333333333331" height="60"/>
+                                                    <rect key="frame" x="57" y="0.0" width="280.33333333333331" height="60"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                     <nil key="textColor"/>
@@ -701,15 +714,19 @@
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" name="Foreground Color"/>
                                     </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection id="Jf4-gD-dMr">
+                                <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="Ssq-qN-292" imageView="aA6-uO-B4l" rowHeight="60" style="IBUITableViewCellStyleDefault" id="51e-Kg-fXP">
-                                        <rect key="frame" x="0.0" y="160" width="414" height="60"/>
+                                        <rect key="frame" x="20" y="165" width="374" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="51e-Kg-fXP" id="pdj-0l-644">
-                                            <rect key="frame" x="0.0" y="0.0" width="385.33333333333331" height="60"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="345.33333333333331" height="60"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Organizations" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Ssq-qN-292">
-                                                    <rect key="frame" x="56.333333333333343" y="0.0" width="321" height="60"/>
+                                                    <rect key="frame" x="56.333333333333343" y="0.0" width="281" height="60"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                     <nil key="textColor"/>
@@ -726,23 +743,23 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
-                            <tableViewSection headerTitle="Repository" id="hJr-1O-fiW">
+                            <tableViewSection headerTitle="Repository" id="nbj-TO-Qbh">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="NDD-h1-xj2" imageView="h5D-L0-F8j" rowHeight="60" style="IBUITableViewCellStyleDefault" id="mlO-1h-ud0">
-                                        <rect key="frame" x="0.0" y="271.66666603088379" width="414" height="60"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="Ezz-Ge-9yF" imageView="xGe-Y5-fbF" rowHeight="60" style="IBUITableViewCellStyleDefault" id="vk1-kx-djo">
+                                        <rect key="frame" x="20" y="261.66666603088379" width="374" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="mlO-1h-ud0" id="DTq-AP-iY2">
-                                            <rect key="frame" x="0.0" y="0.0" width="385.33333333333331" height="60"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="vk1-kx-djo" id="epU-Gn-nPN">
+                                            <rect key="frame" x="0.0" y="0.0" width="345.33333333333331" height="60"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="GitIt" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="NDD-h1-xj2">
-                                                    <rect key="frame" x="58.166666666666686" y="0.0" width="319.16666666666663" height="60"/>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="GitIt" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Ezz-Ge-9yF">
+                                                    <rect key="frame" x="58.166666666666686" y="0.0" width="279.16666666666663" height="60"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="h5D-L0-F8j">
+                                                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="xGe-Y5-fbF">
                                                     <rect key="frame" x="17.5" y="17.333333333333329" width="25.666666666666668" height="25.666666666666668"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <imageReference key="image" image="info.circle" catalog="system" symbolScale="large"/>
@@ -754,6 +771,21 @@
                                 </cells>
                             </tableViewSection>
                         </sections>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="size" keyPath="shadowOffset">
+                                <size key="value" width="5" height="5"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
+                                <real key="value" value="1"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
+                                <real key="value" value="50"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
+                                <color key="value" systemColor="labelColor"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="boolean" keyPath="masksToBounds" value="NO"/>
+                        </userDefinedRuntimeAttributes>
                         <connections>
                             <outlet property="dataSource" destination="aKn-b7-1Sw" id="aHI-WW-X7b"/>
                             <outlet property="delegate" destination="aKn-b7-1Sw" id="llE-kP-AQ7"/>
@@ -790,6 +822,11 @@
                                                         <constraint firstAttribute="width" constant="128" id="tTv-uj-ncW"/>
                                                         <constraint firstAttribute="height" constant="128" id="z2Q-DT-eUK"/>
                                                     </constraints>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                            <real key="value" value="64"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
                                                     <connections>
                                                         <outletCollection property="gestureRecognizers" destination="kTt-Ok-4LN" appends="YES" id="hQT-in-0IS"/>
                                                     </connections>
@@ -918,6 +955,11 @@
                                             <state key="normal" title="Follow">
                                                 <imageReference key="image" image="plus" catalog="system" symbolScale="large"/>
                                             </state>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                    <real key="value" value="10"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
                                             <connections>
                                                 <action selector="follow:" destination="lW3-KA-tFE" eventType="touchUpInside" id="5RQ-mJ-xSu"/>
                                             </connections>
@@ -1103,6 +1145,11 @@
                                                         <constraint firstAttribute="width" constant="128" id="JNd-Lo-iIv"/>
                                                         <constraint firstAttribute="height" constant="128" id="SC3-fF-vz8"/>
                                                     </constraints>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                            <real key="value" value="64"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
                                                     <connections>
                                                         <outletCollection property="gestureRecognizers" destination="5vm-Xv-LaI" appends="YES" id="Bkw-J4-S7D"/>
                                                     </connections>
@@ -1450,7 +1497,7 @@
         <scene sceneID="xoz-eL-aox">
             <objects>
                 <tableViewController id="q6w-vH-VeW" customClass="ProfileViewController" customModule="GitIt" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="1" sectionFooterHeight="1" id="aeo-Aa-o03" customClass="SFStaticTableView" customModule="GitIt" customModuleProvider="target">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="1" sectionFooterHeight="1" id="aeo-Aa-o03" customClass="WSSFStaticTableView" customModule="GitIt" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" name="Background Color"/>
@@ -1472,6 +1519,11 @@
                                                         <constraint firstAttribute="height" constant="128" id="Juq-cf-IOQ"/>
                                                         <constraint firstAttribute="width" constant="128" id="YCQ-fw-WuR"/>
                                                     </constraints>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                            <real key="value" value="64"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
                                                 </imageView>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="gyN-ZE-yQ7">
                                                     <rect key="frame" x="143" y="34" width="115" height="60"/>
@@ -1594,6 +1646,11 @@
                                             <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                             <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="15" maxY="0.0"/>
                                             <state key="normal" title="Sign In"/>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                    <real key="value" value="10"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
                                             <connections>
                                                 <action selector="follow:" destination="lW3-KA-tFE" eventType="touchUpInside" id="KvJ-Yd-5Kt"/>
                                                 <action selector="signIn:" destination="q6w-vH-VeW" eventType="touchUpInside" id="CcI-nE-cXz"/>
@@ -1754,16 +1811,22 @@
         <scene sceneID="5Sl-Sm-u29">
             <objects>
                 <tableViewController hidesBottomBarWhenPushed="YES" id="z6C-Vg-hPg" customClass="SettingsViewController" customModule="GitIt" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" id="NzH-dy-ON1">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="10" estimatedSectionHeaderHeight="-1" sectionFooterHeight="10" estimatedSectionFooterHeight="-1" id="NzH-dy-ON1">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" name="Background Color"/>
                         <view key="tableFooterView" contentMode="scaleToFill" id="sHI-Oh-wDK" userLabel="Footer">
-                            <rect key="frame" x="0.0" y="110.66666793823242" width="414" height="44"/>
+                            <rect key="frame" x="0.0" y="35" width="414" height="58"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QFT-qG-ElY" userLabel="Spacer">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="15"/>
+                                    <color key="backgroundColor" name="Background Color"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="15" id="jAL-LB-XT4"/>
+                                    </constraints>
+                                </view>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gb5-Xx-Ugl">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                    <rect key="frame" x="20" y="15" width="374" height="43"/>
                                     <color key="backgroundColor" name="Foreground Color"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="45" id="b2u-nN-rVh"/>
@@ -1771,29 +1834,53 @@
                                     <color key="tintColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                     <state key="normal" title="Sign Out"/>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                            <real key="value" value="10"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
+                                            <real key="value" value="50"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
+                                            <real key="value" value="1"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="size" keyPath="shadowOffset">
+                                            <size key="value" width="10" height="10"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
+                                            <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
                                     <connections>
                                         <action selector="signOut:" destination="z6C-Vg-hPg" eventType="touchUpInside" id="b9J-HG-ehv"/>
                                     </connections>
                                 </button>
                             </subviews>
-                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            <color key="backgroundColor" name="Background Color"/>
                             <constraints>
-                                <constraint firstAttribute="trailing" secondItem="Gb5-Xx-Ugl" secondAttribute="trailing" id="0qf-9W-cEv"/>
+                                <constraint firstAttribute="trailing" secondItem="Gb5-Xx-Ugl" secondAttribute="trailing" constant="20" id="0qf-9W-cEv"/>
+                                <constraint firstItem="QFT-qG-ElY" firstAttribute="top" secondItem="sHI-Oh-wDK" secondAttribute="top" id="1FV-Yk-H95"/>
+                                <constraint firstItem="QFT-qG-ElY" firstAttribute="bottom" secondItem="Gb5-Xx-Ugl" secondAttribute="top" id="9qA-vq-y4a"/>
+                                <constraint firstItem="QFT-qG-ElY" firstAttribute="leading" secondItem="sHI-Oh-wDK" secondAttribute="leading" id="DSF-cd-RHJ"/>
                                 <constraint firstAttribute="bottom" secondItem="Gb5-Xx-Ugl" secondAttribute="bottom" id="W0W-cT-n7u"/>
-                                <constraint firstItem="Gb5-Xx-Ugl" firstAttribute="top" secondItem="sHI-Oh-wDK" secondAttribute="top" id="WGh-PK-ghh"/>
-                                <constraint firstItem="Gb5-Xx-Ugl" firstAttribute="leading" secondItem="sHI-Oh-wDK" secondAttribute="leading" id="iuI-n1-Fcg"/>
+                                <constraint firstAttribute="trailing" secondItem="QFT-qG-ElY" secondAttribute="trailing" id="bE2-FN-u9S"/>
+                                <constraint firstItem="Gb5-Xx-Ugl" firstAttribute="leading" secondItem="sHI-Oh-wDK" secondAttribute="leading" constant="20" id="iuI-n1-Fcg"/>
                             </constraints>
                         </view>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="signOutCell" id="onA-gH-Vgf">
-                                <rect key="frame" x="0.0" y="49" width="414" height="43.666667938232422"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="onA-gH-Vgf" id="tuF-y6-w1n">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.666667938232422"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
+                                <real key="value" value="50"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
+                                <real key="value" value="1"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="size" keyPath="shadowOffset">
+                                <size key="value" width="10" height="10"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
+                                <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
                         <connections>
                             <outlet property="dataSource" destination="z6C-Vg-hPg" id="s7n-BC-lBG"/>
                             <outlet property="delegate" destination="z6C-Vg-hPg" id="4WI-0A-7tD"/>
@@ -1810,7 +1897,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hPr-Pa-tHi" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="McU-ah-tA8" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="3441" y="753"/>
+            <point key="canvasLocation" x="3440.579710144928" y="752.44565217391312"/>
         </scene>
         <!--Bookmarks-->
         <scene sceneID="ZVd-aH-9p5">
@@ -1912,7 +1999,7 @@
                                 </constraints>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DdT-J5-wOV" customClass="AdaptableSizeButton" customModule="GitIt" customModuleProvider="target">
-                                <rect key="frame" x="139" y="656" width="136" height="30"/>
+                                <rect key="frame" x="124" y="656" width="166" height="30"/>
                                 <color key="backgroundColor" name="Background Color"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="1gy-vp-Ih3"/>
@@ -1926,7 +2013,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VGO-nu-Rrj" customClass="AdaptableSizeButton" customModule="GitIt" customModuleProvider="target">
-                                <rect key="frame" x="122.66666666666669" y="591" width="169" height="45"/>
+                                <rect key="frame" x="108.00000000000001" y="591" width="198.33333333333337" height="45"/>
                                 <color key="backgroundColor" systemColor="labelColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="45" id="Fq2-3f-KsA"/>
@@ -2017,6 +2104,14 @@
             <point key="canvasLocation" x="1951" y="-779"/>
         </scene>
     </scenes>
+    <designables>
+        <designable name="DdT-J5-wOV">
+            <size key="intrinsicContentSize" width="166" height="18"/>
+        </designable>
+        <designable name="VGO-nu-Rrj">
+            <size key="intrinsicContentSize" width="198.33333333333334" height="24"/>
+        </designable>
+    </designables>
     <resources>
         <image name="book.closed" catalog="system" width="115" height="128"/>
         <image name="bookmark" catalog="system" width="112" height="128"/>
