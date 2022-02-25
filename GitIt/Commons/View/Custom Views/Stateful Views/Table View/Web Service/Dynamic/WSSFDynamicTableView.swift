@@ -100,8 +100,6 @@ class WSSFDynamicTableView: TableView, WSStatefulView {
         case .initial:  DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                             self.hideSkeleton(transition: .crossDissolve(0.5))
                             self.isScrollEnabled = true
-                            // making a correction for a bug in the UIKit framework
-                            self.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
                         }
         case .refresh: refreshControl?.endRefreshing()
         case .paginate: footerActivityIndicatorView.hide()

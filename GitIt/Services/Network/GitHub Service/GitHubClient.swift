@@ -11,160 +11,140 @@ final class GitHubClient: WebServiceClient {
     
     // MARK: - User Search Methods
     
-    func fetchUsers(page: Int, completionHandler: @escaping (Result<[UserModel],NetworkError>) -> Void) {
-        func handler(result: Result<BatchResponse<UserModel>,NetworkError>) {
-            switch result {
-            case .success(let response): completionHandler(.success(response.items))
-            case .failure(let networkError): completionHandler(.failure(networkError))
-            }
-        }
-        _ = networkManager.dataRequest(request: GitHubRouter.fetchUsers(page: page), completionHandler: handler(result:))
+    func fetchUsers(page: Int) async -> Result<[UserModel],NetworkError> {
+        let result: Result<BatchResponse<UserModel>,NetworkError> = await networkManager.dataRequest(request: GitHubRouter.fetchUsers(page: page))
+        return result.flatMap { batchResponse -> Result<[UserModel],NetworkError> in return .success(batchResponse.items) }
     }
     
-    func searchUsers(keyword: String, page: Int, completionHandler: @escaping (Result<BatchResponse<UserModel>,NetworkError>) -> Void) {
-        _ = networkManager.dataRequest(request: GitHubRouter.searchUsers(query: keyword, page: page), completionHandler: completionHandler)
+    func searchUsers(query: String, page: Int) async -> Result<BatchResponse<UserModel>,NetworkError> {
+         await networkManager.dataRequest(request: GitHubRouter.searchUsers(query: query, page: page))
     }
     
     // MARK: - Authenticated User Methods
     
-    func fetchAuthenticatedUser(completionHandler: @escaping (Result<UserModel,NetworkError>) -> Void) {
-        _ = networkManager.dataRequest(request: GitHubRouter.fetchAuthenticatedUser, completionHandler: completionHandler)
+    func fetchAuthenticatedUser() async -> Result<UserModel,NetworkError> {
+        await networkManager.dataRequest(request: GitHubRouter.fetchAuthenticatedUser)
     }
     
-    func checkIfFollowingUser(userLogin: String, completionHandler: @escaping (NetworkError?) -> Void) {
-        _ = networkManager.dataRequest(request: GitHubRouter.checkIfFollowingUser(login: userLogin), completionHandler: completionHandler)
+    func checkIfFollowingUser(userLogin: String) async -> NetworkError? {
+        await networkManager.dataRequest(request: GitHubRouter.checkIfFollowingUser(login: userLogin))
     }
     
-    func checkIfStarredRepository(fullName: String, completionHandler: @escaping (NetworkError?) -> Void) {
-        _ = networkManager.dataRequest(request: GitHubRouter.checkIfStarredRepository(fullName: fullName), completionHandler: completionHandler)
+    func checkIfStarredRepository(fullName: String) async -> NetworkError? {
+        await networkManager.dataRequest(request: GitHubRouter.checkIfStarredRepository(fullName: fullName))
     }
     
-    func followUser(userLogin: String, completionHandler: @escaping (NetworkError?) -> Void) {
-        _ = networkManager.dataRequest(request: GitHubRouter.followUser(login: userLogin), completionHandler: completionHandler)
+    func followUser(userLogin: String) async -> NetworkError? {
+        await networkManager.dataRequest(request: GitHubRouter.followUser(login: userLogin))
     }
     
-    func unFollowUser(userLogin: String, completionHandler: @escaping (NetworkError?) -> Void) {
-        _ = networkManager.dataRequest(request: GitHubRouter.unFollowUser(login: userLogin), completionHandler: completionHandler)
+    func unFollowUser(userLogin: String) async -> NetworkError? {
+        await networkManager.dataRequest(request: GitHubRouter.unFollowUser(login: userLogin))
     }
     
-    func starRepository(fullName: String, completionHandler: @escaping (NetworkError?) -> Void) {
-        _ = networkManager.dataRequest(request: GitHubRouter.starRepository(fullName: fullName), completionHandler: completionHandler)
+    func starRepository(fullName: String) async -> NetworkError? {
+        await networkManager.dataRequest(request: GitHubRouter.starRepository(fullName: fullName))
     }
     
-    func unStarRepository(fullName: String, completionHandler: @escaping (NetworkError?) -> Void) {
-        _ = networkManager.dataRequest(request: GitHubRouter.unStarRepository(fullName: fullName), completionHandler: completionHandler)
+    func unStarRepository(fullName: String) async -> NetworkError? {
+        await networkManager.dataRequest(request: GitHubRouter.unStarRepository(fullName: fullName))
     }
     
     // MARK: - Regular User Methods
     
-    func fetchUser(userLogin: String, completion: @escaping (Result<UserModel,NetworkError>) -> Void) {
-        _ = networkManager.dataRequest(request: GitHubRouter.fetchUser(login: userLogin), completionHandler: completion)
+    func fetchUser(userLogin: String) async -> Result<UserModel,NetworkError> {
+        await networkManager.dataRequest(request: GitHubRouter.fetchUser(login: userLogin))
     }
     
-    func fetchUserFollowers(userLogin: String, page: Int, completion: @escaping (Result<[UserModel],NetworkError>) -> Void) {
-        _ = networkManager.dataRequest(request: GitHubRouter.fetchUserFolllowers(login: userLogin, page: page), completionHandler: completion)
+    func fetchUserFollowers(userLogin: String, page: Int) async -> Result<[UserModel],NetworkError> {
+        await networkManager.dataRequest(request: GitHubRouter.fetchUserFolllowers(login: userLogin, page: page))
     }
     
-    func fetchUserFollowing(userLogin: String, page: Int, completion: @escaping (Result<[UserModel],NetworkError>) -> Void) {
-        _ = networkManager.dataRequest(request: GitHubRouter.fetchUserFollowing(login: userLogin, page: page), completionHandler: completion)
+    func fetchUserFollowing(userLogin: String, page: Int) async -> Result<[UserModel],NetworkError> {
+        await networkManager.dataRequest(request: GitHubRouter.fetchUserFollowing(login: userLogin, page: page))
     }
     
-    func fetchUserRepositories(userLogin: String, page: Int, completion: @escaping (Result<[RepositoryModel],NetworkError>) -> Void) {
-        _ = networkManager.dataRequest(request: GitHubRouter.fetchUserRepositories(login: userLogin, page: page), completionHandler: completion)
+    func fetchUserRepositories(userLogin: String, page: Int) async -> Result<[RepositoryModel],NetworkError> {
+        await networkManager.dataRequest(request: GitHubRouter.fetchUserRepositories(login: userLogin, page: page))
     }
     
-    func fetchUserOrganizations(userLogin: String, page: Int, completion: @escaping (Result<[OrganizationModel],NetworkError>) -> Void) {
-        _ = networkManager.dataRequest(request: GitHubRouter.fetchUserOrganizations(login: userLogin, page: page), completionHandler: completion)
+    func fetchUserOrganizations(userLogin: String, page: Int) async -> Result<[OrganizationModel],NetworkError> {
+        await networkManager.dataRequest(request: GitHubRouter.fetchUserOrganizations(login: userLogin, page: page))
     }
     
-    func fetchUserStarred(userLogin: String, page: Int, completion: @escaping (Result<[RepositoryModel],NetworkError>) -> Void) {
-        _ = networkManager.dataRequest(request: GitHubRouter.fetchUserStarred(login: userLogin, page: page), completionHandler: completion)
+    func fetchUserStarred(userLogin: String, page: Int) async -> Result<[RepositoryModel],NetworkError> {
+        await networkManager.dataRequest(request: GitHubRouter.fetchUserStarred(login: userLogin, page: page))
     }
     
     // MARK: - Repository Search Methods
     
-    func fetchRepositories(page: Int, completionHandler: @escaping (Result<[RepositoryModel],NetworkError>) -> Void) {
-        func handler(result: Result<BatchResponse<RepositoryModel>,NetworkError>) {
-            switch result {
-            case .success(let response): completionHandler(.success(response.items))
-            case .failure(let networkError): completionHandler(.failure(networkError))
-            }
-        }
-        _ = networkManager.dataRequest(request: GitHubRouter.fetchRepositories(page: page), completionHandler: handler(result:))
+    func fetchRepositories(page: Int) async -> Result<[RepositoryModel],NetworkError> {
+        let result: Result<BatchResponse<RepositoryModel>,NetworkError> = await networkManager.dataRequest(request: GitHubRouter.fetchRepositories(page: page))
+        return result.flatMap { batchResponse -> Result<[RepositoryModel],NetworkError> in return .success(batchResponse.items) }
     }
     
-    func fetchTrendingRepositories(page: Int, completionHandler: @escaping (Result<[RepositoryModel],NetworkError>) -> Void) {
-        func handler(result: Result<BatchResponse<RepositoryModel>,NetworkError>) {
-            switch result {
-            case .success(let response): completionHandler(.success(response.items))
-            case .failure(let networkError): completionHandler(.failure(networkError))
-            }
-        }
-        _ = networkManager.dataRequest(request: GitHubRouter.fetchTrendingRepositories(page: page), completionHandler: handler(result:))
+    func fetchTrendingRepositories(page: Int) async -> Result<[RepositoryModel],NetworkError>  {
+        let result: Result<BatchResponse<RepositoryModel>,NetworkError> = await networkManager.dataRequest(request: GitHubRouter.fetchTrendingRepositories(page: page))
+        return result.flatMap { batchResponse -> Result<[RepositoryModel],NetworkError> in return .success(batchResponse.items) }
     }
     
-    func searchRepositories(keyword: String, page: Int, completionHandler: @escaping (Result<BatchResponse<RepositoryModel>,NetworkError>) -> Void) {
-        _ = networkManager.dataRequest(request: GitHubRouter.searchRepositories(query: keyword, page: page), completionHandler: completionHandler)
+    func searchRepositories(query: String, page: Int) async -> Result<BatchResponse<RepositoryModel>,NetworkError> {
+        await networkManager.dataRequest(request: GitHubRouter.searchRepositories(query: query, page: page))
     }
     
     // MARK: - Repository Methods
     
-    func fetchRepository(fullName: String, completionHandler: @escaping (Result<RepositoryModel,NetworkError>) -> Void) {
-        _ = networkManager.dataRequest(request: GitHubRouter.fetchRepository(fullName: fullName), completionHandler: completionHandler)
+    func fetchRepository(fullName: String) async -> Result<RepositoryModel,NetworkError> {
+        await networkManager.dataRequest(request: GitHubRouter.fetchRepository(fullName: fullName))
     }
     
-    func fetchRepositoryStars(fullName: String, page: Int, completionHandler: @escaping (Result<[UserModel],NetworkError>) -> Void) {
-        _ = networkManager.dataRequest(request: GitHubRouter.fetchRepositoryStars(fullName: fullName, page: page), completionHandler: completionHandler)
+    func fetchRepositoryStars(fullName: String, page: Int) async -> Result<[UserModel],NetworkError> {
+        await networkManager.dataRequest(request: GitHubRouter.fetchRepositoryStars(fullName: fullName, page: page))
     }
     
-    func fetchRepositoryForks(fullName: String, page: Int, completionHandler: @escaping (Result<[RepositoryModel],NetworkError>) -> Void) {
-        _ = networkManager.dataRequest(request: GitHubRouter.fetchRepositoryForks(fullName: fullName, page: page), completionHandler: completionHandler)
+    func fetchRepositoryForks(fullName: String, page: Int) async -> Result<[RepositoryModel],NetworkError> {
+        await networkManager.dataRequest(request: GitHubRouter.fetchRepositoryForks(fullName: fullName, page: page))
     }
     
-    func fetchRepositoryContributors(fullName: String, page: Int, completionHandler: @escaping (Result<[UserModel],NetworkError>) -> Void) {
-        _ = networkManager.dataRequest(request: GitHubRouter.fetchRepositoryContributors(fullName: fullName, page: page), completionHandler: completionHandler)
+    func fetchRepositoryContributors(fullName: String, page: Int) async -> Result<[UserModel],NetworkError> {
+        await networkManager.dataRequest(request: GitHubRouter.fetchRepositoryContributors(fullName: fullName, page: page))
     }
     
-    func fetchRepositoryCommits(fullName: String, page: Int, completionHandler: @escaping (Result<[CommitModel],NetworkError>) -> Void) {
-        _ = networkManager.dataRequest(request: GitHubRouter.fetchRepositoryCommits(fullName: fullName, page: page), completionHandler: completionHandler)
+    func fetchRepositoryCommits(fullName: String, page: Int) async -> Result<[CommitModel],NetworkError> {
+        await networkManager.dataRequest(request: GitHubRouter.fetchRepositoryCommits(fullName: fullName, page: page))
     }
     
-    func downloadRepositoryLicense(fullName: String, branch: String, completionHandler: @escaping (Result<Data,NetworkError>) -> Void) {
-        _ = networkManager.dataRequest(request: GitHubRouter.downloadRepositoryLicense(fullName: fullName, branch: branch), completionHandler: completionHandler)
+    func downloadRepositoryLicense(fullName: String, branch: String) async -> DataResult {
+        await networkManager.dataRequest(request: GitHubRouter.downloadRepositoryLicense(fullName: fullName, branch: branch))
     }
     
-    func downloadRepositoryREADME(fullName: String, branch: String, completionHandler: @escaping (Result<Data,NetworkError>) -> Void) {
-        _ = networkManager.dataRequest(request: GitHubRouter.downloadRepositoryREADME(fullName: fullName, branch: branch), completionHandler: completionHandler)
+    func downloadRepositoryREADME(fullName: String, branch: String) async -> DataResult {
+        await networkManager.dataRequest(request: GitHubRouter.downloadRepositoryREADME(fullName: fullName, branch: branch))
     }
     
     // MARK: - Organization Search Methods
     
-    func fetchOrganizations(page: Int, completionHandler: @escaping (Result<[OrganizationModel],NetworkError>) -> Void) {
-        func handler(result: Result<BatchResponse<OrganizationModel>,NetworkError>) {
-            switch result {
-            case .success(let response): completionHandler(.success(response.items))
-            case .failure(let networkError): completionHandler(.failure(networkError))
-            }
-        }
-        _ = networkManager.dataRequest(request: GitHubRouter.fetchOrganizations(page: page), completionHandler: handler(result:))
+    func fetchOrganizations(page: Int) async -> Result<[OrganizationModel],NetworkError> {
+        let result: Result<BatchResponse<OrganizationModel>,NetworkError> = await networkManager.dataRequest(request: GitHubRouter.fetchOrganizations(page: page))
+        return result.flatMap { batchResponse -> Result<[OrganizationModel],NetworkError> in return .success(batchResponse.items) }
     }
     
-    func searchOrganizations(keyword: String, page: Int, completionHandler: @escaping (Result<BatchResponse<OrganizationModel>,NetworkError>) -> Void) {
-        _ = networkManager.dataRequest(request: GitHubRouter.searchOrganizations(query: keyword, page: page), completionHandler: completionHandler)
+    func searchOrganizations(query: String, page: Int) async -> Result<BatchResponse<OrganizationModel>,NetworkError> {
+        await networkManager.dataRequest(request: GitHubRouter.searchOrganizations(query: query, page: page))
     }
     
     // MARK: - Organization Methods
     
-    func fetchOrganization(organizationLogin: String, completionHandler: @escaping (Result<OrganizationModel,NetworkError>) -> Void) {
-        _ = networkManager.dataRequest(request: GitHubRouter.fetchOrganization(login: organizationLogin), completionHandler: completionHandler)
+    func fetchOrganization(organizationLogin: String) async -> Result<OrganizationModel,NetworkError> {
+        await networkManager.dataRequest(request: GitHubRouter.fetchOrganization(login: organizationLogin))
     }
     
-    func fetchOrganizationMemebers(organizationLogin: String, page: Int, completionHandler: @escaping (Result<[UserModel],NetworkError>) -> Void) {
-        _ = networkManager.dataRequest(request: GitHubRouter.fetchOrganizationMembers(login: organizationLogin, page: page), completionHandler: completionHandler)
+    func fetchOrganizationMemebers(organizationLogin: String, page: Int) async -> Result<[UserModel],NetworkError> {
+        await networkManager.dataRequest(request: GitHubRouter.fetchOrganizationMembers(login: organizationLogin, page: page))
     }
     
-    func fetchOrganizationRepositories(organizationLogin: String, page: Int, completionHandler: @escaping (Result<[RepositoryModel],NetworkError>) -> Void) {
-        _ = networkManager.dataRequest(request: GitHubRouter.fetchOrganizationRepositories(login: organizationLogin, page: page), completionHandler: completionHandler)
+    func fetchOrganizationRepositories(organizationLogin: String, page: Int) async -> Result<[RepositoryModel],NetworkError> {
+        await networkManager.dataRequest(request: GitHubRouter.fetchOrganizationRepositories(login: organizationLogin, page: page))
     }
 
 }

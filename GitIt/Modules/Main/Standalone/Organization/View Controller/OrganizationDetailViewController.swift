@@ -122,7 +122,10 @@ class OrganizationDetailViewController: WSSFStaticTableViewController, Storyboar
         emailTextView.text = viewModel.email
         twitterTextView.text = viewModel.twitter != nil ? "@".appending(viewModel.twitter!) : nil
         
-        updateBookmarkButton()
+        Task {
+            let status = await viewModel.checkForStatus()
+            updateBookmarkButton(isBookmarked: status[0])
+        }
         
         bookmarkButton.isEnabled = true
         openInSafariButton.isEnabled = true
@@ -132,7 +135,7 @@ class OrganizationDetailViewController: WSSFStaticTableViewController, Storyboar
     // MARK: - View Actions
     
     @IBAction func bookmark(_ sender: UIBarButtonItem) {
-        viewModel.toggleBookmark(then: updateBookmarkButton)
+        updateBookmarkButton(isBookmarked: viewModel.toggleBookmark())
     }
     
     @IBAction func openInSafari(_ sender: UIBarButtonItem) {
@@ -178,7 +181,9 @@ class OrganizationDetailViewController: WSSFStaticTableViewController, Storyboar
     
     override func load() {
         super.load()
-        viewModel.load(then: loadHandler(error:))
+        Task {
+            loadHandler(error: await viewModel.load())
+        }
     }
     
 }
@@ -187,8 +192,8 @@ extension OrganizationDetailViewController {
     
     // MARK: - View Helper Methods (private)
     
-    private func updateBookmarkButton() {
-        if viewModel.isBookmarked {
+    private func updateBookmarkButton(isBookmarked: Bool) {
+        if isBookmarked {
             bookmarkButton.image = UIImage(systemName: "bookmark.fill")
         } else {
             bookmarkButton.image = UIImage(systemName: "bookmark")

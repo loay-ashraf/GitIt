@@ -148,8 +148,11 @@ class RepositoryDetailViewController: WSSFStaticTableViewController, Storyboarda
         xTableView.endUpdates()
         
         updateReadmeView()
-        updateBookmarkButton()
-        updateStarButton()
+        Task {
+            let status = await viewModel.checkForStatus()
+            updateBookmarkButton(isBookmarked: status[0])
+            updateStarButton(isStarred: status[1])
+        }
         
         bookmarkButton.isEnabled = true
         openInSafariButton.isEnabled = true
@@ -158,12 +161,14 @@ class RepositoryDetailViewController: WSSFStaticTableViewController, Storyboarda
     
     // MARK: - View Actions
     
-    @IBAction func star(_ sender: UIButton) {
-        viewModel.toggleStar(then: updateStarButton)
+    @IBAction func bookmark(_ sender: UIBarButtonItem) {
+        updateBookmarkButton(isBookmarked: viewModel.toggleBookmark())
     }
     
-    @IBAction func bookmark(_ sender: UIBarButtonItem) {
-        viewModel.toggleBookmark(then: updateBookmarkButton)
+    @IBAction func star(_ sender: UIButton) {
+        Task {
+            updateStarButton(isStarred: await viewModel.toggleStar())
+        }
     }
     
     @IBAction func openInSafari(_ sender: UIBarButtonItem) {
@@ -230,7 +235,9 @@ class RepositoryDetailViewController: WSSFStaticTableViewController, Storyboarda
     
     override func load() {
         super.load()
-        viewModel.load(then: loadHandler(error:))
+        Task {
+            loadHandler(error: await viewModel.load())
+        }
     }
     
 }
@@ -239,16 +246,16 @@ extension RepositoryDetailViewController {
     
     // MARK: - View Helper Methods (Private)
     
-    private func updateBookmarkButton() {
-        if viewModel.isBookmarked {
+    private func updateBookmarkButton(isBookmarked: Bool) {
+        if isBookmarked {
             bookmarkButton.image = Constants.View.Button.bookmark.bookmarkedImage
         } else {
             bookmarkButton.image = Constants.View.Button.bookmark.defaultImage
         }
     }
     
-    private func updateStarButton() {
-        if viewModel.isStarred {
+    private func updateStarButton(isStarred: Bool) {
+        if isStarred {
             starButton.setTitle(Constants.View.Button.star.starredTitle, for: .normal)
             starButton.setImage(Constants.View.Button.star.starredImage, for: .normal)
         } else {

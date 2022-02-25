@@ -49,42 +49,31 @@ final class RepositoryDetailViewModel: WebServiceDetailViewModel {
 
     // MARK: - View Actions
     
-    func toggleBookmark(then handler: @escaping () -> Void) {
+    func toggleBookmark() -> Bool {
         if !isBookmarked {
-            logicController.bookmark { [weak self] in
-                self?.isBookmarked = true
-                handler()
-            }
+            isBookmarked = logicController.bookmark()
         } else {
-            logicController.unBookmark { [weak self] in
-                self?.isBookmarked = false
-                handler()
-            }
+            isBookmarked = !logicController.unBookmark()
         }
+        return isBookmarked
     }
     
-    func toggleStar(then handler: @escaping () -> Void) {
+    func toggleStar() async -> Bool {
         if !isStarred{
-            logicController.star { [weak self] in
-                self?.isStarred = true
-                handler()
-            }
+            isStarred = await logicController.star()
         } else {
-            logicController.unStar { [weak self] in
-                self?.isStarred = false
-                handler()
-            }
+            isStarred = await !logicController.unStar()
         }
+        return isStarred
     }
     
     // MARK: - Status Checking Method
     
-    func checkForStatus() {
-        logicController.checkForStatus { status in
-            self.isBookmarked = status[0]
-            self.isStarred = status[1]
-            self.handler?(nil)
-        }
+    func checkForStatus() async -> Array<Bool> {
+        let status = await logicController.checkForStatus()
+        isBookmarked = status[0]
+        isStarred = status[1]
+        return status
     }
     
     // MARK: - Synchronize Method

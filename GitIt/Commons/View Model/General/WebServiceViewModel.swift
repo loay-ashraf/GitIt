@@ -19,7 +19,7 @@ protocol WebServiceViewModel: AnyObject {
     init()
     
     func reset()
-    func processFetchError(networkError: NetworkError?)
+    func processFetchError(networkError: NetworkError?) -> NetworkError?
     func synchronize()
     
 }
@@ -34,9 +34,9 @@ protocol WebServiceDetailViewModel: AnyObject {
     init()
     init(withParameter parameter: String)
     
-    func load(then handler: @escaping NetworkLoadingHandler)
-    func checkForStatus()
-    func processFetchError(networkError: NetworkError?)
+    func load() async -> NetworkError?
+    func checkForStatus() async -> Array<Bool>
+    func processFetchError(networkError: NetworkError?) -> NetworkError?
     func synchronize()
     
 }
@@ -44,17 +44,17 @@ protocol WebServiceDetailViewModel: AnyObject {
 
 protocol WebServicePlainViewModel: WebServiceViewModel where WebServiceLogicControllerType: WebServicePlainLogicController {
     
-    func load(then handler: @escaping NetworkLoadingHandler)
-    func refresh(then handler: @escaping NetworkLoadingHandler)
-    func paginate(then handler: @escaping NetworkLoadingHandler)
+    func load() async -> NetworkError?
+    func refresh() async -> NetworkError?
+    func paginate() async -> NetworkError?
     
 }
 
 protocol WebServiceSearchViewModel: WebServiceViewModel where WebServiceLogicControllerType: WebServiceSearchLogicController {
     
-    func search(withQuery query: String, then handler: @escaping NetworkLoadingHandler)
-    func refresh(then handler: @escaping NetworkLoadingHandler)
-    func paginate(then handler: @escaping NetworkLoadingHandler)
+    func search(withQuery query: String) async -> NetworkError?
+    func refresh() async -> NetworkError?
+    func paginate() async -> NetworkError?
     
 }
 
@@ -77,12 +77,12 @@ extension WebServiceViewModel {
     
     // MARK: - Fetch Error Processing Methods
     
-    func processFetchError(networkError: NetworkError?) {
+    func processFetchError(networkError: NetworkError?) -> NetworkError? {
         if let networkError = networkError {
-            handler?(networkError)
+            return networkError
         } else {
             synchronize()
-            handler?(nil)
+            return nil
         }
     }
     
@@ -98,19 +98,18 @@ extension WebServiceDetailViewModel {
     
     // MARK: - Load Method
     
-    func load(then handler: @escaping NetworkLoadingHandler) {
-        self.handler = handler
-        logicController.load(then: processFetchError(networkError:))
+    func load() async -> NetworkError? {
+        return processFetchError(networkError: await logicController.load())
     }
     
     // MARK: - Fetch Error Processing Methods
     
-    func processFetchError(networkError: NetworkError?) {
+    func processFetchError(networkError: NetworkError?) -> NetworkError?  {
         if let networkError = networkError {
-            handler?(networkError)
+            return networkError
         } else {
             synchronize()
-            checkForStatus()
+            return nil
         }
     }
     
@@ -120,19 +119,16 @@ extension WebServicePlainViewModel {
     
     // MARK: - Load, Refresh and Paginate methods
     
-    func load(then handler: @escaping NetworkLoadingHandler) {
-        self.handler = handler
-        logicController.load(then: processFetchError(networkError:))
+    func load() async -> NetworkError? {
+        return processFetchError(networkError: await logicController.load())
     }
     
-    func refresh(then handler: @escaping NetworkLoadingHandler) {
-        self.handler = handler
-        logicController.refresh(then: processFetchError(networkError:))
+    func refresh() async -> NetworkError? {
+        return processFetchError(networkError: await logicController.refresh())
     }
     
-    func paginate(then handler: @escaping NetworkLoadingHandler) {
-        self.handler = handler
-        logicController.paginate(then: processFetchError(networkError:))
+    func paginate() async -> NetworkError? {
+        return processFetchError(networkError: await logicController.paginate())
     }
     
 }
@@ -141,19 +137,16 @@ extension WebServiceSearchViewModel {
     
     // MARK: - Search, Refresh and Paginate methods
     
-    func search(withQuery query: String, then handler: @escaping NetworkLoadingHandler) {
-        self.handler = handler
-        logicController.search(withQuery: query, then: processFetchError(networkError:))
+    func search(withQuery query: String) async -> NetworkError? {
+        return processFetchError(networkError: await logicController.search(withQuery: query))
     }
     
-    func refresh(then handler: @escaping NetworkLoadingHandler) {
-        self.handler = handler
-        logicController.refresh(then: processFetchError(networkError:))
+    func refresh() async -> NetworkError? {
+        return processFetchError(networkError: await logicController.refresh())
     }
     
-    func paginate(then handler: @escaping NetworkLoadingHandler) {
-        self.handler = handler
-        logicController.paginate(then: processFetchError(networkError:))
+    func paginate() async -> NetworkError? {
+        return processFetchError(networkError: await logicController.paginate())
     }
     
 }

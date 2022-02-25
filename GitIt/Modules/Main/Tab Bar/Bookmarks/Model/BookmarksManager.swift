@@ -45,37 +45,37 @@ class BookmarksManager: DataPersistenceManager {
     func add<Type: Model>(model: Type) throws {
         if !model.isComplete {
             if let userModel = model as? UserModel {
-                getCompleteUser(with: userModel) { completeUserModel in
+                Task {
                     var result: Result<NSManagedObject,CoreDataError>?
-                    if let completeUserModel = completeUserModel {
-                        result = self.dataPersistenceProvider.insert(completeUserModel)
+                    if let completeUserModel = await getCompleteUser(with: userModel) {
+                        result = dataPersistenceProvider.insert(completeUserModel)
                     }
                     switch result {
-                    case .success(let managedObject): self.userBookmarks?.append(managedObject as! User)
+                    case .success(let managedObject): userBookmarks?.append(managedObject as! User)
                     case .failure: return
                     case .none: return
                     }
                 }
             } else if let repositoryModel = model as? RepositoryModel {
-                getCompleteRepository(with: repositoryModel) { completeRepositoryModel in
+                Task {
                     var result: Result<NSManagedObject,CoreDataError>?
-                    if let completeRepositoryModel = completeRepositoryModel {
-                        result = self.dataPersistenceProvider.insert(completeRepositoryModel)
+                    if let completeRepositoryModel = await getCompleteRepository(with: repositoryModel) {
+                        result = dataPersistenceProvider.insert(completeRepositoryModel)
                     }
                     switch result {
-                    case .success(let managedObject): self.repositoryBookmarks?.append(managedObject as! Repository)
+                    case .success(let managedObject): repositoryBookmarks?.append(managedObject as! Repository)
                     case .failure: return
                     case .none: return
                     }
                 }
             } else if let organizationModel = model as? OrganizationModel {
-                getCompleteOrganization(with: organizationModel) { completeOrganizationModel in
+                Task {
                     var result: Result<NSManagedObject,CoreDataError>?
-                    if let completeOrganizationModel = completeOrganizationModel {
-                        result = self.dataPersistenceProvider.insert(completeOrganizationModel)
+                    if let completeOrganizationModel = await getCompleteOrganization(with: organizationModel) {
+                        result = dataPersistenceProvider.insert(completeOrganizationModel)
                     }
                     switch result {
-                    case .success(let managedObject): self.organizationBookmarks?.append(managedObject as! Organization)
+                    case .success(let managedObject): organizationBookmarks?.append(managedObject as! Organization)
                     case .failure: return
                     case .none: return
                     }
@@ -158,40 +158,25 @@ class BookmarksManager: DataPersistenceManager {
     
     // MARK: - Completing Models Methods
     
-    func getCompleteUser(with userModel: UserModel, then handler: @escaping (UserModel?) -> Void) {
-        webServiceClient.fetchUser(userLogin: userModel.login) { result in
-            switch result {
-            case .success(var response): response.isComplete = true
-                                         handler(response)
-            case .failure: handler(nil)
-            }
-        }
+    func getCompleteUser(with userModel: UserModel) async -> UserModel? {
+        var user = try? await webServiceClient.fetchUser(userLogin: userModel.login).get()
+        user?.isComplete = true
+        return user
     }
     
-    func getCompleteRepository(with repositoryModel: RepositoryModel, then handler: @escaping (RepositoryModel?) -> Void) {
-        webServiceClient.fetchRepository(fullName: repositoryModel.fullName) { result in
-            switch result {
-            case .success(var response): self.webServiceClient.downloadRepositoryREADME(fullName: response.fullName, branch: response.defaultBranch) { result in
-                switch result {
-                case .success(let readMeString): response.READMEString = String(data: readMeString, encoding: .utf8)
-                                                 response.isComplete = true
-                                                 handler(response)
-                case .failure: handler(nil)
-                }
-            }
-            case .failure: handler(nil)
-            }
+    func getCompleteRepository(with repositoryModel: RepositoryModel) async -> RepositoryModel? {
+        var repository = try? await webServiceClient.fetchRepository(fullName: repositoryModel.fullName).get()
+        if let readmeData = try? await webServiceClient.downloadRepositoryREADME(fullName: repositoryModel.fullName, branch: repositoryModel.defaultBranch).get() {
+            repository?.READMEString = String(data: readmeData, encoding: .utf8)
         }
+        repository?.isComplete = true
+        return repository
     }
     
-    func getCompleteOrganization(with organizationModel: OrganizationModel, then handler: @escaping (OrganizationModel?) -> Void) {
-        webServiceClient.fetchOrganization(organizationLogin: organizationModel.login) { result in
-            switch result {
-            case .success(var response): response.isComplete = true
-                                         handler(response)
-            case .failure: handler(nil)
-            }
-        }
+    func getCompleteOrganization(with organizationModel: OrganizationModel) async -> OrganizationModel? {
+        var organization = try? await webServiceClient.fetchOrganization(organizationLogin: organizationModel.login).get()
+        organization?.isComplete = true
+        return organization
     }
     
 }

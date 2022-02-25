@@ -37,8 +37,8 @@ final class CommitDetailViewModel: WebServiceDetailViewModel {
     
     // MARK: - Status Checking Method
     
-    func checkForStatus() {
-        handler?(nil)
+    func checkForStatus() async -> Array<Bool> {
+        return await logicController.checkForStatus()
     }
     
     // MARK: - Synchronize Method

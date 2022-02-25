@@ -8,7 +8,7 @@
 import Foundation
 
 final class UserDetailLogicController: WebServiceDetailLogicController {
-   
+
     // MARK: - Properties
     
     typealias WebServiceClientType = GitHubClient
@@ -21,55 +21,46 @@ final class UserDetailLogicController: WebServiceDetailLogicController {
     
     // MARK: - Fetch Data Method
     
-    func fetchData() {
-        webServiceClient.fetchUser(userLogin: parameter, completion: processFetchResult(result:))
+    func fetchData() async -> Result<UserModel,NetworkError> {
+        await webServiceClient.fetchUser(userLogin: parameter)
     }
     
     // MARK: - (Un)Bookmark Methods
     
-    func bookmark(then handler: @escaping () -> Void) {
+    func bookmark() -> Bool {
         if let _ = try? BookmarksManager.standard.add(model: model) {
-            handler()
+            return true
         }
+        return false
     }
     
-    func unBookmark(then handler: @escaping () -> Void) {
+    func unBookmark() -> Bool {
         if let _ = try? BookmarksManager.standard.delete(model: model) {
-            handler()
+            return true
         }
+        return false
     }
     
     // MARK: - (Un)Follow Methods
     
-    func follow(then handler: @escaping () -> Void) {
-        webServiceClient.followUser(userLogin: model.login) { error in
-            guard error != nil else {
-                handler()
-                return
-            }
-        }
+    func follow() async -> Bool {
+        return await webServiceClient.followUser(userLogin: model.login) == nil ? true : false
     }
     
-    func unFollow(then handler: @escaping () -> Void) {
-        webServiceClient.unFollowUser(userLogin: model.login) { error in
-            guard error != nil else {
-                handler()
-                return
-            }
-        }
+    func unFollow() async -> Bool {
+        return await webServiceClient.unFollowUser(userLogin: model.login) == nil ? true : false
     }
     
     // MARK: - Check For Status Methods
     
-    func checkForStatus(then handler: @escaping ([Bool]) -> Void) {
+    func checkForStatus() async -> Array<Bool> {
         if NetworkManager.standard.isReachable, SessionManager.standard.sessionType == .authenticated {
-            checkIfFollowed { isFollowed in
-                let isBookmarked = self.checkIfBookmarked()
-                handler([isBookmarked,isFollowed])
-            }
+            let isFollowed = await checkIfFollowed()
+            let isBookmarked = self.checkIfBookmarked()
+            return [isBookmarked,isFollowed]
         } else {
             let isBookmarked = self.checkIfBookmarked()
-            handler([isBookmarked,false])
+            return [isBookmarked,false]
         }
     }
     
@@ -82,14 +73,8 @@ final class UserDetailLogicController: WebServiceDetailLogicController {
         }
     }
     
-    func checkIfFollowed(then handler: @escaping (Bool) -> Void) {
-        webServiceClient.checkIfFollowingUser(userLogin: model.login) { error in
-            guard error != nil else {
-                handler(true)
-                return
-            }
-            handler(false)
-        }
+    func checkIfFollowed() async -> Bool {
+        return await webServiceClient.checkIfFollowingUser(userLogin: model.login) == nil ? true : false
     }
     
 }

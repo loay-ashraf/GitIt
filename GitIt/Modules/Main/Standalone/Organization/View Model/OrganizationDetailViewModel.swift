@@ -44,27 +44,21 @@ final class OrganizationDetailViewModel: WebServiceDetailViewModel {
     
     // MARK: - View Actions
     
-    func toggleBookmark(then handler: @escaping () -> Void) {
+    func toggleBookmark() -> Bool {
         if !isBookmarked {
-            logicController.bookmark { [weak self] in
-                self?.isBookmarked = true
-                handler()
-            }
+            isBookmarked = logicController.bookmark()
         } else {
-            logicController.unBookmark { [weak self] in
-                self?.isBookmarked = false
-                handler()
-            }
+            isBookmarked = !logicController.unBookmark()
         }
+        return isBookmarked
     }
     
     // MARK: - Status Checking Method
     
-    func checkForStatus() {
-        logicController.checkForStatus { status in
-            self.isBookmarked = status[0]
-            self.handler?(nil)
-        }
+    func checkForStatus() async -> Array<Bool> {
+        let status = await logicController.checkForStatus()
+        isBookmarked = status[0]
+        return status
     }
     
     // MARK: - Synchronize Method

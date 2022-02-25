@@ -26,8 +26,8 @@ final class StarredLogicController: RepositoryLogicController {
     
     // MARK: - Fetch Data Method
     
-    override func fetchData() {
-        webServiceClient.fetchUserStarred(userLogin: userLogin, page: model.currentPage, completion: processFetchResult(result:))
+    override func fetchData() async -> Result<Array<RepositoryModel>,NetworkError> {
+        await webServiceClient.fetchUserStarred(userLogin: userLogin, page: model.currentPage)
     }
     
 }

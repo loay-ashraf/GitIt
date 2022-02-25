@@ -27,14 +27,14 @@ class CommitDetailLogicController: WebServiceDetailLogicController {
     
     // MARK: - Fetch Data Method
     
-    func fetchData() {
-        handler?(nil)
+    func fetchData() async -> Result<CommitModel,NetworkError> {
+        return .success(model)
     }
     
     // MARK: - Check For Status Method
     
-    func checkForStatus(then handler: @escaping ([Bool]) -> Void) {
-        handler([])
+    func checkForStatus() async -> Array<Bool> {
+        return []
     }
     
 }

@@ -21,32 +21,34 @@ final class OrganizationDetailLogicController: WebServiceDetailLogicController {
     
     // MARK: - Fetch Data Method
     
-    func fetchData() {
-        webServiceClient.fetchOrganization(organizationLogin: parameter, completionHandler: processFetchResult(result:))
+    func fetchData() async -> Result<OrganizationModel,NetworkError> {
+        await webServiceClient.fetchOrganization(organizationLogin: parameter)
     }
     
     // MARK: - (Un)Bookmark Methods
     
-    func bookmark(then handler: @escaping () -> Void) {
+    func bookmark() -> Bool {
         if let _ = try? BookmarksManager.standard.add(model: model) {
-            handler()
+            return true
         }
+        return false
     }
     
-    func unBookmark(then handler: @escaping () -> Void) {
+    func unBookmark() -> Bool {
         if let _ = try? BookmarksManager.standard.delete(model: model) {
-            handler()
+            return true
         }
+        return false
     }
     
     // MARK: - Check For Status Methods
     
-    func checkForStatus(then handler: @escaping ([Bool]) -> Void) {
+    func checkForStatus() async -> Array<Bool> {
         let fetchResult = BookmarksManager.standard.check(model: model)
         switch fetchResult {
-        case true: handler([true])
-        case false: handler([false])
-        default: handler([false])
+        case true: return [true]
+        case false: return [false]
+        default: return [false]
         }
     }
     

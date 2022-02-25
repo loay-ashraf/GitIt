@@ -26,8 +26,8 @@ final class OrganizationOwnedLogicController: RepositoryLogicController {
     
     // MARK: - Fetch Data Method
     
-    override func fetchData() {
-        webServiceClient.fetchOrganizationRepositories(organizationLogin: organizationLogin, page: model.currentPage, completionHandler: processFetchResult(result:))
+    override func fetchData() async -> Result<Array<RepositoryModel>,NetworkError> {
+        await webServiceClient.fetchOrganizationRepositories(organizationLogin: organizationLogin, page: model.currentPage)
     }
     
 }

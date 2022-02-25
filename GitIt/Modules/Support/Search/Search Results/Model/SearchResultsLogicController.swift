@@ -8,7 +8,7 @@
 import Foundation
 
 final class UserSearchResultsLogicController: SearchResultsLogicController {
-    
+
     // MARK: - Properties
     
     typealias WebServiceClientType = GitHubClient
@@ -35,14 +35,14 @@ final class UserSearchResultsLogicController: SearchResultsLogicController {
     
     // MARK: - Fetch Data Method
     
-    func fetchData() {
-        webServiceClient.searchUsers(keyword: query, page: model.currentPage, completionHandler: processFetchResult(result:))
+    func fetchData() async -> Result<BatchResponse<UserModel>, NetworkError> {
+        await webServiceClient.searchUsers(query: query, page: model.currentPage)
     }
     
 }
 
 final class RepositorySearchResultsLogicController: SearchResultsLogicController {
-    
+
     // MARK: - Properties
     
     typealias WebServiceClientType = GitHubClient
@@ -69,14 +69,14 @@ final class RepositorySearchResultsLogicController: SearchResultsLogicController
     
     // MARK: - Fetch Data Method
     
-    func fetchData() {
-        webServiceClient.searchRepositories(keyword: query, page: model.currentPage, completionHandler: processFetchResult(result:))
+    func fetchData() async -> Result<BatchResponse<RepositoryModel>, NetworkError> {
+        await webServiceClient.searchRepositories(query: query, page: model.currentPage)
     }
     
 }
 
 final class OrganizationSearchResultsLogicController: SearchResultsLogicController {
-    
+
     // MARK: - Properties
     
     typealias WebServiceClientType = GitHubClient
@@ -103,8 +103,8 @@ final class OrganizationSearchResultsLogicController: SearchResultsLogicControll
     
     // MARK: - Fetch Data Method
     
-    func fetchData() {
-        webServiceClient.searchOrganizations(keyword: query, page: model.currentPage, completionHandler: processFetchResult(result:))
+    func fetchData() async -> Result<BatchResponse<OrganizationModel>, NetworkError> {
+        await webServiceClient.searchOrganizations(query: query, page: model.currentPage)
     }
     
 }

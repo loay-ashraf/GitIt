@@ -49,11 +49,12 @@ class SplashViewController: UIViewController {
     }
     
     private func sessionManagerSetup() {
-        SessionManager.standard.setup { networkError in
+        Task {
+            let _ = await SessionManager.standard.setup()
             if SessionManager.standard.isSignedIn() {
-                self.presentTabBarViewController()
+                presentTabBarViewController()
             } else {
-                self.presentSignInViewController()
+                presentSignInViewController()
             }
         }
     }

@@ -60,7 +60,9 @@ class LicenseViewController: WSSFViewController, StoryboardableViewController {
     
     override func load() {
         super.load()
-        viewModel.load(then: loadHandler(error:))
+        Task {
+            loadHandler(error: await viewModel.load())
+        }
     }
     
 }

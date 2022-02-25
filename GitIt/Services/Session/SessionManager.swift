@@ -10,6 +10,8 @@ import Alamofire
 
 class SessionManager {
     
+    // MARK: - Properties
+    
     static let standard = SessionManager()
     let webServiceClient = GitHubClient()
     let userDefaultsPersistenceProvider = DataManager.standard.userDefaultsPersistenceProvider
@@ -26,37 +28,34 @@ class SessionManager {
     
     // MARK: - Session Actions Methods
     
-    func setup(completion: @escaping (NetworkError?) -> Void) {
+    func setup() async -> NetworkError? {
         getSessionAttributes()
         if sessionType == .authenticated {
-            fetchAuthenticatedUser() { networkError in
-                if networkError == nil {
-                    self.validateAuthenticatedSession(completion: completion)
-                } else {
-                    completion(networkError)
-                }
+            let networkError = await fetchAuthenticatedUser()
+            if networkError == nil {
+                return await validateAuthenticatedSession()
             }
-        } else {
-            completion(nil)
+            return networkError
         }
+        return nil
     }
     
-    func signIn(url: URL? = nil, completionHandler: @escaping (Bool) -> Void) {
+    func signIn(url: URL? = nil) async -> Bool {
         if let url = url {
             if let temporaryCode = extractTemporaryCode(with: url) {
-                fetchAccessToken(with: temporaryCode) { accessToken in
-                    if let accessToken = accessToken {
-                        self.setSessionAttributes(sessionType: .authenticated, accessToken: accessToken)
-                        completionHandler(true)
-                    } else {
-                        completionHandler(false)
-                    }
+                let accessToken = await fetchAccessToken(with: temporaryCode)
+                if let accessToken = accessToken {
+                    setSessionAttributes(sessionType: .authenticated, accessToken: accessToken)
+                    return true
+                } else {
+                    return false
                 }
             }
         } else {
             setSessionAttributes(sessionType: .guest, accessToken: nil)
-            completionHandler(true)
+            return true
         }
+        return false
     }
     
     func signOut() {
@@ -116,24 +115,22 @@ class SessionManager {
     
     // MARK: - Authenticated Session Methods
 
-    private func fetchAuthenticatedUser(completion: @escaping (NetworkError?) -> Void) {
-        webServiceClient.fetchAuthenticatedUser() { result in
-            switch result {
-            case .success(let response): self.sessionUser = response
-                                         completion(nil)
-            case .failure(let networkError): completion(networkError)
-            }
+    private func fetchAuthenticatedUser() async -> NetworkError? {
+        let result = await webServiceClient.fetchAuthenticatedUser()
+        switch result {
+        case .success(let response): sessionUser = response
+                                     return nil
+        case .failure(let networkError): return networkError
         }
     }
     
-    private func validateAuthenticatedSession(completion: @escaping (NetworkError?) -> Void) {
-        webServiceClient.starRepository(fullName: "loay-ashraf/GitIt") { networkError in
-            if networkError == nil {
-                self.webServiceClient.unStarRepository(fullName: "loay-ashraf/GitIt", completionHandler: completion)
-            } else {
-                completion(networkError)
-            }
+    private func validateAuthenticatedSession() async -> NetworkError? {
+        let networkError = await webServiceClient.starRepository(fullName: "loay-ashraf/GitIt")
+        if networkError == nil {
+            let xNetworkError = await webServiceClient.unStarRepository(fullName: "loay-ashraf/GitIt")
+            return xNetworkError
         }
+        return networkError
     }
     
     // MARK: - Authentication Methods
@@ -146,22 +143,24 @@ class SessionManager {
         return nil
     }
     
-    private func fetchAccessToken(with temporaryCode: String, completionHandler: @escaping (String?) -> Void) {
+    private func fetchAccessToken(with temporaryCode: String) async -> String? {
         let headers: HTTPHeaders = ["Accept": "application/json"]
         let parameters = ["client_id": AuthenticationConstants.clientID,
                           "client_secret": AuthenticationConstants.clientSecret,
                           "code": temporaryCode]
-        AF.request(AuthenticationConstants.tokenExchangeURL,
-                   method: .post,
-                   parameters: parameters,
-                   headers: headers)
-                    .responseDecodable(of: AccessToken.self) { response in
-                        guard let cred = response.value else {
-                            return completionHandler(nil)
-                        }
-                        completionHandler(cred.accessToken)
-                    }
         
+        return await withUnsafeContinuation { continuation in
+            AF.request(AuthenticationConstants.tokenExchangeURL,
+                       method: .post,
+                       parameters: parameters,
+                       headers: headers)
+                        .responseDecodable(of: AccessToken.self) { response in
+                            guard let cred = response.value else {
+                                return continuation.resume(returning: nil)
+                            }
+                            continuation.resume(returning: cred.accessToken)
+                        }
+        }
     }
     
 }

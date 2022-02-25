@@ -206,7 +206,7 @@
                             </constraints>
                         </view>
                         <view key="tableFooterView" contentMode="scaleToFill" id="KSv-gy-qoj" userLabel="Footer">
-                            <rect key="frame" x="0.0" y="502" width="414" height="212"/>
+                            <rect key="frame" x="0.0" y="502.00000000000011" width="414" height="212"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YHQ-yV-hqU" userLabel="Separator">
@@ -779,7 +779,7 @@
                                 <real key="value" value="1"/>
                             </userDefinedRuntimeAttribute>
                             <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
-                                <real key="value" value="50"/>
+                                <real key="value" value="10"/>
                             </userDefinedRuntimeAttribute>
                             <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
                                 <color key="value" systemColor="labelColor"/>
@@ -1869,7 +1869,7 @@
                         </view>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
-                                <real key="value" value="50"/>
+                                <real key="value" value="10"/>
                             </userDefinedRuntimeAttribute>
                             <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
                                 <real key="value" value="1"/>
@@ -1999,7 +1999,7 @@
                                 </constraints>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DdT-J5-wOV" customClass="AdaptableSizeButton" customModule="GitIt" customModuleProvider="target">
-                                <rect key="frame" x="124" y="656" width="166" height="30"/>
+                                <rect key="frame" x="139" y="656" width="136" height="30"/>
                                 <color key="backgroundColor" name="Background Color"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="1gy-vp-Ih3"/>
@@ -2013,7 +2013,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VGO-nu-Rrj" customClass="AdaptableSizeButton" customModule="GitIt" customModuleProvider="target">
-                                <rect key="frame" x="108.00000000000001" y="591" width="198.33333333333337" height="45"/>
+                                <rect key="frame" x="122.66666666666669" y="591" width="169" height="45"/>
                                 <color key="backgroundColor" systemColor="labelColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="45" id="Fq2-3f-KsA"/>
@@ -2104,14 +2104,6 @@
             <point key="canvasLocation" x="1951" y="-779"/>
         </scene>
     </scenes>
-    <designables>
-        <designable name="DdT-J5-wOV">
-            <size key="intrinsicContentSize" width="166" height="18"/>
-        </designable>
-        <designable name="VGO-nu-Rrj">
-            <size key="intrinsicContentSize" width="198.33333333333334" height="24"/>
-        </designable>
-    </designables>
     <resources>
         <image name="book.closed" catalog="system" width="115" height="128"/>
         <image name="bookmark" catalog="system" width="112" height="128"/>

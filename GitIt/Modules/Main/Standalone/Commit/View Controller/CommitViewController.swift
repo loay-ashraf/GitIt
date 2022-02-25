@@ -80,10 +80,12 @@ class CommitViewController: WSSFDynamicTableViewController<CommitViewModel>, Sto
         super.load(with: loadingViewState)
         if loadingViewState == .initial, didLoadInitial { return }
         else { didLoadInitial = true }
-        switch loadingViewState {
-        case .initial: viewModel.load { [weak self] error in self?.loadHandler(error: error) }
-        case .refresh: viewModel.refresh { [weak self] error in self?.refreshHandler(error: error) }
-        case .paginate: viewModel.load { [weak self] error in self?.paginateHandler(error: error) }
+        Task {
+            switch loadingViewState {
+            case .initial: loadHandler(error: await viewModel?.load())
+            case .refresh: refreshHandler(error: await viewModel?.refresh())
+            case .paginate: paginateHandler(error: await viewModel?.paginate())
+            }
         }
     }
 

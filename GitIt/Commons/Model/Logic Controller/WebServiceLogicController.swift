@@ -23,9 +23,9 @@ protocol WebServiceLogicController: AnyObject {
     init()
     init(maxItemCount: Int?, maxPageCount: Int)
     
-    func fetchData()
+    func fetchData() async -> Result<Array<ModelType>,NetworkError>
     func resetData()
-    func processFetchResult(result: Result<Array<ModelType>, NetworkError>)
+    func processFetchResult(result: Result<Array<ModelType>, NetworkError>) -> NetworkError?
     func updatePaginability(newItemsCount: Int)
     
 }
@@ -43,18 +43,18 @@ protocol WebServiceDetailLogicController: AnyObject {
     init()
     init(withParameter parameter: String)
     
-    func load(then handler: @escaping NetworkLoadingHandler)
-    func fetchData()
-    func checkForStatus(then handler: @escaping ([Bool]) -> Void)
-    func processFetchResult(result: Result<ModelType, NetworkError>)
+    func load() async -> NetworkError?
+    func fetchData() async -> Result<ModelType, NetworkError>
+    func checkForStatus() async -> Array<Bool>
+    func processFetchResult(result: Result<ModelType, NetworkError>) -> NetworkError?
     
 }
 
 protocol WebServicePlainLogicController: WebServiceLogicController {
 
-    func load(then handler: @escaping NetworkLoadingHandler)
-    func refresh(then handler: @escaping NetworkLoadingHandler)
-    func paginate(then handler: @escaping NetworkLoadingHandler)
+    func load() async -> NetworkError?
+    func refresh() async -> NetworkError?
+    func paginate() async -> NetworkError?
 
 }
 
@@ -62,9 +62,12 @@ protocol WebServiceSearchLogicController: WebServiceLogicController {
     
     var query: String { get set }
     
-    func search(withQuery query: String, then handler: @escaping NetworkLoadingHandler)
-    func refresh(then handler: @escaping NetworkLoadingHandler)
-    func paginate(then handler: @escaping NetworkLoadingHandler)
+    func search(withQuery query: String) async -> NetworkError?
+    func refresh() async -> NetworkError?
+    func paginate() async -> NetworkError?
+    
+    func fetchData() async -> Result<BatchResponse<ModelType>,NetworkError>
+    func processFetchResult(result: Result<BatchResponse<ModelType>,NetworkError>) -> NetworkError?
     
 }
 
@@ -87,12 +90,12 @@ extension WebServiceLogicController {
     
     // MARK: - Fetch Result Processing Methods
     
-    func processFetchResult(result: Result<Array<ModelType>, NetworkError>) {
+    func processFetchResult(result: Result<Array<ModelType>, NetworkError>) -> NetworkError? {
         switch result {
         case .success(let response): model.append(contentsOf: response, withSizeLimit: maxItemCount)
                                      updatePaginability(newItemsCount: response.count)
-                                     handler?(nil)
-        case .failure(let networkError): handler?(networkError)
+                                     return nil
+        case .failure(let networkError): return networkError
         }
     }
     
@@ -123,23 +126,21 @@ extension WebServiceDetailLogicController {
     
     // MARK: - Load Method
     
-    func load(then handler: @escaping NetworkLoadingHandler) {
+    func load() async -> NetworkError? {
         if !parameter.isEmpty, !model.isComplete {
-            self.handler = handler
-            fetchData()
-        } else {
-            handler(nil)
+            return processFetchResult(result: await fetchData())
         }
+        return nil
     }
     
     // MARK: - Fetch Result Processing Method
     
-    func processFetchResult(result: Result<ModelType, NetworkError>) {
+    func processFetchResult(result: Result<ModelType, NetworkError>) -> NetworkError? {
         switch result {
-        case .success(let response): self.model = response
-                                     self.model.isComplete = true
-                                     handler?(nil)
-        case .failure(let networkError): handler?(networkError)
+        case .success(let response): model = response
+                                     model.isComplete = true
+                                     return nil
+        case .failure(let networkError): return networkError
         }
     }
     
@@ -149,20 +150,17 @@ extension WebServicePlainLogicController {
     
     // MARK: - Load, Refresh and Paginate methods
 
-    func load(then handler: @escaping NetworkLoadingHandler) {
-        self.handler = handler
-        fetchData()
+    func load() async -> NetworkError? {
+        return processFetchResult(result: await fetchData())
     }
     
-    func refresh(then handler: @escaping NetworkLoadingHandler) {
-        self.handler = handler
+    func refresh() async -> NetworkError? {
         resetData()
-        fetchData()
+        return processFetchResult(result: await fetchData())
     }
     
-    func paginate(then handler: @escaping NetworkLoadingHandler) {
-        self.handler = handler
-        fetchData()
+    func paginate() async -> NetworkError? {
+        return processFetchResult(result: await fetchData())
     }
     
 }
@@ -171,22 +169,33 @@ extension WebServiceSearchLogicController {
     
     // MARK: - Search, Refresh and Paginate methods
 
-    func search(withQuery query: String, then handler: @escaping NetworkLoadingHandler) {
+    func search(withQuery query: String) async -> NetworkError? {
         self.query = query
-        self.handler = handler
         resetData()
-        fetchData()
+        let dataResult: Result<BatchResponse<ModelType>,NetworkError> = await fetchData()
+        return processFetchResult(result: dataResult)
     }
     
-    func refresh(then handler: @escaping NetworkLoadingHandler) {
-        self.handler = handler
+    func refresh() async -> NetworkError? {
         resetData()
-        fetchData()
+        let dataResult: Result<BatchResponse<ModelType>,NetworkError> = await fetchData()
+        return processFetchResult(result: dataResult)
     }
     
-    func paginate(then handler: @escaping NetworkLoadingHandler) {
-        self.handler = handler
-        fetchData()
+    func paginate() async -> NetworkError? {
+        let dataResult: Result<BatchResponse<ModelType>,NetworkError> = await fetchData()
+        return processFetchResult(result: dataResult)
+    }
+    
+    // MARK: - Fetch Result Processing Method
+    
+    func processFetchResult(result: Result<BatchResponse<ModelType>, NetworkError>) -> NetworkError? {
+        switch result {
+        case .success(let response): model.append(contentsOf: response.items)
+                                     updatePaginability(newItemsCount: response.count)
+                                     return nil
+        case .failure(let networkError): return networkError
+        }
     }
     
 }

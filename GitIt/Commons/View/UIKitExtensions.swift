@@ -116,7 +116,7 @@ extension UIColor {
         }
     }
     
-    @IBInspectable var cornerCurve: CALayerCornerCurve {
+    var cornerCurve: CALayerCornerCurve {
         get { return layer.cornerCurve }
         set { layer.cornerCurve = newValue }
     }
@@ -169,34 +169,5 @@ extension UIColor {
             layer.borderWidth = newValue
         }
     }
-    
-}
-
-@IBDesignable extension UITableView {
-    
-//    @IBInspectable var edgeInsets: UIEdgeInsets {
-//        get { return contentInset }
-//        set { contentInset = newValue }
-//    }
-    
-    @IBInspectable var bottomContentInset: CGFloat {
-        get { return contentInset.bottom }
-        set { contentInset.bottom = newValue }
-      }
-    
-      @IBInspectable var leftContentInset: CGFloat {
-          get { return contentInset.left }
-          set { contentInset.left = newValue }
-      }
-    
-      @IBInspectable var rightContentInset: CGFloat {
-          get { return contentInset.right }
-          set { contentInset.right = newValue }
-      }
-    
-      @IBInspectable var topContentInset: CGFloat {
-          get { return contentInset.top }
-          set { contentInset.top = newValue }
-      }
     
 }

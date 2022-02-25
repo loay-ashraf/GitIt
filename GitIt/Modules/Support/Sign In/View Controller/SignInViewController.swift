@@ -51,13 +51,7 @@ extension SignInViewController: ASWebAuthenticationPresentationContextProviding 
                     AlertHelper.showAlert(alert: .signInError)
                 }
             } else if let callbackURL = callbackURL {
-                SessionManager.standard.signIn(url: callbackURL) { [weak self] success in
-                    if success {
-                        self?.performSegue(withIdentifier: "unwindToSplash", sender: self)
-                    } else {
-                        AlertHelper.showAlert(alert: .signInError)
-                    }
-                }
+                self?.handleCallbackURL(withCallbackURL: callbackURL)
             }
         }
         session.presentationContextProvider = self
@@ -67,6 +61,17 @@ extension SignInViewController: ASWebAuthenticationPresentationContextProviding 
         session.start()
     }
     
+    private func handleCallbackURL(withCallbackURL url: URL) {
+        Task {
+            let success = await SessionManager.standard.signIn(url: url)
+            if success {
+                performSegue(withIdentifier: "unwindToSplash", sender: self)
+            } else {
+                AlertHelper.showAlert(alert: .signInError)
+            }
+        }
+    }
+    
     private func guestPrompt() {
         AlertHelper.showAlert(alert: .guestSignIn({ [weak self] in
             self?.setupGuest()
@@ -74,9 +79,10 @@ extension SignInViewController: ASWebAuthenticationPresentationContextProviding 
     }
     
     private func setupGuest() {
-        SessionManager.standard.signIn { [weak self] success in
+        Task {
+            let success = await SessionManager.standard.signIn()
             if success {
-                self?.performSegue(withIdentifier: "unwindToSplash", sender: self)
+                performSegue(withIdentifier: "unwindToSplash", sender: self)
             }
         }
     }

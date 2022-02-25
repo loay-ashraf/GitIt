@@ -11,8 +11,8 @@ final class TrendingRepositoriesLogicController: RepositoryLogicController {
     
     // MARK: - Fetch Data Method
     
-    override func fetchData() {
-        webServiceClient.fetchTrendingRepositories(page: model.currentPage, completionHandler: processFetchResult(result:))
+    override func fetchData() async -> Result<Array<RepositoryModel>,NetworkError> {
+        await webServiceClient.fetchTrendingRepositories(page: model.currentPage)
     }
     
 }

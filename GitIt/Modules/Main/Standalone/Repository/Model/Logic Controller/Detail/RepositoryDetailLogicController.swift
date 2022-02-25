@@ -19,78 +19,76 @@ final class RepositoryDetailLogicController: WebServiceDetailLogicController {
     var parameter = String()
     var handler: NetworkLoadingHandler?
     
-    // MARK: - Fetch Data Methods
+    // MARK: - load Method
     
-    func fetchData() {
-        webServiceClient.fetchRepository(fullName: parameter, completionHandler: processFetchResult(result:))
+    func load() async -> NetworkError? {
+        if !parameter.isEmpty, !model.isComplete {
+            let dataError = processFetchResult(result: await fetchData())
+            if dataError == nil {
+                return processREADMEFetchResult(result: await fetchREADME())
+            }
+            return dataError
+        }
+        return nil
     }
     
-    func fetchREADME() {
-        webServiceClient.downloadRepositoryREADME(fullName: model.fullName, branch: model.defaultBranch) { result in
-            switch result {
-            case .success(let response): self.model.READMEString = String(data: response, encoding: .utf8)
-                                         self.model.isComplete = true
-                                         self.handler?(nil)
-            case .failure(let networkError): self.handler?(networkError)
-            }
-        }
+    // MARK: - Fetch Data Methods
+    
+    func fetchData() async -> Result<RepositoryModel,NetworkError> {
+        await webServiceClient.fetchRepository(fullName: parameter)
+    }
+    
+    func fetchREADME() async -> DataResult {
+        await webServiceClient.downloadRepositoryREADME(fullName: model.fullName, branch: model.defaultBranch)
     }
     
     // MARK: - Fetch Result Processing Method
     
-    func processFetchResult(result: Result<ModelType, NetworkError>) {
+    func processREADMEFetchResult(result: DataResult) -> NetworkError? {
         switch result {
-        case .success(let response): self.model = response
-                                     self.fetchREADME()
-        case .failure(let networkError): handler?(networkError)
+        case .success(let response): model.READMEString = String(data: response, encoding: .utf8)
+                                     model.isComplete = true
+                                     return nil
+        case .failure(let networkError): return networkError
         }
     }
     
     // MARK: - (Un)Bookmark Methods
     
-    func bookmark(then handler: @escaping () -> Void) {
+    func bookmark() -> Bool {
         if let _ = try? BookmarksManager.standard.add(model: model) {
-            handler()
+            return true
         }
+        return false
     }
     
-    func unBookmark(then handler: @escaping () -> Void) {
+    func unBookmark() -> Bool {
         if let _ = try? BookmarksManager.standard.delete(model: model) {
-            handler()
+            return true
         }
+        return false
     }
     
     // MARK: - (Un)Star Methods
     
-    func star(then handler: @escaping () -> Void) {
-        webServiceClient.starRepository(fullName: model.fullName) { error in
-            guard error != nil else {
-                handler()
-                return
-            }
-        }
+    func star() async -> Bool {
+        return await webServiceClient.starRepository(fullName: model.fullName) == nil ? true : false
     }
     
-    func unStar(then handler: @escaping () -> Void) {
-        webServiceClient.unStarRepository(fullName: model.fullName) { error in
-            guard error != nil else {
-                handler()
-                return
-            }
-        }
+    func unStar() async -> Bool {
+        return await webServiceClient.unStarRepository(fullName: model.fullName) == nil ? true : false
     }
     
     // MARK: - Check For Status Methods
     
-    func checkForStatus(then handler: @escaping ([Bool]) -> Void) {
+    func checkForStatus() async -> Array<Bool> {
         if NetworkManager.standard.isReachable, SessionManager.standard.sessionType == .authenticated {
-            checkIfStarred { isStarred in
-                let isBookmarked = self.checkIfBookmarked()
-                handler([isBookmarked,isStarred])
-            }
+            let isStarred = await checkIfStarred()
+            let isBookmarked = self.checkIfBookmarked()
+            return [isBookmarked,isStarred]
         } else {
             let isBookmarked = self.checkIfBookmarked()
-            handler([isBookmarked,false])
+            return [isBookmarked,false]
         }
     }
 
@@ -103,14 +101,8 @@ final class RepositoryDetailLogicController: WebServiceDetailLogicController {
         }
     }
     
-    func checkIfStarred(then handler: @escaping (Bool) -> Void) {
-        webServiceClient.checkIfStarredRepository(fullName: model.fullName) { error in
-            guard error != nil else {
-                handler(true)
-                return
-            }
-            handler(false)
-        }
+    func checkIfStarred() async -> Bool {
+        return await webServiceClient.checkIfStarredRepository(fullName: model.fullName) == nil ? true : false
     }
     
 }

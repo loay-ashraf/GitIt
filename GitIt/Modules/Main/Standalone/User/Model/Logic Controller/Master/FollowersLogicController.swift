@@ -26,8 +26,8 @@ final class FollowersLogicController: UserLogicController {
     
     // MARK: - Fetch Data Method
     
-    override func fetchData() {
-        webServiceClient.fetchUserFollowers(userLogin: userLogin, page: model.currentPage, completion: processFetchResult(result:))
+    override func fetchData() async -> Result<Array<UserModel>,NetworkError> {
+        await webServiceClient.fetchUserFollowers(userLogin: userLogin, page: model.currentPage)
     }
     
 }

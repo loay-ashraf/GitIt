@@ -48,42 +48,31 @@ final class UserDetailViewModel: WebServiceDetailViewModel {
     
     // MARK: - View Actions
     
-    func toggleBookmark(then handler: @escaping () -> Void) {
+    func toggleBookmark() -> Bool {
         if !isBookmarked {
-            logicController.bookmark { [weak self] in
-                self?.isBookmarked = true
-                handler()
-            }
+            isBookmarked = logicController.bookmark()
         } else {
-            logicController.unBookmark { [weak self] in
-                self?.isBookmarked = false
-                handler()
-            }
+            isBookmarked = !logicController.unBookmark()
         }
+        return isBookmarked
     }
     
-    func toggleFollow(then handler: @escaping () -> Void) {
+    func toggleFollow() async -> Bool {
         if !isFollowed {
-            logicController.follow { [weak self] in
-                self?.isFollowed = true
-                handler()
-            }
+            isFollowed = await logicController.follow()
         } else {
-            logicController.unFollow { [weak self] in
-                self?.isFollowed = false
-                handler()
-            }
+            isFollowed = await !logicController.unFollow()
         }
+        return isFollowed
     }
     
     // MARK: - Status Checking Method
     
-    func checkForStatus() {
-        logicController.checkForStatus { status in
-            self.isBookmarked = status[0]
-            self.isFollowed = status[1]
-            self.handler?(nil)
-        }
+    func checkForStatus() async -> Array<Bool> {
+        let status = await logicController.checkForStatus()
+        isBookmarked = status[0]
+        isFollowed = status[1]
+        return status
     }
     
     // MARK: - Synchronize Method

@@ -29,24 +29,16 @@ class LicenseLogicController: WebServiceDetailLogicController {
     
     // MARK: - Fetch Data Method
     
-    func fetchData() {
-        webServiceClient.downloadRepositoryLicense(fullName: parameter, branch: defaultBranch, completionHandler: processFetchResult(result:))
-    }
-    
-    // MARK: - Fetch Result Processing Method
-    
-    func processFetchResult(result: Result<Data, NetworkError>) {
-        switch result {
-        case .success(let response): self.model = String(data: response, encoding: .utf8) ?? "Error loading license"
-                                     self.handler?(nil)
-        case .failure(let networkError): handler?(networkError)
+    func fetchData() async -> Result<String, NetworkError> {
+        return await webServiceClient.downloadRepositoryLicense(fullName: parameter, branch: defaultBranch).flatMap { data -> Result<String, NetworkError> in
+            return .success(String(data: data, encoding: .utf8) ?? "Error loading license")
         }
     }
     
     // MARK: - Check For Status Method
     
-    func checkForStatus(then handler: @escaping ([Bool]) -> Void) {
-        return
+    func checkForStatus() async -> Array<Bool> {
+        return []
     }
     
 }

@@ -29,8 +29,8 @@ class RepositoryLogicController: WebServicePlainLogicController {
 
     // MARK: - Fetch Data Method
     
-    func fetchData() {
-        webServiceClient.fetchRepositories(page: model.currentPage, completionHandler: processFetchResult(result:))
+    func fetchData() async -> Result<Array<RepositoryModel>,NetworkError> {
+        await webServiceClient.fetchRepositories(page: model.currentPage)
     }
 
 }

@@ -26,8 +26,8 @@ final class ForksLogicController: RepositoryLogicController {
     
     // MARK: - Fetch Data Method
     
-    override func fetchData() {
-        webServiceClient.fetchRepositoryForks(fullName: repositoryFullName, page: model.currentPage, completionHandler: processFetchResult(result:))
+    override func fetchData() async -> Result<Array<RepositoryModel>,NetworkError> {
+        await webServiceClient.fetchRepositoryForks(fullName: repositoryFullName, page: model.currentPage)
     }
     
 }

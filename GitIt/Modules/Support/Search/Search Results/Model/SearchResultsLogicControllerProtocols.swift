@@ -7,23 +7,20 @@
 
 import Foundation
 
-protocol SearchResultsLogicController: WebServiceSearchLogicController {
-    
-    func processFetchResult(result: Result<BatchResponse<ModelType>,NetworkError>)
-    
-}
+protocol SearchResultsLogicController: WebServiceSearchLogicController { }
 
 extension SearchResultsLogicController {
     
+    // MARK: - Fetch Data Method
+    
+    func fetchData() async -> Result<Array<ModelType>, NetworkError> {
+        return .failure(NetworkError.noData)
+    }
+    
     // MARK: - Fetch Result Processing Method
     
-    func processFetchResult(result: Result<BatchResponse<ModelType>, NetworkError>) {
-        switch result {
-        case .success(let response): model.append(contentsOf: response.items)
-                                     updatePaginability(newItemsCount: response.count)
-                                     handler?(nil)
-        case .failure(let networkError): handler?(networkError)
-        }
+    func processFetchResult(result: Result<Array<ModelType>, NetworkError>) -> NetworkError? {
+        return NetworkError.noData
     }
     
 }

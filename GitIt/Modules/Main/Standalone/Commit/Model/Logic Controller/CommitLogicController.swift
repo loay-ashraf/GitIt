@@ -36,8 +36,8 @@ final class CommitLogicController: WebServicePlainLogicController {
     
     // MARK: - Fetch Data Method
     
-    func fetchData() {
-        webServiceClient.fetchRepositoryCommits(fullName: repositoryFullName, page: model.currentPage, completionHandler: processFetchResult(result:))
+    func fetchData() async -> Result<Array<CommitModel>,NetworkError> {
+        await webServiceClient.fetchRepositoryCommits(fullName: repositoryFullName, page: model.currentPage)
     }
 
 }

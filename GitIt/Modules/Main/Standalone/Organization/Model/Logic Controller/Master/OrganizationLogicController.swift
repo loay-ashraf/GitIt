@@ -29,8 +29,8 @@ class OrganizationLogicController: WebServicePlainLogicController {
     
     // MARK: - Fetch Data Method
     
-    func fetchData() {
-        webServiceClient.fetchOrganizations(page: model.currentPage, completionHandler: processFetchResult(result:))
+    func fetchData() async -> Result<Array<OrganizationModel>,NetworkError> {
+        await webServiceClient.fetchOrganizations(page: model.currentPage)
     }
     
 }

@@ -51,7 +51,7 @@ class SearchResultsViewController<T: SearchResultsViewModel>: WSSFDynamicTableVi
     
     override func configureView() {
         super.configureView()
-        tableView.contentInset = UIEdgeInsets(top: 20, left: 0, bottom: 0, right: 0)
+        xTableView.contentInset = UIEdgeInsets(top: 20, left: 0, bottom: 0, right: 0)
     }
     
     // MARK: - View Actions
@@ -128,10 +128,20 @@ class SearchResultsViewController<T: SearchResultsViewModel>: WSSFDynamicTableVi
     
     override func load(with loadingViewState: LoadingViewState) {
         super.load(with: loadingViewState)
-        switch loadingViewState {
-        case .initial: viewModel.search(withQuery: query) { [weak self] error in self?.loadHandler(error: error) }
-        case .refresh: viewModel.refresh { [weak self] error in self?.refreshHandler(error: error) }
-        case .paginate: viewModel.paginate { [weak self] error in self?.paginateHandler(error: error) }
+        Task {
+            switch loadingViewState {
+            case .initial: loadHandler(error: await viewModel.search(withQuery: query))
+            case .refresh: refreshHandler(error: await viewModel.refresh())
+            case .paginate: paginateHandler(error: await viewModel.paginate())
+            }
+        }
+    }
+    
+    override func loadHandler(error: Error?) {
+        super.loadHandler(error: error)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            // making a correction for a bug in the UIKit framework
+            self.viewModel.isEmpty ? nil : self.xTableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: false)
         }
     }
     

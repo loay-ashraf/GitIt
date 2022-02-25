@@ -16,65 +16,68 @@ extension Session {
                 method: HTTPMethod,
                 headers: HTTPHeaders? = nil,
                 interceptor: RequestInterceptor? = nil,
-                requestModifier: RequestModifier? = nil,
-                completionHandler: @escaping (NetworkError?) -> Void) -> DataRequest {
+                requestModifier: RequestModifier? = nil) async -> NetworkError? {
         
-        return request(convertible,
-                method: method,
-                headers: headers,
-                interceptor: interceptor,
-                requestModifier: requestModifier).validate(statusCode: 200...299).response { response in
-                    completionHandler(NetworkError(with: response.error))
-                }.resume()
+        await withUnsafeContinuation { continuation in
+            request(convertible,
+                    method: method,
+                    headers: headers,
+                    interceptor: interceptor,
+                    requestModifier: requestModifier).validate(statusCode: 200...299).response { response in
+                        continuation.resume(returning: NetworkError(with: response.error))
+                    }.resume()
+        }
     }
     
     func request(_ convertible: URLConvertible,
                 method: HTTPMethod,
                 headers: HTTPHeaders? = nil,
                 interceptor: RequestInterceptor? = nil,
-                requestModifier: RequestModifier? = nil,
-                completionHandler: @escaping (DataResult) -> Void) -> DataRequest {
+                requestModifier: RequestModifier? = nil) async -> DataResult {
         
-        request(convertible,
-                method: method,
-                headers: headers,
-                interceptor: interceptor,
-                requestModifier: requestModifier).validate(statusCode: 200...299).responseData { response in
-                    if let networkError = NetworkError(with: response.error) {
-                        completionHandler(.failure(networkError))
-                    } else if let items = response.value {
-                        completionHandler(.success(items))
-                    }
-                }.resume()
+        await withUnsafeContinuation { continuation in
+            request(convertible,
+                    method: method,
+                    headers: headers,
+                    interceptor: interceptor,
+                    requestModifier: requestModifier).validate(statusCode: 200...299).responseData { response in
+                        if let networkError = NetworkError(with: response.error) {
+                            continuation.resume(returning: .failure(networkError))
+                        } else if let items = response.value {
+                            continuation.resume(returning: .success(items))
+                        }
+                    }.resume()
+        }
     }
     
     func request<Response: Decodable>(_ convertible: URLConvertible,
                                       method: HTTPMethod,
                                       headers: HTTPHeaders? = nil,
                                       interceptor: RequestInterceptor? = nil,
-                                      requestModifier: RequestModifier? = nil,
-                                      completionHandler: @escaping (ResponseResult<Response>) -> Void) -> DataRequest {
+                                      requestModifier: RequestModifier? = nil) async -> ResponseResult<Response> {
         
-        request(convertible,
-                method: method,
-                headers: headers,
-                interceptor: interceptor,
-                requestModifier: requestModifier).validate(statusCode: 200...299).responseDecodable(of: Response.self) { response in
-                    if let networkError = NetworkError(with: response.error) {
-                        switch networkError {
-                        case .decoding:
-                        do {
-                            if let data = response.data {
-                                let errorObject = try JSONDecoder().decode(APIError.self, from: data)
-                                completionHandler(.failure(.api(errorObject)))
+        await withUnsafeContinuation { continuation in
+            request(convertible,
+                    method: method,
+                    headers: headers,
+                    interceptor: interceptor,
+                    requestModifier: requestModifier).validate(statusCode: 200...299).responseDecodable(of: Response.self) { response in
+                        if let networkError = NetworkError(with: response.error) {
+                            switch networkError {
+                            case .decoding:
+                            do {
+                                if let data = response.data {
+                                    let errorObject = try JSONDecoder().decode(APIError.self, from: data)
+                                    continuation.resume(returning: .failure(.api(errorObject)))
+                                }
+                            } catch { continuation.resume(returning: .failure(.decoding(error))) }
+                            default: continuation.resume(returning: .failure(networkError))
                             }
-                        } catch { completionHandler(.failure(.decoding(error))) }
-                        default: completionHandler(.failure(networkError))
+                        } else if let items = response.value {
+                            continuation.resume(returning: .success(items))
                         }
-                    } else if let items = response.value {
-                        completionHandler(.success(items))
-                    }
-                }.resume()
+                    }.resume()
+        }
     }
     
     func request<Response: Decodable>(_ convertible: URLConvertible,
@@ -83,79 +86,84 @@ extension Session {
                                       encoding: ParameterEncoding = URLEncoding.default,
                                       headers: HTTPHeaders? = nil,
                                       interceptor: RequestInterceptor? = nil,
-                                      requestModifier: RequestModifier? = nil,
-                                      completionHandler: @escaping (ResponseResult<Response>) -> Void) -> DataRequest {
+                                      requestModifier: RequestModifier? = nil) async -> ResponseResult<Response> {
         
-        request(convertible,
-                method: method,
-                parameters: parameters,
-                encoding: encoding,
-                headers: headers,
-                interceptor: interceptor,
-                requestModifier: requestModifier).validate(statusCode: 200...299).responseDecodable(of: Response.self) { response in
-                    if let networkError = NetworkError(with: response.error) {
-                        switch networkError {
-                        case .decoding:
-                        do {
-                            if let data = response.data {
-                                let errorObject = try JSONDecoder().decode(APIError.self, from: data)
-                                completionHandler(.failure(.api(errorObject)))
+        await withUnsafeContinuation { continuation in
+            request(convertible,
+                    method: method,
+                    parameters: parameters,
+                    encoding: encoding,
+                    headers: headers,
+                    interceptor: interceptor,
+                    requestModifier: requestModifier).validate(statusCode: 200...299).responseDecodable(of: Response.self) { response in
+                        if let networkError = NetworkError(with: response.error) {
+                            switch networkError {
+                            case .decoding:
+                            do {
+                                if let data = response.data {
+                                    let errorObject = try JSONDecoder().decode(APIError.self, from: data)
+                                    continuation.resume(returning: .failure(.api(errorObject)))
+                                }
+                            } catch { continuation.resume(returning: .failure(.decoding(error))) }
+                            default: continuation.resume(returning: .failure(networkError))
                             }
-                        } catch { completionHandler(.failure(.decoding(error))) }
-                        default: completionHandler(.failure(networkError))
+                        } else if let items = response.value {
+                            continuation.resume(returning: .success(items))
                         }
-                    } else if let items = response.value {
-                        completionHandler(.success(items))
-                    }
-                }.resume()
+                    }.resume()
+        }
     }
     
     // MARK: - URL Request Convertible Methods
     
     func request(_ convertible: URLRequestConvertible,
-                interceptor: RequestInterceptor? = nil,
-                completionHandler: @escaping (NetworkError?) -> Void) -> DataRequest {
+                interceptor: RequestInterceptor? = nil) async -> NetworkError? {
         
-        request(convertible,
-                interceptor: interceptor).validate(statusCode: 200...299).response { response in
-                    completionHandler(NetworkError(with: response.error))
-                }.resume()
+        await withUnsafeContinuation { continuation in
+            request(convertible,
+                    interceptor: interceptor).validate(statusCode: 200...299).response { response in
+                        continuation.resume(returning: NetworkError(with: response.error))
+                    }.resume()
+        }
     }
     
     func request(_ convertible: URLRequestConvertible,
-                interceptor: RequestInterceptor? = nil,
-                completionHandler: @escaping (DataResult) -> Void) -> DataRequest {
+                interceptor: RequestInterceptor? = nil) async -> DataResult {
         
-        request(convertible,
-                interceptor: interceptor).validate(statusCode: 200...299).responseData { response in
-                    if let networkError = NetworkError(with: response.error) {
-                        completionHandler(.failure(networkError))
-                    } else if let items = response.value {
-                        completionHandler(.success(items))
-                    }
-                }.resume()
+        await withUnsafeContinuation { continuation in
+            request(convertible,
+                    interceptor: interceptor).validate(statusCode: 200...299).responseData { response in
+                        if let networkError = NetworkError(with: response.error) {
+                            continuation.resume(returning: .failure(networkError))
+                        } else if let items = response.value {
+                            continuation.resume(returning: .success(items))
+                        }
+                    }.resume()
+        }
     }
     
     func request<Response: Decodable>(_ convertible: URLRequestConvertible,
-                                      interceptor: RequestInterceptor? = nil,
-                                      completionHandler: @escaping (ResponseResult<Response>) -> Void) -> DataRequest {
-        request(convertible,
-                interceptor: interceptor).validate(statusCode: 200...299).responseDecodable(of: Response.self) { response in
-                    if let networkError = NetworkError(with: response.error) {
-                        switch networkError {
-                        case .decoding:
-                        do {
-                            if let data = response.data {
-                                let errorObject = try JSONDecoder().decode(APIError.self, from: data)
-                                completionHandler(.failure(.api(errorObject)))
+                                      interceptor: RequestInterceptor? = nil) async -> ResponseResult<Response> {
+        
+        await withUnsafeContinuation { continuation in
+            request(convertible,
+                    interceptor: interceptor).validate(statusCode: 200...299).responseDecodable(of: Response.self) { response in
+                        if let networkError = NetworkError(with: response.error) {
+                            switch networkError {
+                            case .decoding:
+                            do {
+                                if let data = response.data {
+                                    let errorObject = try JSONDecoder().decode(APIError.self, from: data)
+                                    continuation.resume(returning: .failure(.api(errorObject)))
+                                }
+                            } catch { continuation.resume(returning: .failure(.decoding(error))) }
+                            default: continuation.resume(returning: .failure(networkError))
                             }
-                        } catch { completionHandler(.failure(.decoding(error))) }
-                        default: completionHandler(.failure(networkError))
+                        } else if let items = response.value {
+                            continuation.resume(returning: .success(items))
                         }
-                    } else if let items = response.value {
-                        completionHandler(.success(items))
-                    }
-                }.resume()
+                    }.resume()
+        }
     }
     
 }

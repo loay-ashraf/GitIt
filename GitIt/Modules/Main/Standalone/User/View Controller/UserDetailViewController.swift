@@ -146,8 +146,11 @@ class UserDetailViewController: WSSFStaticTableViewController, StoryboardableVie
         twitterTextView.text = viewModel.twitter != nil ? "@".appending(viewModel.twitter!) : nil
         socialStatusNumericView.numbers = [Double(viewModel.followers),Double(viewModel.following)]
         
-        updateBookmarkButton()
-        updateFollowButton()
+        Task {
+            let status = await viewModel.checkForStatus()
+            updateBookmarkButton(isBookmarked: status[0])
+            updateFollowButton(isFollowed: status[1])
+        }
         
         bookmarkButton.isEnabled = true
         openInSafariButton.isEnabled = true
@@ -157,11 +160,13 @@ class UserDetailViewController: WSSFStaticTableViewController, StoryboardableVie
     // MARK: - View Actions
     
     @IBAction func bookmark(_ sender: UIBarButtonItem) {
-        viewModel.toggleBookmark(then: updateBookmarkButton)
+        updateBookmarkButton(isBookmarked: viewModel.toggleBookmark())
     }
     
     @IBAction func follow(_ sender: Any) {
-        viewModel.toggleFollow(then: updateFollowButton)
+        Task {
+            updateFollowButton(isFollowed: await viewModel.toggleFollow())
+        }
     }
     
     @IBAction func openInSafari(_ sender: UIBarButtonItem) {
@@ -224,7 +229,9 @@ class UserDetailViewController: WSSFStaticTableViewController, StoryboardableVie
     
     override func load() {
         super.load()
-        viewModel.load(then: loadHandler(error:))
+        Task {
+            loadHandler(error: await viewModel.load())
+        }
     }
     
 }
@@ -233,21 +240,21 @@ extension UserDetailViewController {
     
     // MARK: - View Helper Methods (Private)
     
-    private func updateFollowButton() {
-        if viewModel.isFollowed {
+    private func updateBookmarkButton(isBookmarked: Bool) {
+        if isBookmarked {
+            bookmarkButton.image = Constants.View.Button.bookmark.bookmarkedImage
+        } else {
+            bookmarkButton.image = Constants.View.Button.bookmark.defaultImage
+        }
+    }
+    
+    private func updateFollowButton(isFollowed: Bool) {
+        if isFollowed {
             followButton.setTitle(Constants.View.Button.follow.followedTitle, for: .normal)
             followButton.setImage(Constants.View.Button.follow.followedImage, for: .normal)
         } else {
             followButton.setTitle(Constants.View.Button.follow.defaultTitle, for: .normal)
             followButton.setImage(Constants.View.Button.follow.defaultImage, for: .normal)
-        }
-    }
-    
-    private func updateBookmarkButton() {
-        if viewModel.isBookmarked {
-            bookmarkButton.image = Constants.View.Button.bookmark.bookmarkedImage
-        } else {
-            bookmarkButton.image = Constants.View.Button.bookmark.defaultImage
         }
     }
     

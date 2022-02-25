@@ -29,8 +29,8 @@ class UserLogicController: WebServicePlainLogicController {
     
     // MARK: - Fetch Data Method
     
-    func fetchData() {
-        webServiceClient.fetchUsers(page: model.currentPage, completionHandler: processFetchResult(result:))
+    func fetchData() async -> Result<Array<UserModel>,NetworkError> {
+        await webServiceClient.fetchUsers(page: model.currentPage)
     }
     
 }

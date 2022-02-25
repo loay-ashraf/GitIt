@@ -26,8 +26,8 @@ final class ContributorsLogicController: UserLogicController {
     
     // MARK: - Fetch Data Method
     
-    override func fetchData() {
-        webServiceClient.fetchRepositoryContributors(fullName: repositoryFullName, page: model.currentPage, completionHandler: processFetchResult(result:))
+    override func fetchData() async -> Result<Array<UserModel>,NetworkError> {
+        await webServiceClient.fetchRepositoryContributors(fullName: repositoryFullName, page: model.currentPage)
     }
     
 }
