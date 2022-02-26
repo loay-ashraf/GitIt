@@ -26,10 +26,19 @@ class LicenseLogicController: WebServiceDetailLogicController {
         self.defaultBranch = defaultBranch
     }
     
+    // MARK: - Load Method
+    
+    func load() async -> NetworkError? {
+        if !parameter.isEmpty {
+            return processFetchResult(result: await fetchData())
+        }
+        return nil
+    }
+    
     // MARK: - Fetch Data Method
     
     func fetchData() async -> Result<String, NetworkError> {
-        return await webServiceClient.downloadRepositoryLicense(fullName: parameter, branch: defaultBranch).flatMap { data -> Result<String, NetworkError> in
+        await webServiceClient.downloadRepositoryLicense(fullName: parameter, branch: defaultBranch).flatMap { data -> Result<String, NetworkError> in
             return .success(String(data: data, encoding: .utf8) ?? "Error loading license")
         }
     }

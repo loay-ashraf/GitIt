@@ -24,6 +24,7 @@ class RepositoryLogicController: WebServicePlainLogicController {
     required init(maxItemCount: Int?, maxPageCount: Int = NetworkingConstants.maxPageCount) {
         self.maxItemCount = maxItemCount
         self.maxPageCount = maxPageCount
+        modelList.isPaginable = true
     }
 
     // MARK: - Fetch Data Method

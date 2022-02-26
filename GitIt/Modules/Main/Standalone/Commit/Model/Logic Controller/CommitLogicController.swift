@@ -25,6 +25,7 @@ final class CommitLogicController: WebServicePlainLogicController {
     init(repositoryFullName: String) {
         self.repositoryFullName = repositoryFullName
         self.maxPageCount = NetworkingConstants.maxPageCount
+        modelList.isPaginable = true
     }
     
     init(maxItemCount: Int?, maxPageCount: Int = NetworkingConstants.maxPageCount) {

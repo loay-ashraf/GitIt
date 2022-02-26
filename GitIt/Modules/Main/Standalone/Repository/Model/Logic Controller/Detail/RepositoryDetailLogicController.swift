@@ -22,11 +22,9 @@ final class RepositoryDetailLogicController: WebServiceDetailLogicController {
     
     func load() async -> NetworkError? {
         if !parameter.isEmpty, !modelObject.isComplete {
-            let dataError = processFetchResult(result: await fetchData())
-            if dataError == nil {
-                return processREADMEFetchResult(result: await fetchREADME())
-            }
-            return dataError
+            let fetchError = processFetchResult(result: await fetchData())
+            processREADMEFetchResult(result: await fetchREADME())
+            return fetchError
         }
         return nil
     }
@@ -43,12 +41,11 @@ final class RepositoryDetailLogicController: WebServiceDetailLogicController {
     
     // MARK: - Fetch Result Processing Method
     
-    func processREADMEFetchResult(result: DataResult) -> NetworkError? {
+    func processREADMEFetchResult(result: DataResult) {
         switch result {
         case .success(let response): modelObject.READMEString = String(data: response, encoding: .utf8)
                                      modelObject.isComplete = true
-                                     return nil
-        case .failure(let networkError): return networkError
+        case .failure: modelObject.READMEString = nil
         }
     }
     

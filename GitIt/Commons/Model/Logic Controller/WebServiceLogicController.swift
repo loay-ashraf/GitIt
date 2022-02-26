@@ -88,7 +88,6 @@ extension WebServiceLogicController {
     
     init() {
         self.init(maxItemCount: nil, maxPageCount: 0)
-        modelList.isPaginable = true
     }
     
     // MARK: - Reset Method
