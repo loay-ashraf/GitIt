@@ -206,7 +206,7 @@
                             </constraints>
                         </view>
                         <view key="tableFooterView" contentMode="scaleToFill" id="KSv-gy-qoj" userLabel="Footer">
-                            <rect key="frame" x="0.0" y="502.00000000000011" width="414" height="212"/>
+                            <rect key="frame" x="0.0" y="502" width="414" height="212"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YHQ-yV-hqU" userLabel="Separator">
@@ -652,15 +652,15 @@
                             <color key="backgroundColor" name="Background Color"/>
                         </view>
                         <view key="tableFooterView" contentMode="scaleToFill" id="CGb-rw-vPv" userLabel="Footer">
-                            <rect key="frame" x="0.0" y="326.66666603088379" width="414" height="20"/>
+                            <rect key="frame" x="0.0" y="333.33333206176758" width="414" height="20"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" name="Background Color"/>
                         </view>
                         <sections>
-                            <tableViewSection id="nQv-fa-vJI">
+                            <tableViewSection headerTitle="Explore GitHub" id="nQv-fa-vJI">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="YdF-3V-vH4" imageView="aIM-es-Vah" rowHeight="60" style="IBUITableViewCellStyleDefault" id="4RZ-BU-nZH">
-                                        <rect key="frame" x="20" y="25" width="374" height="60"/>
+                                        <rect key="frame" x="20" y="51.666666030883789" width="374" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="4RZ-BU-nZH" id="Sz8-ge-8QW">
                                             <rect key="frame" x="0.0" y="0.0" width="345.33333333333331" height="60"/>
@@ -687,12 +687,8 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </tableViewCell>
-                                </cells>
-                            </tableViewSection>
-                            <tableViewSection id="hJr-1O-fiW">
-                                <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="LsM-lV-FTw" imageView="vr9-aN-bf1" rowHeight="60" style="IBUITableViewCellStyleDefault" id="3zR-IP-oZB">
-                                        <rect key="frame" x="20" y="95" width="374" height="60"/>
+                                        <rect key="frame" x="20" y="111.66666603088379" width="374" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="3zR-IP-oZB" id="I4p-LP-gYF">
                                             <rect key="frame" x="0.0" y="0.0" width="345.33333333333331" height="60"/>
@@ -714,12 +710,8 @@
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" name="Foreground Color"/>
                                     </tableViewCell>
-                                </cells>
-                            </tableViewSection>
-                            <tableViewSection id="Jf4-gD-dMr">
-                                <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="Ssq-qN-292" imageView="aA6-uO-B4l" rowHeight="60" style="IBUITableViewCellStyleDefault" id="51e-Kg-fXP">
-                                        <rect key="frame" x="20" y="165" width="374" height="60"/>
+                                        <rect key="frame" x="20" y="171.66666603088379" width="374" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="51e-Kg-fXP" id="pdj-0l-644">
                                             <rect key="frame" x="0.0" y="0.0" width="345.33333333333331" height="60"/>
@@ -743,10 +735,10 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
-                            <tableViewSection headerTitle="Repository" id="nbj-TO-Qbh">
+                            <tableViewSection headerTitle="See What's New!" id="hJr-1O-fiW">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="Ezz-Ge-9yF" imageView="xGe-Y5-fbF" rowHeight="60" style="IBUITableViewCellStyleDefault" id="vk1-kx-djo">
-                                        <rect key="frame" x="20" y="261.66666603088379" width="374" height="60"/>
+                                        <rect key="frame" x="20" y="268.33333206176758" width="374" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="vk1-kx-djo" id="epU-Gn-nPN">
                                             <rect key="frame" x="0.0" y="0.0" width="345.33333333333331" height="60"/>
@@ -1450,10 +1442,13 @@
         <scene sceneID="1al-50-Dlq">
             <objects>
                 <tableViewController id="Ni7-tH-Oq0" customClass="TrendingViewController" customModule="GitIt" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="Plc-g8-MeU" customClass="WSSFDynamicTableView" customModule="GitIt" customModuleProvider="target">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="150" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="Plc-g8-MeU" customClass="WSSFDynamicTableView" customModule="GitIt" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
+                        </userDefinedRuntimeAttributes>
                         <connections>
                             <outlet property="dataSource" destination="Ni7-tH-Oq0" id="yVT-h0-5x3"/>
                             <outlet property="delegate" destination="Ni7-tH-Oq0" id="YMm-VG-Yxq"/>
@@ -1997,9 +1992,14 @@
                                     <constraint firstAttribute="height" constant="256" id="eAw-PP-Ubx"/>
                                     <constraint firstAttribute="width" constant="256" id="fUL-mk-8Mt"/>
                                 </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="40"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DdT-J5-wOV" customClass="AdaptableSizeButton" customModule="GitIt" customModuleProvider="target">
-                                <rect key="frame" x="139" y="656" width="136" height="30"/>
+                                <rect key="frame" x="124" y="656" width="166" height="30"/>
                                 <color key="backgroundColor" name="Background Color"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="1gy-vp-Ih3"/>
@@ -2008,12 +2008,17 @@
                                 <state key="normal" title="Continue as a guest">
                                     <color key="titleColor" systemColor="labelColor"/>
                                 </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="continueAsAGuest:" destination="pi7-9G-cOU" eventType="touchUpInside" id="uzm-WQ-MM2"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VGO-nu-Rrj" customClass="AdaptableSizeButton" customModule="GitIt" customModuleProvider="target">
-                                <rect key="frame" x="122.66666666666669" y="591" width="169" height="45"/>
+                                <rect key="frame" x="108.00000000000001" y="591" width="198.33333333333337" height="45"/>
                                 <color key="backgroundColor" systemColor="labelColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="45" id="Fq2-3f-KsA"/>
@@ -2024,6 +2029,11 @@
                                 <state key="normal" title="Sign In With Github">
                                     <color key="titleColor" systemColor="systemBackgroundColor"/>
                                 </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="10"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="signInWithGithub:" destination="pi7-9G-cOU" eventType="touchUpInside" id="3fG-Gv-Ct4"/>
                                 </connections>
@@ -2104,6 +2114,15 @@
             <point key="canvasLocation" x="1951" y="-779"/>
         </scene>
     </scenes>
+    <designables>
+        <designable name="DdT-J5-wOV">
+            <size key="intrinsicContentSize" width="166" height="18"/>
+        </designable>
+        <designable name="VGO-nu-Rrj">
+            <size key="intrinsicContentSize" width="198.33333333333334" height="24"/>
+        </designable>
+        <designable name="wrF-w4-MGG"/>
+    </designables>
     <resources>
         <image name="book.closed" catalog="system" width="115" height="128"/>
         <image name="bookmark" catalog="system" width="112" height="128"/>

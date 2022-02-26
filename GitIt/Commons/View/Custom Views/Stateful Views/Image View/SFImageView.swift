@@ -15,6 +15,11 @@ class SFImageView: UIImageView, WSStatefulView {
     
     // MARK: - Initialisation
     
+    // This initializer is required to avoid IBDesignable agent to crash
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+    }
+    
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         kf.indicatorType = .activity

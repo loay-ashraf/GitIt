@@ -18,9 +18,6 @@ class SignInViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        appLogo.cornerRadius = 40
-        signInWithGithubButton.cornerRadius = 10
-        continueAsAGuestButton.cornerRadius = 10
         setupAuthenticationSession()
     }
     

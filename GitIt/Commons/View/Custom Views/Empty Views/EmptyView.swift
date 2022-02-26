@@ -13,7 +13,8 @@ class EmptyView: UIView {
     @IBOutlet weak var titleLabel: UILabel!
     
     class func instanceFromNib() -> EmptyView {
-        let view = UINib(nibName: "EmptyView", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as! EmptyView
+        let bundle = Bundle(for: EmptyView.self)
+        let view = UINib(nibName: "EmptyView", bundle: bundle).instantiate(withOwner: nil, options: nil)[0] as! EmptyView
         return view
     }
     

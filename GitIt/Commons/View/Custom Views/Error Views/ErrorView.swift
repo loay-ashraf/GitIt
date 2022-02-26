@@ -17,7 +17,8 @@ class ErrorView: UIView {
     @IBOutlet weak var actionButton: UIButton!
     
     class func instanceFromNib() -> ErrorView {
-        let view = UINib(nibName: "ErrorView", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as! ErrorView
+        let bundle = Bundle(for: ErrorView.self)
+        let view = UINib(nibName: "ErrorView", bundle: bundle).instantiate(withOwner: nil, options: nil)[0] as! ErrorView
         view.configureView()
         return view
     }

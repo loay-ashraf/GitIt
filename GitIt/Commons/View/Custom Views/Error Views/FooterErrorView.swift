@@ -18,7 +18,8 @@ class FooterErrorView: UIView {
     @IBOutlet weak var actionButton: UIButton!
     
     class func instanceFromNib() -> FooterErrorView {
-        let view = UINib(nibName: "FooterErrorView", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as! FooterErrorView
+        let bundle = Bundle(for: FooterErrorView.self)
+        let view = UINib(nibName: "FooterErrorView", bundle: bundle).instantiate(withOwner: nil, options: nil)[0] as! FooterErrorView
         view.configureView()
         return view
     }

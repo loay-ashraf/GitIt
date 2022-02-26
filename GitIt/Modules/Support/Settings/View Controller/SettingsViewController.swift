@@ -59,6 +59,14 @@ extension SettingsViewController: IASKSettingsDelegate {
         }
     }
     
+    // MARK: - Table View Data Source
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = super.tableView(tableView, cellForRowAt: indexPath)
+        cell.backgroundColor = UIColor(named: "Foreground Color")
+        return cell
+    }
+    
     // MARK: - Table View Delegate
     
     override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {

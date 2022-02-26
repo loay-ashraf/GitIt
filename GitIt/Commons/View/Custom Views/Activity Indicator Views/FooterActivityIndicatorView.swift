@@ -14,7 +14,8 @@ class FooterActivityIndicatorView: UIView {
     @IBOutlet weak var spinner: UIActivityIndicatorView!
     
     class func instanceFromNib() -> FooterActivityIndicatorView {
-        let view = UINib(nibName: "FooterActivityIndicatorView", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as! FooterActivityIndicatorView
+        let bundle = Bundle(for: FooterActivityIndicatorView.self)
+        let view = UINib(nibName: "FooterActivityIndicatorView", bundle: bundle).instantiate(withOwner: nil, options: nil)[0] as! FooterActivityIndicatorView
         return view
     }
     

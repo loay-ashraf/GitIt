@@ -13,7 +13,8 @@ class ActivityIndicatorView: UIView {
     @IBOutlet weak var spinner: UIActivityIndicatorView!
     
     class func instanceFromNib() -> ActivityIndicatorView {
-        let view = UINib(nibName: "ActivityIndicatorView", bundle: nil).instantiate(withOwner: nil, options: nil)[0] as! ActivityIndicatorView
+        let bundle = Bundle(for: ActivityIndicatorView.self)
+        let view = UINib(nibName: "ActivityIndicatorView", bundle: bundle).instantiate(withOwner: nil, options: nil)[0] as! ActivityIndicatorView
         view.configureView()
         return view
     }

@@ -150,7 +150,7 @@ extension UIColor {
         }
         set { layer.shadowColor = newValue?.cgColor }
     }
-    
+
     @IBInspectable var borderColor: UIColor? {
         get {
             guard let cgColor = layer.borderColor else {
