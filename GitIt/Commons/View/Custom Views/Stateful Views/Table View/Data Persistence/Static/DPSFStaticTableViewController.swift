@@ -13,17 +13,18 @@ class DPSFStaticTableViewController: UITableViewController {
     
     var xTableView: DPSFStaticTableView! { return tableView as? DPSFStaticTableView }
     
+    // MARK: - Initialization
+    
+    deinit {
+        xTableView?.transition(to: .presenting)
+    }
+    
     // MARK: - Lifecycle
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         fitTableHeaderView()
         fitTableFooterView()
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        xTableView.transition(to: .presenting)
     }
     
     func fitTableHeaderView() {

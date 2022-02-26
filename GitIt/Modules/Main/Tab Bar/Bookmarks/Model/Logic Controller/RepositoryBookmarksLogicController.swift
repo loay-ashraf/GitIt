@@ -14,20 +14,21 @@ final class RepositoryBookmarksLogicController: BookmarksLogicController {
     typealias ModelType = RepositoryModel
     
     var dataPersistenceManager = BookmarksManager.standard
-    var model = Array<RepositoryModel>()
+    var model = Observable<Array<RepositoryModel>>()
     
     // MARK: - Initialization
     
     init() {
-        dataPersistenceManager.activeBookmarksContext = .repositories
-        synchronize()
+        bindToPersistedData()
     }
     
-    // MARK: - Model Synchronize Method
-    
-    func synchronize() {
-        if let bookmarksArray = dataPersistenceManager.getRepositories() {
-            model = bookmarksArray.map { return RepositoryModel(from: $0) }
+    // MARK: - Bind to Persisted Data Method
+
+    func bindToPersistedData() {
+        dataPersistenceManager.bindRepositories { [weak self] repositoryBookmarks in
+            if let repositoryBookmarks = repositoryBookmarks {
+                self?.modelArray = repositoryBookmarks.map { return RepositoryModel(from: $0) }
+            }
         }
     }
     

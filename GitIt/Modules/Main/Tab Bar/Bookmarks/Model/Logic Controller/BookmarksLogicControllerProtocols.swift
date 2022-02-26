@@ -78,12 +78,11 @@ extension BookmarksLogicController {
     }
     
     func delete(model: ModelType) {
-        self.model.removeAll { return $0 == model }
+        self.modelArray.removeAll { return $0 == model }
     }
 
     func clear() {
         try? dataPersistenceManager.clearActive()
-        synchronize()
     }
     
 }

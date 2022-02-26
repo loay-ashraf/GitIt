@@ -15,10 +15,9 @@ class LicenseLogicController: WebServiceDetailLogicController {
     typealias ModelType = String
     
     var webServiceClient = GitHubClient()
-    var model = String()
+    var model = Observable<String>()
     var parameter = String()
     var defaultBranch = String()
-    var handler: NetworkLoadingHandler?
 
     // MARK: - Initialization
 

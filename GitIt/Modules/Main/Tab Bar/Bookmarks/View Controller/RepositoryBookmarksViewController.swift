@@ -11,8 +11,8 @@ class RepositoryBookmarksViewController: DPSFDynamicTableViewController<Reposito
     
     // MARK: - Properties
     
-    weak var bookmarksViewController: BookmarksViewController?
-    
+    var isEmpty = Observable<Bool>()
+
     // MARK: - Initialization
     
     required init?(coder: NSCoder) {
@@ -27,45 +27,50 @@ class RepositoryBookmarksViewController: DPSFDynamicTableViewController<Reposito
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        synchronize()
+        bindToViewModel()
     }
     
     // MARK: - View Actions
     
     func clear() {
         viewModel.clear()
-        synchronize()
     }
     
     func showDetail(atRow row: Int) {
-        let cellViewModelItem = viewModel.cellViewModels[row]
+        let cellViewModelItem = viewModel.cellViewModelArray[row]
         let detailVC = RepositoryDetailViewController.instatiate(tableCellViewModel: cellViewModelItem)
         NavigationRouter.push(viewController: detailVC)
     }
     
     func toggleBookmark(atRow row: Int) {
         viewModel.toggleBookmark(atRow: row)
-        synchronize()
     }
     
     func openInSafari(atRow row: Int) {
-        let cellViewModelItem = viewModel.cellViewModels[row]
+        let cellViewModelItem = viewModel.cellViewModelArray[row]
         URLHelper.openWebsite(cellViewModelItem.htmlURL)
     }
     
     func share(atRow row: Int) {
-        let cellViewModelItem = viewModel.cellViewModels[row]
+        let cellViewModelItem = viewModel.cellViewModelArray[row]
         URLHelper.shareWebsite(cellViewModelItem.htmlURL)
     }
     
-    // MARK: - Synchronize Method
+    // MARK: - Bind to View Model Method
     
-    override func synchronize() {
-        super.synchronize()
-        if viewModel.isEmpty {
-            bookmarksViewController?.clearButton.isEnabled = false
-        } else {
-            bookmarksViewController?.clearButton.isEnabled = true
+    func bindToViewModel() {
+        viewModel.bind { [weak self] repositoryBookmarks in
+            if let repositoryBookmarks = repositoryBookmarks {
+                self?.tableViewDataSource.cellViewModels = repositoryBookmarks
+                DispatchQueue.main.async {
+                    if repositoryBookmarks.isEmpty {
+                        self?.xTableView.transition(to: .empty(self!.emptyViewModel))
+                    } else {
+                        self?.xTableView.transition(to: .presenting)
+                    }
+                }
+                self?.isEmpty.value = self?.viewModel.isEmpty
+            }
         }
     }
     

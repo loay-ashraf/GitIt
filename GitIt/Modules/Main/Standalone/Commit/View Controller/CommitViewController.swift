@@ -21,6 +21,7 @@ class CommitViewController: WSSFDynamicTableViewController<CommitViewModel>, Sto
         tableViewDelegate = CommitTableViewDelegate(self)
         viewModel = CommitViewModel(repositoryFullName: repositoryFullName)
         emptyViewModel = EmptyConstants.Commits.viewModel
+        bindToViewModel()
     }
     
     required init?(coder: NSCoder) {
@@ -85,6 +86,16 @@ class CommitViewController: WSSFDynamicTableViewController<CommitViewModel>, Sto
             case .initial: loadHandler(error: await viewModel?.load())
             case .refresh: refreshHandler(error: await viewModel?.refresh())
             case .paginate: paginateHandler(error: await viewModel?.paginate())
+            }
+        }
+    }
+    
+    // MARK: - Bind to View Model Method
+    
+    func bindToViewModel() {
+        viewModel.bind { [weak self] cellViewModelList in
+            if let cellViewModelList = cellViewModelList {
+                self?.tableViewDataSource.cellViewModels = cellViewModelList.items
             }
         }
     }

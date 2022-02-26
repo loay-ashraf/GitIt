@@ -12,7 +12,8 @@ protocol DataPersistenceTableViewModel: DataPersistenceViewModel {
     associatedtype TableCellViewModelType: TableCellViewModel
     associatedtype ModelType: Model
     
-    var cellViewModels: Array<TableCellViewModelType> { get set }
+    var cellViewModels: Observable<Array<TableCellViewModelType>> { get set }
+    var cellViewModelArray: Array<TableCellViewModelType> { get set }
     var items: Array<TableCellViewModelType> { get }
     var count: Int { get }
     var isEmpty: Bool { get }
@@ -21,14 +22,27 @@ protocol DataPersistenceTableViewModel: DataPersistenceViewModel {
     func delete(cellViewModel: TableCellViewModelType)
     func clear()
     
+    func bind(_ listener: @escaping (Array<TableCellViewModelType>?) -> Void)
+    
 }
 
 extension DataPersistenceTableViewModel {
     
     // MARK: - Properties
     
-    var items: Array<TableCellViewModelType> { return cellViewModels }
-    var count: Int { return cellViewModels.count }
-    var isEmpty: Bool { return cellViewModels.isEmpty }
+    var cellViewModelArray: Array<TableCellViewModelType> {
+        get { return cellViewModels.value ?? Array<TableCellViewModelType>() }
+        set { cellViewModels.value = newValue }
+    }
+    
+    var items: Array<TableCellViewModelType> { return cellViewModelArray }
+    var count: Int { return cellViewModelArray.count }
+    var isEmpty: Bool { return cellViewModelArray.isEmpty }
+    
+    // MARK: - Bind Method
+    
+    func bind(_ listener: @escaping (Array<TableCellViewModelType>?) -> Void) {
+        cellViewModels.bind(listener)
+    }
     
 }

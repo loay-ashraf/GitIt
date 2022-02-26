@@ -14,21 +14,25 @@ final class UserSearchHistoryLogicController: SearchHistoryLogicController {
     typealias ModelType = UserModel
     
     var dataPersistenceManager = SearchHistoryManager.standard
-    var model = Array<ModelType>()
-    var queryModel = Array<String>()
+    var model = Observable<Array<UserModel>>()
+    var queryModel = Observable<Array<String>>()
     
     // MARK: - Initialization
     
     init() {
         dataPersistenceManager.activeSearchContext = .users
-        synchronize()
+        bindToPersistedData()
     }
     
-    // MARK: - Model Synchronization Method
+    // MARK: - Bind to Persisted Data Method
 
-    func synchronize() {
-        model = dataPersistenceManager.userHistory.objects
-        queryModel = dataPersistenceManager.userHistory.queries
+    func bindToPersistedData() {
+        dataPersistenceManager.bindUsers { [weak self] userHistory in
+            if let userHistory = userHistory {
+                self?.modelArray = userHistory.objects
+                self?.queryModelArray = userHistory.queries
+            }
+        }
     }
     
 }

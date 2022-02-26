@@ -11,7 +11,7 @@ class UserBookmarksContextMenuConfigurator: TableViewContextMenuConfigurator {
     
     override func configure(atRow row: Int) -> UIContextMenuConfiguration? {
         if let viewController = viewController as? UserBookmarksViewController {
-            let actionProvider = BasicCellActionProvider(isBookmarked: viewController.viewModel.cellViewModels[row].isBookmarked,
+            let actionProvider = BasicCellActionProvider(isBookmarked: viewController.viewModel.cellViewModelArray[row].isBookmarked,
                                                          toggleBookmark: { viewController.toggleBookmark(atRow: row) },
                                                          saveImage: { viewController.saveImage(atRow: row) },
                                                          openInSafari: { viewController.openInSafari(atRow: row) },
@@ -27,7 +27,7 @@ class RepositoryBookmarksContextMenuConfigurator: TableViewContextMenuConfigurat
     
     override func configure(atRow row: Int) -> UIContextMenuConfiguration? {
         if let viewController = viewController as? RepositoryBookmarksViewController {
-            let actionProvider = RepositoryCellActionProvider(isBookmarked: viewController.viewModel.cellViewModels[row].isBookmarked,
+            let actionProvider = RepositoryCellActionProvider(isBookmarked: viewController.viewModel.cellViewModelArray[row].isBookmarked,
                                                               toggleBookmark: { viewController.toggleBookmark(atRow: row) },
                                                               openInSafari: { viewController.openInSafari(atRow: row) },
                                                               share: { viewController.share(atRow: row) })
@@ -42,7 +42,7 @@ class OrganizationBookmarksContextMenuConfigurator: TableViewContextMenuConfigur
     
     override func configure(atRow row: Int) -> UIContextMenuConfiguration? {
         if let viewController = viewController as? OrganizationBookmarksViewController {
-            let actionProvider = BasicCellActionProvider(isBookmarked: viewController.viewModel.cellViewModels[row].isBookmarked,
+            let actionProvider = BasicCellActionProvider(isBookmarked: viewController.viewModel.cellViewModelArray[row].isBookmarked,
                                                          toggleBookmark: { viewController.toggleBookmark(atRow: row) },
                                                          saveImage: { viewController.saveImage(atRow: row) },
                                                          openInSafari: { viewController.openInSafari(atRow: row) },

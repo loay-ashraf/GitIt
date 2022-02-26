@@ -12,16 +12,26 @@ final class UserBookmarksViewModel: BookmarksViewModel {
     // MARK: - Properties
     
     typealias LogicControllerType = UserBookmarksLogicController
-    typealias CellViewModelType = UserTableCellViewModel
+    typealias TableCellViewModelType = UserTableCellViewModel
     typealias ModelType = UserModel
     
     var logicController = UserBookmarksLogicController()
-    var cellViewModels = Array<UserTableCellViewModel>()
+    var cellViewModels = Observable<Array<UserTableCellViewModel>>()
     
     // MARK: - Initialization
     
     init() {
-        synchronize()
+        bindToModel()
+    }
+    
+    // MARK: - Bind to Model Method
+    
+    func bindToModel() {
+        logicController.bind { [weak self] userBookmarks in
+            if let userBookmarks = userBookmarks {
+                self?.cellViewModelArray = userBookmarks.map { return UserTableCellViewModel(from: $0) }
+            }
+        }
     }
     
 }

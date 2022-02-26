@@ -27,7 +27,7 @@ final class UserEnrolledLogicController: OrganizationLogicController {
     // MARK: - Fetch Data Method
     
     override func fetchData() async -> Result<Array<OrganizationModel>,NetworkError> {
-        await webServiceClient.fetchUserOrganizations(userLogin: userLogin, page: model.currentPage)
+        await webServiceClient.fetchUserOrganizations(userLogin: userLogin, page: modelList.currentPage)
     }
     
 }

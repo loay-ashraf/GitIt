@@ -14,20 +14,21 @@ final class OrganizationBookmarksLogicController: BookmarksLogicController {
     typealias ModelType = OrganizationModel
     
     var dataPersistenceManager = BookmarksManager.standard
-    var model = Array<OrganizationModel>()
+    var model = Observable<Array<OrganizationModel>>()
     
     // MARK: - Initialization
     
     init() {
-        dataPersistenceManager.activeBookmarksContext = .organizations
-        synchronize()
+        bindToPersistedData()
     }
     
-    // MARK: - Model Synchronize Method
-    
-    func synchronize() {
-        if let bookmarksArray = dataPersistenceManager.getOrganizations() {
-            model = bookmarksArray.map { return OrganizationModel(from: $0) }
+    // MARK: - Bind to Persisted Data Method
+
+    func bindToPersistedData() {
+        dataPersistenceManager.bindOrganizations { [weak self] organizationBookmarks in
+            if let organizationBookmarks = organizationBookmarks {
+                self?.modelArray = organizationBookmarks.map { return OrganizationModel(from: $0) }
+            }
         }
     }
     

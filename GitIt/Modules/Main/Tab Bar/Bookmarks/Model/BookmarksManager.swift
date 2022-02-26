@@ -18,11 +18,11 @@ class BookmarksManager: DataPersistenceManager {
     let webServiceClient = GitHubClient()
     let dataPersistenceProvider = DataManager.standard.coreDataPersistenceProvider
     
-    private var userBookmarks: [User]?
-    private var repositoryBookmarks: [Repository]?
-    private var organizationBookmarks: [Organization]?
+    private var userBookmarks = Observable<Array<User>>()
+    private var repositoryBookmarks = Observable<Array<Repository>>()
+    private var organizationBookmarks = Observable<Array<Organization>>()
     
-    var activeBookmarksContext: BookmarksContext!
+    var activeBookmarksContext: BookmarksContext = .users
     
     // MARK: - Initialization
     
@@ -35,9 +35,9 @@ class BookmarksManager: DataPersistenceManager {
     }
     
     func load() throws {
-        userBookmarks = try dataPersistenceProvider.fetchSync(entity: User.self, sortKey: nil, ascending: true).get()
-        repositoryBookmarks = try dataPersistenceProvider.fetchSync(entity: Repository.self, sortKey: nil, ascending: true).get()
-        organizationBookmarks = try dataPersistenceProvider.fetchSync(entity: Organization.self, sortKey: nil, ascending: true).get()
+        userBookmarks.value = try dataPersistenceProvider.fetchSync(entity: User.self, sortKey: nil, ascending: true).get()
+        repositoryBookmarks.value = try dataPersistenceProvider.fetchSync(entity: Repository.self, sortKey: nil, ascending: true).get()
+        organizationBookmarks.value = try dataPersistenceProvider.fetchSync(entity: Organization.self, sortKey: nil, ascending: true).get()
     }
     
     // MARK: - Write Methods
@@ -51,7 +51,7 @@ class BookmarksManager: DataPersistenceManager {
                         result = dataPersistenceProvider.insert(completeUserModel)
                     }
                     switch result {
-                    case .success(let managedObject): userBookmarks?.append(managedObject as! User)
+                    case .success(let managedObject): userBookmarks.value?.append(managedObject as! User)
                     case .failure: return
                     case .none: return
                     }
@@ -63,7 +63,7 @@ class BookmarksManager: DataPersistenceManager {
                         result = dataPersistenceProvider.insert(completeRepositoryModel)
                     }
                     switch result {
-                    case .success(let managedObject): repositoryBookmarks?.append(managedObject as! Repository)
+                    case .success(let managedObject): repositoryBookmarks.value?.append(managedObject as! Repository)
                     case .failure: return
                     case .none: return
                     }
@@ -75,7 +75,7 @@ class BookmarksManager: DataPersistenceManager {
                         result = dataPersistenceProvider.insert(completeOrganizationModel)
                     }
                     switch result {
-                    case .success(let managedObject): organizationBookmarks?.append(managedObject as! Organization)
+                    case .success(let managedObject): organizationBookmarks.value?.append(managedObject as! Organization)
                     case .failure: return
                     case .none: return
                     }
@@ -84,9 +84,9 @@ class BookmarksManager: DataPersistenceManager {
         } else {
             let result = dataPersistenceProvider.insert(model)
             switch result {
-            case let .success(managedObject) where managedObject.self is User: userBookmarks?.append(managedObject as! User)
-            case let .success(managedObject) where managedObject.self is Repository: repositoryBookmarks?.append(managedObject as! Repository)
-            case let .success(managedObject) where managedObject.self is Organization: organizationBookmarks?.append(managedObject as! Organization)
+            case let .success(managedObject) where managedObject.self is User: userBookmarks.value?.append(managedObject as! User)
+            case let .success(managedObject) where managedObject.self is Repository: repositoryBookmarks.value?.append(managedObject as! Repository)
+            case let .success(managedObject) where managedObject.self is Organization: organizationBookmarks.value?.append(managedObject as! Organization)
             case .failure(let coreDataError): throw coreDataError
             default: break
             }
@@ -95,9 +95,9 @@ class BookmarksManager: DataPersistenceManager {
     
     func delete<Type: Model>(model: Type) throws {
         switch Type.self {
-        case is UserModel.Type: userBookmarks?.removeAll() { return $0.id == model.id }
-        case is RepositoryModel.Type: repositoryBookmarks?.removeAll() { return $0.id == model.id }
-        case is OrganizationModel.Type: organizationBookmarks?.removeAll() { return $0.id == model.id }
+        case is UserModel.Type: userBookmarks.value?.removeAll() { return $0.id == model.id }
+        case is RepositoryModel.Type: repositoryBookmarks.value?.removeAll() { return $0.id == model.id }
+        case is OrganizationModel.Type: organizationBookmarks.value?.removeAll() { return $0.id == model.id }
         default: break
         }
         try dataPersistenceProvider.delete(model)
@@ -105,11 +105,11 @@ class BookmarksManager: DataPersistenceManager {
     
     func clear<Type: Model>(for modelType: Type.Type) throws {
         switch modelType {
-        case is UserModel.Type: userBookmarks?.removeAll()
+        case is UserModel.Type: userBookmarks.value?.removeAll()
                                 try dataPersistenceProvider.deleteAll(User.self)
-        case is RepositoryModel.Type: repositoryBookmarks?.removeAll()
+        case is RepositoryModel.Type: repositoryBookmarks.value?.removeAll()
                                       try dataPersistenceProvider.deleteAll(Repository.self)
-        case is OrganizationModel.Type: organizationBookmarks?.removeAll()
+        case is OrganizationModel.Type: organizationBookmarks.value?.removeAll()
                                         try dataPersistenceProvider.deleteAll(Organization.self)
         default: break
         }
@@ -117,11 +117,11 @@ class BookmarksManager: DataPersistenceManager {
     
     func clearActive() throws {
         switch activeBookmarksContext {
-        case .users: userBookmarks?.removeAll()
+        case .users: userBookmarks.value?.removeAll()
                      try dataPersistenceProvider.deleteAll(User.self)
-        case .repositories: repositoryBookmarks?.removeAll()
+        case .repositories: repositoryBookmarks.value?.removeAll()
                             try dataPersistenceProvider.deleteAll(Repository.self)
-        case .organizations: organizationBookmarks?.removeAll()
+        case .organizations: organizationBookmarks.value?.removeAll()
                              try dataPersistenceProvider.deleteAll(Organization.self)
         default: break
         }
@@ -137,23 +137,25 @@ class BookmarksManager: DataPersistenceManager {
     
     func check<Type: Model>(model: Type) -> Bool? {
         switch Type.self {
-        case is UserModel.Type: return userBookmarks?.contains() { return $0.id == model.id }
-        case is RepositoryModel.Type: return repositoryBookmarks?.contains() { return $0.id == model.id }
-        case is OrganizationModel.Type: return organizationBookmarks?.contains() { return $0.id == model.id }
+        case is UserModel.Type: return userBookmarks.value?.contains { return $0.id == model.id }
+        case is RepositoryModel.Type: return repositoryBookmarks.value?.contains { return $0.id == model.id }
+        case is OrganizationModel.Type: return organizationBookmarks.value?.contains { return $0.id == model.id }
         default: return nil
         }
     }
     
-    func getUsers() -> [User]? {
-        return userBookmarks
+    // MARK: - Bind Methods
+    
+    func bindUsers(_ listener: @escaping (Array<User>?) -> Void) {
+        userBookmarks.bind(listener)
     }
     
-    func getRepositories() -> [Repository]? {
-        return repositoryBookmarks
+    func bindRepositories(_ listener: @escaping (Array<Repository>?) -> Void) {
+        repositoryBookmarks.bind(listener)
     }
     
-    func getOrganizations() -> [Organization]? {
-        return organizationBookmarks
+    func bindOrganizations(_ listener: @escaping (Array<Organization>?) -> Void) {
+        organizationBookmarks.bind(listener)
     }
     
     // MARK: - Completing Models Methods

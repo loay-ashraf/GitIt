@@ -12,16 +12,26 @@ final class RepositoryBookmarksViewModel: BookmarksViewModel {
     // MARK: - Properties
     
     typealias LogicControllerType = RepositoryBookmarksLogicController
-    typealias CellViewModelType = RepositoryTableCellViewModel
+    typealias TableCellViewModelType = RepositoryTableCellViewModel
     typealias ModelType = RepositoryModel
     
     var logicController = RepositoryBookmarksLogicController()
-    var cellViewModels = Array<RepositoryTableCellViewModel>()
+    var cellViewModels = Observable<Array<RepositoryTableCellViewModel>>()
     
     // MARK: - Initialization
     
     init() {
-        synchronize()
+        bindToModel()
+    }
+    
+    // MARK: - Bind to Model Method
+    
+    func bindToModel() {
+        logicController.bind { [weak self] repositoryBookmarks in
+            if let repositoryBookmarks = repositoryBookmarks {
+                self?.cellViewModelArray = repositoryBookmarks.map { return RepositoryTableCellViewModel(from: $0) }
+            }
+        }
     }
     
 }

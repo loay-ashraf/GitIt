@@ -49,7 +49,6 @@ class WSSFDynamicCollectionViewController<T: WebServiceCollectionViewModel>: UIC
     }
     
     func updateView() {
-        synchronizeCollectionView()
         xCollectionView.reloadData()
     }
 
@@ -114,7 +113,6 @@ class WSSFDynamicCollectionViewController<T: WebServiceCollectionViewModel>: UIC
             xCollectionView.transition(to: .empty(emptyViewModel))
             disableSearchBar()
         } else {
-            synchronizeCollectionView()
             xCollectionView.transition(to: .presenting)
             enableSearchBar()
         }
@@ -125,7 +123,6 @@ class WSSFDynamicCollectionViewController<T: WebServiceCollectionViewModel>: UIC
             xCollectionView.transition(to: .failed(.refresh(error)))
             disableSearchBar()
         } else {
-            synchronizeCollectionView()
             xCollectionView.transition(to: .presenting)
             enableSearchBar()
         }
@@ -134,12 +131,6 @@ class WSSFDynamicCollectionViewController<T: WebServiceCollectionViewModel>: UIC
     func resetHandler() {
         xCollectionView.transition(to: .presenting)
         enableSearchBar()
-    }
-    
-    // MARK: - Collection View Synchronization Methods
-    
-    func synchronizeCollectionView() {
-        collectionViewDataSource.cellViewModels = viewModel.items
     }
 
 }

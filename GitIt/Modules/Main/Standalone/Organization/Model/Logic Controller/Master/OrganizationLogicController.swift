@@ -15,8 +15,7 @@ class OrganizationLogicController: WebServicePlainLogicController {
     typealias ModelType = OrganizationModel
     
     var webServiceClient = GitHubClient()
-    var model = List<OrganizationModel>()
-    var handler: NetworkLoadingHandler?
+    var model = Observable<List<OrganizationModel>>()
     var maxItemCount: Int?
     var maxPageCount: Int
     
@@ -30,7 +29,7 @@ class OrganizationLogicController: WebServicePlainLogicController {
     // MARK: - Fetch Data Method
     
     func fetchData() async -> Result<Array<OrganizationModel>,NetworkError> {
-        await webServiceClient.fetchOrganizations(page: model.currentPage)
+        await webServiceClient.fetchOrganizations(page: modelList.currentPage)
     }
     
 }

@@ -26,6 +26,7 @@ class RepositoryViewController: WSSFDynamicTableViewController<RepositoryViewMod
         tableViewDelegate = RepositoryTableViewDelegate(self)
         viewModel = RepositoryViewModel(context: context)
         emptyViewModel = EmptyConstants.Repositories.viewModel
+        bindToViewModel()
     }
     
     required init?(coder: NSCoder) {
@@ -105,6 +106,16 @@ class RepositoryViewController: WSSFDynamicTableViewController<RepositoryViewMod
             case .initial: loadHandler(error: await viewModel?.load())
             case .refresh: refreshHandler(error: await viewModel?.refresh())
             case .paginate: paginateHandler(error: await viewModel?.paginate())
+            }
+        }
+    }
+    
+    // MARK: - Bind to View Model Method
+    
+    func bindToViewModel() {
+        viewModel.bind { [weak self] cellViewModelList in
+            if let cellViewModelList = cellViewModelList {
+                self?.tableViewDataSource.cellViewModels = cellViewModelList.items
             }
         }
     }

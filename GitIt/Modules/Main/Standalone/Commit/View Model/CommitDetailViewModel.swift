@@ -14,7 +14,6 @@ final class CommitDetailViewModel: WebServiceDetailViewModel {
     typealias WebServiceLogicControllerType = CommitDetailLogicController
     
     var logicController: CommitDetailLogicController
-    var handler: NetworkLoadingHandler?
     
     var message: String = ""
     var htmlURL: URL = URL(string: "www.github.com")!
@@ -25,14 +24,17 @@ final class CommitDetailViewModel: WebServiceDetailViewModel {
     init(tableCellViewModel: CommitCellViewModel) {
         let commitModel = CommitModel(message: tableCellViewModel.message, htmlURL: tableCellViewModel.htmlURL, author: tableCellViewModel.author)
         logicController = CommitDetailLogicController(model: commitModel)
+        bindToModel()
     }
     
     init(model: CommitModel) {
         logicController = CommitDetailLogicController(model: model)
+        bindToModel()
     }
     
     init(withParameter parameter: String) {
         logicController = CommitDetailLogicController(withParameter: parameter)
+        bindToModel()
     }
     
     // MARK: - Status Checking Method
@@ -41,13 +43,16 @@ final class CommitDetailViewModel: WebServiceDetailViewModel {
         return await logicController.checkForStatus()
     }
     
-    // MARK: - Synchronize Method
+    // MARK: - Bind to Model Method
     
-    func synchronize() {
-        let model = logicController.model
-        message = model.message
-        htmlURL = model.htmlURL
-        author = model.author
+    func bindToModel() {
+        logicController.bind { [weak self] modelObject in
+            if let modelObject = modelObject {
+                self?.message = modelObject.message
+                self?.htmlURL = modelObject.htmlURL
+                self?.author = modelObject.author
+            }
+        }
     }
     
 }

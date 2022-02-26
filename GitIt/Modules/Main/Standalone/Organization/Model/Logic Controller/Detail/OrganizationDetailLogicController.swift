@@ -15,9 +15,8 @@ final class OrganizationDetailLogicController: WebServiceDetailLogicController {
     typealias ModelType = OrganizationModel
     
     var webServiceClient = GitHubClient()
-    var model = OrganizationModel()
+    var model = Observable<OrganizationModel>()
     var parameter = String()
-    var handler: NetworkLoadingHandler?
     
     // MARK: - Fetch Data Method
     
@@ -28,14 +27,14 @@ final class OrganizationDetailLogicController: WebServiceDetailLogicController {
     // MARK: - (Un)Bookmark Methods
     
     func bookmark() -> Bool {
-        if let _ = try? BookmarksManager.standard.add(model: model) {
+        if let _ = try? BookmarksManager.standard.add(model: modelObject) {
             return true
         }
         return false
     }
     
     func unBookmark() -> Bool {
-        if let _ = try? BookmarksManager.standard.delete(model: model) {
+        if let _ = try? BookmarksManager.standard.delete(model: modelObject) {
             return true
         }
         return false
@@ -44,7 +43,7 @@ final class OrganizationDetailLogicController: WebServiceDetailLogicController {
     // MARK: - Check For Status Methods
     
     func checkForStatus() async -> Array<Bool> {
-        let fetchResult = BookmarksManager.standard.check(model: model)
+        let fetchResult = BookmarksManager.standard.check(model: modelObject)
         switch fetchResult {
         case true: return [true]
         case false: return [false]

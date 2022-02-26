@@ -15,6 +15,6 @@ protocol DataPersistenceViewModel: AnyObject {
     
     init()
 
-    func synchronize()
+    func bindToModel()
     
 }

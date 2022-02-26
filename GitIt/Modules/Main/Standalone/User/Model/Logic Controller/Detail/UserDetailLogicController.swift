@@ -15,9 +15,8 @@ final class UserDetailLogicController: WebServiceDetailLogicController {
     typealias ModelType = UserModel
     
     var webServiceClient = GitHubClient()
-    var model = UserModel()
+    var model = Observable<UserModel>()
     var parameter = String()
-    var handler: NetworkLoadingHandler?
     
     // MARK: - Fetch Data Method
     
@@ -28,14 +27,14 @@ final class UserDetailLogicController: WebServiceDetailLogicController {
     // MARK: - (Un)Bookmark Methods
     
     func bookmark() -> Bool {
-        if let _ = try? BookmarksManager.standard.add(model: model) {
+        if let _ = try? BookmarksManager.standard.add(model: modelObject) {
             return true
         }
         return false
     }
     
     func unBookmark() -> Bool {
-        if let _ = try? BookmarksManager.standard.delete(model: model) {
+        if let _ = try? BookmarksManager.standard.delete(model: modelObject) {
             return true
         }
         return false
@@ -44,11 +43,11 @@ final class UserDetailLogicController: WebServiceDetailLogicController {
     // MARK: - (Un)Follow Methods
     
     func follow() async -> Bool {
-        return await webServiceClient.followUser(userLogin: model.login) == nil ? true : false
+        return await webServiceClient.followUser(userLogin: modelObject.login) == nil ? true : false
     }
     
     func unFollow() async -> Bool {
-        return await webServiceClient.unFollowUser(userLogin: model.login) == nil ? true : false
+        return await webServiceClient.unFollowUser(userLogin: modelObject.login) == nil ? true : false
     }
     
     // MARK: - Check For Status Methods
@@ -65,7 +64,7 @@ final class UserDetailLogicController: WebServiceDetailLogicController {
     }
     
     func checkIfBookmarked() -> Bool {
-        let fetchResult = BookmarksManager.standard.check(model: model)
+        let fetchResult = BookmarksManager.standard.check(model: modelObject)
         switch fetchResult {
         case true: return true
         case false: return false
@@ -74,7 +73,7 @@ final class UserDetailLogicController: WebServiceDetailLogicController {
     }
     
     func checkIfFollowed() async -> Bool {
-        return await webServiceClient.checkIfFollowingUser(userLogin: model.login) == nil ? true : false
+        return await webServiceClient.checkIfFollowingUser(userLogin: modelObject.login) == nil ? true : false
     }
     
 }

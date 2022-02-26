@@ -21,13 +21,4 @@ extension SearchResultsViewModel {
         items[row].toggleBookmark()
     }
     
-    // MARK: - Synchronization Method
-    
-    func synchronize() {
-        let modelItems = logicController.model.items
-        cellViewModels.items = modelItems.map { return TableCellViewModelType(from: $0 as! TableCellViewModelType.ModelType) }
-        cellViewModels.currentPage = logicController.model.currentPage
-        cellViewModels.isPaginable = logicController.model.isPaginable
-    }
-    
 }

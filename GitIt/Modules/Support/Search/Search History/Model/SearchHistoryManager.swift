@@ -16,9 +16,9 @@ class SearchHistoryManager: DataPersistenceManager {
     static let standard = SearchHistoryManager()
     let dataPersistenceProvider = DataManager.standard.fileManagerPersistenceProvider
     
-    var userHistory = SearchHistory<UserModel>()
-    var repositoryHistory = SearchHistory<RepositoryModel>()
-    var organizationHistory = SearchHistory<OrganizationModel>()
+    private var userHistory = Observable<SearchHistory<UserModel>>()
+    private var repositoryHistory = Observable<SearchHistory<RepositoryModel>>()
+    private var organizationHistory = Observable<SearchHistory<OrganizationModel>>()
     
     var activeSearchContext: SearchContext!
     
@@ -29,16 +29,16 @@ class SearchHistoryManager: DataPersistenceManager {
     // MARK: - Save and Load Methods
     
     func save() throws {
-        try dataPersistenceProvider.writeJSONFile(with: userHistory, at: Constants.Model.SearchHistory.userURL)
-        try dataPersistenceProvider.writeJSONFile(with: repositoryHistory, at: Constants.Model.SearchHistory.repositoryURL)
-        try dataPersistenceProvider.writeJSONFile(with: organizationHistory, at: Constants.Model.SearchHistory.organizationURL)
+        try dataPersistenceProvider.writeJSONFile(with: userHistory.value, at: Constants.Model.SearchHistory.userURL)
+        try dataPersistenceProvider.writeJSONFile(with: repositoryHistory.value, at: Constants.Model.SearchHistory.repositoryURL)
+        try dataPersistenceProvider.writeJSONFile(with: organizationHistory.value, at: Constants.Model.SearchHistory.organizationURL)
     }
     
     func load() throws {
         do {
-            userHistory = try dataPersistenceProvider.readJSONFile(at: Constants.Model.SearchHistory.userURL).get()
-            repositoryHistory = try dataPersistenceProvider.readJSONFile(at: Constants.Model.SearchHistory.repositoryURL).get()
-            organizationHistory = try dataPersistenceProvider.readJSONFile(at: Constants.Model.SearchHistory.organizationURL).get()
+            userHistory.value = try dataPersistenceProvider.readJSONFile(at: Constants.Model.SearchHistory.userURL).get()
+            repositoryHistory.value = try dataPersistenceProvider.readJSONFile(at: Constants.Model.SearchHistory.repositoryURL).get()
+            organizationHistory.value = try dataPersistenceProvider.readJSONFile(at: Constants.Model.SearchHistory.organizationURL).get()
         } catch let error as FileManagerError {
             switch error {
             case FileManagerError.fileDoesNotExist: break
@@ -51,24 +51,24 @@ class SearchHistoryManager: DataPersistenceManager {
     
     func add<Type: Model>(model: Type) {
         switch model {
-        case let model as UserModel: userHistory.objects.removeAll() { value in return value == model }
-                                     userHistory.objects.insert(model, at: 0)
-        case let model as RepositoryModel: repositoryHistory.objects.removeAll() { value in return value == model }
-                                           repositoryHistory.objects.insert(model, at: 0)
-        case let model as OrganizationModel: organizationHistory.objects.removeAll() { value in return value == model }
-                                             organizationHistory.objects.insert(model, at: 0)
+        case let model as UserModel: userHistory.value?.objects.removeAll() { value in return value == model }
+                                     userHistory.value?.objects.insert(model, at: 0)
+        case let model as RepositoryModel: repositoryHistory.value?.objects.removeAll() { value in return value == model }
+                                           repositoryHistory.value?.objects.insert(model, at: 0)
+        case let model as OrganizationModel: organizationHistory.value?.objects.removeAll() { value in return value == model }
+                                             organizationHistory.value?.objects.insert(model, at: 0)
         default: break
         }
     }
     
     func add<Type: Model>(keyword: String, for modelType: Type.Type) {
         switch modelType.self {
-        case is UserModel.Type: userHistory.queries.removeAll() { value in return value == keyword }
-                                userHistory.queries.insert(keyword, at: 0)
-        case is RepositoryModel.Type: repositoryHistory.queries.removeAll() { value in return value == keyword }
-                                      repositoryHistory.queries.insert(keyword, at: 0)
-        case is OrganizationModel.Type: organizationHistory.queries.removeAll() { value in return value == keyword }
-                                        organizationHistory.queries.insert(keyword, at: 0)
+        case is UserModel.Type: userHistory.value?.queries.removeAll() { value in return value == keyword }
+                                userHistory.value?.queries.insert(keyword, at: 0)
+        case is RepositoryModel.Type: repositoryHistory.value?.queries.removeAll() { value in return value == keyword }
+                                      repositoryHistory.value?.queries.insert(keyword, at: 0)
+        case is OrganizationModel.Type: organizationHistory.value?.queries.removeAll() { value in return value == keyword }
+                                        organizationHistory.value?.queries.insert(keyword, at: 0)
         default: break
         }
     }
@@ -77,18 +77,18 @@ class SearchHistoryManager: DataPersistenceManager {
     
     func delete<Type: Model>(model: Type) {
         switch model {
-        case let model as UserModel: userHistory.objects.removeAll() { value in return value == model }
-        case let model as RepositoryModel: repositoryHistory.objects.removeAll() { value in return value == model }
-        case let model as OrganizationModel: organizationHistory.objects.removeAll() { value in return value == model }
+        case let model as UserModel: userHistory.value?.objects.removeAll() { value in return value == model }
+        case let model as RepositoryModel: repositoryHistory.value?.objects.removeAll() { value in return value == model }
+        case let model as OrganizationModel: organizationHistory.value?.objects.removeAll() { value in return value == model }
         default: break
         }
     }
     
     func delete<Type: Model>(keyword: String, for modelType: Type.Type) {
         switch modelType.self {
-        case is UserModel.Type: userHistory.queries.removeAll() { value in return value == keyword }
-        case is RepositoryModel.Type: repositoryHistory.queries.removeAll() { value in return value == keyword }
-        case is OrganizationModel.Type: organizationHistory.queries.removeAll() { value in return value == keyword }
+        case is UserModel.Type: userHistory.value?.queries.removeAll() { value in return value == keyword }
+        case is RepositoryModel.Type: repositoryHistory.value?.queries.removeAll() { value in return value == keyword }
+        case is OrganizationModel.Type: organizationHistory.value?.queries.removeAll() { value in return value == keyword }
         default: break
         }
     }
@@ -97,26 +97,40 @@ class SearchHistoryManager: DataPersistenceManager {
     
     func clear<Type: Model>(for modelType: Type.Type) {
         switch modelType.self {
-        case is UserModel.Type: userHistory.clear()
-        case is RepositoryModel.Type: repositoryHistory.clear()
-        case is OrganizationModel.Type: organizationHistory.clear()
+        case is UserModel.Type: userHistory.value?.clear()
+        case is RepositoryModel.Type: repositoryHistory.value?.clear()
+        case is OrganizationModel.Type: organizationHistory.value?.clear()
         default: break
         }
     }
     
     func clearActive() {
         switch activeSearchContext {
-        case .users: userHistory.clear()
-        case .repositories: repositoryHistory.clear()
-        case .organizations: organizationHistory.clear()
+        case .users: userHistory.value?.clear()
+        case .repositories: repositoryHistory.value?.clear()
+        case .organizations: organizationHistory.value?.clear()
         default: break
         }
     }
     
     func clearAll() {
-        userHistory.clear()
-        repositoryHistory.clear()
-        organizationHistory.clear()
+        userHistory.value?.clear()
+        repositoryHistory.value?.clear()
+        organizationHistory.value?.clear()
+    }
+    
+    // MARK: - Bind Methods
+    
+    func bindUsers(_ listener: @escaping (SearchHistory<UserModel>?) -> Void) {
+        userHistory.bind(listener)
+    }
+    
+    func bindRepositories(_ listener: @escaping (SearchHistory<RepositoryModel>?) -> Void) {
+        repositoryHistory.bind(listener)
+    }
+    
+    func bindOrganizations(_ listener: @escaping (SearchHistory<OrganizationModel>?) -> Void) {
+        organizationHistory.bind(listener)
     }
     
 }

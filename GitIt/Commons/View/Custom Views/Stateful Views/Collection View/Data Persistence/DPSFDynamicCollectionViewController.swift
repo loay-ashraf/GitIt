@@ -44,7 +44,6 @@ class DPSFDynamicCollectionViewController<T: DataPersistenceCollectionViewModel>
     }
     
     func updateView() {
-        synchronizeCollectionView()
         xCollectionView.reloadData()
     }
 
@@ -74,26 +73,6 @@ class DPSFDynamicCollectionViewController<T: DataPersistenceCollectionViewModel>
         case .vertical: xCollectionView.alwaysBounceVertical = false
         @unknown default: return
         }
-    }
-    
-    // MARK: - Synchronize Methods
-    
-    func synchronize() {
-        viewModel.synchronize()
-        if viewModel.isEmpty {
-            xCollectionView.transition(to: .empty(emptyViewModel))
-            disableSearchBar()
-        } else {
-            synchronizeCollectionView()
-            xCollectionView.transition(to: .presenting)
-            enableSearchBar()
-        }
-    }
-    
-    // MARK: - Collection View Synchronization Methods
-    
-    func synchronizeCollectionView() {
-        collectionViewDataSource.cellViewModels = viewModel.items
     }
 
 }

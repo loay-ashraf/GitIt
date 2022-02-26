@@ -15,8 +15,7 @@ class RepositoryLogicController: WebServicePlainLogicController {
     typealias ModelType = RepositoryModel
     
     var webServiceClient = GitHubClient()
-    var model = List<RepositoryModel>()
-    var handler: NetworkLoadingHandler?
+    var model = Observable<List<RepositoryModel>>()
     var maxItemCount: Int?
     var maxPageCount: Int
 
@@ -30,7 +29,7 @@ class RepositoryLogicController: WebServicePlainLogicController {
     // MARK: - Fetch Data Method
     
     func fetchData() async -> Result<Array<RepositoryModel>,NetworkError> {
-        await webServiceClient.fetchRepositories(page: model.currentPage)
+        await webServiceClient.fetchRepositories(page: modelList.currentPage)
     }
 
 }

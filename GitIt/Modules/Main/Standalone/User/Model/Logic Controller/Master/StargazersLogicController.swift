@@ -27,7 +27,7 @@ final class StargazersLogicController: UserLogicController {
     // MARK: - Fetch Data Method
     
     override func fetchData() async -> Result<Array<UserModel>,NetworkError> {
-        await webServiceClient.fetchRepositoryStars(fullName: repositoryFullName, page: model.currentPage)
+        await webServiceClient.fetchRepositoryStars(fullName: repositoryFullName, page: modelList.currentPage)
     }
     
 }

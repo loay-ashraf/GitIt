@@ -14,13 +14,13 @@ class UserViewModel: WebServicePlainTableViewModel {
     typealias TableCellViewModelType = UserTableCellViewModel
     
     var logicController: UserLogicController
-    var cellViewModels = List<TableCellViewModelType>()
-    var handler: NetworkLoadingHandler?
+    var cellViewModels = Observable<List<UserTableCellViewModel>>()
     
     // MARK: - Initialization
     
     init(context: UserContext) {
         logicController = context.logicController
+        bindToModel()
     }
     
     // MARK: - View Actions
@@ -29,13 +29,17 @@ class UserViewModel: WebServicePlainTableViewModel {
         items[row].toggleBookmark()
     }
     
-    // MARK: - Synchronize Method
+    // MARK: - Bind to Model Method
     
-    func synchronize() {
-        let modelItems = logicController.model.items
-        cellViewModels.items = modelItems.map { return TableCellViewModelType(from: $0) }
-        cellViewModels.currentPage = logicController.model.currentPage
-        cellViewModels.isPaginable = logicController.model.isPaginable
+    func bindToModel() {
+        logicController.bind { [weak self] modelList in
+            if let modelList = modelList {
+                let modelItems = modelList.items
+                self?.cellViewModelList.items = modelItems.map { return UserTableCellViewModel(from: $0) }
+                self?.cellViewModelList.currentPage = modelList.currentPage
+                self?.cellViewModelList.isPaginable = modelList.isPaginable
+            }
+        }
     }
     
 }

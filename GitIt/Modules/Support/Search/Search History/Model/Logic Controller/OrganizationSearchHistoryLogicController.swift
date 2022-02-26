@@ -14,21 +14,25 @@ final class OrganizationSearchHistoryLogicController: SearchHistoryLogicControll
     typealias ModelType = OrganizationModel
     
     var dataPersistenceManager = SearchHistoryManager.standard
-    var model = Array<ModelType>()
-    var queryModel = Array<String>()
+    var model = Observable<Array<OrganizationModel>>()
+    var queryModel = Observable<Array<String>>()
     
     // MARK: - Initialization
     
     init() {
         dataPersistenceManager.activeSearchContext = .organizations
-        synchronize()
+        bindToPersistedData()
     }
     
-    // MARK: - Model Synchronization Method
+    // MARK: - Bind to Persisted Data Method
 
-    func synchronize() {
-        model = dataPersistenceManager.organizationHistory.objects
-        queryModel = dataPersistenceManager.organizationHistory.queries
+    func bindToPersistedData() {
+        dataPersistenceManager.bindOrganizations { [weak self] organizationHistory in
+            if let organizationHistory = organizationHistory {
+                self?.modelArray = organizationHistory.objects
+                self?.queryModelArray = organizationHistory.queries
+            }
+        }
     }
     
 }

@@ -15,9 +15,8 @@ final class UserSearchResultsLogicController: SearchResultsLogicController {
     typealias ModelType = UserModel
     
     var webServiceClient = GitHubClient()
-    var model = List<UserModel>()
+    var model = Observable<List<UserModel>>()
     var query = String()
-    var handler: NetworkLoadingHandler?
     var maxItemCount: Int?
     var maxPageCount: Int
     
@@ -36,7 +35,7 @@ final class UserSearchResultsLogicController: SearchResultsLogicController {
     // MARK: - Fetch Data Method
     
     func fetchData() async -> Result<BatchResponse<UserModel>, NetworkError> {
-        await webServiceClient.searchUsers(query: query, page: model.currentPage)
+        await webServiceClient.searchUsers(query: query, page: modelList.currentPage)
     }
     
 }
@@ -49,9 +48,8 @@ final class RepositorySearchResultsLogicController: SearchResultsLogicController
     typealias ModelType = RepositoryModel
     
     var webServiceClient = GitHubClient()
-    var model = List<RepositoryModel>()
+    var model = Observable<List<RepositoryModel>>()
     var query = String()
-    var handler: NetworkLoadingHandler?
     var maxItemCount: Int?
     var maxPageCount: Int
     
@@ -70,7 +68,7 @@ final class RepositorySearchResultsLogicController: SearchResultsLogicController
     // MARK: - Fetch Data Method
     
     func fetchData() async -> Result<BatchResponse<RepositoryModel>, NetworkError> {
-        await webServiceClient.searchRepositories(query: query, page: model.currentPage)
+        await webServiceClient.searchRepositories(query: query, page: modelList.currentPage)
     }
     
 }
@@ -83,9 +81,8 @@ final class OrganizationSearchResultsLogicController: SearchResultsLogicControll
     typealias ModelType = OrganizationModel
     
     var webServiceClient = GitHubClient()
-    var model = List<OrganizationModel>()
+    var model = Observable<List<OrganizationModel>>()
     var query = String()
-    var handler: NetworkLoadingHandler?
     var maxItemCount: Int?
     var maxPageCount: Int
     
@@ -104,7 +101,7 @@ final class OrganizationSearchResultsLogicController: SearchResultsLogicControll
     // MARK: - Fetch Data Method
     
     func fetchData() async -> Result<BatchResponse<OrganizationModel>, NetworkError> {
-        await webServiceClient.searchOrganizations(query: query, page: model.currentPage)
+        await webServiceClient.searchOrganizations(query: query, page: modelList.currentPage)
     }
     
 }

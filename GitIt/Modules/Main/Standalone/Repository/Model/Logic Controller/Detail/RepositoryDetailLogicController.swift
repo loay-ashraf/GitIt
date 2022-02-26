@@ -15,14 +15,13 @@ final class RepositoryDetailLogicController: WebServiceDetailLogicController {
     typealias ModelType = RepositoryModel
     
     var webServiceClient = GitHubClient()
-    var model = RepositoryModel()
+    var model = Observable<RepositoryModel>()
     var parameter = String()
-    var handler: NetworkLoadingHandler?
     
     // MARK: - load Method
     
     func load() async -> NetworkError? {
-        if !parameter.isEmpty, !model.isComplete {
+        if !parameter.isEmpty, !modelObject.isComplete {
             let dataError = processFetchResult(result: await fetchData())
             if dataError == nil {
                 return processREADMEFetchResult(result: await fetchREADME())
@@ -39,15 +38,15 @@ final class RepositoryDetailLogicController: WebServiceDetailLogicController {
     }
     
     func fetchREADME() async -> DataResult {
-        await webServiceClient.downloadRepositoryREADME(fullName: model.fullName, branch: model.defaultBranch)
+        await webServiceClient.downloadRepositoryREADME(fullName: modelObject.fullName, branch: modelObject.defaultBranch)
     }
     
     // MARK: - Fetch Result Processing Method
     
     func processREADMEFetchResult(result: DataResult) -> NetworkError? {
         switch result {
-        case .success(let response): model.READMEString = String(data: response, encoding: .utf8)
-                                     model.isComplete = true
+        case .success(let response): modelObject.READMEString = String(data: response, encoding: .utf8)
+                                     modelObject.isComplete = true
                                      return nil
         case .failure(let networkError): return networkError
         }
@@ -56,14 +55,14 @@ final class RepositoryDetailLogicController: WebServiceDetailLogicController {
     // MARK: - (Un)Bookmark Methods
     
     func bookmark() -> Bool {
-        if let _ = try? BookmarksManager.standard.add(model: model) {
+        if let _ = try? BookmarksManager.standard.add(model: modelObject) {
             return true
         }
         return false
     }
     
     func unBookmark() -> Bool {
-        if let _ = try? BookmarksManager.standard.delete(model: model) {
+        if let _ = try? BookmarksManager.standard.delete(model: modelObject) {
             return true
         }
         return false
@@ -72,11 +71,11 @@ final class RepositoryDetailLogicController: WebServiceDetailLogicController {
     // MARK: - (Un)Star Methods
     
     func star() async -> Bool {
-        return await webServiceClient.starRepository(fullName: model.fullName) == nil ? true : false
+        return await webServiceClient.starRepository(fullName: modelObject.fullName) == nil ? true : false
     }
     
     func unStar() async -> Bool {
-        return await webServiceClient.unStarRepository(fullName: model.fullName) == nil ? true : false
+        return await webServiceClient.unStarRepository(fullName: modelObject.fullName) == nil ? true : false
     }
     
     // MARK: - Check For Status Methods
@@ -93,7 +92,7 @@ final class RepositoryDetailLogicController: WebServiceDetailLogicController {
     }
 
     func checkIfBookmarked() -> Bool {
-        let fetchResult = BookmarksManager.standard.check(model: model)
+        let fetchResult = BookmarksManager.standard.check(model: modelObject)
         switch fetchResult {
         case true: return true
         case false: return false
@@ -102,7 +101,7 @@ final class RepositoryDetailLogicController: WebServiceDetailLogicController {
     }
     
     func checkIfStarred() async -> Bool {
-        return await webServiceClient.checkIfStarredRepository(fullName: model.fullName) == nil ? true : false
+        return await webServiceClient.checkIfStarredRepository(fullName: modelObject.fullName) == nil ? true : false
     }
     
 }

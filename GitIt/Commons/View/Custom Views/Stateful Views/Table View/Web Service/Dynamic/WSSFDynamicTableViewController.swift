@@ -21,6 +21,12 @@ class WSSFDynamicTableViewController<T: WebServiceTableViewModel>: UITableViewCo
     
     var didLoadInitial: Bool = false
     
+    // MARK: - Initialization
+    
+    deinit {
+        xTableView?.transition(to: .presenting)
+    }
+    
     // MARK: - Lifecycle
     
     override func loadView() {
@@ -44,11 +50,6 @@ class WSSFDynamicTableViewController<T: WebServiceTableViewModel>: UITableViewCo
         default: disableSearchBar()
         }
     }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        xTableView.transition(to: .presenting)
-    }
 
     // MARK: - View Helper Methods
     
@@ -69,7 +70,6 @@ class WSSFDynamicTableViewController<T: WebServiceTableViewModel>: UITableViewCo
     }
     
     func updateView() {
-        synchronizeTableView()
         xTableView.reloadData()
     }
     
@@ -134,7 +134,6 @@ class WSSFDynamicTableViewController<T: WebServiceTableViewModel>: UITableViewCo
             xTableView.transition(to: .empty(emptyViewModel))
             disableSearchBar()
         } else {
-            synchronizeTableView()
             xTableView.transition(to: .presenting)
             enableSearchBar()
         }
@@ -145,7 +144,6 @@ class WSSFDynamicTableViewController<T: WebServiceTableViewModel>: UITableViewCo
             xTableView.transition(to: .failed(.refresh(error)))
             disableSearchBar()
         } else {
-            synchronizeTableView()
             xTableView.transition(to: .presenting)
             enableSearchBar()
         }
@@ -156,7 +154,6 @@ class WSSFDynamicTableViewController<T: WebServiceTableViewModel>: UITableViewCo
             xTableView.transition(to: .failed(.paginate(error)))
             disableSearchBar()
         } else {
-            synchronizeTableView()
             xTableView.transition(to: .presenting)
             enableSearchBar()
         }
@@ -165,12 +162,6 @@ class WSSFDynamicTableViewController<T: WebServiceTableViewModel>: UITableViewCo
     func resetHandler() {
         xTableView.transition(to: .presenting)
         enableSearchBar()
-    }
-    
-    // MARK: - Table View Synchronization Methods
-    
-    func synchronizeTableView() {
-        tableViewDataSource.cellViewModels = viewModel.items
     }
     
 }

@@ -1491,8 +1491,8 @@
 		C65EA1962795CD1F001C5174 /* Collection View */ = {
 			isa = PBXGroup;
 			children = (
-				C625B30F27C5473B00EB8E88 /* Web Service */,
 				C625B30E27C5473000EB8E88 /* Data Persistence */,
+				C625B30F27C5473B00EB8E88 /* Web Service */,
 			);
 			path = "Collection View";
 			sourceTree = "<group>";

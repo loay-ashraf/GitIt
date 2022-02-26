@@ -60,7 +60,6 @@ class SearchHistoryViewController<T: SearchHistoryViewModel>: DPSFViewController
     override func viewDidLoad() {
         super.viewDidLoad()
         configureView()
-        synchronize()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -90,22 +89,28 @@ class SearchHistoryViewController<T: SearchHistoryViewModel>: DPSFViewController
         tableViewDelegate = SearchHistoryTableViewDelegate(self)
         tableView.setDataSource(tableViewDataSource)
         tableView.setDelegate(tableViewDelegate)
+        
+        bindToViewModel()
     }
     
     func layoutView() {
-        let headerShouldBeHidden = viewModel.objectCellViewModels.isEmpty && viewModel.queryCellViewModels.isEmpty
-        switch headerShouldBeHidden {
-        case true: headerTitleStackView.isHidden = true
-                   xView.transition(to: .empty(emptyViewModel))
-        case false: headerTitleStackView.isHidden = false
-                    xView.transition(to: .presenting)
-        }
+        layoutHeaderView()
         layoutCollectionView()
         layoutTableView()
     }
     
+    func layoutHeaderView() {
+        let headerShouldBeHidden = viewModel.objectCellViewModelArray.isEmpty && viewModel.queryCellViewModelArray.isEmpty
+        switch headerShouldBeHidden {
+        case true: headerTitleStackView?.isHidden = true
+                   xView.transition(to: .empty(emptyViewModel))
+        case false: headerTitleStackView?.isHidden = false
+                    xView.transition(to: .presenting)
+        }
+    }
+    
     func layoutCollectionView() {
-        let collectionShouldBeHidden = viewModel.objectCellViewModels.isEmpty
+        let collectionShouldBeHidden = viewModel.objectCellViewModelArray.isEmpty
         let collectionContentHeight = collectionView.collectionViewLayout.collectionViewContentSize.height
         switch collectionShouldBeHidden {
         case true: collectionView.isHidden = true
@@ -116,7 +121,7 @@ class SearchHistoryViewController<T: SearchHistoryViewModel>: DPSFViewController
     }
     
     func layoutTableView() {
-        let tableShouldBeHidden = viewModel.queryCellViewModels.isEmpty
+        let tableShouldBeHidden = viewModel.queryCellViewModelArray.isEmpty
         let tableContentHeight = tableView.contentSize.height
         switch tableShouldBeHidden {
         case true: tableView.isHidden = true
@@ -132,23 +137,11 @@ class SearchHistoryViewController<T: SearchHistoryViewModel>: DPSFViewController
     }
     
     func updateCollectionView() {
-        synchronizeCollectionView()
-        collectionView.reloadData()
+        collectionView?.reloadData()
     }
     
     func updateTableView() {
-        synchronizeTableView()
-        tableView.reloadData()
-    }
-    
-    // MARK: - View Synchronization Methods
-    
-    func synchronizeCollectionView() {
-        collectionViewDataSource.cellViewModels = viewModel.objectCellViewModels
-    }
-    
-    func synchronizeTableView() {
-        tableViewDataSource.cellViewModels = viewModel.queryCellViewModels
+        tableView?.reloadData()
     }
     
     // MARK: - View Actions
@@ -166,21 +159,21 @@ class SearchHistoryViewController<T: SearchHistoryViewModel>: DPSFViewController
     }
     
     func saveImage(atItem item: Int) {
-        if let cellViewModelItem = viewModel.objectCellViewModels[item] as? UserCollectionCellViewModel {
+        if let cellViewModelItem = viewModel.objectCellViewModelArray[item] as? UserCollectionCellViewModel {
             KingfisherManager.shared.retrieveImage(with: cellViewModelItem.avatarURL) { result in
                 if let retreiveResult = try? result.get() {
                     UIImageWriteToSavedPhotosAlbum(retreiveResult.image, self, nil, nil)
                     SVProgressHUD.showSuccess(withStatus: "Image Saved".localized())
                 }
             }
-        } else if let cellViewModelItem = viewModel.objectCellViewModels[item] as? RepositoryCollectionCellViewModel {
+        } else if let cellViewModelItem = viewModel.objectCellViewModelArray[item] as? RepositoryCollectionCellViewModel {
             KingfisherManager.shared.retrieveImage(with: cellViewModelItem.owner.avatarURL) { result in
                 if let retreiveResult = try? result.get() {
                     UIImageWriteToSavedPhotosAlbum(retreiveResult.image, self, nil, nil)
                     SVProgressHUD.showSuccess(withStatus: "Image Saved".localized())
                 }
             }
-        } else if let cellViewModelItem = viewModel.objectCellViewModels[item] as? OrganizationCollectionCellViewModel {
+        } else if let cellViewModelItem = viewModel.objectCellViewModelArray[item] as? OrganizationCollectionCellViewModel {
             KingfisherManager.shared.retrieveImage(with: cellViewModelItem.avatarURL) { result in
                 if let retreiveResult = try? result.get() {
                     UIImageWriteToSavedPhotosAlbum(retreiveResult.image, self, nil, nil)
@@ -191,21 +184,21 @@ class SearchHistoryViewController<T: SearchHistoryViewModel>: DPSFViewController
     }
     
     func openInSafari(atItem item: Int) {
-        if let cellViewModelItem = viewModel.objectCellViewModels[item] as? UserCollectionCellViewModel {
+        if let cellViewModelItem = viewModel.objectCellViewModelArray[item] as? UserCollectionCellViewModel {
             URLHelper.openWebsite(cellViewModelItem.htmlURL)
-        } else if let cellViewModelItem = viewModel.objectCellViewModels[item] as? RepositoryCollectionCellViewModel {
+        } else if let cellViewModelItem = viewModel.objectCellViewModelArray[item] as? RepositoryCollectionCellViewModel {
             URLHelper.openWebsite(cellViewModelItem.htmlURL)
-        } else if let cellViewModelItem = viewModel.objectCellViewModels[item] as? OrganizationCollectionCellViewModel {
+        } else if let cellViewModelItem = viewModel.objectCellViewModelArray[item] as? OrganizationCollectionCellViewModel {
             URLHelper.openWebsite(cellViewModelItem.htmlURL)
         }
     }
     
     func share(atItem item: Int) {
-        if let cellViewModelItem = viewModel.objectCellViewModels[item] as? UserCollectionCellViewModel {
+        if let cellViewModelItem = viewModel.objectCellViewModelArray[item] as? UserCollectionCellViewModel {
             URLHelper.shareWebsite(cellViewModelItem.htmlURL)
-        } else if let cellViewModelItem = viewModel.objectCellViewModels[item] as? RepositoryCollectionCellViewModel {
+        } else if let cellViewModelItem = viewModel.objectCellViewModelArray[item] as? RepositoryCollectionCellViewModel {
             URLHelper.shareWebsite(cellViewModelItem.htmlURL)
-        } else if let cellViewModelItem = viewModel.objectCellViewModels[item] as? OrganizationCollectionCellViewModel {
+        } else if let cellViewModelItem = viewModel.objectCellViewModelArray[item] as? OrganizationCollectionCellViewModel {
             URLHelper.shareWebsite(cellViewModelItem.htmlURL)
         }
     }
@@ -225,41 +218,46 @@ class SearchHistoryViewController<T: SearchHistoryViewModel>: DPSFViewController
             let detailVC = OrganizationDetailViewController.instatiate(collectionCellViewModel: cellViewModelItem)
             NavigationRouter.push(viewController: detailVC)
         }
-        updateCollectionView()
     }
     
     func deleteObject(atItem item: Int) {
         viewModel.deleteObject(atItem: item)
-        synchronizeCollectionView()
-        collectionView.deleteItems(at: [IndexPath(item: item, section: 0)])
-        layoutCollectionView()
     }
     
     func reloadQuery(atRow row: Int) {
         let query = viewModel.reloadQuery(atRow: row)
         delegate.reloadQuery(with: query)
-        updateTableView()
-        layoutTableView()
     }
     
     func deleteQuery(atRow row: Int) {
         viewModel.deleteQuery(atRow: row)
-        synchronizeTableView()
-        tableView.deleteRows(at: [IndexPath(row: row, section: 0)], with: .bottom)
-        layoutTableView()
     }
     
-    // MARK: - Synchronize, Reset Methods
-    
-    override func synchronize() {
-        super.synchronize()
-        viewModel.synchronize()
-        updateView()
-        layoutView()
-    }
+    // MARK: - Reset Method
     
     func reset() {
         collectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .top, animated: true)
+    }
+    
+    // MARK: - Bind to View Model Method
+    
+    func bindToViewModel() {
+        viewModel.bindObject { [weak self] objectCellViewModelArray in
+            if let objectCellViewModelArray = objectCellViewModelArray {
+                self?.collectionViewDataSource?.cellViewModels = objectCellViewModelArray
+                self?.updateCollectionView()
+                self?.layoutHeaderView()
+                self?.layoutCollectionView()
+            }
+        }
+        viewModel.bindQuery { [weak self] queryCellViewModelArray in
+            if let queryCellViewModelArray = queryCellViewModelArray {
+                self?.tableViewDataSource?.cellViewModels = queryCellViewModelArray
+                self?.updateTableView()
+                self?.layoutHeaderView()
+                self?.layoutTableView()
+            }
+        }
     }
     
     // MARK: - Keyboard Adjustment Methods

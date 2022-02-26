@@ -22,10 +22,12 @@ final class LicenseViewModel: WebServiceDetailViewModel {
     
     init(parameter: String, defaultBranch: String) {
         logicController = LicenseLogicController(parameter: parameter, defaultBranch: defaultBranch)
+        bindToModel()
     }
     
     init(withParameter parameter: String) {
         logicController = LicenseLogicController(withParameter: parameter)
+        bindToModel()
     }
     
     // MARK: - Status Checking Method
@@ -34,10 +36,14 @@ final class LicenseViewModel: WebServiceDetailViewModel {
         return await logicController.checkForStatus()
     }
     
-    // MARK: - Synchronize Method
+    // MARK: - Bind to Model Method
     
-    func synchronize() {
-        licenseText = logicController.model
+    func bindToModel() {
+        logicController.bind { [weak self] modelObject in
+            if let modelObject = modelObject {
+                self?.licenseText = modelObject
+            }
+        }
     }
     
 }

@@ -14,20 +14,21 @@ final class UserBookmarksLogicController: BookmarksLogicController {
     typealias ModelType = UserModel
     
     var dataPersistenceManager = BookmarksManager.standard
-    var model = Array<UserModel>()
+    var model = Observable<Array<UserModel>>()
     
     // MARK: - Initialization
     
     init() {
-        dataPersistenceManager.activeBookmarksContext = .users
-        synchronize()
+        bindToPersistedData()
     }
     
-    // MARK: - Model Synchronize Method
-    
-    func synchronize() {
-        if let bookmarksArray = dataPersistenceManager.getUsers() {
-            model = bookmarksArray.map { return UserModel(from: $0) }
+    // MARK: - Bind to Persisted Data Method
+
+    func bindToPersistedData() {
+        dataPersistenceManager.bindUsers { [weak self] userBookmarks in
+            if let userBookmarks = userBookmarks {
+                self?.modelArray = userBookmarks.map { return UserModel(from: $0) }
+            }
         }
     }
     

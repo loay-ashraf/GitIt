@@ -28,6 +28,7 @@ class OrganizationViewController: WSSFDynamicTableViewController<OrganizationVie
         tableViewDelegate = OrganizationTableViewDelegate(self)
         viewModel = OrganizationViewModel(context: context)
         emptyViewModel = EmptyConstants.Organizations.viewModel
+        bindToViewModel()
     }
     
     required init?(coder: NSCoder) {
@@ -117,6 +118,16 @@ class OrganizationViewController: WSSFDynamicTableViewController<OrganizationVie
             case .initial: loadHandler(error: await viewModel?.load())
             case .refresh: refreshHandler(error: await viewModel?.refresh())
             case .paginate: paginateHandler(error: await viewModel?.paginate())
+            }
+        }
+    }
+    
+    // MARK: - Bind to View Model Method
+    
+    func bindToViewModel() {
+        viewModel.bind { [weak self] cellViewModelList in
+            if let cellViewModelList = cellViewModelList {
+                self?.tableViewDataSource.cellViewModels = cellViewModelList.items
             }
         }
     }

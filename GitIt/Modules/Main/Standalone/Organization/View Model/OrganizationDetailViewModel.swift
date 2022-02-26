@@ -14,7 +14,6 @@ final class OrganizationDetailViewModel: WebServiceDetailViewModel {
     typealias WebServiceLogicControllerType = OrganizationDetailLogicController
     
     var logicController: OrganizationDetailLogicController
-    var handler: NetworkLoadingHandler?
     
     var login: String = ""
     var avatarURL: URL = URL(string: "www.github.com")!
@@ -32,14 +31,17 @@ final class OrganizationDetailViewModel: WebServiceDetailViewModel {
     
     init(withParameter parameter: String) {
         logicController = OrganizationDetailLogicController(withParameter: parameter)
+        bindToModel()
     }
     
     init(collectionCellViewModel: OrganizationCollectionCellViewModel) {
         logicController = OrganizationDetailLogicController(withParameter: collectionCellViewModel.login)
+        bindToModel()
     }
     
     init(tableCellViewModel: OrganizationTableCellViewModel) {
         logicController = OrganizationDetailLogicController(withParameter: tableCellViewModel.login)
+        bindToModel()
     }
     
     // MARK: - View Actions
@@ -61,20 +63,23 @@ final class OrganizationDetailViewModel: WebServiceDetailViewModel {
         return status
     }
     
-    // MARK: - Synchronize Method
+    // MARK: - Bind to Model Method
     
-    func synchronize() {
-        let model = logicController.model
-        login = model.login
-        avatarURL = model.avatarURL
-        htmlURL = model.htmlURL
-        name = model.name
-        description = model.description
-        location = model.location
-        blogURL = model.blogURL
-        email = model.email
-        twitter = model.twitter
-        repositories = model.repositories!
+    func bindToModel() {
+        logicController.bind { [weak self] modelObject in
+            if let modelObject = modelObject {
+                self?.login = modelObject.login
+                self?.avatarURL = modelObject.avatarURL
+                self?.htmlURL = modelObject.htmlURL
+                self?.name = modelObject.name
+                self?.description = modelObject.description
+                self?.location = modelObject.location
+                self?.blogURL = modelObject.blogURL
+                self?.email = modelObject.email
+                self?.twitter = modelObject.twitter
+                self?.repositories = modelObject.repositories!
+            }
+        }
     }
     
 }

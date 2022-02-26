@@ -15,8 +15,7 @@ class UserLogicController: WebServicePlainLogicController {
     typealias ModelType = UserModel
     
     var webServiceClient = GitHubClient()
-    var model = List<UserModel>()
-    var handler: NetworkLoadingHandler?
+    var model = Observable<List<UserModel>>()
     var maxItemCount: Int?
     var maxPageCount: Int
     
@@ -30,7 +29,7 @@ class UserLogicController: WebServicePlainLogicController {
     // MARK: - Fetch Data Method
     
     func fetchData() async -> Result<Array<UserModel>,NetworkError> {
-        await webServiceClient.fetchUsers(page: model.currentPage)
+        await webServiceClient.fetchUsers(page: modelList.currentPage)
     }
     
 }

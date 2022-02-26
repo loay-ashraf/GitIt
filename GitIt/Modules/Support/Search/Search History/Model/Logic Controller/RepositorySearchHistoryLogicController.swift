@@ -14,21 +14,25 @@ final class RepositorySearchHistoryLogicController: SearchHistoryLogicController
     typealias ModelType = RepositoryModel
     
     var dataPersistenceManager = SearchHistoryManager.standard
-    var model = Array<ModelType>()
-    var queryModel = Array<String>()
+    var model = Observable<Array<RepositoryModel>>()
+    var queryModel = Observable<Array<String>>()
     
     // MARK: - Initialization
     
     init() {
         dataPersistenceManager.activeSearchContext = .repositories
-        synchronize()
+        bindToPersistedData()
     }
     
-    // MARK: - Model Synchronization Method
+    // MARK: - Bind to Persisted Data Method
 
-    func synchronize() {
-        model = dataPersistenceManager.repositoryHistory.objects
-        queryModel = dataPersistenceManager.repositoryHistory.queries
+    func bindToPersistedData() {
+        dataPersistenceManager.bindRepositories { [weak self] repositoryHistory in
+            if let repositoryHistory = repositoryHistory {
+                self?.modelArray = repositoryHistory.objects
+                self?.queryModelArray = repositoryHistory.queries
+            }
+        }
     }
     
 }

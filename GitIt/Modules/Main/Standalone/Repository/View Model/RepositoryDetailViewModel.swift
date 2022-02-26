@@ -14,7 +14,6 @@ final class RepositoryDetailViewModel: WebServiceDetailViewModel {
     typealias WebServiceLogicControllerType = RepositoryDetailLogicController
     
     var logicController: RepositoryDetailLogicController
-    var handler: NetworkLoadingHandler?
     
     var name: String = ""
     var fullName: String = ""
@@ -35,16 +34,19 @@ final class RepositoryDetailViewModel: WebServiceDetailViewModel {
     
     init(withParameter parameter: String) {
         logicController = RepositoryDetailLogicController(withParameter: parameter)
+        bindToModel()
     }
     
     init(collectionCellViewModel: RepositoryCollectionCellViewModel) {
         let fullName = collectionCellViewModel.owner.login.appendPathComponent(collectionCellViewModel.name)
         logicController = RepositoryDetailLogicController(withParameter: fullName)
+        bindToModel()
     }
     
     init(tableCellViewModel: RepositoryTableCellViewModel) {
         let fullName = tableCellViewModel.owner.login.appendPathComponent(tableCellViewModel.name)
         logicController = RepositoryDetailLogicController(withParameter: fullName)
+        bindToModel()
     }
 
     // MARK: - View Actions
@@ -76,22 +78,25 @@ final class RepositoryDetailViewModel: WebServiceDetailViewModel {
         return status
     }
     
-    // MARK: - Synchronize Method
+    // MARK: - Bind to Model Method
     
-    func synchronize() {
-        let model = logicController.model
-        name = model.name
-        fullName = model.fullName
-        owner = model.owner
-        htmlURL = model.htmlURL
-        description = model.description
-        homepageURL = model.homepageURL
-        language = model.language
-        stars = model.stars
-        forks = model.forks
-        defaultBranch = model.defaultBranch
-        license = model.license
-        READMEString = model.READMEString
+    func bindToModel() {
+        logicController.bind { [weak self] modelObject in
+            if let modelObject = modelObject {
+                self?.name = modelObject.name
+                self?.fullName = modelObject.fullName
+                self?.owner = modelObject.owner
+                self?.htmlURL = modelObject.htmlURL
+                self?.description = modelObject.description
+                self?.homepageURL = modelObject.homepageURL
+                self?.language = modelObject.language
+                self?.stars = modelObject.stars
+                self?.forks = modelObject.forks
+                self?.defaultBranch = modelObject.defaultBranch
+                self?.license = modelObject.license
+                self?.READMEString = modelObject.READMEString
+            }
+        }
     }
     
 }

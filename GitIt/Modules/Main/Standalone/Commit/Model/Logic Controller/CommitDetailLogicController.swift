@@ -15,20 +15,19 @@ class CommitDetailLogicController: WebServiceDetailLogicController {
     typealias ModelType = CommitModel
     
     var webServiceClient = GitHubClient()
-    var model = CommitModel()
+    var model = Observable<CommitModel>()
     var parameter = String()
-    var handler: NetworkLoadingHandler?
     
     // MARK: - Initialization
 
     init(model: CommitModel) {
-        self.model = model
+        self.modelObject = model
     }
     
     // MARK: - Fetch Data Method
     
     func fetchData() async -> Result<CommitModel,NetworkError> {
-        return .success(model)
+        return .success(modelObject)
     }
     
     // MARK: - Check For Status Method

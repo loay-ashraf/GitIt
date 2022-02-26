@@ -16,13 +16,28 @@ final class UserSearchHistoryViewModel: SearchHistoryViewModel {
     typealias ModelType = UserModel
     
     var logicController = UserSearchHistoryLogicController()
-    var objectCellViewModels = Array<UserCollectionCellViewModel>()
-    var queryCellViewModels = Array<QueryCellViewModel>()
+    var objectCellViewModels = Observable<Array<UserCollectionCellViewModel>>()
+    var queryCellViewModels = Observable<Array<QueryCellViewModel>>()
     
     // MARK: - Initialization
     
     init() {
-        synchronize()
+        bindToModel()
+    }
+    
+    // MARK: - Bind to Model Method
+    
+    func bindToModel() {
+        logicController.bind { [weak self] objectArray in
+            if let objectArray = objectArray {
+                self?.objectCellViewModelArray = objectArray.map { return UserCollectionCellViewModel(from: $0) }
+            }
+        }
+        logicController.bindQuery { [weak self] queryArray in
+            if let queryArray = queryArray {
+                self?.queryCellViewModelArray = queryArray.map { return QueryCellViewModel(from: $0) }
+            }
+        }
     }
     
 }
@@ -36,13 +51,28 @@ final class RepositorySearchHistoryViewModel: SearchHistoryViewModel {
     typealias ModelType = RepositoryModel
     
     var logicController = RepositorySearchHistoryLogicController()
-    var objectCellViewModels = Array<RepositoryCollectionCellViewModel>()
-    var queryCellViewModels = Array<QueryCellViewModel>()
+    var objectCellViewModels = Observable<Array<RepositoryCollectionCellViewModel>>()
+    var queryCellViewModels = Observable<Array<QueryCellViewModel>>()
     
     // MARK: - Initialization
     
     init() {
-        synchronize()
+        bindToModel()
+    }
+    
+    // MARK: - Bind to Model Method
+    
+    func bindToModel() {
+        logicController.bind { [weak self] objectArray in
+            if let objectArray = objectArray {
+                self?.objectCellViewModelArray = objectArray.map { return RepositoryCollectionCellViewModel(from: $0) }
+            }
+        }
+        logicController.bindQuery { [weak self] queryArray in
+            if let queryArray = queryArray {
+                self?.queryCellViewModelArray = queryArray.map { return QueryCellViewModel(from: $0) }
+            }
+        }
     }
     
 }
@@ -56,13 +86,28 @@ final class OrganizationSearchHistoryViewModel: SearchHistoryViewModel {
     typealias ModelType = OrganizationModel
     
     var logicController = OrganizationSearchHistoryLogicController()
-    var objectCellViewModels = Array<OrganizationCollectionCellViewModel>()
-    var queryCellViewModels = Array<QueryCellViewModel>()
+    var objectCellViewModels = Observable<Array<OrganizationCollectionCellViewModel>>()
+    var queryCellViewModels = Observable<Array<QueryCellViewModel>>()
     
     // MARK: - Initialization
     
     init() {
-        synchronize()
+        bindToModel()
+    }
+    
+    // MARK: - Bind to Model Method
+    
+    func bindToModel() {
+        logicController.bind { [weak self] objectArray in
+            if let objectArray = objectArray {
+                self?.objectCellViewModelArray = objectArray.map { return OrganizationCollectionCellViewModel(from: $0) }
+            }
+        }
+        logicController.bindQuery { [weak self] queryArray in
+            if let queryArray = queryArray {
+                self?.queryCellViewModelArray = queryArray.map { return QueryCellViewModel(from: $0) }
+            }
+        }
     }
     
 }

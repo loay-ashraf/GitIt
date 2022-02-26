@@ -404,7 +404,7 @@
             <objects>
                 <tableViewController id="ttQ-8r-dUZ" customClass="UserBookmarksViewController" customModule="GitIt" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="eEZ-ow-vJK" customClass="DPSFDynamicTableView" customModule="GitIt" customModuleProvider="target">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="530"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="521"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" name="Background Color"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="ygx-I8-GgB" userLabel="Header">
@@ -432,7 +432,7 @@
             <objects>
                 <tableViewController id="Kuy-ee-g74" customClass="RepositoryBookmarksViewController" customModule="GitIt" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="t1N-Mu-uWf" customClass="DPSFDynamicTableView" customModule="GitIt" customModuleProvider="target">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="530"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="521"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" name="Background Color"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="IKP-5m-ptK" userLabel="Header">
@@ -460,7 +460,7 @@
             <objects>
                 <tableViewController id="vKU-DN-ZpG" customClass="OrganizationBookmarksViewController" customModule="GitIt" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="fSo-wU-jkf" customClass="DPSFDynamicTableView" customModule="GitIt" customModuleProvider="target">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="530"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="521"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" name="Background Color"/>
                         <view key="tableHeaderView" contentMode="scaleToFill" id="jJG-GJ-o2W" userLabel="Header">
@@ -1903,8 +1903,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="WQV-MN-gB4">
-                                <rect key="frame" x="60" y="111" width="294" height="32"/>
+                                <rect key="frame" x="60" y="111" width="294" height="41"/>
                                 <color key="backgroundColor" name="Foreground Color"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="3on-R6-zFs"/>
+                                </constraints>
                                 <segments>
                                     <segment title="">
                                         <imageReference key="image" image="person.2" catalog="system" symbolScale="large"/>
@@ -1921,19 +1924,19 @@
                                 </connections>
                             </segmentedControl>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="T4h-b4-KRV">
-                                <rect key="frame" x="0.0" y="157" width="414" height="530"/>
+                                <rect key="frame" x="0.0" y="166" width="414" height="521"/>
                                 <connections>
                                     <segue destination="ttQ-8r-dUZ" kind="embed" id="W22-1m-uVz"/>
                                 </connections>
                             </containerView>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a9R-IU-tQA">
-                                <rect key="frame" x="0.0" y="157" width="414" height="530"/>
+                                <rect key="frame" x="0.0" y="166" width="414" height="521"/>
                                 <connections>
                                     <segue destination="Kuy-ee-g74" kind="embed" id="rnt-pX-WK6"/>
                                 </connections>
                             </containerView>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6aw-Pb-YHz">
-                                <rect key="frame" x="0.0" y="157" width="414" height="530"/>
+                                <rect key="frame" x="0.0" y="166" width="414" height="521"/>
                                 <connections>
                                     <segue destination="vKU-DN-ZpG" kind="embed" id="4Wj-1g-qEl"/>
                                 </connections>

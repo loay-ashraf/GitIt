@@ -15,9 +15,8 @@ final class CommitLogicController: WebServicePlainLogicController {
     typealias ModelType = CommitModel
     
     var webServiceClient = GitHubClient()
-    var model = List<CommitModel>()
+    var model = Observable<List<CommitModel>>()
     var repositoryFullName = String()
-    var handler: NetworkLoadingHandler?
     var maxItemCount: Int?
     var maxPageCount: Int
 
@@ -26,7 +25,6 @@ final class CommitLogicController: WebServicePlainLogicController {
     init(repositoryFullName: String) {
         self.repositoryFullName = repositoryFullName
         self.maxPageCount = NetworkingConstants.maxPageCount
-        self.model.isPaginable = true
     }
     
     init(maxItemCount: Int?, maxPageCount: Int = NetworkingConstants.maxPageCount) {
@@ -37,7 +35,7 @@ final class CommitLogicController: WebServicePlainLogicController {
     // MARK: - Fetch Data Method
     
     func fetchData() async -> Result<Array<CommitModel>,NetworkError> {
-        await webServiceClient.fetchRepositoryCommits(fullName: repositoryFullName, page: model.currentPage)
+        await webServiceClient.fetchRepositoryCommits(fullName: repositoryFullName, page: modelList.currentPage)
     }
 
 }

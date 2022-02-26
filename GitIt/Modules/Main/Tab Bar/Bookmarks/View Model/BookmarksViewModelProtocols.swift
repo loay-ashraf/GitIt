@@ -13,6 +13,7 @@ protocol BookmarksViewModel: DataPersistenceTableViewModel where LogicController
     var isEmpty: Bool { get }
     
     func toggleBookmark(atRow row: Int)
+    func bindToModel()
 
 }
 
@@ -20,13 +21,13 @@ extension BookmarksViewModel {
     
     // MARK: - Properties
     
-    var count: Int { return cellViewModels.count }
-    var isEmpty: Bool { return cellViewModels.isEmpty }
+    var count: Int { return cellViewModelArray.count }
+    var isEmpty: Bool { return cellViewModelArray.isEmpty }
     
     // MARK: - View Actions
     
     func toggleBookmark(atRow row: Int) {
-        cellViewModels[row].toggleBookmark()
+        cellViewModelArray[row].toggleBookmark()
     }
     
     // MARK: - View Model Manipulationn Methods
@@ -38,20 +39,10 @@ extension BookmarksViewModel {
     func delete(cellViewModel: TableCellViewModelType) {
         let model = ModelType(from: cellViewModel as! ModelType.TableCellViewModelType)
         logicController.delete(model: model as! LogicControllerType.ModelType)
-        synchronize()
     }
     
     func clear() {
         logicController.clear()
-        synchronize()
-    }
-    
-    // MARK: - View Model Synchronize Method
-    
-    func synchronize() {
-        logicController.synchronize()
-        let objectItems = logicController.model
-        cellViewModels = objectItems.map { return TableCellViewModelType(from: $0 as! TableCellViewModelType.ModelType) }
     }
     
 }

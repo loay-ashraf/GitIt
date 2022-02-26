@@ -14,7 +14,6 @@ final class UserDetailViewModel: WebServiceDetailViewModel {
     typealias WebServiceLogicControllerType = UserDetailLogicController
     
     var logicController: UserDetailLogicController
-    var handler: NetworkLoadingHandler?
     
     var login: String = ""
     var avatarURL: URL = URL(string: "www.github.com")!
@@ -36,14 +35,17 @@ final class UserDetailViewModel: WebServiceDetailViewModel {
     
     init(withParameter parameter: String) {
         logicController = UserDetailLogicController(withParameter: parameter)
+        bindToModel()
     }
     
     init(collectionCellViewModel: UserCollectionCellViewModel) {
         logicController = UserDetailLogicController(withParameter: collectionCellViewModel.login)
+        bindToModel()
     }
     
     init(tableCellViewModel: UserTableCellViewModel) {
         logicController = UserDetailLogicController(withParameter: tableCellViewModel.login)
+        bindToModel()
     }
     
     // MARK: - View Actions
@@ -75,23 +77,26 @@ final class UserDetailViewModel: WebServiceDetailViewModel {
         return status
     }
     
-    // MARK: - Synchronize Method
+    // MARK: - Bind to Model Method
     
-    func synchronize() {
-        let model = logicController.model
-        login = model.login
-        avatarURL = model.avatarURL
-        htmlURL = model.htmlURL
-        name = model.name
-        bio = model.bio
-        company = model.company
-        location = model.location
-        blogURL = model.blogURL
-        email = model.email
-        twitter = model.twitter
-        repositories = model.repositories!
-        followers = model.followers!
-        following = model.following!
+    func bindToModel() {
+        logicController.bind { [weak self] modelObject in
+            if let modelObject = modelObject {
+                self?.login = modelObject.login
+                self?.avatarURL = modelObject.avatarURL
+                self?.htmlURL = modelObject.htmlURL
+                self?.name = modelObject.name
+                self?.bio = modelObject.bio
+                self?.company = modelObject.company
+                self?.location = modelObject.location
+                self?.blogURL = modelObject.blogURL
+                self?.email = modelObject.email
+                self?.twitter = modelObject.twitter
+                self?.repositories = modelObject.repositories!
+                self?.followers = modelObject.followers!
+                self?.following = modelObject.following!
+            }
+        }
     }
     
 }

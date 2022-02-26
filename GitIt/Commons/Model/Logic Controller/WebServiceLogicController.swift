@@ -15,8 +15,8 @@ protocol WebServiceLogicController: AnyObject {
     associatedtype ModelType: Model
     
     var webServiceClient: WebServiceClientType { get }
-    var model: List<ModelType> { get set }
-    var handler: NetworkLoadingHandler? { get set }
+    var model: Observable<List<ModelType>> { get set }
+    var modelList: List<ModelType> { get set }
     var maxItemCount: Int? { get }
     var maxPageCount: Int { get }
     
@@ -27,6 +27,7 @@ protocol WebServiceLogicController: AnyObject {
     func resetData()
     func processFetchResult(result: Result<Array<ModelType>, NetworkError>) -> NetworkError?
     func updatePaginability(newItemsCount: Int)
+    func bind(_ listener: @escaping (List<ModelType>?) -> Void)
     
 }
 
@@ -36,9 +37,9 @@ protocol WebServiceDetailLogicController: AnyObject {
     associatedtype ModelType: Model
     
     var webServiceClient: WebServiceClientType { get }
-    var model: ModelType { get set }
+    var model: Observable<ModelType> { get set }
+    var modelObject: ModelType { get set }
     var parameter: String { get set }
-    var handler: NetworkLoadingHandler? { get set }
     
     init()
     init(withParameter parameter: String)
@@ -47,6 +48,7 @@ protocol WebServiceDetailLogicController: AnyObject {
     func fetchData() async -> Result<ModelType, NetworkError>
     func checkForStatus() async -> Array<Bool>
     func processFetchResult(result: Result<ModelType, NetworkError>) -> NetworkError?
+    func bind(_ listener: @escaping (ModelType?) -> Void)
     
 }
 
@@ -75,43 +77,63 @@ protocol WebServiceSearchLogicController: WebServiceLogicController {
 
 extension WebServiceLogicController {
     
+    // MARK: - Properties
+    
+    var modelList: List<ModelType> {
+        get { return model.value ?? List<ModelType>() }
+        set { model.value = newValue }
+    }
+    
     // MARK: - Initialization
     
     init() {
         self.init(maxItemCount: nil, maxPageCount: 0)
-        model.isPaginable = true
+        modelList.isPaginable = true
     }
     
     // MARK: - Reset Method
     
     func resetData() {
-        model.reset(isPagiable: true)
+        modelList.reset(isPagiable: true)
     }
     
     // MARK: - Fetch Result Processing Methods
     
     func processFetchResult(result: Result<Array<ModelType>, NetworkError>) -> NetworkError? {
         switch result {
-        case .success(let response): model.append(contentsOf: response, withSizeLimit: maxItemCount)
+        case .success(let response): modelList.append(contentsOf: response, withSizeLimit: maxItemCount)
                                      updatePaginability(newItemsCount: response.count)
                                      return nil
         case .failure(let networkError): return networkError
         }
     }
     
-    // MARK: - Model Paginability Update Methods
+    // MARK: - Model Paginability Update Method
     
     func updatePaginability(newItemsCount: Int) {
-        if model.count == maxItemCount || model.currentPage == maxPageCount || newItemsCount < NetworkingConstants.minimumPageCapacity {
-            model.isPaginable = false
+        if modelList.count == maxItemCount || modelList.currentPage == maxPageCount || newItemsCount < NetworkingConstants.minimumPageCapacity {
+            modelList.isPaginable = false
         } else {
-            model.currentPage += 1
+            modelList.currentPage += 1
         }
+    }
+    
+    // MARK: - Bind Method
+    
+    func bind(_ listener: @escaping (List<ModelType>?) -> Void) {
+        model.bind(listener)
     }
     
 }
 
 extension WebServiceDetailLogicController {
+    
+    // MARK: - Properties
+    
+    var modelObject: ModelType {
+        get { return model.value ?? ModelType() }
+        set { model.value = newValue }
+    }
     
     // MARK: - Initialization
     
@@ -127,7 +149,7 @@ extension WebServiceDetailLogicController {
     // MARK: - Load Method
     
     func load() async -> NetworkError? {
-        if !parameter.isEmpty, !model.isComplete {
+        if !parameter.isEmpty, !modelObject.isComplete {
             return processFetchResult(result: await fetchData())
         }
         return nil
@@ -137,11 +159,17 @@ extension WebServiceDetailLogicController {
     
     func processFetchResult(result: Result<ModelType, NetworkError>) -> NetworkError? {
         switch result {
-        case .success(let response): model = response
-                                     model.isComplete = true
+        case .success(let response): modelObject = response
+                                     modelObject.isComplete = true
                                      return nil
         case .failure(let networkError): return networkError
         }
+    }
+    
+    // MARK: - Bind Method
+    
+    func bind(_ listener: @escaping (ModelType?) -> Void) {
+        model.bind(listener)
     }
     
 }
@@ -191,7 +219,7 @@ extension WebServiceSearchLogicController {
     
     func processFetchResult(result: Result<BatchResponse<ModelType>, NetworkError>) -> NetworkError? {
         switch result {
-        case .success(let response): model.append(contentsOf: response.items)
+        case .success(let response): modelList.append(contentsOf: response.items)
                                      updatePaginability(newItemsCount: response.count)
                                      return nil
         case .failure(let networkError): return networkError

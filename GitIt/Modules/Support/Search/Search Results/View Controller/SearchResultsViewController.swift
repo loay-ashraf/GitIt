@@ -30,6 +30,7 @@ class SearchResultsViewController<T: SearchResultsViewModel>: WSSFDynamicTableVi
         tableViewDelegate = SearchResultsTableViewDelegate<T>(self)
         viewModel = T()
         emptyViewModel = EmptyConstants.SearchResults.viewModel
+        bindToViewModel()
     }
     
     required init?(coder: NSCoder) {
@@ -145,11 +146,21 @@ class SearchResultsViewController<T: SearchResultsViewModel>: WSSFDynamicTableVi
         }
     }
     
-    // MARK: - Reset Methods
+    // MARK: - Reset Method
     
     override func reset() {
         viewModel.reset()
         updateView()
+    }
+    
+    // MARK: - Bind to View Model Method
+    
+    func bindToViewModel() {
+        viewModel.bind { [weak self] cellViewModelList in
+            if let cellViewModelList = cellViewModelList {
+                self?.tableViewDataSource.cellViewModels = cellViewModelList.items
+            }
+        }
     }
 
 }

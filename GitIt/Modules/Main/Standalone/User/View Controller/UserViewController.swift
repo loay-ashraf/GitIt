@@ -28,6 +28,7 @@ class UserViewController: WSSFDynamicTableViewController<UserViewModel>, Storybo
         tableViewDelegate = UserTableViewDelegate(self)
         viewModel = UserViewModel(context: context)
         emptyViewModel = EmptyConstants.Users.viewModel
+        bindToViewModel()
     }
     
     required init?(coder: NSCoder) {
@@ -117,6 +118,16 @@ class UserViewController: WSSFDynamicTableViewController<UserViewModel>, Storybo
             case .initial: loadHandler(error: await viewModel?.load())
             case .refresh: refreshHandler(error: await viewModel?.refresh())
             case .paginate: paginateHandler(error: await viewModel?.paginate())
+            }
+        }
+    }
+    
+    // MARK: - Bind to View Model Method
+    
+    func bindToViewModel() {
+        viewModel.bind { [weak self] cellViewModelList in
+            if let cellViewModelList = cellViewModelList {
+                self?.tableViewDataSource.cellViewModels = cellViewModelList.items
             }
         }
     }

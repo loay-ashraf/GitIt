@@ -14,22 +14,26 @@ class CommitViewModel: WebServicePlainTableViewModel {
     typealias TableCellViewModelType = CommitCellViewModel
     
     var logicController: CommitLogicController
-    var cellViewModels = List<TableCellViewModelType>()
-    var handler: NetworkLoadingHandler?
+    var cellViewModels = Observable<List<CommitCellViewModel>>()
     
     // MARK: - Initialization
     
     init(repositoryFullName: String) {
         logicController = CommitLogicController(repositoryFullName: repositoryFullName)
+        bindToModel()
     }
     
-    // MARK: - Synchronize Method
+    // MARK: - Bind to Model Method
     
-    func synchronize() {
-        let modelItems = logicController.model.items
-        cellViewModels.items = modelItems.map { return TableCellViewModelType(from: $0) }
-        cellViewModels.currentPage = logicController.model.currentPage
-        cellViewModels.isPaginable = logicController.model.isPaginable
+    func bindToModel() {
+        logicController.bind { [weak self] modelList in
+            if let modelList = modelList {
+                let modelItems = modelList.items
+                self?.cellViewModelList.items = modelItems.map { return CommitCellViewModel(from: $0) }
+                self?.cellViewModelList.currentPage = modelList.currentPage
+                self?.cellViewModelList.isPaginable = modelList.isPaginable
+            }
+        }
     }
     
 }

@@ -13,6 +13,12 @@ class WSSFStaticTableViewController: UITableViewController {
     
     var xTableView: WSSFStaticTableView! { return tableView as? WSSFStaticTableView }
     
+    // MARK: - Initialization
+    
+    deinit {
+        xTableView?.transition(to: .presenting)
+    }
+    
     // MARK: - Lifecycle
     
     override func viewDidLoad() {
@@ -24,11 +30,6 @@ class WSSFStaticTableViewController: UITableViewController {
         super.viewDidLayoutSubviews()
         fitTableHeaderView()
         fitTableFooterView()
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        xTableView.transition(to: .presenting)
     }
 
     // MARK: - View Helper Methods

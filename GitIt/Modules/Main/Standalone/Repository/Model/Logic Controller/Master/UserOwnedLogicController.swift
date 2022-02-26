@@ -27,7 +27,7 @@ final class UserOwnedLogicController: RepositoryLogicController {
     // MARK: - Fetch Data Method
     
     override func fetchData() async -> Result<Array<RepositoryModel>,NetworkError> {
-        await webServiceClient.fetchUserRepositories(userLogin: userLogin, page: model.currentPage)
+        await webServiceClient.fetchUserRepositories(userLogin: userLogin, page: modelList.currentPage)
     }
     
 }

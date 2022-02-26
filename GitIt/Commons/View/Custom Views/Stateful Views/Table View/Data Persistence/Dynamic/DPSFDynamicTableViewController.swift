@@ -19,6 +19,12 @@ class DPSFDynamicTableViewController<T: DataPersistenceTableViewModel>: UITableV
     var viewModel: T!
     var emptyViewModel: EmptyViewModel = EmptyConstants.General.viewModel
     
+    // MARK: - Initialization
+    
+    deinit {
+        xTableView?.transition(to: .presenting)
+    }
+    
     // MARK: - Lifecycle
     
     override func loadView() {
@@ -42,11 +48,6 @@ class DPSFDynamicTableViewController<T: DataPersistenceTableViewModel>: UITableV
         default: disableSearchBar()
         }
     }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        xTableView.transition(to: .presenting)
-    }
 
     // MARK: - View Helper Methods
     
@@ -60,7 +61,6 @@ class DPSFDynamicTableViewController<T: DataPersistenceTableViewModel>: UITableV
     }
     
     func updateView() {
-        synchronizeTableView()
         xTableView.reloadData()
     }
     
@@ -80,24 +80,6 @@ class DPSFDynamicTableViewController<T: DataPersistenceTableViewModel>: UITableV
     
     func disableBouncing() {
         xTableView.bounces = false
-    }
-    
-    // MARK: - Synchronize Methods
-    
-    func synchronize() {
-        viewModel.synchronize()
-        if viewModel.isEmpty {
-            xTableView.transition(to: .empty(emptyViewModel))
-            disableSearchBar()
-        } else {
-            synchronizeTableView()
-            xTableView.transition(to: .presenting)
-            enableSearchBar()
-        }
-    }
-    
-    func synchronizeTableView() {
-        tableViewDataSource.cellViewModels = viewModel.items
     }
     
 }

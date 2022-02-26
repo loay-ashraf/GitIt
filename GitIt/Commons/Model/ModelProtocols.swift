@@ -16,6 +16,7 @@ protocol Model: Codable, Equatable {
     var htmlURL: URL { get }
     var isComplete: Bool { get set }
     
+    init()
     init(from collectionCellViewModel: CollectionCellViewModelType)
     init(from tableCellViewModel: TableCellViewModelType)
     

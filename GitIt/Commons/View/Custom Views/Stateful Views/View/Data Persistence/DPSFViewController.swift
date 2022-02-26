@@ -30,9 +30,5 @@ class DPSFViewController: UIViewController {
         super.viewWillDisappear(animated)
         xView.transition(to: .presenting)
     }
-    
-    // MARK: - Synchronize Method
-    
-    func synchronize() { /* Override this method in subclass to provide synchronization method */ }
 
 }

@@ -11,6 +11,8 @@ class BookmarksViewController: UIViewController {
     
     // MARK: - Properties
 
+    let bookmarksManager = BookmarksManager.standard
+    
     var userBookmarksViewController: UserBookmarksViewController!
     var repositoryBookmarksViewController: RepositoryBookmarksViewController!
     var organizationBookmarksViewController: OrganizationBookmarksViewController!
@@ -28,16 +30,6 @@ class BookmarksViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureView()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        switch segmentedControl.selectedSegmentIndex {
-        case 0: userBookmarksViewController.synchronize()
-        case 1: repositoryBookmarksViewController.synchronize()
-        case 2: organizationBookmarksViewController.synchronize()
-        default: break
-        }
     }
 
     // MARK: - View Helper Methods
@@ -73,18 +65,18 @@ class BookmarksViewController: UIViewController {
         case .users: userBookmarksContainerView.isHidden = false
                      repositoryBookmarksContainerView.isHidden = true
                      organizationBookmarksContainerView.isHidden = true
-                     userBookmarksViewController.synchronize()
-                     BookmarksManager.standard.activeBookmarksContext = .users
+                     clearButton.isEnabled = userBookmarksViewController.isEmpty.value! ? false : true
+                     bookmarksManager.activeBookmarksContext = .users
         case .repositories: userBookmarksContainerView.isHidden = true
                             repositoryBookmarksContainerView.isHidden = false
                             organizationBookmarksContainerView.isHidden = true
-                            repositoryBookmarksViewController.synchronize()
-                            BookmarksManager.standard.activeBookmarksContext = .repositories
+                            clearButton.isEnabled = repositoryBookmarksViewController.isEmpty.value! ? false : true
+                            bookmarksManager.activeBookmarksContext = .repositories
         case .organizations: userBookmarksContainerView.isHidden = true
                              repositoryBookmarksContainerView.isHidden = true
                              organizationBookmarksContainerView.isHidden = false
-                             organizationBookmarksViewController.synchronize()
-                             BookmarksManager.standard.activeBookmarksContext = .organizations
+                             clearButton.isEnabled = organizationBookmarksViewController.isEmpty.value! ? false : true
+                             bookmarksManager.activeBookmarksContext = .organizations
         default: break
         }
     }
@@ -108,10 +100,30 @@ class BookmarksViewController: UIViewController {
         case let organizationBookmarksViewController as OrganizationBookmarksViewController: self.organizationBookmarksViewController = organizationBookmarksViewController
         default: break
         }
-        if userBookmarksViewController != nil, repositoryBookmarksViewController != nil, organizationBookmarksViewController != nil {
-            userBookmarksViewController.bookmarksViewController = self
-            repositoryBookmarksViewController.bookmarksViewController = self
-            organizationBookmarksViewController.bookmarksViewController = self
+        if userBookmarksViewController != nil,
+           repositoryBookmarksViewController != nil,
+           organizationBookmarksViewController != nil {
+            bindToViewControllers()
+        }
+    }
+    
+    // MARK: - Bind to View Controllers Method
+    
+    func bindToViewControllers() {
+        userBookmarksViewController.isEmpty.bind { [weak self] isEmpty in
+            if let isEmpty = isEmpty, self?.bookmarksManager.activeBookmarksContext == .users {
+                self?.clearButton.isEnabled = isEmpty ? false : true
+            }
+        }
+        repositoryBookmarksViewController.isEmpty.bind { [weak self] isEmpty in
+            if let isEmpty = isEmpty, self?.bookmarksManager.activeBookmarksContext == .repositories {
+                self?.clearButton.isEnabled = isEmpty ? false : true
+            }
+        }
+        organizationBookmarksViewController.isEmpty.bind { [weak self] isEmpty in
+            if let isEmpty = isEmpty, self?.bookmarksManager.activeBookmarksContext == .organizations {
+                self?.clearButton.isEnabled = isEmpty ? false : true
+            }
         }
     }
 
