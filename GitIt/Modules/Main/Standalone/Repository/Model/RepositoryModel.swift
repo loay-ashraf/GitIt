@@ -86,14 +86,14 @@ struct RepositoryModel: Model {
         self = tableCellViewModel.model
     }
     
-    init(from repository: Repository) {
+    init(from repository: RepositoryBookmark) {
         id = repository.id
         name = repository.name
         fullName = repository.fullName
-        owner = OwnerModel(from: repository.owner)
-        htmlURL = repository.htmlURL
+        owner = OwnerModel(from: repository.owner!)
+        htmlURL = URL(string: repository.htmlURL)!
         description = repository.overview
-        homepageURL = repository.homepageURL
+        homepageURL = URL(string: repository.homepageURL ?? "www.github.com")
         language = repository.language
         stars = repository.stars
         forks = repository.forks

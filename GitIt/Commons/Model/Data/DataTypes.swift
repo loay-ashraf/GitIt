@@ -6,13 +6,15 @@
 //
 
 import Foundation
+import RealmSwift
 
 // MARK: - Error Types
 
 enum DataError: Error {
+    case bundle(BundleError)
     case userDefaults(UserDefaultsError)
     case fileManager(FileManagerError)
-    case coreData(CoreDataError)
+    case realm(RealmError)
 }
 
 enum BundleError: Error {
@@ -23,6 +25,19 @@ enum BundleError: Error {
 enum CoreDataError: Error {
     case saving(Error)
     case loading(Error)
+    case fetching(Error)
+    case deleting(Error)
+    case noData
+}
+
+typealias RealmQuery<T> = (Query<T>) -> Query<Bool>
+
+enum RealmError: Error {
+    case saving(Error)
+    case loading(Error)
+    case writing(Error)
+    case reading(Error)
+    case unsupportedModelType
     case fetching(Error)
     case deleting(Error)
     case noData

@@ -552,8 +552,12 @@ struct Constants {
                     let controller = UIAlertController(title: title, message: message, preferredStyle: .actionSheet)
                     controller.addAction(Constants.View.Alert.cancelAction)
                     controller.addAction(UIAlertAction(title: clearActionTitle, style: .destructive) { action in
-                        try? BookmarksManager.standard.clearActive()
-                        handler()
+                        Task {
+                            await MainActor.run {
+                                try? BookmarksManager.standard.clearActive()
+                                handler()
+                            }
+                        }
                     } )
                     return controller
                 }
@@ -570,7 +574,9 @@ struct Constants {
                     let controller = UIAlertController(title: title, message: message, preferredStyle: .actionSheet)
                     controller.addAction(Constants.View.Alert.cancelAction)
                     controller.addAction(UIAlertAction(title: clearActionTitle, style: .destructive) { action in
-                        try? DataManager.standard.clearData()
+                        Task {
+                            await MainActor.run { try? DataManager.standard.clearData() }
+                        }
                     } )
                     return controller
                 }

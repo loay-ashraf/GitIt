@@ -27,11 +27,11 @@ struct LicenseModel: Codable, Equatable {
         url = URL(string: "www.github.com")!
     }
     
-    init?(from license: License?) {
+    init?(from license: LicenseBookmark?) {
         if let license = license {
             self.key = license.key ?? ""
             self.name = license.key ?? ""
-            self.url = license.url ?? URL(string: "www.google.com")!
+            self.url = URL(string: license.url ?? "www.github.com")!
         } else {
             return nil
         }

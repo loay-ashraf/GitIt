@@ -26,14 +26,14 @@ final class OrganizationDetailLogicController: WebServiceDetailLogicController {
     
     // MARK: - (Un)Bookmark Methods
     
-    func bookmark() -> Bool {
+    @MainActor func bookmark() -> Bool {
         if let _ = try? BookmarksManager.standard.add(model: modelObject) {
             return true
         }
         return false
     }
     
-    func unBookmark() -> Bool {
+    @MainActor func unBookmark() -> Bool {
         if let _ = try? BookmarksManager.standard.delete(model: modelObject) {
             return true
         }
@@ -43,7 +43,7 @@ final class OrganizationDetailLogicController: WebServiceDetailLogicController {
     // MARK: - Check For Status Methods
     
     func checkForStatus() async -> Array<Bool> {
-        let fetchResult = BookmarksManager.standard.check(model: modelObject)
+        let fetchResult = await BookmarksManager.standard.check(model: modelObject)
         switch fetchResult {
         case true: return [true]
         case false: return [false]

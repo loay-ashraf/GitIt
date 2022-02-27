@@ -55,7 +55,7 @@ final class RepositoryCollectionCellViewModel: CollectionCellViewModel {
     var owner: OwnerModel
     var htmlURL: URL
     var name: String
-    var isBookmarked: Bool
+    var isBookmarked: Bool = false
     
     // MARK: - Initialization
     
@@ -64,7 +64,6 @@ final class RepositoryCollectionCellViewModel: CollectionCellViewModel {
         owner = model.owner
         htmlURL = model.htmlURL
         name = model.name
-        isBookmarked = BookmarksManager.standard.check(model: model) ?? false
     }
     
     init(from tableCellViewModel: TableCellViewModelType) {
@@ -84,8 +83,10 @@ final class RepositoryCollectionCellViewModel: CollectionCellViewModel {
     // MARK: - View Actions
     
     func toggleBookmark() {
-        try? isBookmarked ? BookmarksManager.standard.delete(model: model) : BookmarksManager.standard.add(model: model)
-        isBookmarked = !isBookmarked
+        DispatchQueue.main.async {
+            try? self.isBookmarked ? BookmarksManager.standard.delete(model: self.model) : BookmarksManager.standard.add(model: self.model)
+            self.isBookmarked = !self.isBookmarked
+        }
     }
     
 }
@@ -104,11 +105,11 @@ final class RepositoryTableCellViewModel: TableCellViewModel {
     var description: String?
     var stargazers: Int
     var language: String?
-    var isBookmarked: Bool
+    var isBookmarked: Bool = false
     
     // MARK: - Initialization
     
-    init(from model: ModelType) {
+    init(from model: ModelType)  {
         self.model = model
         owner = model.owner
         htmlURL = model.htmlURL
@@ -116,7 +117,6 @@ final class RepositoryTableCellViewModel: TableCellViewModel {
         description = model.description
         stargazers = model.stars
         language = model.language
-        isBookmarked = BookmarksManager.standard.check(model: model) ?? false
     }
     
     init(from collectionCellViewModel: CollectionCellViewModelType) {
@@ -139,8 +139,10 @@ final class RepositoryTableCellViewModel: TableCellViewModel {
     // MARK: - View Actions
     
     func toggleBookmark() {
-        try? isBookmarked ? BookmarksManager.standard.delete(model: model) : BookmarksManager.standard.add(model: model)
-        isBookmarked = !isBookmarked
+        DispatchQueue.main.async {
+            try? self.isBookmarked ? BookmarksManager.standard.delete(model: self.model) : BookmarksManager.standard.add(model: self.model)
+            self.isBookmarked = !self.isBookmarked
+        }
     }
     
 }

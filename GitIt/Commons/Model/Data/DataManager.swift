@@ -9,17 +9,20 @@ import Foundation
 
 class DataManager {
     
+    // MARK: - Properties
+    
     static let standard = DataManager()
     var isSetup: Bool = false
     
-    // MARK: - Manager Helpers
+    // MARK: - Persistence Providers
     
     let bundlePersistenceProvider = BundlePersistenceProvider()
     let coreDataPersistenceProvider = CoreDataPersistenceProvider()
+    let realmDataPersistenceProvider = RealmPersistenceProvider()
     let fileManagerPersistenceProvider = FileManagerPersistenceProvider()
     let userDefaultsPersistenceProvider = UserDefaultsPersistenceProvider()
     
-    // MARK: Initialisation
+    // MARK: Initialization
     
     private init() {}
     
@@ -27,13 +30,13 @@ class DataManager {
     
     func setup(completionHandler: @escaping ((DataError?) -> Void)) {
         isSetup = true
-        coreDataPersistenceProvider.setup() { coreDataError in
-            if let error = coreDataError {
-                completionHandler(.coreData(error))
-            } else {
-                completionHandler(nil)
-            }
-        }
+//        realmDataPersistenceProvider.setup() { coreDataError in
+//            if let error = coreDataError {
+//                completionHandler(.coreData(error))
+//            } else {
+//                completionHandler(nil)
+//            }
+//        }
         userDefaultsPersistenceProvider.setup()
     }
     
@@ -44,8 +47,8 @@ class DataManager {
             try BookmarksManager.standard.save()
             try SearchHistoryManager.standard.save()
         } catch {
-            if let error = error as? CoreDataError {
-                throw DataError.coreData(error)
+            if let error = error as? RealmError {
+                throw DataError.realm(error)
             } else if let error = error as? FileManagerError {
                 throw DataError.fileManager(error)
             }
@@ -57,8 +60,8 @@ class DataManager {
             try BookmarksManager.standard.load()
             try SearchHistoryManager.standard.load()
         } catch {
-            if let error = error as? CoreDataError {
-                throw DataError.coreData(error)
+            if let error = error as? RealmError {
+                throw DataError.realm(error)
             } else if let error = error as? FileManagerError {
                 throw DataError.fileManager(error)
             }
@@ -68,7 +71,7 @@ class DataManager {
     // MARK: - Clear Methods
     
     // Clears stored data without removing UserDefaults keys
-    func clearData() throws {
+    @MainActor func clearData() throws {
         isSetup = false
         do {
             // Clear data stored in Memory
@@ -78,13 +81,13 @@ class DataManager {
             // Clear data stored in Storage
             try coreDataPersistenceProvider.clear()
             fileManagerPersistenceProvider.clear()
-        } catch let error as CoreDataError {
-            throw DataError.coreData(error)
+        } catch let error as RealmError {
+            throw DataError.realm(error)
         }
     }
     
     // Clears all stored data including UserDefaults keys
-    func clearAllData() throws {
+    @MainActor func clearAllData() throws {
         isSetup = false
         do {
             // Clear data stored in Memory
@@ -95,8 +98,8 @@ class DataManager {
             try coreDataPersistenceProvider.clear()
             fileManagerPersistenceProvider.clear()
             userDefaultsPersistenceProvider.clear()
-        } catch let error as CoreDataError {
-            throw DataError.coreData(error)
+        } catch let error as RealmError {
+            throw DataError.realm(error)
         }
     }
     

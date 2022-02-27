@@ -95,15 +95,15 @@ struct OrganizationModel: Model {
         isComplete = false
     }
     
-    init(from organization: Organization) {
+    init(from organization: OrganizationBookmark) {
         self.id = organization.id
         self.login = organization.login
-        self.avatarURL = organization.avatarURL
-        self.htmlURL = organization.htmlURL
+        self.avatarURL = URL(string: organization.avatarURL)!
+        self.htmlURL = URL(string: organization.htmlURL)!
         self.name = organization.name
         self.description = organization.overview
         self.location = organization.location
-        self.blogURL = organization.blogURL
+        self.blogURL = URL(string: organization.blogURL ?? "www.github.com")
         self.email = organization.email
         self.twitter = organization.twitter
         self.repositories = organization.repositories

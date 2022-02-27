@@ -55,7 +55,7 @@ final class OrganizationCollectionCellViewModel: CollectionCellViewModel {
     var avatarURL: URL
     var htmlURL: URL
     var login: String
-    var isBookmarked: Bool
+    var isBookmarked: Bool = false
     
     // MARK: - Initialization
     
@@ -64,7 +64,6 @@ final class OrganizationCollectionCellViewModel: CollectionCellViewModel {
         avatarURL = model.avatarURL
         htmlURL = model.htmlURL
         login = model.login
-        isBookmarked = BookmarksManager.standard.check(model: model) ?? false
     }
     
     init(from tableCellViewModel: TableCellViewModelType) {
@@ -84,8 +83,10 @@ final class OrganizationCollectionCellViewModel: CollectionCellViewModel {
     // MARK: - View Actions
     
     func toggleBookmark() {
-        try? isBookmarked ? BookmarksManager.standard.delete(model: model) : BookmarksManager.standard.add(model: model)
-        isBookmarked = !isBookmarked
+        DispatchQueue.main.async {
+            try? self.isBookmarked ? BookmarksManager.standard.delete(model: self.model) : BookmarksManager.standard.add(model: self.model)
+            self.isBookmarked = !self.isBookmarked
+        }
     }
     
 }
@@ -101,7 +102,7 @@ final class OrganizationTableCellViewModel: TableCellViewModel {
     var avatarURL: URL
     var htmlURL: URL
     var login: String
-    var isBookmarked: Bool
+    var isBookmarked: Bool = false
     
     // MARK: - Initialization
     
@@ -110,7 +111,6 @@ final class OrganizationTableCellViewModel: TableCellViewModel {
         avatarURL = model.avatarURL
         htmlURL = model.htmlURL
         login = model.login
-        isBookmarked = BookmarksManager.standard.check(model: model) ?? false
     }
     
     init(from collectionCellViewModel: CollectionCellViewModelType) {
@@ -130,8 +130,10 @@ final class OrganizationTableCellViewModel: TableCellViewModel {
     // MARK: - View Actions
     
     func toggleBookmark() {
-        try? isBookmarked ? BookmarksManager.standard.delete(model: model) : BookmarksManager.standard.add(model: model)
-        isBookmarked = !isBookmarked
+        DispatchQueue.main.async {
+            try? self.isBookmarked ? BookmarksManager.standard.delete(model: self.model) : BookmarksManager.standard.add(model: self.model)
+            self.isBookmarked = !self.isBookmarked
+        }
     }
     
 }

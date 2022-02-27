@@ -82,11 +82,11 @@ struct OwnerModel: Model {
         isComplete = false
     }
     
-    init(from owner: Owner) {
+    init(from owner: OwnerBookmark) {
         self.id = owner.id
         self.login = owner.login
-        self.avatarURL = owner.avatarURL
-        self.htmlURL = owner.htmlURL
+        self.avatarURL = URL(string: owner.avatarURL)!
+        self.htmlURL = URL(string: owner.htmlURL)!
         self.type = OwnerType(rawValue: owner.type)!
         isComplete = true
     }

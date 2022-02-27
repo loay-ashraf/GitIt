@@ -50,7 +50,7 @@ final class UserDetailViewModel: WebServiceDetailViewModel {
     
     // MARK: - View Actions
     
-    func toggleBookmark() -> Bool {
+    @MainActor func toggleBookmark() -> Bool {
         if !isBookmarked {
             isBookmarked = logicController.bookmark()
         } else {

@@ -14,6 +14,7 @@ protocol SearchHistoryLogicController: DataPersistenceLogicController where Data
     
     func add(query: String)
     func delete(query: String)
+    
     func bindQuery(_ listener: @escaping (Array<String>?) -> Void)
     
 }

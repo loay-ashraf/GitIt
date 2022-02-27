@@ -17,8 +17,8 @@ protocol SearchHistoryViewModel: DataPersistenceViewModel where LogicControllerT
     var queryCellViewModels: Observable<Array<QueryCellViewModel>> { get set }
     var queryCellViewModelArray: Array<QueryCellViewModel> { get set }
     
-    func reloadObject(atItem item: Int) -> ObjectCellViewModelType
     func toggleBookmark(atItem item: Int)
+    func reloadObject(atItem item: Int) -> ObjectCellViewModelType
     func deleteObject(atItem item: Int)
     func reloadQuery(atRow row: Int) -> String
     func deleteQuery(atRow row: Int)
@@ -49,14 +49,14 @@ extension SearchHistoryViewModel {
 
     // MARK: - View Actions
     
+    func toggleBookmark(atItem item: Int) {
+        objectCellViewModelArray[item].toggleBookmark()
+    }
+    
     func reloadObject(atItem item: Int) -> ObjectCellViewModelType {
         let objectCellViewModelItem = objectCellViewModelArray[item]
         add(cellViewModel: objectCellViewModelItem)
         return objectCellViewModelItem
-    }
-    
-    func toggleBookmark(atItem item: Int) {
-        objectCellViewModelArray[item].toggleBookmark()
     }
     
     func deleteObject(atItem item: Int) {

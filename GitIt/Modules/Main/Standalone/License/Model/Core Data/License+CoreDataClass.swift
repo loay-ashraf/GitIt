@@ -8,6 +8,7 @@
 
 import Foundation
 import CoreData
+import RealmSwift
 
 @objc(License)
 public class License: NSManagedObject {
@@ -23,4 +24,23 @@ public class License: NSManagedObject {
         }
     }
 
+}
+
+class LicenseBookmark: Object {
+    
+    @Persisted var key: String?
+    @Persisted var name: String?
+    @Persisted var url: String?
+    
+    convenience init?(from licenseModel: LicenseModel?) {
+        self.init()
+        if let licenseModel = licenseModel {
+            self.name = licenseModel.name
+            self.key = licenseModel.key
+            self.url = licenseModel.url.absoluteString
+        } else {
+            return nil
+        }
+    }
+    
 }

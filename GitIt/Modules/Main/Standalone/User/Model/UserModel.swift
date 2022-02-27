@@ -92,11 +92,11 @@ struct UserModel: Model {
         self = tableCellViewModel.model
     }
     
-    init(from owner: OwnerModel) {
+    init(from owner: OwnerBookmark) {
         id = owner.id
         login = owner.login
-        avatarURL = owner.avatarURL
-        htmlURL = owner.htmlURL
+        avatarURL = URL(string: owner.avatarURL)!
+        htmlURL = URL(string: owner.htmlURL)!
         name = nil
         bio = nil
         company = nil
@@ -110,16 +110,16 @@ struct UserModel: Model {
         isComplete = false
     }
     
-    init(from user: User) {
+    init(from user: UserBookmark) {
         id = user.id
         login = user.login!
-        avatarURL = user.avatarURL
-        htmlURL = user.htmlURL
+        avatarURL = URL(string: user.avatarURL)!
+        htmlURL = URL(string: user.htmlURL)!
         name = user.name
         bio = user.bio
         company = user.company
         location = user.location
-        blogURL = user.blogURL
+        blogURL = URL(string: user.blogURL ?? "www.github.com")
         email = user.email
         twitter = user.twitter
         repositories = user.repositories

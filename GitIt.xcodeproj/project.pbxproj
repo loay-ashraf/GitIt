@@ -85,7 +85,7 @@
 		C656538C27C433F90049D87E /* OrganizationBookmarksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C656538B27C433F90049D87E /* OrganizationBookmarksViewController.swift */; };
 		C656538E27C43A850049D87E /* BookmarksDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C656538D27C43A850049D87E /* BookmarksDelegate.swift */; };
 		C656539027C43ACC0049D87E /* BookmarksTapResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C656538F27C43ACC0049D87E /* BookmarksTapResponder.swift */; };
-		C656539227C43B070049D87E /* BookamrksContextMenuConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C656539127C43B070049D87E /* BookamrksContextMenuConfigurator.swift */; };
+		C656539227C43B070049D87E /* BookmarksContextMenuConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C656539127C43B070049D87E /* BookmarksContextMenuConfigurator.swift */; };
 		C656EB96277A20B000E39EFC /* WSSFDynamicTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C656EB95277A20B000E39EFC /* WSSFDynamicTableViewController.swift */; };
 		C656EB98277A210800E39EFC /* WSSFDynamicTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C656EB97277A210800E39EFC /* WSSFDynamicTableView.swift */; };
 		C656EB9A277A216B00E39EFC /* StatefulViewProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = C656EB99277A216B00E39EFC /* StatefulViewProtocols.swift */; };
@@ -176,6 +176,7 @@
 		C66562C327A079CF002BD64C /* License+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66562C127A079CF002BD64C /* License+CoreDataProperties.swift */; };
 		C66562C627A07B06002BD64C /* LicenseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66562C527A07B06002BD64C /* LicenseModel.swift */; };
 		C6665EE7276F9DFB00178BA6 /* NetworkExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6665EE6276F9DFB00178BA6 /* NetworkExtensions.swift */; };
+		C66D7D7927CBC21100E33E72 /* RealmPersistenceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66D7D7827CBC21100E33E72 /* RealmPersistenceProvider.swift */; };
 		C66F2A242740D3D1000ED46E /* NetworkTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = C66F2A232740D3D1000ED46E /* NetworkTypes.swift */; };
 		C678EAE6278C3BF800A6985D /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C678EAE5278C3BF800A6985D /* ThemeManager.swift */; };
 		C67AB9922789E01E00D7E084 /* IconicNumericView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C67AB9912789E01E00D7E084 /* IconicNumericView.xib */; };
@@ -344,7 +345,7 @@
 		C656538B27C433F90049D87E /* OrganizationBookmarksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrganizationBookmarksViewController.swift; sourceTree = "<group>"; };
 		C656538D27C43A850049D87E /* BookmarksDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksDelegate.swift; sourceTree = "<group>"; };
 		C656538F27C43ACC0049D87E /* BookmarksTapResponder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksTapResponder.swift; sourceTree = "<group>"; };
-		C656539127C43B070049D87E /* BookamrksContextMenuConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookamrksContextMenuConfigurator.swift; sourceTree = "<group>"; };
+		C656539127C43B070049D87E /* BookmarksContextMenuConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksContextMenuConfigurator.swift; sourceTree = "<group>"; };
 		C656EB95277A20B000E39EFC /* WSSFDynamicTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSSFDynamicTableViewController.swift; sourceTree = "<group>"; };
 		C656EB97277A210800E39EFC /* WSSFDynamicTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSSFDynamicTableView.swift; sourceTree = "<group>"; };
 		C656EB99277A216B00E39EFC /* StatefulViewProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatefulViewProtocols.swift; sourceTree = "<group>"; };
@@ -436,6 +437,7 @@
 		C66562C127A079CF002BD64C /* License+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "License+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		C66562C527A07B06002BD64C /* LicenseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicenseModel.swift; sourceTree = "<group>"; };
 		C6665EE6276F9DFB00178BA6 /* NetworkExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkExtensions.swift; sourceTree = "<group>"; };
+		C66D7D7827CBC21100E33E72 /* RealmPersistenceProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmPersistenceProvider.swift; sourceTree = "<group>"; };
 		C66F2A232740D3D1000ED46E /* NetworkTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkTypes.swift; sourceTree = "<group>"; };
 		C678EAE5278C3BF800A6985D /* ThemeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeManager.swift; sourceTree = "<group>"; };
 		C67AB9912789E01E00D7E084 /* IconicNumericView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IconicNumericView.xib; sourceTree = "<group>"; };
@@ -1323,7 +1325,7 @@
 			children = (
 				C656538D27C43A850049D87E /* BookmarksDelegate.swift */,
 				C656538F27C43ACC0049D87E /* BookmarksTapResponder.swift */,
-				C656539127C43B070049D87E /* BookamrksContextMenuConfigurator.swift */,
+				C656539127C43B070049D87E /* BookmarksContextMenuConfigurator.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2087,6 +2089,7 @@
 				C6B2DF702720887600AB0C8F /* CoreDataPersistenceProvider.swift */,
 				C6DFF6152791A9DF00A617CB /* FileManagerPersistenceProvider.swift */,
 				C6DFF6132791A9AE00A617CB /* UserDefaultsPersistenceProvider.swift */,
+				C66D7D7827CBC21100E33E72 /* RealmPersistenceProvider.swift */,
 			);
 			path = "Persistence Providers";
 			sourceTree = "<group>";
@@ -2265,7 +2268,7 @@
 				C652691727C4043E00DC450E /* DataPersistenceLogicController.swift in Sources */,
 				C66005792794856900770045 /* TableViewCellConfigurator.swift in Sources */,
 				C659EE6827761F20001C1E5D /* FooterActivityIndicatorView.swift in Sources */,
-				C656539227C43B070049D87E /* BookamrksContextMenuConfigurator.swift in Sources */,
+				C656539227C43B070049D87E /* BookmarksContextMenuConfigurator.swift in Sources */,
 				C64531ED279CD43F0083CC1F /* GitHubRouter.swift in Sources */,
 				C6216FAC2791AED100C9ABC2 /* BundlePersistenceProvider.swift in Sources */,
 				C65EA2072795EE49001C5174 /* SearchHistoryTapResponder.swift in Sources */,
@@ -2432,6 +2435,7 @@
 				C6856679274BC3E300833D6E /* UserDetailLogicController.swift in Sources */,
 				C6DFF6142791A9AE00A617CB /* UserDefaultsPersistenceProvider.swift in Sources */,
 				C625B30127C540FC00EB8E88 /* DPSFDynamicTableView.swift in Sources */,
+				C66D7D7927CBC21100E33E72 /* RealmPersistenceProvider.swift in Sources */,
 				C693C4A92729BE1D0061ED73 /* SignInViewController.swift in Sources */,
 				C68AC810278340F500FE0C08 /* Repository+CoreDataProperties.swift in Sources */,
 				C64FE5A8277B4670002E5FC0 /* WSSFStaticTableView.swift in Sources */,

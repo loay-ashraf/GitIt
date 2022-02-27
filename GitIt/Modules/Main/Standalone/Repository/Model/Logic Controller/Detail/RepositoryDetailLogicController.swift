@@ -51,14 +51,14 @@ final class RepositoryDetailLogicController: WebServiceDetailLogicController {
     
     // MARK: - (Un)Bookmark Methods
     
-    func bookmark() -> Bool {
+    @MainActor func bookmark() -> Bool {
         if let _ = try? BookmarksManager.standard.add(model: modelObject) {
             return true
         }
         return false
     }
     
-    func unBookmark() -> Bool {
+    @MainActor func unBookmark() -> Bool {
         if let _ = try? BookmarksManager.standard.delete(model: modelObject) {
             return true
         }
@@ -80,16 +80,16 @@ final class RepositoryDetailLogicController: WebServiceDetailLogicController {
     func checkForStatus() async -> Array<Bool> {
         if NetworkManager.standard.isReachable, SessionManager.standard.sessionType == .authenticated {
             let isStarred = await checkIfStarred()
-            let isBookmarked = self.checkIfBookmarked()
+            let isBookmarked = await checkIfBookmarked()
             return [isBookmarked,isStarred]
         } else {
-            let isBookmarked = self.checkIfBookmarked()
+            let isBookmarked = await checkIfBookmarked()
             return [isBookmarked,false]
         }
     }
 
-    func checkIfBookmarked() -> Bool {
-        let fetchResult = BookmarksManager.standard.check(model: modelObject)
+    func checkIfBookmarked() async -> Bool {
+        let fetchResult = await BookmarksManager.standard.check(model: modelObject)
         switch fetchResult {
         case true: return true
         case false: return false
