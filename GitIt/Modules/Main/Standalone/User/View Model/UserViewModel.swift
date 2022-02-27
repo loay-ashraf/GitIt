@@ -64,6 +64,7 @@ final class UserCollectionCellViewModel: CollectionCellViewModel {
         avatarURL = model.avatarURL
         htmlURL = model.htmlURL
         login = model.login
+        bindToBookmarks()
     }
     
     init(from tableCellViewModel: TableCellViewModelType) {
@@ -72,6 +73,7 @@ final class UserCollectionCellViewModel: CollectionCellViewModel {
         htmlURL = tableCellViewModel.htmlURL
         login = tableCellViewModel.login
         isBookmarked = tableCellViewModel.isBookmarked
+        bindToBookmarks()
     }
     
     // MARK: - View Model Adapter Methods
@@ -86,6 +88,22 @@ final class UserCollectionCellViewModel: CollectionCellViewModel {
         DispatchQueue.main.async {
             try? self.isBookmarked ? BookmarksManager.standard.delete(model: self.model) : BookmarksManager.standard.add(model: self.model)
             self.isBookmarked = !self.isBookmarked
+        }
+    }
+    
+    // MARK: - Bind to Bookmarks Method
+    
+    func bindToBookmarks() {
+        BookmarksManager.standard.bindUsers { [weak self] userBookmarks in
+            DispatchQueue.main.async {
+                if let userBookmarks = userBookmarks {
+                    if userBookmarks.contains(where: { return $0.login == self?.login }) {
+                        self?.isBookmarked = true
+                    } else {
+                        self?.isBookmarked = false
+                    }
+                }
+            }
         }
     }
     
@@ -111,6 +129,7 @@ final class UserTableCellViewModel: TableCellViewModel {
         avatarURL = model.avatarURL
         htmlURL = model.htmlURL
         login = model.login
+        bindToBookmarks()
     }
     
     init(from collectionCellViewModel: CollectionCellViewModelType) {
@@ -119,6 +138,7 @@ final class UserTableCellViewModel: TableCellViewModel {
         htmlURL = collectionCellViewModel.htmlURL
         login = collectionCellViewModel.login
         isBookmarked = collectionCellViewModel.isBookmarked
+        bindToBookmarks()
     }
     
     // MARK: - View Model Adapter Methods
@@ -133,6 +153,22 @@ final class UserTableCellViewModel: TableCellViewModel {
         DispatchQueue.main.async {
             try? self.isBookmarked ? BookmarksManager.standard.delete(model: self.model) : BookmarksManager.standard.add(model: self.model)
             self.isBookmarked = !self.isBookmarked
+        }
+    }
+    
+    // MARK: - Bind to Bookmarks Method
+    
+    func bindToBookmarks() {
+        BookmarksManager.standard.bindUsers { [weak self] userBookmarks in
+            DispatchQueue.main.async {
+                if let userBookmarks = userBookmarks {
+                    if userBookmarks.contains(where: { return $0.login == self?.login }) {
+                        self?.isBookmarked = true
+                    } else {
+                        self?.isBookmarked = false
+                    }
+                }
+            }
         }
     }
     

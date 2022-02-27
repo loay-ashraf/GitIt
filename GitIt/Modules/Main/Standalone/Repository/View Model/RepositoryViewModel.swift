@@ -64,6 +64,7 @@ final class RepositoryCollectionCellViewModel: CollectionCellViewModel {
         owner = model.owner
         htmlURL = model.htmlURL
         name = model.name
+        bindToBookmarks()
     }
     
     init(from tableCellViewModel: TableCellViewModelType) {
@@ -72,6 +73,7 @@ final class RepositoryCollectionCellViewModel: CollectionCellViewModel {
         htmlURL = tableCellViewModel.htmlURL
         name = tableCellViewModel.name
         isBookmarked = tableCellViewModel.isBookmarked
+        bindToBookmarks()
     }
     
     // MARK: - View Model Adapter Methods
@@ -86,6 +88,22 @@ final class RepositoryCollectionCellViewModel: CollectionCellViewModel {
         DispatchQueue.main.async {
             try? self.isBookmarked ? BookmarksManager.standard.delete(model: self.model) : BookmarksManager.standard.add(model: self.model)
             self.isBookmarked = !self.isBookmarked
+        }
+    }
+    
+    // MARK: - Bind to Bookmarks Method
+    
+    func bindToBookmarks() {
+        BookmarksManager.standard.bindRepositories { [weak self] repositoryBookmarks in
+            DispatchQueue.main.async {
+                if let repositoryBookmarks = repositoryBookmarks {
+                    if repositoryBookmarks.contains(where: { return $0.name == self?.name }) {
+                        self?.isBookmarked = true
+                    } else {
+                        self?.isBookmarked = false
+                    }
+                }
+            }
         }
     }
     
@@ -117,6 +135,7 @@ final class RepositoryTableCellViewModel: TableCellViewModel {
         description = model.description
         stargazers = model.stars
         language = model.language
+        bindToBookmarks()
     }
     
     init(from collectionCellViewModel: CollectionCellViewModelType) {
@@ -128,6 +147,7 @@ final class RepositoryTableCellViewModel: TableCellViewModel {
         stargazers = 0
         language = nil
         isBookmarked = collectionCellViewModel.isBookmarked
+        bindToBookmarks()
     }
     
     // MARK: - View Model Adapter Methods
@@ -142,6 +162,22 @@ final class RepositoryTableCellViewModel: TableCellViewModel {
         DispatchQueue.main.async {
             try? self.isBookmarked ? BookmarksManager.standard.delete(model: self.model) : BookmarksManager.standard.add(model: self.model)
             self.isBookmarked = !self.isBookmarked
+        }
+    }
+    
+    // MARK: - Bind to Bookmarks Method
+    
+    func bindToBookmarks() {
+        BookmarksManager.standard.bindRepositories { [weak self] repositoryBookmarks in
+            DispatchQueue.main.async {
+                if let repositoryBookmarks = repositoryBookmarks {
+                    if repositoryBookmarks.contains(where: { return $0.name == self?.name }) {
+                        self?.isBookmarked = true
+                    } else {
+                        self?.isBookmarked = false
+                    }
+                }
+            }
         }
     }
     
