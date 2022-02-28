@@ -1,0 +1,200 @@
+
+/* Class = "UILabel"; text = "Bio"; ObjectID = "0WB-ft-5V2"; */
+"0WB-ft-5V2.text" = "Bio";
+
+/* Class = "UILabel"; text = "المستودعات"; ObjectID = "0dW-Bb-kJM"; */
+"0dW-Bb-kJM.text" = "المستودعات";
+
+/* Class = "UILabel"; text = "Email"; ObjectID = "1dT-rb-kB4"; */
+"1dT-rb-kB4.text" = "Email";
+
+/* Class = "UITabBarItem"; title = "الملف الشخصي"; ObjectID = "1pI-2l-nhe"; */
+"1pI-2l-nhe.title" = "الملف الشخصي";
+
+/* Class = "UILabel"; text = "Location"; ObjectID = "2Bu-gX-arr"; */
+"2Bu-gX-arr.text" = "Location";
+
+/* Class = "UILabel"; text = "Author Login"; ObjectID = "3oc-YV-XIk"; */
+"3oc-YV-XIk.text" = "Author Login";
+
+/* Class = "UILabel"; text = "Login Name"; ObjectID = "6Oc-pZ-cci"; */
+"6Oc-pZ-cci.text" = "Login Name";
+
+/* Class = "UIButton"; normalTitle = "اتبع"; ObjectID = "7TF-7g-OIi"; */
+"7TF-7g-OIi.normalTitle" = "اتبع";
+
+/* Class = "UILabel"; text = "المشاركون"; ObjectID = "8HT-Bc-brn"; */
+"8HT-Bc-brn.text" = "المساهمون";
+
+/* Class = "UILabel"; text = "المستودعات"; ObjectID = "91b-Yp-EMV"; */
+"91b-Yp-EMV.text" = "المستودعات";
+
+/* Class = "UILabel"; text = "Login"; ObjectID = "9Qr-mN-82b"; */
+"9Qr-mN-82b.text" = "Login";
+
+/* Class = "UILabel"; text = "Company"; ObjectID = "9eK-VG-8CP"; */
+"9eK-VG-8CP.text" = "Company";
+
+/* Class = "UILabel"; text = "followers"; ObjectID = "A8u-iK-6dA"; */
+"A8u-iK-6dA.text" = "followers";
+
+/* Class = "UITabBarItem"; title = "استكشف"; ObjectID = "B0L-IM-RKV"; */
+"B0L-IM-RKV.title" = "الصفحة الرئيسية";
+
+/* Class = "UIButton"; normalTitle = "ميز بنجمة"; ObjectID = "BA8-Tv-fzF"; */
+"BA8-Tv-fzF.normalTitle" = "ميز بنجمة";
+
+/* Class = "UILabel"; text = "n"; ObjectID = "Bah-gA-0Dh"; */
+"Bah-gA-0Dh.text" = "n";
+
+/* Class = "UILabel"; text = "المنظمات"; ObjectID = "CHy-Wc-tfY"; */
+"CHy-Wc-tfY.text" = "المنظمات";
+
+/* Class = "UILabel"; text = "المنظمات"; ObjectID = "DEo-gH-m3n"; */
+"DEo-gH-m3n.text" = "المنظمات";
+
+/* Class = "UIButton"; normalTitle = "Continue as a guest"; ObjectID = "DdT-J5-wOV"; */
+"DdT-J5-wOV.normalTitle" = "الاستمرار كضيف";
+
+/* Class = "UILabel"; text = "following"; ObjectID = "Ega-dz-XjF"; */
+"Ega-dz-XjF.text" = "following";
+
+/* Class = "UILabel"; text = "الرخصة"; ObjectID = "F1b-wT-ijQ"; */
+"F1b-wT-ijQ.text" = "الرخصة";
+
+/* Class = "UILabel"; text = "الأعضاء"; ObjectID = "F5h-YZ-biV"; */
+"F5h-YZ-biV.text" = "الأعضاء";
+
+/* Class = "UILabel"; text = "Message"; ObjectID = "G6u-hw-Ht4"; */
+"G6u-hw-Ht4.text" = "Message";
+
+/* Class = "UILabel"; text = "Full Name"; ObjectID = "GJI-bD-9xy"; */
+"GJI-bD-9xy.text" = "Full Name";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "Gb5-Xx-Ugl"; */
+"Gb5-Xx-Ugl.normalTitle" = "تسجيل الخروج";
+
+/* Class = "UILabel"; text = "Blog"; ObjectID = "JcG-Uh-brK"; */
+"JcG-Uh-brK.text" = "Blog";
+
+/* Class = "UILabel"; text = "Description"; ObjectID = "Kxn-mX-kwR"; */
+"Kxn-mX-kwR.text" = "Description";
+
+/* Class = "UILabel"; text = "Location"; ObjectID = "LEk-qQ-laO"; */
+"LEk-qQ-laO.text" = "Location";
+
+/* Class = "UILabel"; text = "stars"; ObjectID = "LNr-Wg-4lN"; */
+"LNr-Wg-4lN.text" = "stars";
+
+/* Class = "UILabel"; text = "المستودعات"; ObjectID = "LsM-lV-FTw"; */
+"LsM-lV-FTw.text" = "المستودعات";
+
+/* Class = "UILabel"; text = "GitIt"; ObjectID = "NDD-h1-xj2"; */
+"NDD-h1-xj2.text" = "GitIt";
+
+/* Class = "UINavigationItem"; title = "استكشف"; ObjectID = "PXC-Fy-I01"; */
+"PXC-Fy-I01.title" = "الصفحة الرئيسية";
+
+"tA1-IN-0lD.title" = "الشائع";
+
+"X7u-KU-pN6.title" = "الشائع";
+
+/* Class = "UILabel"; text = "Repository Descrtption"; ObjectID = "Pfz-GV-gZd"; */
+"Pfz-GV-gZd.text" = "Repository Descrtption";
+
+/* Class = "UILabel"; text = "Repository Name"; ObjectID = "QTv-vf-vh3"; */
+"QTv-vf-vh3.text" = "Repository Name";
+
+/* Class = "UILabel"; text = "المشاركات"; ObjectID = "Qya-SK-mZS"; */
+"Qya-SK-mZS.text" = "المساهمات";
+
+/* Class = "UILabel"; text = "المنظمات"; ObjectID = "Ssq-qN-292"; */
+"Ssq-qN-292.text" = "المنظمات";
+
+/* Class = "UILabel"; text = "مميز بنجمة"; ObjectID = "TSa-Md-4oW"; */
+"TSa-Md-4oW.text" = "مميز بنجمة";
+
+/* Class = "UILabel"; text = "n"; ObjectID = "Tgi-E9-8xR"; */
+"Tgi-E9-8xR.text" = "n";
+
+/* Class = "UIButton"; normalTitle = "Sign In With Github"; ObjectID = "VGO-nu-Rrj"; */
+"VGO-nu-Rrj.normalTitle" = "تسجيل الدخول بإستخدام GitHub";
+
+/* Class = "UINavigationItem"; title = "إشارات مرجعية"; ObjectID = "VLR-xD-p64"; */
+"VLR-xD-p64.title" = "إشارات مرجعية";
+
+/* Class = "UILabel"; text = "Homepage"; ObjectID = "VdS-Qi-Zzv"; */
+"VdS-Qi-Zzv.text" = "Homepage";
+
+/* Class = "UILabel"; text = "Blog"; ObjectID = "WqO-sW-gIf"; */
+"WqO-sW-gIf.text" = "Blog";
+
+/* Class = "UILabel"; text = "المستخدمون"; ObjectID = "YdF-3V-vH4"; */
+"YdF-3V-vH4.text" = "المستخدمون";
+
+/* Class = "UINavigationItem"; title = "الرخصة"; ObjectID = "aOa-VV-WXk"; */
+"aOa-VV-WXk.title" = "الرخصة";
+
+/* Class = "UILabel"; text = "Twitter"; ObjectID = "aaA-35-UuR"; */
+"aaA-35-UuR.text" = "Twitter";
+
+/* Class = "UILabel"; text = "Full Name"; ObjectID = "diD-K5-hyb"; */
+"diD-K5-hyb.text" = "Full Name";
+
+/* Class = "UILabel"; text = "forks"; ObjectID = "fOR-TN-FEi"; */
+"fOR-TN-FEi.text" = "forks";
+
+/* Class = "UILabel"; text = "Login Name"; ObjectID = "g46-Su-kej"; */
+"g46-Su-kej.text" = "Login Name";
+
+"nQv-fa-vJI.headerTitle" = "استكشف GitHub";
+
+/* Class = "UITableViewSection"; headerTitle = "Repository"; ObjectID = "hJr-1O-fiW"; */
+"hJr-1O-fiW.headerTitle" = "تعرف على ما هو جديد";
+
+/* Class = "UILabel"; text = "Twitter"; ObjectID = "hp1-bg-fBQ"; */
+"hp1-bg-fBQ.text" = "Twitter";
+
+/* Class = "UILabel"; text = "Bio"; ObjectID = "iFn-mE-8r4"; */
+"iFn-mE-8r4.text" = "Bio";
+
+/* Class = "UILabel"; text = "n"; ObjectID = "iP0-Wc-cJv"; */
+"iP0-Wc-cJv.text" = "n";
+
+/* Class = "UILabel"; text = "Owner Login"; ObjectID = "jUn-eh-sSQ"; */
+"jUn-eh-sSQ.text" = "Owner Login";
+
+/* Class = "UILabel"; text = "Full Name"; ObjectID = "mJp-ar-xCd"; */
+"mJp-ar-xCd.text" = "Full Name";
+
+/* Class = "UILabel"; text = "Email"; ObjectID = "n7m-ei-57r"; */
+"n7m-ei-57r.text" = "Email";
+
+/* Class = "UILabel"; text = "Default Branch"; ObjectID = "pWz-ms-VKo"; */
+"pWz-ms-VKo.text" = "Default Branch";
+
+/* Class = "UILabel"; text = "README.md"; ObjectID = "qJU-Hm-1Kq"; */
+"qJU-Hm-1Kq.text" = "README.md";
+
+/* Class = "UITextView"; text = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda."; ObjectID = "qnl-Qh-LKk"; */
+"qnl-Qh-LKk.text" = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.";
+
+/* Class = "UILabel"; text = "مميز بنجمة"; ObjectID = "soY-Nt-YE7"; */
+"soY-Nt-YE7.text" = "مميز بنجمة";
+
+/* Class = "UILabel"; text = "n"; ObjectID = "tbc-d6-pHE"; */
+"tbc-d6-pHE.text" = "n";
+
+/* Class = "UIBarButtonItem"; title = "Item"; ObjectID = "vJl-Zq-hmN"; */
+"vJl-Zq-hmN.title" = "Item";
+
+/* Class = "UITabBarItem"; title = "إشارات مرجعية"; ObjectID = "vKr-yv-E8J"; */
+"vKr-yv-E8J.title" = "إشارات مرجعية";
+
+/* Class = "UILabel"; text = "المستودعات"; ObjectID = "vze-7e-jyO"; */
+"vze-7e-jyO.text" = "المستودعات";
+
+/* Class = "UIButton"; normalTitle = "Sign In"; ObjectID = "wXA-bt-gph"; */
+"wXA-bt-gph.normalTitle" = "تسجيل الدخول";
+
+"New-BC-1S7.title" = "المكتبات مفتوحة المصدر";

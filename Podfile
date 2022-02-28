@@ -10,9 +10,11 @@ target 'GitIt' do
   
   # Pods for GitIt
   pod 'Alamofire', '~> 5.5'
+  pod 'RealmSwift', '~>10'
   pod 'Kingfisher', '~> 7.0'
   pod 'NotificationBannerSwift', '~> 3.0.0'
   pod 'SVProgressHUD'
+  pod 'SkeletonView'
   pod 'IQKeyboardManager'
   pod 'InAppSettingsKit'
   pod 'MarkdownView'

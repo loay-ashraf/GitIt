@@ -7,122 +7,123 @@
 
 import Foundation
 import CoreData
+import RealmSwift
 
-class BookmarksManager {
+class BookmarksManager: DataPersistenceManager {
+    
+    // MARK: - Properties
+    
+    typealias DataPersistenceProviderType = RealmPersistenceProvider
     
     static let standard = BookmarksManager()
-    let coreDataHelper = DataManager.standard.coreDataHelper
+    let webServiceClient = GitHubClient()
+    let dataPersistenceProvider = DataManager.standard.realmDataPersistenceProvider
     
-    private var userBookmarks: [User]?
-    private var repositoryBookmarks: [Repository]?
-    private var organizationBookmarks: [Organization]?
+    private var userBookmarks = Observable<Array<UserBookmark>>()
+    private var repositoryBookmarks = Observable<Array<RepositoryBookmark>>()
+    private var organizationBookmarks = Observable<Array<OrganizationBookmark>>()
     
-    var activeBookmarksContext: BookmarksContext!
+    var activeBookmarksContext: BookmarksContext = .users
     
-    // MARK: - Initialisation
+    // MARK: - Initialization
     
     private init() {}
     
     // MARK: - Save and Load Methods
     
-    func save() throws {
-        try coreDataHelper.saveContexts()
-    }
+    func save() throws { }
     
     func load() throws {
-        userBookmarks = try coreDataHelper.fetchSync(entity: User.self, sortKey: nil, ascending: true).get()
-        repositoryBookmarks = try coreDataHelper.fetchSync(entity: Repository.self, sortKey: nil, ascending: true).get()
-        organizationBookmarks = try coreDataHelper.fetchSync(entity: Organization.self, sortKey: nil, ascending: true).get()
+        userBookmarks.value = dataPersistenceProvider.fetch()
+        repositoryBookmarks.value = dataPersistenceProvider.fetch()
+        organizationBookmarks.value = dataPersistenceProvider.fetch()
     }
     
     // MARK: - Write Methods
     
-    func add<Type: Model>(model: Type) throws {
+    @MainActor func add<Type: Model>(model: Type) throws {
         if !model.isComplete {
             if let userModel = model as? UserModel {
-                getCompleteUser(with: userModel) { completeUserModel in
-                    var result: Result<NSManagedObject,CoreDataError>?
-                    if let completeUserModel = completeUserModel {
-                        result = self.coreDataHelper.insert(completeUserModel)
+                Task {
+                    var result: Result<Object,RealmError>?
+                    if let completeUserModel = await getCompleteUser(with: userModel) {
+                        result = dataPersistenceProvider.insert(completeUserModel)
                     }
                     switch result {
-                    case .success(let managedObject): self.userBookmarks?.append(managedObject as! User)
-                    case .failure: return
-                    case .none: return
+                    case .success(let object as UserBookmark): userBookmarks.value?.append(object)
+                    default: return
                     }
                 }
             } else if let repositoryModel = model as? RepositoryModel {
-                getCompleteRepository(with: repositoryModel) { completeRepositoryModel in
-                    var result: Result<NSManagedObject,CoreDataError>?
-                    if let completeRepositoryModel = completeRepositoryModel {
-                        result = self.coreDataHelper.insert(completeRepositoryModel)
+                Task {
+                    var result: Result<Object,RealmError>?
+                    if let completeRepositoryModel = await getCompleteRepository(with: repositoryModel) {
+                        result = dataPersistenceProvider.insert(completeRepositoryModel)
                     }
                     switch result {
-                    case .success(let managedObject): self.repositoryBookmarks?.append(managedObject as! Repository)
-                    case .failure: return
-                    case .none: return
+                    case .success(let object as RepositoryBookmark): repositoryBookmarks.value?.append(object)
+                    default: return
                     }
                 }
             } else if let organizationModel = model as? OrganizationModel {
-                getCompleteOrganization(with: organizationModel) { completeOrganizationModel in
-                    var result: Result<NSManagedObject,CoreDataError>?
-                    if let completeOrganizationModel = completeOrganizationModel {
-                        result = self.coreDataHelper.insert(completeOrganizationModel)
+                Task {
+                    var result: Result<Object,RealmError>?
+                    if let completeOrganizationModel = await getCompleteOrganization(with: organizationModel) {
+                        result = dataPersistenceProvider.insert(completeOrganizationModel)
                     }
                     switch result {
-                    case .success(let managedObject): self.organizationBookmarks?.append(managedObject as! Organization)
-                    case .failure: return
-                    case .none: return
+                    case .success(let object as OrganizationBookmark): organizationBookmarks.value?.append(object)
+                    default: return
                     }
                 }
             }
         } else {
-            let result = coreDataHelper.insert(model)
+            let result = dataPersistenceProvider.insert(model)
             switch result {
-            case let .success(managedObject) where managedObject.self is User: userBookmarks?.append(managedObject as! User)
-            case let .success(managedObject) where managedObject.self is Repository: repositoryBookmarks?.append(managedObject as! Repository)
-            case let .success(managedObject) where managedObject.self is Organization: organizationBookmarks?.append(managedObject as! Organization)
-            case .failure(let coreDataError): throw coreDataError
+            case .success(let object as UserBookmark): userBookmarks.value?.append(object)
+            case .success(let object as RepositoryBookmark): repositoryBookmarks.value?.append(object)
+            case .success(let object as OrganizationBookmark): organizationBookmarks.value?.append(object)
+            case .failure(let realmError): throw realmError
             default: break
             }
         }
     }
     
-    func delete<Type: Model>(model: Type) throws {
-        switch Type.self {
-        case is UserModel.Type: userBookmarks?.removeAll() { return $0.id == model.id }
-        case is RepositoryModel.Type: repositoryBookmarks?.removeAll() { return $0.id == model.id }
-        case is OrganizationModel.Type: organizationBookmarks?.removeAll() { return $0.id == model.id }
+    @MainActor func delete<T: Model>(model: T) throws {
+        switch T.self {
+        case is UserModel.Type: userBookmarks.value?.removeAll() { return $0.id == model.id }
+        case is RepositoryModel.Type: repositoryBookmarks.value?.removeAll() { return $0.id == model.id }
+        case is OrganizationModel.Type: organizationBookmarks.value?.removeAll() { return $0.id == model.id }
         default: break
         }
-        try coreDataHelper.delete(model)
+        try dataPersistenceProvider.delete(model)
     }
     
-    func clear<Type: Model>(for modelType: Type.Type) throws {
+    @MainActor func clear<T: Model>(for modelType: T.Type) throws {
         switch modelType {
-        case is UserModel.Type: userBookmarks?.removeAll()
-                                try coreDataHelper.deleteAll(User.self)
-        case is RepositoryModel.Type: repositoryBookmarks?.removeAll()
-                                      try coreDataHelper.deleteAll(Repository.self)
-        case is OrganizationModel.Type: organizationBookmarks?.removeAll()
-                                        try coreDataHelper.deleteAll(Organization.self)
+        case is UserModel.Type: userBookmarks.value?.removeAll()
+                                try dataPersistenceProvider.deleteAll(UserBookmark.self)
+        case is RepositoryModel.Type: repositoryBookmarks.value?.removeAll()
+                                      try dataPersistenceProvider.deleteAll(RepositoryBookmark.self)
+        case is OrganizationModel.Type: organizationBookmarks.value?.removeAll()
+                                        try dataPersistenceProvider.deleteAll(OrganizationBookmark.self)
         default: break
         }
     }
     
-    func clearActive() throws {
+    @MainActor func clearActive() throws {
         switch activeBookmarksContext {
-        case .users: userBookmarks?.removeAll()
-                     try coreDataHelper.deleteAll(User.self)
-        case .repositories: repositoryBookmarks?.removeAll()
-                            try coreDataHelper.deleteAll(Repository.self)
-        case .organizations: organizationBookmarks?.removeAll()
-                             try coreDataHelper.deleteAll(Organization.self)
+        case .users: userBookmarks.value?.removeAll()
+                     try dataPersistenceProvider.deleteAll(UserBookmark.self)
+        case .repositories: repositoryBookmarks.value?.removeAll()
+                            try dataPersistenceProvider.deleteAll(RepositoryBookmark.self)
+        case .organizations: organizationBookmarks.value?.removeAll()
+                             try dataPersistenceProvider.deleteAll(OrganizationBookmark.self)
         default: break
         }
     }
     
-    func clearAll() throws {
+    @MainActor func clearAll() throws {
         try clear(for: UserModel.self)
         try clear(for: RepositoryModel.self)
         try clear(for: OrganizationModel.self)
@@ -130,63 +131,50 @@ class BookmarksManager {
     
     // MARK: - Read Methods
     
-    func check<Type: Model>(model: Type) -> Bool? {
-        switch Type.self {
-        case is UserModel.Type: return userBookmarks?.contains() { return $0.id == model.id }
-        case is RepositoryModel.Type: return repositoryBookmarks?.contains() { return $0.id == model.id }
-        case is OrganizationModel.Type: return organizationBookmarks?.contains() { return $0.id == model.id }
+    @MainActor func check<T: Model>(model: T) -> Bool? {
+        switch T.self {
+        case is UserModel.Type: return userBookmarks.value?.contains { return $0.id == model.id }
+        case is RepositoryModel.Type: return repositoryBookmarks.value?.contains { return $0.id == model.id }
+        case is OrganizationModel.Type: return organizationBookmarks.value?.contains { return $0.id == model.id }
         default: return nil
         }
     }
     
-    func getUsers() -> [User]? {
-        return userBookmarks
+    // MARK: - Bind Methods
+    
+    func bindUsers(_ listener: @escaping (Array<UserBookmark>?) -> Void) {
+        userBookmarks.bind(listener)
     }
     
-    func getRepositories() -> [Repository]? {
-        return repositoryBookmarks
+    func bindRepositories(_ listener: @escaping (Array<RepositoryBookmark>?) -> Void) {
+        repositoryBookmarks.bind(listener)
     }
     
-    func getOrganizations() -> [Organization]? {
-        return organizationBookmarks
+    func bindOrganizations(_ listener: @escaping (Array<OrganizationBookmark>?) -> Void) {
+        organizationBookmarks.bind(listener)
     }
     
     // MARK: - Completing Models Methods
     
-    func getCompleteUser(with userModel: UserModel, then handler: @escaping (UserModel?) -> Void) {
-        GitHubClient.fetchUser(userLogin: userModel.login) { result in
-            switch result {
-            case .success(var response): response.isComplete = true
-                                         handler(response)
-            case .failure: handler(nil)
-            }
-        }
+    func getCompleteUser(with userModel: UserModel) async -> UserModel? {
+        var user = try? await webServiceClient.fetchUser(userLogin: userModel.login).get()
+        user?.isComplete = true
+        return user
     }
     
-    func getCompleteRepository(with repositoryModel: RepositoryModel, then handler: @escaping (RepositoryModel?) -> Void) {
-        GitHubClient.fetchRepository(fullName: repositoryModel.fullName) { result in
-            switch result {
-            case .success(var response): GitHubClient.downloadRepositoryREADME(fullName: response.fullName, branch: response.defaultBranch) { result in
-                switch result {
-                case .success(let readMeString): response.READMEString = String(data: readMeString, encoding: .utf8)
-                                                 response.isComplete = true
-                                                 handler(response)
-                case .failure: handler(nil)
-                }
-            }
-            case .failure: handler(nil)
-            }
+    func getCompleteRepository(with repositoryModel: RepositoryModel) async -> RepositoryModel? {
+        var repository = try? await webServiceClient.fetchRepository(fullName: repositoryModel.fullName).get()
+        if let readmeData = try? await webServiceClient.downloadRepositoryREADME(fullName: repositoryModel.fullName, branch: repositoryModel.defaultBranch).get() {
+            repository?.READMEString = String(data: readmeData, encoding: .utf8)
         }
+        repository?.isComplete = true
+        return repository
     }
     
-    func getCompleteOrganization(with organizationModel: OrganizationModel, then handler: @escaping (OrganizationModel?) -> Void) {
-        GitHubClient.fetchOrganization(organizationLogin: organizationModel.login) { result in
-            switch result {
-            case .success(var response): response.isComplete = true
-                                         handler(response)
-            case .failure: handler(nil)
-            }
-        }
+    func getCompleteOrganization(with organizationModel: OrganizationModel) async -> OrganizationModel? {
+        var organization = try? await webServiceClient.fetchOrganization(organizationLogin: organizationModel.login).get()
+        organization?.isComplete = true
+        return organization
     }
     
 }

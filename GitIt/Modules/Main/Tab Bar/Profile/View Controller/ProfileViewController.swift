@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ProfileViewController: SFStaticTableViewController {
+class ProfileViewController: WSSFStaticTableViewController {
     
     // MARK: - View Outlets
     
@@ -43,10 +43,6 @@ class ProfileViewController: SFStaticTableViewController {
         navigationItem.largeTitleDisplayMode = .never
         
         if SessionManager.standard.sessionType == .authenticated, SessionManager.standard.sessionUser != nil {
-            avatarImageView.cornerRadius = 64.0
-            avatarImageView.cornerCurve = .continuous
-            avatarImageView.masksToBounds = true
-            
             avatarImageView.addInteraction(UIContextMenuInteraction(delegate: self))
             
             blogTextView.action = { [weak self] in self?.goToBlog() }
@@ -72,9 +68,6 @@ class ProfileViewController: SFStaticTableViewController {
             socialStatusNumericView.isHidden = true
             
             signInButton.isHidden = false
-            signInButton.cornerRadius = 10.0
-            signInButton.cornerCurve = .continuous
-            signInButton.masksToBounds = true
             settingsButton.isEnabled = true
             shareButton.isEnabled = false
         }
@@ -108,7 +101,7 @@ class ProfileViewController: SFStaticTableViewController {
     @IBAction func share(_ sender: UIBarButtonItem) {
         if let model = SessionManager.standard.sessionUser {
             let htmlURL = model.htmlURL
-            URLHelper.shareURL(htmlURL)
+            URLHelper.shareWebsite(htmlURL)
         }
     }
     
@@ -120,7 +113,7 @@ class ProfileViewController: SFStaticTableViewController {
     func goToBlog() {
         if let model = SessionManager.standard.sessionUser {
             let webURL = model.blogURL
-            URLHelper.openURL(webURL!)
+            URLHelper.openWebsite(webURL!)
         }
     }
     
@@ -135,47 +128,41 @@ class ProfileViewController: SFStaticTableViewController {
     
     func goToTwitter() {
         if let model = SessionManager.standard.sessionUser {
-            let appURL = URL(string: "twitter://user?screen_name=" + model.twitter!)!
-            let webURL = URL(string: "https://twitter.com/" + model.twitter!)!
-            if UIApplication.shared.canOpenURL(appURL) {
-                UIApplication.shared.open(appURL)
-            } else {
-                URLHelper.openURL(webURL)
-            }
+            URLHelper.openTwitter(model.twitter!)
         }
     }
     
     func showFollowers() {
         if let model = SessionManager.standard.sessionUser {
-            let followersVC = UserViewController.instatiateWithContextAndParameters(with: .followers, with: (model.login,model.followers))
+            let followersVC = UserViewController.instatiate(context: .followers(userLogin: model.login, numberOfFollowers: model.followers!) as UserContext)
             navigationController?.pushViewController(followersVC, animated: true)
         }
     }
     
     func showFollowing() {
         if let model = SessionManager.standard.sessionUser {
-            let followingVC = UserViewController.instatiateWithContextAndParameters(with: .following, with: (model.login,model.following))
+            let followingVC = UserViewController.instatiate(context: .following(userLogin: model.login, numberOfFollowing: model.following!) as UserContext)
             navigationController?.pushViewController(followingVC, animated: true)
         }
     }
     
     func showRepositories() {
         if let model = SessionManager.standard.sessionUser {
-            let repositoriesVC = RepositoryViewController.instatiateWithContextAndParameters(with: .user, with: (model.login,model.repositories!))
+            let repositoriesVC = RepositoryViewController.instatiate(context: .user(userLogin: model.login, numberOfRepositories: model.repositories!) as RepositoryContext)
             navigationController?.pushViewController(repositoriesVC, animated: true)
         }
     }
     
     func showOrganizations() {
         if let model = SessionManager.standard.sessionUser {
-            let organizationsVC = OrganizationViewController.instatiateWithContextAndParameters(with: .user, with: model.login)
+            let organizationsVC = OrganizationViewController.instatiate(context: .user(userLogin: model.login) as OrganizationContext)
             navigationController?.pushViewController(organizationsVC, animated: true)
         }
     }
     
     func showStarred() {
         if let model = SessionManager.standard.sessionUser {
-            let repositoriesVC = RepositoryViewController.instatiateWithContextAndParameters(with: .starred, with: model.login)
+            let repositoriesVC = RepositoryViewController.instatiate(context: .starred(userLogin: model.login) as RepositoryContext)
             navigationController?.pushViewController(repositoriesVC, animated: true)
         }
     }
@@ -214,7 +201,8 @@ extension ProfileViewController: UIContextMenuInteractionDelegate {
     
     func contextMenuInteraction(_ interaction: UIContextMenuInteraction, configurationForMenuAtLocation location: CGPoint) -> UIContextMenuConfiguration? {
         if let image = avatarImageView.image {
-            return ContextMenuConfigurationConstants.SaveImageConfiguration(for: image)
+            let actionProvider = ImageActionProvider(saveImage: { UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil) })
+            return ContextMenuConfigurationConstants.SaveImageConfiguration(with: actionProvider)
         } else {
             return UIContextMenuConfiguration()
         }

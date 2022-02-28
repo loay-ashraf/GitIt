@@ -9,27 +9,35 @@ import UIKit
 
 class HomeViewController: UITableViewController {
     
+    // MARK: - Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         NavigayionBarConstants.configureAppearance(for: navigationController?.navigationBar)
     }
 
+    // MARK: - Table View Delegate
+    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let section = indexPath.section
         let row = indexPath.row
-        if section == 0, row == 0 {
-            let userVC = UserViewController.instatiateWithContextAndParameters(with: .main)
-            navigationController?.pushViewController(userVC, animated: true)
-        } else if section == 0, row == 1 {
-            let repositoryVC = RepositoryViewController.instatiateWithContextAndParameters(with: .main)
-            navigationController?.pushViewController(repositoryVC, animated: true)
-        } else if section == 0, row == 2 {
-            let organizationVC = OrganizationViewController.instatiateWithContextAndParameters(with: .main)
-            navigationController?.pushViewController(organizationVC, animated: true)
-        } else if section == 1, row == 0 {
-            let repositoryVC = RepositoryDetailViewController.instatiateWithParameters(with: "loay-ashraf/GitIt")
-            navigationController?.pushViewController(repositoryVC, animated: true)
+        switch (section,row) {
+        case (0,0): let userVC = UserViewController.instatiate(context: .main as UserContext)
+                    navigationController?.pushViewController(userVC, animated: true)
+        case (0,1): let repositoryVC = RepositoryViewController.instatiate(context: .main as RepositoryContext)
+                    navigationController?.pushViewController(repositoryVC, animated: true)
+        case (0,2): let organizationVC = OrganizationViewController.instatiate(context: .main as OrganizationContext)
+                    navigationController?.pushViewController(organizationVC, animated: true)
+        case (1,0):  let repositoryDetailVC = RepositoryDetailViewController.instatiate(parameter: "loay-ashraf/GitIt")
+                     navigationController?.pushViewController(repositoryDetailVC, animated: true)
+        default: break
+        }
+    }
+    
+    override public func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        if let view = view as? UITableViewHeaderFooterView {
+            view.textLabel?.textColor = UIColor(named: "AccentColor")
         }
     }
     
