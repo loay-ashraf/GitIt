@@ -5,7 +5,7 @@
 <br/>
 GitIt is GitHub client iOS app with search and trending features.
 <br/>
-Written in Swift and MVC architecture.
+Written in Swift and MVVM architecture.
 </p>
 
 <p align="center">
@@ -15,8 +15,9 @@ Written in Swift and MVC architecture.
     <a href="https://github.com/loay-ashraf/GitIt/releases">
     <img src="https://img.shields.io/github/v/release/loay-ashraf/GitIt" alt="Version">
     </a>
-    <a href="https://developer.apple.com/library/archive/documentation/General/Conceptual/DevPedia-CocoaCore/MVC.html">
-        <img src="https://img.shields.io/badge/architecture-MVC-brightgreen">
+    <img src="https://img.shields.io/github/release-date/loay-ashraf/GitIt">
+    <a href="https://en.wikipedia.org/wiki/Model–view–viewmodel">
+        <img src="https://img.shields.io/badge/architecture-MVVM-brightgreen">
     </a>
     <img src="https://img.shields.io/badge/swift-5.5-orange">
     <img src="https://img.shields.io/badge/iOS-13.0%2B-black">
@@ -66,7 +67,7 @@ Written in Swift and MVC architecture.
 
 ## Demo Video
 
-[![GitIt V1 Demo](https://img.youtube.com/vi/z42uyiRBj6M/maxresdefault.jpg)](https://www.youtube.com/watch?v=z42uyiRBj6M)
+[![GitIt V1 Demo](https://img.youtube.com/vi/wO6qcbHDJiQ/maxresdefault.jpg)](https://www.youtube.com/watch?v=wO6qcbHDJiQ)
 
 ## Installation
 
@@ -85,7 +86,7 @@ pod install
 
 ### (Optionally) Change Client ID and Secret to yours
 
-go to ` GitIt > Commons > Model+Data > Constants > Constants.swift `
+go to ` GitIt > Commons > Model > Constants > Constants.swift `
 
 ```sh
 ClientID = "YOUR CLIENT ID GOES HERE"
@@ -94,18 +95,11 @@ ClientSecret = "YOUR CLIENT SECRET GOES HERE"
 
 ## TODOs
 
-### Architecture
-* refactor to MVVM Architecture
-
 ### Networking
-* refactor to new swift concurrency system
 * use MOYA??
 
 ### Reactive 
 * use RXSwift bindings
-
-### Persistence
-* use realm?
 
 ### Features
 * Issues
@@ -118,14 +112,16 @@ ClientSecret = "YOUR CLIENT SECRET GOES HERE"
 
 #### Third Party Libraries
 * [AlamoFire](https://github.com/Alamofire/Alamofire)
+* [Kingfisher](https://github.com/onevcat/Kingfisher)
+* [RealmSwift](https://github.com/realm/realm-swift)
 * [InAppSettingsKit](https://github.com/futuretap/InAppSettingsKit)
 * [IQKeyboardManager](https://github.com/hackiftekhar/IQKeyboardManager)
-* [Kingfisher](https://github.com/onevcat/Kingfisher)
-* [MarkdownView](https://github.com/keitaoouchi/MarkdownView)
-* [NotificationBannerSwift](https://github.com/Daltron/NotificationBanner)
 * [SVProgressHUD](https://github.com/SVProgressHUD/SVProgressHUD)
+* [SkeletonView](https://github.com/Juanpe/SkeletonView)
+* [NotificationBannerSwift](https://github.com/Daltron/NotificationBanner)
+* [MarkdownView](https://github.com/keitaoouchi/MarkdownView)
 
 ### Tools
-* xCode 13.2
+* Xcode 13.2
 * iPhone 12 Simulator (iOS 14.5)
 
