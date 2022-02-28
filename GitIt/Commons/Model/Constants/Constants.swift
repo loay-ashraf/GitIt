@@ -10,18 +10,7 @@ import UIKit
 import NotificationBannerSwift
 import SVProgressHUD
 import Kingfisher
-import CoreData
 import Network
-
-struct BasicCellActionProvider {
-    
-    var isBookmarked: Bool
-    var toggleBookmark: () -> Void
-    var saveImage: () -> Void
-    var openInSafari: () -> Void
-    var share: () -> Void
-    
-}
 
 // MARK: - Constants Shortcuts
 
@@ -48,19 +37,6 @@ typealias EmptyConstants = ViewConstants.Empty
 typealias LabelConstants = ViewConstants.Label
 typealias ButtonConstants = ViewConstants.Button
 typealias ImageConstants = ViewConstants.Image
-typealias TableViewConstants = ViewConstants.TableView
-typealias TableViewDataSourceConstants = TableViewConstants.CustomComponents.DataSource
-typealias TableViewDelegateConstants = TableViewConstants.CustomComponents.Delegate
-typealias TableViewCellConfiguratorConstants = TableViewConstants.CustomComponents.CellConfigurator
-typealias TableViewContextMenuConfiguratorConstants = TableViewConstants.CustomComponents.ContextMenuConfigurator
-typealias TableViewTapResponderConstants = TableViewConstants.CustomComponents.TapResponder
-typealias TableViewSwipeResponderConstants = TableViewConstants.CustomComponents.SwipeResponder
-typealias CollectionViewConstants = ViewConstants.CollectionView
-typealias CollectionViewDataSourceConstants = CollectionViewConstants.CustomComponents.DataSource
-typealias CollectionViewDelegateConstants = CollectionViewConstants.CustomComponents.Delegate
-typealias CollectionViewCellConfiguratorConstants = CollectionViewConstants.CustomComponents.CellConfigurator
-typealias CollectionViewContextMenuConfiguratorConstants = CollectionViewConstants.CustomComponents.ContextMenuConfigurator
-typealias CollectionViewTapResponderConstants = CollectionViewConstants.CustomComponents.TapResponder
 
 struct Constants {
     
@@ -764,119 +740,6 @@ struct Constants {
         struct Image {
             
             static let guest = UIImage(systemName: "person")
-            
-        }
-        
-        // MARK: - Table View Constants
-        
-        struct TableView {
-            
-            // MARK: - Table View Custom Components Constants
-            
-            struct CustomComponents {
-                
-                struct DataSource {
-                    
-                    static let userDataSource = UserTableViewDataSource()
-                    static let repositoryDataSource = RepositoryTableViewDataSource()
-                    static let organizationDataSource = OrganizationTableViewDataSource()
-                    static let commitDataSource = CommitTableViewDataSource()
-                    
-                }
-                
-                struct Delegate {
-                    
-//                    static let userDelegate = UserTableViewDelegate()
-//                    static let repositoryDelegate = RepositoryTableViewDelegate()
-//                    static let organizationDelegate = OrganizationTableViewDelegate()
-//                    static let commitDelegate = CommitTableViewDelegate()
-                    
-                }
-                
-                struct CellConfigurator {
-                    
-                    static let userCellConfigurator = UserTableViewCellConfigurator()
-                    static let repositoryCellConfigurator = RepositoryTableViewCellConfigurator()
-                    static let organizationCellConfigurator = OrganizationTableViewCellConfigurator()
-                    static let commitCellConfigurator = CommitTableViewCellConfigurator()
-                    
-                }
-                
-                struct ContextMenuConfigurator {
-                    
-//                    static let userContextMenuConfigurator = UserTableViewContextMenuConfigurator()
-//                    static let repositoryDelegate = RepositoryTableViewContextMenuConfigurator()
-//                    static let organizationDelegate = OrganizationTableViewContextMenuConfigurator()
-//                    static let commitDelegate = CommitTableViewContextMenuConfigurator()
-                    
-                }
-                
-                struct TapResponder {
-                    
-//                    static let userTapResponder = UserTableViewTapResponder()
-//                    static let repositoryTapResponder = RepositoryTableViewTapResponder()
-//                    static let organizationTapResponder = OrganizationTableViewTapResponder()
-//                    static let commitTapResponder = CommitTableViewTapResponder()
-                    
-                }
-                
-                struct SwipeResponder {
-                    
-                }
-                
-            }
-            
-        }
-        
-        // MARK: - Collection View Constants
-        
-        struct CollectionView {
-            
-            // MARK: - Table View Custom Components Constants
-            
-            struct CustomComponents {
-                
-                struct DataSource {
-                    
-                    static let userDataSource = UserCollectionViewDataSource()
-                    static let repositoryDataSource = RepositoryCollectionViewDataSource()
-                    static let organizationDataSource = OrganizationCollectionViewDataSource()
-                    
-                }
-                
-                struct Delegate {
-                    
-//                    static let userDelegate = UserCollectionViewDelegate()
-//                    static let repositoryDelegate = RepositoryCollectionViewDelegate()
-//                    static let organizationDelegate = OrganizationCollectionViewDelegate()
-                    
-                }
-                
-                struct CellConfigurator {
-                    
-                    static let userCellConfigurator = UserCollectionViewCellConfigurator()
-                    static let repositoryCellConfigurator = RepositoryCollectionViewCellConfigurator()
-                    static let organizationCellConfigurator = OrganizationCollectionViewCellConfigurator()
-                    
-                }
-                
-                struct ContextMenuConfigurator {
-                    
-//                    static let userContextMenuConfigurator = UserCollectionViewContextMenuConfigurator()
-//                    static let repositoryDelegate = RepositoryCollectionViewContextMenuConfigurator()
-//                    static let organizationDelegate = OrganizationCollectionViewContextMenuConfigurator()
-                    
-                }
-                
-                struct TapResponder {
-                    
-//                    static let userTapResponder = UserCollectionViewTapResponder()
-//                    static let repositoryTapResponder = RepositoryCollectionViewTapResponder()
-//                    static let organizationTapResponder = OrganizationCollectionViewTapResponder()
-                    
-                }
-                
-            }
             
         }
         

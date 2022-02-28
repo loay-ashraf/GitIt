@@ -17,7 +17,6 @@ class DataManager {
     // MARK: - Persistence Providers
     
     let bundlePersistenceProvider = BundlePersistenceProvider()
-    let coreDataPersistenceProvider = CoreDataPersistenceProvider()
     let realmDataPersistenceProvider = RealmPersistenceProvider()
     let fileManagerPersistenceProvider = FileManagerPersistenceProvider()
     let userDefaultsPersistenceProvider = UserDefaultsPersistenceProvider()
@@ -30,13 +29,6 @@ class DataManager {
     
     func setup(completionHandler: @escaping ((DataError?) -> Void)) {
         isSetup = true
-//        realmDataPersistenceProvider.setup() { coreDataError in
-//            if let error = coreDataError {
-//                completionHandler(.coreData(error))
-//            } else {
-//                completionHandler(nil)
-//            }
-//        }
         userDefaultsPersistenceProvider.setup()
     }
     
@@ -79,7 +71,7 @@ class DataManager {
             SearchHistoryManager.standard.clearAll()
             
             // Clear data stored in Storage
-            try coreDataPersistenceProvider.clear()
+            try realmDataPersistenceProvider.clear()
             fileManagerPersistenceProvider.clear()
         } catch let error as RealmError {
             throw DataError.realm(error)
@@ -95,7 +87,7 @@ class DataManager {
             SearchHistoryManager.standard.clearAll()
             
             // Clear data stored in Storage
-            try coreDataPersistenceProvider.clear()
+            try realmDataPersistenceProvider.clear()
             fileManagerPersistenceProvider.clear()
             userDefaultsPersistenceProvider.clear()
         } catch let error as RealmError {

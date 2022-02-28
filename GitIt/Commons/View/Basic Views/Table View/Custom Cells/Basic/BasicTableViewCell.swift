@@ -34,3 +34,13 @@ class BasicTableViewCell: TableViewCell, InterfaceBuilderTableViewCell {
     }
 
 }
+
+struct BasicCellActionProvider {
+    
+    var isBookmarked: Bool
+    var toggleBookmark: () -> Void
+    var saveImage: () -> Void
+    var openInSafari: () -> Void
+    var share: () -> Void
+    
+}

@@ -22,9 +22,9 @@ class SearchHistoryCollectionViewDataSource<T: CollectionCellViewModel>: Collect
     
     class func raw() -> CollectionViewDataSource<T> {
         switch T.self {
-        case is UserCollectionCellViewModel.Type: return CollectionViewDataSourceConstants.userDataSource as! CollectionViewDataSource<T>
-        case is RepositoryCollectionCellViewModel.Type: return CollectionViewDataSourceConstants.repositoryDataSource as! CollectionViewDataSource<T>
-        case is OrganizationCollectionCellViewModel.Type: return CollectionViewDataSourceConstants.organizationDataSource as! CollectionViewDataSource<T>
+        case is UserCollectionCellViewModel.Type: return UserCollectionViewDataSource() as! CollectionViewDataSource<T>
+        case is RepositoryCollectionCellViewModel.Type: return RepositoryCollectionViewDataSource() as! CollectionViewDataSource<T>
+        case is OrganizationCollectionCellViewModel.Type: return OrganizationCollectionViewDataSource() as! CollectionViewDataSource<T>
         default: return CollectionViewDataSource<T>()
         }
     }
