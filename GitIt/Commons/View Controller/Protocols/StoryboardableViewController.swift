@@ -11,6 +11,8 @@ import UIKit
 protocol StoryboardableViewController: UIViewController {
     
     static var storyboardIdentifier: String { get }
+    
+    static func instatiate() -> UIViewController
     static func instatiate<T: ViewControllerContext>(context: T) -> UIViewController
     static func instatiate(parameter: String) -> UIViewController
     static func instatiate(parameters: [String]) -> UIViewController
@@ -21,6 +23,10 @@ protocol StoryboardableViewController: UIViewController {
 }
 
 extension StoryboardableViewController {
+    
+    static func instatiate() -> UIViewController {
+        fatalError("Fatal Error, This View controller cannot be instaniated without passing arguments")
+    }
     
     static func instatiate<T: ViewControllerContext>(context: T) -> UIViewController {
         fatalError("Fatal Error, This View controller cannot be instaniated using context")

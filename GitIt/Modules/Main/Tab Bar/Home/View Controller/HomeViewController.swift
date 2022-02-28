@@ -9,11 +9,15 @@ import UIKit
 
 class HomeViewController: UITableViewController {
     
+    // MARK: - Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         NavigayionBarConstants.configureAppearance(for: navigationController?.navigationBar)
     }
 
+    // MARK: - Table View Delegate
+    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let section = indexPath.section

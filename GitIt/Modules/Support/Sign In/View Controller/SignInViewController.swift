@@ -10,16 +10,22 @@ import AuthenticationServices
 
 class SignInViewController: UIViewController {
     
+    // MARK: - Properties
+    
     private var session: ASWebAuthenticationSession!
     
     @IBOutlet weak var appLogo: UIImageView!
     @IBOutlet weak var signInWithGithubButton: AdaptableSizeButton!
     @IBOutlet weak var continueAsAGuestButton: AdaptableSizeButton!
     
+    // MARK: - Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupAuthenticationSession()
     }
+    
+    // MARK: - View Actions
     
     @IBAction func signInWithGithub(_ sender: Any) {
         authenticate()
@@ -28,7 +34,15 @@ class SignInViewController: UIViewController {
     @IBAction func continueAsAGuest(_ sender: Any) {
         guestPrompt()
     }
-
+    
+    @IBAction func showTermsOfService(_ sender: UITapGestureRecognizer) {
+        URLHelper.openWebsite(URL(string: "https://docs.github.com/en/github/site-policy/github-terms-of-service")!)
+    }
+    
+    @IBAction func showPrivacyPolicy(_ sender: UITapGestureRecognizer) {
+        URLHelper.openWebsite(URL(string: "https://docs.github.com/en/github/site-policy/github-privacy-statement")!)
+    }
+    
 }
 
 extension SignInViewController: ASWebAuthenticationPresentationContextProviding {

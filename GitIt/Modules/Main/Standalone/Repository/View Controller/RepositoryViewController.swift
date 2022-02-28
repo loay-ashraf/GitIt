@@ -60,7 +60,10 @@ class RepositoryViewController: WSSFDynamicTableViewController<RepositoryViewMod
     override func configureView() {
         super.configureView()
         
-        title = context.title
+        switch context {
+        case .trending: break
+        default: title = context.title
+        }
         switch context {
         case .main, .trending: navigationItem.largeTitleDisplayMode = .always
         default: navigationItem.largeTitleDisplayMode = .never

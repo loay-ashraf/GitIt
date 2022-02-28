@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SVProgressHUD
 
 class UserDetailViewController: WSSFStaticTableViewController, StoryboardableViewController {
     
@@ -266,7 +267,8 @@ extension UserDetailViewController: UIContextMenuInteractionDelegate {
     
     func contextMenuInteraction(_ interaction: UIContextMenuInteraction, configurationForMenuAtLocation location: CGPoint) -> UIContextMenuConfiguration? {
         if let image = avatarImageView.image {
-            let actionProvider = ImageActionProvider(saveImage: { UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil) })
+            let actionProvider = ImageActionProvider(saveImage: { UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
+                                                                  SVProgressHUD.showSuccess(withStatus: "Image Saved".localized()) })
             return ContextMenuConfigurationConstants.SaveImageConfiguration(with: actionProvider)
         }
         return nil

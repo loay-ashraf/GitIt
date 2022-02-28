@@ -36,6 +36,7 @@
 		C62C11ED27ABBD1B0004D3C4 /* OrganizationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C62C11EC27ABBD1B0004D3C4 /* OrganizationViewModel.swift */; };
 		C62C11F027ABBED70004D3C4 /* CommitViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C62C11EF27ABBED70004D3C4 /* CommitViewModel.swift */; };
 		C62C11F327ABC16C0004D3C4 /* LicenseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C62C11F227ABC16C0004D3C4 /* LicenseViewModel.swift */; };
+		C62DDD8827CCF13C00F9D786 /* OpenSourceLibrariesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C62DDD8727CCF13C00F9D786 /* OpenSourceLibrariesViewController.swift */; };
 		C6356FE227AF9CE4001E3D69 /* TrendingRepositoriesLogicController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6356FE127AF9CE4001E3D69 /* TrendingRepositoriesLogicController.swift */; };
 		C6356FE927AFA49F001E3D69 /* SearchCoordinatorTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6356FE827AFA49F001E3D69 /* SearchCoordinatorTypes.swift */; };
 		C6356FEB27AFA4C1001E3D69 /* SearchHistoryTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6356FEA27AFA4C1001E3D69 /* SearchHistoryTypes.swift */; };
@@ -293,6 +294,7 @@
 		C62C11EC27ABBD1B0004D3C4 /* OrganizationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrganizationViewModel.swift; sourceTree = "<group>"; };
 		C62C11EF27ABBED70004D3C4 /* CommitViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommitViewModel.swift; sourceTree = "<group>"; };
 		C62C11F227ABC16C0004D3C4 /* LicenseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LicenseViewModel.swift; sourceTree = "<group>"; };
+		C62DDD8727CCF13C00F9D786 /* OpenSourceLibrariesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenSourceLibrariesViewController.swift; sourceTree = "<group>"; };
 		C6356FE127AF9CE4001E3D69 /* TrendingRepositoriesLogicController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendingRepositoriesLogicController.swift; sourceTree = "<group>"; };
 		C6356FE827AFA49F001E3D69 /* SearchCoordinatorTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCoordinatorTypes.swift; sourceTree = "<group>"; };
 		C6356FEA27AFA4C1001E3D69 /* SearchHistoryTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistoryTypes.swift; sourceTree = "<group>"; };
@@ -579,6 +581,7 @@
 		C6102C262794D2C1003A2E26 /* View Controller */ = {
 			isa = PBXGroup;
 			children = (
+				C62DDD8727CCF13C00F9D786 /* OpenSourceLibrariesViewController.swift */,
 				C694B49C273F7DF400C6F5A6 /* SettingsViewController.swift */,
 			);
 			path = "View Controller";
@@ -2363,6 +2366,7 @@
 				C661C74227A79D7E00E02215 /* MembersLogicController.swift in Sources */,
 				C65EA1EC2795E592001C5174 /* OrganizationTapResponder.swift in Sources */,
 				C68B64ED271DD34B00A26D05 /* SceneDelegate.swift in Sources */,
+				C62DDD8827CCF13C00F9D786 /* OpenSourceLibrariesViewController.swift in Sources */,
 				C6110AE22754FFF10078D7E8 /* RepositoryTableViewCell.swift in Sources */,
 				C68B64F5271DD34B00A26D05 /* GitIt.xcdatamodeld in Sources */,
 				C6B3EB3E278AD96200CBEA48 /* IconicTextView.swift in Sources */,

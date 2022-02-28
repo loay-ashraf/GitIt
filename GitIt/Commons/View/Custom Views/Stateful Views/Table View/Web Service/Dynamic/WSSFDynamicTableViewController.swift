@@ -75,12 +75,10 @@ class WSSFDynamicTableViewController<T: WebServiceTableViewModel>: UITableViewCo
     
     func enableSearchBar() {
         navigationItem.searchController?.searchBar.isUserInteractionEnabled = true
-        navigationItem.searchController?.searchBar.alpha = 1.0
     }
     
     func disableSearchBar() {
         navigationItem.searchController?.searchBar.isUserInteractionEnabled = false
-        navigationItem.searchController?.searchBar.alpha = 0.5
     }
     
     func enableRefreshControl() {

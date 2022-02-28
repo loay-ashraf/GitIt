@@ -10,7 +10,7 @@ import InAppSettingsKit
 
 class SettingsViewController: IASKAppSettingsViewController {
     
-    // MARK: - LifeCycle
+    // MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,6 +54,9 @@ extension SettingsViewController: IASKSettingsDelegate {
             URLHelper.openWebsite(URL(string: "https://docs.github.com/en/github/site-policy/github-terms-of-service")!)
         } else if specifier.key == "ppButton" {
             URLHelper.openWebsite(URL(string: "https://docs.github.com/en/github/site-policy/github-privacy-statement")!)
+        } else if specifier.key == "oslButton" {
+            let openSourceLibrariesVC = OpenSourceLibrariesViewController.instatiate()
+            NavigationRouter.push(viewController: openSourceLibrariesVC)
         } else if specifier.key == "clearButton" {
             AlertHelper.showAlert(alert: .clearData)
         }

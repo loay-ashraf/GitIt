@@ -118,7 +118,7 @@
 "Tgi-E9-8xR.text" = "n";
 
 /* Class = "UIButton"; normalTitle = "Sign In With Github"; ObjectID = "VGO-nu-Rrj"; */
-"VGO-nu-Rrj.normalTitle" = "تسجيل الدخول بإستخدام Github";
+"VGO-nu-Rrj.normalTitle" = "تسجيل الدخول بإستخدام GitHub";
 
 /* Class = "UINavigationItem"; title = "إشارات مرجعية"; ObjectID = "VLR-xD-p64"; */
 "VLR-xD-p64.title" = "إشارات مرجعية";
@@ -147,8 +147,10 @@
 /* Class = "UILabel"; text = "Login Name"; ObjectID = "g46-Su-kej"; */
 "g46-Su-kej.text" = "Login Name";
 
+"nQv-fa-vJI.headerTitle" = "استكشف GitHub";
+
 /* Class = "UITableViewSection"; headerTitle = "Repository"; ObjectID = "hJr-1O-fiW"; */
-"hJr-1O-fiW.headerTitle" = "المستودع";
+"hJr-1O-fiW.headerTitle" = "تعرف على ما هو جديد";
 
 /* Class = "UILabel"; text = "Twitter"; ObjectID = "hp1-bg-fBQ"; */
 "hp1-bg-fBQ.text" = "Twitter";
@@ -194,3 +196,5 @@
 
 /* Class = "UIButton"; normalTitle = "Sign In"; ObjectID = "wXA-bt-gph"; */
 "wXA-bt-gph.normalTitle" = "تسجيل الدخول";
+
+"New-BC-1S7.title" = "المكتبات مفتوحة المصدر";
