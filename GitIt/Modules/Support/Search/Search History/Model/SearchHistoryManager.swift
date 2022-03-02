@@ -24,7 +24,11 @@ class SearchHistoryManager: DataPersistenceManager {
     
     // MARK: - Initialization
     
-    private init() {}
+    private init() {
+        userHistory.value = SearchHistory<UserModel>()
+        repositoryHistory.value = SearchHistory<RepositoryModel>()
+        organizationHistory.value = SearchHistory<OrganizationModel>()
+    }
     
     // MARK: - Save and Load Methods
     
@@ -49,7 +53,7 @@ class SearchHistoryManager: DataPersistenceManager {
     
     // MARK: - Add Methods
     
-    func add<Type: Model>(model: Type) {
+    func add<T: Model>(model: T) {
         switch model {
         case let model as UserModel: userHistory.value?.objects.removeAll() { value in return value == model }
                                      userHistory.value?.objects.insert(model, at: 0)
@@ -61,7 +65,7 @@ class SearchHistoryManager: DataPersistenceManager {
         }
     }
     
-    func add<Type: Model>(keyword: String, for modelType: Type.Type) {
+    func add<T: Model>(keyword: String, for modelType: T.Type) {
         switch modelType.self {
         case is UserModel.Type: userHistory.value?.queries.removeAll() { value in return value == keyword }
                                 userHistory.value?.queries.insert(keyword, at: 0)
@@ -84,7 +88,7 @@ class SearchHistoryManager: DataPersistenceManager {
         }
     }
     
-    func delete<Type: Model>(keyword: String, for modelType: Type.Type) {
+    func delete<T: Model>(keyword: String, for modelType: T.Type) {
         switch modelType.self {
         case is UserModel.Type: userHistory.value?.queries.removeAll() { value in return value == keyword }
         case is RepositoryModel.Type: repositoryHistory.value?.queries.removeAll() { value in return value == keyword }
@@ -95,7 +99,7 @@ class SearchHistoryManager: DataPersistenceManager {
     
     // MARK: - Clear Methods
     
-    func clear<Type: Model>(for modelType: Type.Type) {
+    func clear<T: Model>(for modelType: T.Type) {
         switch modelType.self {
         case is UserModel.Type: userHistory.value?.clear()
         case is RepositoryModel.Type: repositoryHistory.value?.clear()
