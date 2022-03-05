@@ -21,12 +21,12 @@ class NavigationRouter {
     // MARK: - Navigation Presentation Methods
     
     class func push(viewController: UIViewController) {
-        currentNavigationController = UIApplication.topNavigationController()
+        currentNavigationController = UIApplication.currentNavigationController()
         currentNavigationController?.pushViewController(viewController, animated: true)
     }
     
     class func pop() {
-        if currentNavigationController == UIApplication.topNavigationController() {
+        if currentNavigationController == UIApplication.currentNavigationController() {
             currentNavigationController?.popViewController(animated: true)
         }
     }
@@ -34,7 +34,7 @@ class NavigationRouter {
     // MARK: - Modal Presentation Methods
     
     class func present(viewController: UIViewController) {
-        let topViewController = UIApplication.topViewController()
+        let topViewController = UIApplication.currentViewController()
         presentedViewController = viewController
         topViewController?.present(viewController, animated: true, completion: nil)
     }

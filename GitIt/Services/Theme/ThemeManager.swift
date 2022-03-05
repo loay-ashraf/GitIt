@@ -62,7 +62,7 @@ class ThemeManager: NSObject {
     }
     
     private func applySystemTheme() {
-        if let window = UIApplication.keyWindow() {
+        if let window = UIApplication.keyWindow {
             window.overrideUserInterfaceStyle = .unspecified
         }
         let currentSystemTheme = UIScreen.main.traitCollection.userInterfaceStyle
@@ -76,7 +76,7 @@ class ThemeManager: NSObject {
     }
     
     private func applyLightTheme() {
-        if let window = UIApplication.keyWindow() {
+        if let window = UIApplication.keyWindow {
             window.overrideUserInterfaceStyle = .light
         }
         UITextField.appearance().tintColor = .black
@@ -84,7 +84,7 @@ class ThemeManager: NSObject {
     }
     
     private func applyDarkTheme() {
-        if let window = UIApplication.keyWindow() {
+        if let window = UIApplication.keyWindow {
             window.overrideUserInterfaceStyle = .dark
         }
         UITextField.appearance().tintColor = .white

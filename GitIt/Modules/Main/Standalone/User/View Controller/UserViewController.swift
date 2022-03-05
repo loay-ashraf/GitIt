@@ -37,7 +37,7 @@ class UserViewController: WSSFDynamicTableViewController<UserViewModel>, Storybo
     
     static func instatiate<T: ViewControllerContext>(context: T) -> UIViewController {
         if let userContext = context as? UserContext {
-            let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+            let storyBoard = StoryboardConstants.main
             return storyBoard.instantiateViewController(identifier: self.storyboardIdentifier, creator: { coder -> UserViewController in
                         self.init(coder: coder, context: userContext)!
             })

@@ -40,7 +40,7 @@ class CommitDetailViewController: WSSFStaticTableViewController, StoryboardableV
     
     static func instatiate<T: TableCellViewModel>(tableCellViewModel: T) -> UIViewController  {
         if let cellViewModel = tableCellViewModel as? CommitCellViewModel {
-            let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+            let storyBoard = StoryboardConstants.main
             return storyBoard.instantiateViewController(identifier: self.storyboardIdentifier, creator: { coder -> CommitDetailViewController in
                             self.init(coder: coder, cellViewModel: cellViewModel)!
                     })
@@ -51,7 +51,7 @@ class CommitDetailViewController: WSSFStaticTableViewController, StoryboardableV
     
     static func instatiate<T: Model>(model: T) -> UIViewController  {
         if let model = model as? CommitModel {
-            let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+            let storyBoard = StoryboardConstants.main
             return storyBoard.instantiateViewController(identifier: self.storyboardIdentifier, creator: { coder -> CommitDetailViewController in
                             self.init(coder: coder, model: model)!
                     })

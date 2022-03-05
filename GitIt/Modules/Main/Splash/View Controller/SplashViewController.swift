@@ -60,25 +60,17 @@ class SplashViewController: UIViewController {
     }
     
     private func presentSignInViewController() {
-        var rootViewController = UIApplication.shared.windows.first!.rootViewController
-        while let presentedViewController = rootViewController?.presentedViewController {
-            rootViewController = presentedViewController
-        }
-        let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+        let storyBoard = StoryboardConstants.main
         let tabBarViewController = storyBoard.instantiateViewController(identifier: "signInVC")
         tabBarViewController.modalPresentationStyle = .fullScreen
-        rootViewController?.present(tabBarViewController, animated: true, completion: nil)
+        NavigationRouter.present(viewController: tabBarViewController)
     }
     
     private func presentTabBarViewController() {
-        var rootViewController = UIApplication.shared.windows.first!.rootViewController
-        while let presentedViewController = rootViewController?.presentedViewController {
-            rootViewController = presentedViewController
-        }
-        let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+        let storyBoard = StoryboardConstants.main
         let tabBarViewController = storyBoard.instantiateViewController(identifier: "tabBarVC")
         tabBarViewController.modalPresentationStyle = .fullScreen
-        rootViewController?.present(tabBarViewController, animated: true, completion: nil)
+        NavigationRouter.present(viewController: tabBarViewController)
     }
     
 }

@@ -31,7 +31,7 @@ class LicenseViewController: WSSFViewController, StoryboardableViewController {
     }
     
     static func instatiate(parameters: [String]) -> UIViewController {
-        let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+        let storyBoard = StoryboardConstants.main
         return storyBoard.instantiateViewController(identifier: self.storyboardIdentifier, creator: { coder -> LicenseViewController in
                     self.init(coder: coder, repositoryFullName: parameters[0], defaultBranch: parameters[1])!
                 })

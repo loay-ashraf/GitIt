@@ -35,7 +35,7 @@ class BookmarksViewController: UIViewController {
     // MARK: - View Helper Methods
 
     func configureView() {
-        NavigayionBarConstants.configureAppearance(for: navigationController?.navigationBar)
+        NavigationBarConstants.configureAppearance(for: navigationController?.navigationBar)
         userBookmarksContainerView.isHidden = false
         repositoryBookmarksContainerView.isHidden = true
         organizationBookmarksContainerView.isHidden = true

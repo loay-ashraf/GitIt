@@ -18,7 +18,7 @@ extension BookmarksLogicController {
     }
     
     func delete(model: ModelType) {
-        self.modelArray.removeAll { return $0 == model }
+        return
     }
 
     func clear() {

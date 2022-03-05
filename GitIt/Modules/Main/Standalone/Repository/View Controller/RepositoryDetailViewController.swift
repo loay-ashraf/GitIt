@@ -54,7 +54,7 @@ class RepositoryDetailViewController: WSSFStaticTableViewController, Storyboarda
     }
 
     static func instatiate(parameter: String) -> UIViewController {
-        let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+        let storyBoard = StoryboardConstants.main
         return storyBoard.instantiateViewController(identifier: self.storyboardIdentifier, creator: { coder -> RepositoryDetailViewController in
                         self.init(coder: coder, fullName: parameter)!
                 })
@@ -62,7 +62,7 @@ class RepositoryDetailViewController: WSSFStaticTableViewController, Storyboarda
     
     static func instatiate<T: CollectionCellViewModel>(collectionCellViewModel: T) -> UIViewController  {
         if let cellViewModel = collectionCellViewModel as? RepositoryCollectionCellViewModel {
-            let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+            let storyBoard = StoryboardConstants.main
             return storyBoard.instantiateViewController(identifier: self.storyboardIdentifier, creator: { coder -> RepositoryDetailViewController in
                             self.init(coder: coder, collectionCellViewModel: cellViewModel)!
                     })
@@ -73,7 +73,7 @@ class RepositoryDetailViewController: WSSFStaticTableViewController, Storyboarda
     
     static func instatiate<T: TableCellViewModel>(tableCellViewModel: T) -> UIViewController  {
         if let cellViewModel = tableCellViewModel as? RepositoryTableCellViewModel {
-            let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+            let storyBoard = StoryboardConstants.main
             return storyBoard.instantiateViewController(identifier: self.storyboardIdentifier, creator: { coder -> RepositoryDetailViewController in
                             self.init(coder: coder, tableCellViewModel: cellViewModel)!
                     })

@@ -55,7 +55,7 @@ class UserDetailViewController: WSSFStaticTableViewController, StoryboardableVie
     }
     
     static func instatiate(parameter: String) -> UIViewController {
-        let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+        let storyBoard = StoryboardConstants.main
         return storyBoard.instantiateViewController(identifier: self.storyboardIdentifier, creator: { coder -> UserDetailViewController in
                         self.init(coder: coder, login: parameter)!
                 })
@@ -63,7 +63,7 @@ class UserDetailViewController: WSSFStaticTableViewController, StoryboardableVie
     
     static func instatiate<T: CollectionCellViewModel>(collectionCellViewModel: T) -> UIViewController  {
         if let cellViewModel = collectionCellViewModel as? UserCollectionCellViewModel {
-            let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+            let storyBoard = StoryboardConstants.main
             return storyBoard.instantiateViewController(identifier: self.storyboardIdentifier, creator: { coder -> UserDetailViewController in
                             self.init(coder: coder, collectionCellViewModel: cellViewModel)!
                     })
@@ -74,7 +74,7 @@ class UserDetailViewController: WSSFStaticTableViewController, StoryboardableVie
     
     static func instatiate<T: TableCellViewModel>(tableCellViewModel: T) -> UIViewController  {
         if let cellViewModel = tableCellViewModel as? UserTableCellViewModel {
-            let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+            let storyBoard = StoryboardConstants.main
             return storyBoard.instantiateViewController(identifier: self.storyboardIdentifier, creator: { coder -> UserDetailViewController in
                             self.init(coder: coder, tableCellViewModel: cellViewModel)!
                     })

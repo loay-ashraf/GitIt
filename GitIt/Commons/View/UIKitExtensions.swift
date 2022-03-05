@@ -9,26 +9,32 @@ import UIKit
 
 extension UIApplication {
 
-    class func keyWindow() -> UIWindow? {
-        return UIApplication.shared.windows.first(where: { $0.isKeyWindow })
+    static var keyWindow: UIWindow? { return shared.windows.first(where: { $0.isKeyWindow }) }
+    
+    class func currentTabBarController() -> UITabBarController? {
+        return currentViewController()?.tabBarController
     }
     
-    class func topViewController(controller: UIViewController? = UIApplication.keyWindow()?.rootViewController) -> UIViewController? {
+    class func currentNavigationController() -> UINavigationController? {
+        return currentViewController()?.navigationController
+    }
+    
+    class func currentViewController(controller: UIViewController? = keyWindow?.rootViewController) -> UIViewController? {
         if let navigationController = controller as? UINavigationController {
-            return topViewController(controller: navigationController.visibleViewController)
+            return currentViewController(controller: navigationController.visibleViewController)
         }
         if let tabController = controller as? UITabBarController {
             if let selected = tabController.selectedViewController {
-                return topViewController(controller: selected)
+                return currentViewController(controller: selected)
             }
         }
         if let searchController = controller as? UISearchController {
             if let resultsController = searchController.searchResultsController {
-                return topViewController(controller: resultsController)
+                return currentViewController(controller: resultsController)
             }
         }
         if let presented = controller?.presentedViewController {
-            return topViewController(controller: presented)
+            return currentViewController(controller: presented)
         }
         if let alert = controller as? UIAlertController {
             if let navigationController = alert.presentingViewController as? UINavigationController {
@@ -37,10 +43,6 @@ extension UIApplication {
             return alert.presentingViewController
         }
         return controller
-    }
-    
-    class func topNavigationController() -> UINavigationController? {
-        return topViewController()?.navigationController
     }
 
 }

@@ -37,7 +37,7 @@ class OrganizationViewController: WSSFDynamicTableViewController<OrganizationVie
     
     static func instatiate<T: ViewControllerContext>(context: T) -> UIViewController {
         if let organizationContext = context as? OrganizationContext {
-            let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+            let storyBoard = StoryboardConstants.main
             return storyBoard.instantiateViewController(identifier: self.storyboardIdentifier, creator: { coder -> OrganizationViewController in
                         self.init(coder: coder, context: organizationContext)!
             })

@@ -29,7 +29,7 @@ class CommitViewController: WSSFDynamicTableViewController<CommitViewModel>, Sto
     }
 
     static func instatiate(parameter: String) -> UIViewController {
-        let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+        let storyBoard = StoryboardConstants.main
         return storyBoard.instantiateViewController(identifier: self.storyboardIdentifier, creator: { coder -> CommitViewController in
                     self.init(coder: coder, repositoryFullName: parameter)!
                 })

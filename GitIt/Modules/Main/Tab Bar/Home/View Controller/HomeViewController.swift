@@ -13,7 +13,7 @@ class HomeViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        NavigayionBarConstants.configureAppearance(for: navigationController?.navigationBar)
+        NavigationBarConstants.configureAppearance(for: navigationController?.navigationBar)
     }
 
     // MARK: - Table View Delegate

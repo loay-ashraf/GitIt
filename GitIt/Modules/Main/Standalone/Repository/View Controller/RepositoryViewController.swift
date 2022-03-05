@@ -35,7 +35,7 @@ class RepositoryViewController: WSSFDynamicTableViewController<RepositoryViewMod
     
     static func instatiate<T: ViewControllerContext>(context: T) -> UIViewController {
         if let repositoryContext = context as? RepositoryContext {
-            let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+            let storyBoard = StoryboardConstants.main
             return storyBoard.instantiateViewController(identifier: self.storyboardIdentifier, creator: { coder -> RepositoryViewController in
                         self.init(coder: coder, context: repositoryContext)!
             })

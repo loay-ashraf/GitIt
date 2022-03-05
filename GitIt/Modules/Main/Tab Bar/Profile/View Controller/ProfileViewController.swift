@@ -39,7 +39,7 @@ class ProfileViewController: WSSFStaticTableViewController {
     override func configureView() {
         super.configureView()
         
-        NavigayionBarConstants.configureAppearance(for: navigationController?.navigationBar)
+        NavigationBarConstants.configureAppearance(for: navigationController?.navigationBar)
         navigationItem.largeTitleDisplayMode = .never
         
         if SessionManager.standard.sessionType == .authenticated, SessionManager.standard.sessionUser != nil {

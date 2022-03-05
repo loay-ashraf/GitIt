@@ -23,7 +23,7 @@ class TrendingViewController: RepositoryViewController {
     
     override func configureView() {
         super.configureView()
-        NavigayionBarConstants.configureAppearance(for: navigationController?.navigationBar)
+        NavigationBarConstants.configureAppearance(for: navigationController?.navigationBar)
     }
 
 }

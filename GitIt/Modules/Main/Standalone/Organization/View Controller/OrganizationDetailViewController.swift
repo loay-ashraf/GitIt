@@ -52,7 +52,7 @@ class OrganizationDetailViewController: WSSFStaticTableViewController, Storyboar
     }
     
     static func instatiate(parameter: String) -> UIViewController {
-        let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+        let storyBoard = StoryboardConstants.main
         return storyBoard.instantiateViewController(identifier: self.storyboardIdentifier, creator: { coder -> OrganizationDetailViewController in
                         self.init(coder: coder, login: parameter)!
                 })
@@ -60,7 +60,7 @@ class OrganizationDetailViewController: WSSFStaticTableViewController, Storyboar
     
     static func instatiate<T: CollectionCellViewModel>(collectionCellViewModel: T) -> UIViewController  {
         if let cellViewModel = collectionCellViewModel as? OrganizationCollectionCellViewModel {
-            let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+            let storyBoard = StoryboardConstants.main
             return storyBoard.instantiateViewController(identifier: self.storyboardIdentifier, creator: { coder -> OrganizationDetailViewController in
                             self.init(coder: coder, collectionCellViewModel: cellViewModel)!
                     })
@@ -71,7 +71,7 @@ class OrganizationDetailViewController: WSSFStaticTableViewController, Storyboar
     
     static func instatiate<T: TableCellViewModel>(tableCellViewModel: T) -> UIViewController  {
         if let cellViewModel = tableCellViewModel as? OrganizationTableCellViewModel {
-            let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+            let storyBoard = StoryboardConstants.main
             return storyBoard.instantiateViewController(identifier: self.storyboardIdentifier, creator: { coder -> OrganizationDetailViewController in
                             self.init(coder: coder, tableCellViewModel: cellViewModel)!
                     })

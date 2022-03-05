@@ -25,8 +25,9 @@ typealias NetworkingConstants = ModelConstants.Networking
 typealias AuthenticationConstants = NetworkingConstants.Authentication
 // View Shortcuts
 typealias ViewConstants = Constants.View
+typealias StoryboardConstants = ViewConstants.Storyboard
 typealias TitleConstants = ViewConstants.Title
-typealias NavigayionBarConstants = ViewConstants.NavigationBar
+typealias NavigationBarConstants = ViewConstants.NavigationBar
 typealias SearchBarConstants = ViewConstants.SearchBar
 typealias ContextMenuConstants = ViewConstants.ContextMenu
 typealias ContextMenuActionConstants = ContextMenuConstants.Actions
@@ -154,6 +155,13 @@ struct Constants {
     // MARK: - View Constants
     
     struct View {
+        
+        struct Storyboard {
+            
+            static let main = UIStoryboard(name: "Main", bundle: nil)
+            static let search = UIStoryboard(name: "Search", bundle: nil)
+            
+        }
         
         // MARK: - Title Constants
         

@@ -16,7 +16,7 @@ class OpenSourceLibrariesViewController: UITableViewController, StoryboardableVi
     // MARK: - Initialization
     
     static func instatiate() -> UIViewController {
-        let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+        let storyBoard = StoryboardConstants.main
         return storyBoard.instantiateViewController(identifier: self.storyboardIdentifier, creator: { coder -> OpenSourceLibrariesViewController in
                 self.init(coder: coder)!
         })
